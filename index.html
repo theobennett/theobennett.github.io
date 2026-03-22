@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. [Your Name] — Psychiatry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage: #4a6158;
+      --sage-light: #e8ede9;
+      --sage-mid: #7a9a8a;
+      --cream: #faf8f4;
+      --warm-white: #f5f2ec;
+      --charcoal: #2c2c2a;
+      --muted: #6b6b63;
+      --accent: #c9a87c;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background-color: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 5%;
+      background: rgba(250, 248, 244, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(74, 97, 88, 0.12);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--sage);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--sage); }
+
+    .nav-cta {
+      background: var(--sage);
+      color: white !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 2rem;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: #3a5048 !important; color: white !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -5%;
+      top: 10%;
+      width: 55%;
+      height: 80%;
+      background: var(--sage-light);
+      border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%;
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--sage);
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--sage);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2.2rem;
+      border-radius: 3rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, transform 0.2s;
+      margin-right: 1rem;
+    }
+
+    .btn-primary:hover { background: #3a5048; transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-block;
+      color: var(--sage);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-bottom: 1.5px solid var(--sage-mid);
+      padding-bottom: 0.1rem;
+      transition: color 0.2s;
+    }
+
+    .btn-secondary:hover { color: var(--charcoal); }
+
+    /* SECTIONS */
+    section { padding: 6rem 5%; }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--charcoal);
+      margin-bottom: 1.25rem;
+    }
+
+    .section-body {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.9;
+      max-width: 580px;
+    }
+
+    /* ABOUT */
+    .about {
+      background: var(--warm-white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-image-placeholder {
+      background: var(--sage-light);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      aspect-ratio: 3/4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sage);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    .credentials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.8rem;
+    }
+
+    .credential-tag {
+      background: white;
+      border: 1px solid rgba(74, 97, 88, 0.25);
+      color: var(--sage);
+      font-size: 0.78rem;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-weight: 500;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .service-card {
+      background: white;
+      border: 1px solid rgba(74, 97, 88, 0.12);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(74, 97, 88, 0.1);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--sage-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.4rem;
+    }
+
+    .service-card h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: var(--charcoal);
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* APPROACH */
+    .approach { background: var(--sage); color: white; }
+    .approach .section-label { color: var(--accent); }
+    .approach .section-title { color: white; }
+    .approach .section-body { color: rgba(255,255,255,0.75); max-width: 680px; }
+
+    .approach-pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    .pillar {
+      border-top: 1px solid rgba(255,255,255,0.25);
+      padding-top: 1.5rem;
+    }
+
+    .pillar-num {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      color: rgba(255,255,255,0.2);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .pillar h4 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .pillar p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* CONTACT */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      border: 1px solid rgba(74, 97, 88, 0.25);
+      border-radius: 0.75rem;
+      background: white;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus {
+      border-color: var(--sage);
+    }
+
+    .contact-form textarea { resize: vertical; min-height: 130px; }
+
+    .contact-form button {
+      background: var(--sage);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+    }
+
+    .contact-form button:hover { background: #3a5048; }
+
+    .contact-info { padding-top: 1rem; }
+
+    .contact-info h3 {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+      color: var(--charcoal);
+    }
+
+    .contact-info p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+
+    .info-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: flex-start;
+    }
+
+    .info-row-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--sage-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .info-row-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .info-row-text strong { color: var(--charcoal); display: block; font-weight: 500; margin-bottom: 0.1rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem 5%;
+      font-size: 0.82rem;
+    }
+
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: rgba(255,255,255,0.8); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about, .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-image-placeholder { aspect-ratio: 4/3; border-radius: 1rem; }
+      .hero { padding: 7rem 5% 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#" class="nav-logo">Dr. [Your Name], MD</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#contact" class="nav-cta">Request Appointment</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Board-Certified Psychiatrist · [City, State]</p>
+      <h1>Care for the <em>whole</em> of who you are</h1>
+      <p>Thoughtful, evidence-based psychiatric care in a calm and confidential setting. Accepting new patients for adult and adolescent psychiatry.</p>
+      <a href="#contact" class="btn-primary">Request an Appointment</a>
+      <a href="#about" class="btn-secondary">Learn more</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-image-placeholder">
+      [ Your photo here ]
+    </div>
+    <div>
+      <p class="section-label">About</p>
+      <h2 class="section-title">Dr. [Your Full Name]</h2>
+      <p class="section-body">
+        I am a board-certified psychiatrist with over [X] years of experience helping individuals navigate depression, anxiety, trauma, and life transitions. My practice blends the rigor of evidence-based medicine with genuine curiosity about your story.
+      </p>
+      <p class="section-body" style="margin-top: 1rem;">
+        I trained at [Medical School] and completed my residency at [Hospital]. I see patients in-person in [City] and via telehealth throughout [State].
+      </p>
+      <div class="credentials">
+        <span class="credential-tag">MD, [Medical School]</span>
+        <span class="credential-tag">Board Certified in Psychiatry</span>
+        <span class="credential-tag">Adult &amp; Adolescent Psychiatry</span>
+        <span class="credential-tag">Telehealth Available</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" style="background: var(--cream);">
+    <p class="section-label">Services</p>
+    <h2 class="section-title">How I can help</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🧠</div>
+        <h3>Psychiatric Evaluation</h3>
+        <p>A thorough initial assessment to understand your history, symptoms, and goals — the foundation of any treatment plan.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💊</div>
+        <h3>Medication Management</h3>
+        <p>Careful, ongoing monitoring of psychiatric medications with regular follow-up to optimize your care.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💬</div>
+        <h3>Psychotherapy</h3>
+        <p>Individual therapy sessions using evidence-based approaches including CBT, DBT, and psychodynamic therapy.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Anxiety &amp; Depression</h3>
+        <p>Specialized treatment for mood disorders, generalized anxiety, panic disorder, OCD, and related conditions.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤝</div>
+        <h3>Trauma &amp; PTSD</h3>
+        <p>Trauma-informed care in a safe environment, integrating established and emerging therapeutic modalities.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💻</div>
+        <h3>Telehealth</h3>
+        <p>Secure video appointments available for patients throughout [State] — same quality of care, from the comfort of home.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach" id="approach">
+    <p class="section-label">My Approach</p>
+    <h2 class="section-title">Psychiatry that sees the person, not just the diagnosis</h2>
+    <p class="section-body">Every patient brings a unique set of circumstances, values, and goals. I believe effective psychiatric care requires time, listening, and genuine collaboration.</p>
+    <div class="approach-pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h4>Evidence-Based</h4>
+        <p>Treatment grounded in the best available clinical research, updated with the latest advances in psychiatry.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h4>Collaborative</h4>
+        <p>You are an active participant in your care. We set goals together and revisit them as your needs evolve.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <h4>Whole-Person</h4>
+        <p>Mental health is inseparable from physical health, relationships, work, and identity. I consider all of it.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <h4>Confidential</h4>
+        <p>Your privacy is paramount. All sessions are conducted with the utmost discretion and professionalism.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="background: var(--warm-white);">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <p class="section-label">Contact</p>
+        <h3>Let's start the conversation</h3>
+        <p>To request an appointment or ask a question, fill out the form and I'll follow up within one business day. For urgent mental health concerns, please call 988 (Suicide &amp; Crisis Lifeline) or go to your nearest emergency room.</p>
+        <div class="info-row">
+          <div class="info-row-icon">📍</div>
+          <div class="info-row-text">
+            <strong>Office Address</strong>
+            [Street Address]<br>[City, State, ZIP]
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-icon">📞</div>
+          <div class="info-row-text">
+            <strong>Phone</strong>
+            [(XXX) XXX-XXXX]
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-icon">🕐</div>
+          <div class="info-row-text">
+            <strong>Office Hours</strong>
+            Monday – Friday: 9am – 5pm<br>Telehealth also available
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-icon">💳</div>
+          <div class="info-row-text">
+            <strong>Insurance &amp; Fees</strong>
+            Accepting [Insurance Names]<br>Private pay options available
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="section-label">Request an Appointment</p>
+        <div class="contact-form">
+          <input type="text" placeholder="Your full name" />
+          <input type="email" placeholder="Email address" />
+          <input type="tel" placeholder="Phone number (optional)" />
+          <select>
+            <option value="" disabled selected>Reason for visit</option>
+            <option>Initial psychiatric evaluation</option>
+            <option>Medication management</option>
+            <option>Therapy</option>
+            <option>Telehealth appointment</option>
+            <option>General inquiry</option>
+          </select>
+          <textarea placeholder="Briefly describe what brings you in (optional)"></textarea>
+          <button type="button">Send Request</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Dr. [Your Name], MD · All rights reserved · <a href="#">Privacy Policy</a></p>
+    <p style="margin-top: 0.4rem; font-size: 0.78rem;">This website is for informational purposes only and does not constitute medical advice.</p>
+  </footer>
+
+</body>
+</html>
