@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Patients & Families | Altos Psychiatry</title>
+    <link rel="stylesheet" href="/theobennett.github.io/css/style.css">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <header class="page-header">
+            <div class="container">
+                <h1>For Patients & Families</h1>
+            </div>
+        </header>
+
+        <section class="content-section">
+            <div class="container" style="max-width: 800px;">
+                <h2>Your Journey Starts Here</h2>
+                <p>Taking the first step toward better mental health is a brave and important decision. We are here to make the process as clear and comfortable as possible. This page provides information about what to expect when you become a patient at Altos Psychiatry.</p>
+                
+                <h3>What to Expect on Your First Visit</h3>
+                <p>Your initial appointment is a comprehensive 60-90 minute evaluation. This is a conversation, not an interrogation. We will discuss your current challenges, personal and family history, and your goals for treatment. It is a collaborative session designed to create a personalized plan that feels right for you.</p>
+
+                <h3>Insurance & Fees</h3>
+                <p><strong>[ACTION REQUIRED: This is a placeholder section.]</strong></p>
+                <p>Please replace this text with information about the insurance plans you accept. If you are an out-of-network provider, explain the process for providing patients with a superbill for them to submit to their insurance for reimbursement. It is also helpful to list your self-pay rates for different services (e.g., initial evaluation, follow-up medication management, therapy session).</p>
+
+                <h3>Patient Portal</h3>
+                <p><strong>[ACTION REQUIRED: This is a placeholder section.]</strong></p>
+                <p>If you use a patient portal (like SimplePractice, Charm, etc.), describe how patients can use it here. Explain that they can use the portal to schedule appointments, communicate securely with their provider, request prescription refills, and view their health records. Be sure to include a direct link to log in to the portal.</p>
+                
+                <br>
+                <a href="/theobennett.github.io/get-started.html" class="btn btn-accent">Request an Appointment</a>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="/theobennett.github.io/js/main.js"></script>
+
+</body>
+</html>
