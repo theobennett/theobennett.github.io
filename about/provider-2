@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben Carter, PMHNP | Alto Psychiatry</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="../index.html" class="logo">Alto Psychiatry</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../services.html">Our Services</a></li>
+                    <li><a href="../about.html">About Us</a></li>
+                    <li><a href="../resources.html">Resources</a></li>
+                    <li><a href="../get-started.html" class="btn btn-primary">Get Started</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <div class="container" style="max-width: 800px;">
+                <img src="../images/provider-2.jpg" alt="Ben Carter" style="float: left; width: 200px; height: 200px; object-fit: cover; margin-right: 30px; margin-bottom: 20px; border-radius: 50%;">
+                
+                <h1>Ben Carter, PMHNP</h1>
+                <h3 style="margin-top:-1rem; color: var(--text-color);">Psychiatric Nurse Practitioner</h3>
+                <p>
+                    Ben Carter is a board-certified Psychiatric-Mental Health Nurse Practitioner (PMHNP-BC) who brings a warm, person-centered approach to care. He received his Master of Science in Nursing from Yale University and has extensive experience working with adults dealing with anxiety, ADHD, and life transitions.
+                </p>
+                <p>
+                    Ben is a firm believer in the power of listening. He works diligently to understand each patient's unique story and goals. His practice combines careful medication management with practical, skills-based therapeutic techniques to empower patients on their wellness journey. He is passionate about reducing stigma and making mental healthcare accessible and approachable for everyone.
+                </p>
+                <div style="clear:both;"></div>
+                <br>
+                <a href="../get-started.html" class="btn btn-accent">Schedule with Ben Carter</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Alto Psychiatry. All Rights Reserved.</p>
+            <p>123 Wellness Ave, Suite 100, San Francisco, CA 94102 | (555) 123-4567</p>
+        </div>
+    </footer>
+
+</body>
+</html>
