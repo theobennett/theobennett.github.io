@@ -12,14 +12,13 @@
 
     <div class="page-wrapper">
         <main>
-            <!-- 1. Immersive Video Hero Section with your first video -->
+            <!-- 1. Immersive Video Hero Section -->
             <section id="video-hero">
                 <div class="hero-content fade-in-element">
                     <h1>Clarity, Compassion, and Care. Redefined.</h1>
                     <p>Altos Psychiatry offers a bespoke, evidence-based approach to mental wellness for those seeking a higher standard of care.</p>
                     <a href="/get-started.html" class="btn btn-primary">Begin Your Journey</a>
                 </div>
-                <!-- UPDATED: Using your big_sur_video.mp4 from the /media/ folder -->
                 <video autoplay muted loop playsinline id="hero-video" class="background-video">
                     <source src="/media/big_sur_video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
@@ -34,15 +33,17 @@
                 </div>
             </section>
 
-            <!-- 3. REPLACED: Second Video Section (replaces the old parallax photo section) -->
+            <!-- 3. Second Video Section with Corrected Content Structure -->
             <section class="video-background-section">
-                <!-- The fade-in is applied to the content, not the whole section -->
-                <div class="fade-in-element">
+                <!-- 
+                  THIS IS THE FIX: The content is now wrapped in a div with the new
+                  .video-section-content class, which handles centering and positioning.
+                -->
+                <div class="video-section-content fade-in-element">
                     <h2>Our Services</h2>
                     <p>From advanced TMS therapy to foundational psychotherapy, our services are designed to meet you where you are and guide you toward lasting well-being.</p>
                     <a href="/services.html" class="btn btn-secondary">Explore Our Treatments</a>
                 </div>
-                <!-- UPDATED: Using your big_sur_2.mp4 from the /media/ folder -->
                 <video autoplay muted loop playsinline class="background-video">
                     <source src="/media/big_sur_2.mp4" type="video/mp4">
                     Your browser does not support the video tag.
