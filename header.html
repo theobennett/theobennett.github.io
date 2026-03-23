@@ -1,20 +1,33 @@
 <header class="main-header">
     <div class="container">
-        <a href="/theobennett.github.io/" class="logo">Altos Psychiatry</a>
-        <nav class="main-nav">
+        <a href="/" class="logo">Altos Psychiatry</a>
+        
+        <button id="nav-toggle" class="nav-toggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="main-nav" id="main-nav">
             <ul>
-                <li><a href="/theobennett.github.io/services.html">Our Services</a></li>
+                <li><a href="/services.html">Our Services</a></li>
                 <li class="dropdown">
-                    <a href="/theobennett.github.io/why-altos/about-us.html" class="dropbtn">Why Altos</a>
+                    <!-- The dropbtn now contains the text and the SVG arrow -->
+                    <a href="/why-altos/about-us.html" class="dropbtn">
+                        Why Altos
+                        <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
                     <div class="dropdown-content">
-                        <a href="/theobennett.github.io/why-altos/about-us.html">About Us</a>
-                        <a href="/theobennett.github.io/why-altos/our-providers.html">Our Providers</a>
-                        <a href="/theobennett.github.io/why-altos/for-patients.html">For Patients & Families</a>
-                        <a href="/theobennett.github.io/why-altos/for-providers.html">For Providers</a>
+                        <a href="/why-altos/about-us.html">About Us</a>
+                        <a href="/why-altos/our-providers.html">Our Providers</a>
+                        <a href="/why-altos/for-patients.html">For Patients & Families</a>
+                        <a href="/why-altos/for-providers.html">For Providers</a>
                     </div>
                 </li>
-                <li><a href="/theobennett.github.io/resources.html">Resources</a></li>
-                <li><a href="/theobennett.github.io/get-started.html" class="btn btn-primary">Get Started</a></li>
+                <li><a href="/resources.html">Resources</a></li>
+                <li><a href="/get-started.html" class="btn btn-primary">Get Started</a></li>
             </ul>
         </nav>
     </div>
