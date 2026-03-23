@@ -10,23 +10,18 @@
 
     <div id="header-placeholder"></div>
 
-    <!-- The page-wrapper is needed for pages with a fixed header -->
     <div class="page-wrapper">
         <main>
-            <!-- 1. Immersive Video Hero Section -->
+            <!-- 1. Immersive Video Hero Section with your first video -->
             <section id="video-hero">
                 <div class="hero-content fade-in-element">
                     <h1>Clarity, Compassion, and Care. Redefined.</h1>
                     <p>Altos Psychiatry offers a bespoke, evidence-based approach to mental wellness for those seeking a higher standard of care.</p>
                     <a href="/get-started.html" class="btn btn-primary">Begin Your Journey</a>
                 </div>
-                <!-- 
-                  NEW VIDEO: A cinematic, slow-moving drone shot over the Big Sur coastline.
-                  This evokes feelings of peace, perspective, and natural grandeur.
-                  Source: Pexels
-                -->
-                <video autoplay muted loop playsinline id="hero-video">
-                    <source src="https://videos.pexels.com/video-files/4489201/4489201-hd_1920_1080_25fps.mp4" type="video/mp4">
+                <!-- UPDATED: Using your big_sur_video.mp4 from the /media/ folder -->
+                <video autoplay muted loop playsinline id="hero-video" class="background-video">
+                    <source src="/media/big_sur_video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </section>
@@ -39,13 +34,19 @@
                 </div>
             </section>
 
-            <!-- 3. Immersive Parallax Section -->
-            <section class="parallax-section" style="background-image: url('https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2940&auto=format&fit=crop');">
-                <div class="parallax-content fade-in-element">
+            <!-- 3. REPLACED: Second Video Section (replaces the old parallax photo section) -->
+            <section class="video-background-section">
+                <!-- The fade-in is applied to the content, not the whole section -->
+                <div class="fade-in-element">
                     <h2>Our Services</h2>
                     <p>From advanced TMS therapy to foundational psychotherapy, our services are designed to meet you where you are and guide you toward lasting well-being.</p>
                     <a href="/services.html" class="btn btn-secondary">Explore Our Treatments</a>
                 </div>
+                <!-- UPDATED: Using your big_sur_2.mp4 from the /media/ folder -->
+                <video autoplay muted loop playsinline class="background-video">
+                    <source src="/media/big_sur_2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </section>
 
             <!-- 4. "Why Altos" Teaser Section -->
