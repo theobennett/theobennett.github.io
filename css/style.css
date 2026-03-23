@@ -190,3 +190,42 @@ a:hover { color: var(--color-heading); text-decoration: none; }
     .dropdown:hover .dropdown-content { display: none; }
     .parallax-section { background-attachment: scroll; } /* Disable fixed attachment on mobile */
 }
+
+
+/* Generic style for any full-width background video section */
+.video-background-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-white);
+    padding: 120px 0;
+    overflow: hidden; /* Ensures video edges are clipped */
+}
+
+/* Re-using the same overlay and content styles */
+.video-background-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+
+/* A reusable class for the video element itself */
+.background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2;
+    object-fit: cover;
+}
