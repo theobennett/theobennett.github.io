@@ -3,50 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Altos Psychiatry | Personalized Mental Wellness</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Altos Psychiatry - A Data-Driven Approach</title>
+
+    <!-- Google Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
 
-    <!-- No page-wrapper needed on homepage as hero is the full background -->
-    <main>
-        <!-- 1. Video Hero Section -->
-        <section class="video-hero">
-            <div class="hero-content fade-in-element">
-                <!-- Heading with line breaks to match the screenshot -->
-                <h1>A Data-Driven Approach<br>to Mental Wellness</h1>
-                <p>Leveraging clinical expertise honed at Stanford and other world-class institutions, Altos Psychiatry provides a discreet, personalized, and evidence-based path to lasting mental well-being.</p>
-                <a href="/get-started.html" class="btn btn-primary">Start Your Journey</a>
-            </div>
-            <video autoplay muted loop playsinline class="background-video">
-                <source src="/media/big_sur_video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </section>
+    <!-- ============================================ -->
+    <!--                 THE HEADER                   -->
+    <!-- ============================================ -->
 
-        <!-- 2. "Our Approach" Section -->
-        <section class="content-section">
-            <div class="container fade-in-element" style="text-align: center; max-width: 700px; margin: 0 auto;">
-                <h2>The Altos Method: Precision & Personalization</h2>
-                <p>Our methodology combines a deep understanding of neurobiology with compassionate, patient-centered care. We don't just treat symptoms; we build a comprehensive understanding of you as an individual to create a truly personalized treatment plan.</p>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-container">
+                
+                <!-- Logo -->
+                <a href="index.html" class="logo">Altos Psychiatry</a>
+
+                <!-- Main Navigation - Updated Links -->
+                <nav class="main-nav">
+                    <ul>
+                        <!-- Why Altos -->
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">
+                                Why Altos
+                                <span class="dropdown-arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+                                </span>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="about-us.html">Our Story</a>
+                                <a href="for-patients.html">For Patients & Families</a>
+                                <a href="For-Providers.html">For Providers</a>
+                                <a href="our-providers.html">Our Providers</a>
+                            </div>
+                        </li>
+                        <!-- Our Services -->
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Our Services <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></span></a>
+                            <div class="dropdown-content">
+                                <a href="#">Psychiatry</a>
+                                <a href="#">Therapy</a>
+                                <a href="#">TMS</a>
+                            </div>
+                        </li>
+                        <!-- What We Treat -->
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">What We Treat <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></span></a>
+                            <div class="dropdown-content">
+                                <a href="#">Depression</a>
+                                <a href="#">Anxiety</a>
+                                <a href="#">ADHD</a>
+                                <a href="#">OCD</a>
+                            </div>
+                        </li>
+                         <!-- Resources -->
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Resources <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></span></a>
+                            <div class="dropdown-content">
+                                <a href="#">Blog</a>
+                                <a href="#">FAQ</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Header CTA Button - Updated Text -->
+                <a href="#" class="btn btn-primary" id="header-cta-btn">Start Your Journey</a>
+                
+                <!-- Mobile Nav Toggle has been completely removed -->
+
             </div>
-        </section>
+        </div>
+    </header>
+
+
+    <!-- ============================================ -->
+    <!--            MAIN PAGE CONTENT WRAPPER           -->
+    <!-- ============================================ -->
+    <div class="page-wrapper">
         
-        <!-- 3. Second Video Section -->
-        <section class="video-hero" style="height: 70vh;">
-            <div class="hero-content fade-in-element">
-                <h2>Your Path to Clarity Begins Here.</h2>
-                <p>We provide the tools, expertise, and support to help you navigate your journey with confidence.</p>
-            </div>
-             <video autoplay muted loop playsinline class="background-video">
-                <source src="/media/big_sur_2.mp4" type="video/mp4">
+        <!-- Video Hero Section -->
+        <section class="video-hero">
+            <video playsinline autoplay muted loop class="background-video">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-therapist-giving-advice-to-a-patient-4537-large.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+            <div class="hero-content">
+                <h1>A Data-Driven Approach to Mental Wellness</h1>
+                <p>Personalized mental healthcare designed to help you find clarity, balance, and a path forward.</p>
+                <a href="#" class="btn btn-primary">Learn About Our Method</a>
+            </div>
         </section>
-    </main>
-    <div id="footer-placeholder"></div>
-    
-    <script src="/js/main.js"></script>
+
+        <!-- Example Content Section to demonstrate scrolling -->
+        <section class="content-section">
+            <div class="container">
+                <h2>A New Standard in Mental Wellness</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </section>
+
+    </div><!-- .page-wrapper -->
+
+    <!-- The script tag for main.js has been removed as it is no longer needed -->
+
 </body>
 </html>
