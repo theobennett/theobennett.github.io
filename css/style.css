@@ -44,6 +44,11 @@ h2 { font-size: clamp(2rem, 4vw + 1rem, 3rem); }
 p { font-size: clamp(1rem, 0.5vw + 0.9rem, 1.1rem); }
 a { text-decoration: none; transition: color 0.3s ease; }
 
+/* The page wrapper pushes content below the fixed header */
+.page-wrapper {
+    padding-top: 80px; /* Adjust this value based on header height */
+}
+
 /* --- 3. THE HEADER (Dynamic Dark-to-Light) --- */
 .main-header {
     position: fixed;
@@ -111,37 +116,89 @@ a { text-decoration: none; transition: color 0.3s ease; }
     opacity: 1; visibility: visible; transform: translateX(-50%) scale(1) translateY(0); 
 }
 
-/* --- 4. Buttons & Page Structure --- */
-.btn { display: inline-block; padding: 12px 28px; border-radius: 50px; font-weight: 600; font-family: var(--font-heading); text-decoration: none; transition: all 0.3s ease; border: 1px solid transparent; }
-.btn-primary { 
-    background-color: var(--color-accent); color: var(--color-text-light); text-shadow: none !important;
+/* --- 4. BUTTONS --- */
+.btn { 
+    display: inline-block; 
+    padding: 12px 28px; 
+    border-radius: 50px; 
+    font-weight: 500; 
+    transition: all 0.3s ease; 
+    cursor: pointer;
+    border: 1px solid transparent;
 }
-.btn-primary:hover { background-color: #5a7569; transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+.btn-primary { 
+    background-color: var(--color-accent); 
+    color: var(--color-text-light); 
+}
+.btn-primary:hover { 
+    background-color: #5a7a6c; /* Darker accent */
+    transform: translateY(-2px); 
+    box-shadow: var(--shadow-medium);
+}
+.main-header .btn-primary {
+    border-color: var(--color-text-light);
+    background-color: transparent;
+}
+.main-header.scrolled .btn-primary {
+    border-color: transparent;
+    background-color: var(--color-accent);
+}
 
-/* The page wrapper has no top padding, so the hero section sits under the transparent header */
-.page-wrapper { padding-top: 0; }
-
-/* --- 5. THE VIDEO HERO --- */
+/* --- 5. HERO SECTION --- */
 .video-hero {
-    position: relative; 
-    height: 100vh; /* Full viewport height */
-    height: 100dvh;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--color-text-light); overflow: hidden;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-text-light);
+    overflow: hidden;
+    margin-top: -80px; /* Pull it up to fill behind the header space */
 }
 .background-video {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    min-width: 100%; min-height: 100%; object-fit: cover; z-index: -2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    object-fit: cover;
 }
+/* Overlay for readability */
 .video-hero::after {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%; background: rgba(10, 25, 47, 0.6); z-index: -1;
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 25, 47, 0.5); /* Dark blue overlay */
+    z-index: -1;
 }
 .hero-content {
-    position: relative; z-index: 1; max-width: 800px; padding: 0 24px; text-align: center;
+    max-width: 800px;
+    padding: 0 24px;
 }
-.hero-content h1, .hero-content p { color: var(--color-text-light); }
-.hero-content p { font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 2rem auto; }
+.hero-content h1, .hero-content p {
+    color: var(--color-text-light);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 1.5rem auto 2.5rem;
+}
+.hero-content .btn-primary {
+    border: 2px solid var(--color-text-light);
+    background: transparent;
+    padding: 14px 32px;
+}
+.hero-content .btn-primary:hover {
+    background: var(--color-text-light);
+    color: var(--color-primary);
+}
+
 
 /* --- Styles for other sections --- */
 .content-section { padding: 100px 0; }
