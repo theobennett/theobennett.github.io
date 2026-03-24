@@ -3,50 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Altos Psychiatry | Personalized Mental Wellness</title>
+    <title>Altos Psychiatry | A New Standard in Mental Wellness</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
     <div id="header-placeholder"></div>
 
-    <!-- No page-wrapper needed on homepage as hero is the full background -->
-    <main>
-        <!-- 1. Video Hero Section -->
-        <section class="video-hero">
-            <div class="hero-content fade-in-element">
-                <!-- Heading with line breaks to match the screenshot -->
-                <h1>A Data-Driven Approach<br>to Mental Wellness</h1>
-                <p>Leveraging clinical expertise honed at Stanford and other world-class institutions, Altos Psychiatry provides a discreet, personalized, and evidence-based path to lasting mental well-being.</p>
-                <a href="/get-started.html" class="btn btn-primary">Start Your Journey</a>
-            </div>
-            <video autoplay muted loop playsinline class="background-video">
-                <source src="/media/big_sur_video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </section>
+    <div class="page-wrapper">
+        <main>
+            <!-- 1. Immersive Video Hero Section with your first video -->
+            <section id="video-hero">
+                <div class="hero-content fade-in-element">
+                    <h1>Clarity, Compassion, and Care. Redefined.</h1>
+                    <p>Altos Psychiatry offers a bespoke, evidence-based approach to mental wellness for those seeking a higher standard of care.</p>
+                    <a href="/get-started.html" class="btn btn-primary">Begin Your Journey</a>
+                </div>
+                <!-- UPDATED: Using your big_sur_video.mp4 from the /media/ folder -->
+                <video autoplay muted loop playsinline id="hero-video" class="background-video">
+                    <source src="/media/big_sur_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
 
-        <!-- 2. "Our Approach" Section -->
-        <section class="content-section">
-            <div class="container fade-in-element" style="text-align: center; max-width: 700px; margin: 0 auto;">
-                <h2>The Altos Method: Precision & Personalization</h2>
-                <p>Our methodology combines a deep understanding of neurobiology with compassionate, patient-centered care. We don't just treat symptoms; we build a comprehensive understanding of you as an individual to create a truly personalized treatment plan.</p>
-            </div>
-        </section>
-        
-        <!-- 3. Second Video Section -->
-        <section class="video-hero" style="height: 70vh;">
-            <div class="hero-content fade-in-element">
-                <h2>Your Path to Clarity Begins Here.</h2>
-                <p>We provide the tools, expertise, and support to help you navigate your journey with confidence.</p>
-            </div>
-             <video autoplay muted loop playsinline class="background-video">
-                <source src="/media/big_sur_2.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </section>
-    </main>
-    <div id="footer-placeholder"></div>
-    
+            <!-- 2. "Private Path to Wellness" Section -->
+            <section class="content-section">
+                <div class="container fade-in-element" style="text-align: center; max-width: 700px;">
+                    <h2>A Private, Personalized Path to Wellness</h2>
+                    <p>We believe effective mental healthcare is not one-size-fits-all. It is a collaborative partnership built on trust, understanding, and clinical excellence. We integrate advanced diagnostics, tailored medication management, and in-depth psychotherapy to create a plan as unique as you are.</p>
+                </div>
+            </section>
+
+            <!-- 3. REPLACED: Second Video Section (replaces the old parallax photo section) -->
+            <section class="video-background-section">
+                <!-- The fade-in is applied to the content, not the whole section -->
+                <div class="fade-in-element">
+                    <h2>Our Services</h2>
+                    <p>From advanced TMS therapy to foundational psychotherapy, our services are designed to meet you where you are and guide you toward lasting well-being.</p>
+                    <a href="/services.html" class="btn btn-secondary">Explore Our Treatments</a>
+                </div>
+                <!-- UPDATED: Using your big_sur_2.mp4 from the /media/ folder -->
+                <video autoplay muted loop playsinline class="background-video">
+                    <source src="/media/big_sur_2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </section>
+
+            <!-- 4. "Why Altos" Teaser Section -->
+            <section class="content-section">
+                <div class="container fade-in-element" style="text-align: center; max-width: 700px;">
+                    <h2>The Altos Difference</h2>
+                    <p>Discover our unique philosophy of care, meet our team of dedicated experts, and understand why discerning individuals choose Altos Psychiatry for their mental wellness journey.</p>
+                    <a href="/why-altos/about-us.html" class="btn btn-primary">Why Altos Psychiatry</a>
+                </div>
+            </section>
+
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
     <script src="/js/main.js"></script>
 </body>
 </html>
