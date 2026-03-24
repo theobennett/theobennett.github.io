@@ -4,51 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altos Psychiatry - A Data-Driven Approach</title>
-
-    <!-- Google Fonts Import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Stylesheet - THIS IS THE CRITICAL FIX -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Placeholder for the header, loaded by main.js -->
+    <!-- Header will be loaded here by JavaScript -->
     <div id="header-placeholder"></div>
 
-    <!-- MAIN PAGE CONTENT WRAPPER -->
-    <div class="page-wrapper">
-        
-        <!-- Video Hero Section -->
+    <main class="page-wrapper">
         <section class="video-hero">
             <video playsinline autoplay muted loop class="background-video">
                 <source src="https://assets.mixkit.co/videos/preview/mixkit-therapist-giving-advice-to-a-patient-4537-large.mp4" type="video/mp4">
-                Your browser does not support the video tag.
             </video>
-            <div class="hero-content">
+            <div class="hero-content fade-in-element">
                 <h1>A Data-Driven Approach to Mental Wellness</h1>
                 <p>Personalized mental healthcare designed to help you find clarity, balance, and a path forward.</p>
-                <a href="/get-started.html" class="btn btn-primary">Learn About Our Method</a>
+                <a href="#" class="btn btn-primary">Learn About Our Method</a>
             </div>
         </section>
 
-        <!-- Example Content Section -->
         <section class="content-section">
             <div class="container">
-                <h2>A New Standard in Mental Wellness</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <h2 class="fade-in-element">A New Standard in Mental Wellness</h2>
+                <p class="fade-in-element">This section demonstrates the scroll-reveal animation. The elements fade in as you scroll down to them.</p>
+
+                <h3 class="fade-in-element" style="margin-top: 4rem;">Frequently Asked Questions</h3>
+                <div class="accordion fade-in-element">
+                    <button class="accordion-button">What is the first step?</button>
+                    <div class="accordion-content">
+                        <p>The first step is a comprehensive evaluation to understand your unique needs. From there, we develop a personalized treatment plan.</p>
+                    </div>
+                    <button class="accordion-button">Do you accept insurance?</button>
+                    <div class="accordion-content">
+                        <p>We provide documentation for you to submit to your insurance for out-of-network reimbursement. Please check with your provider about your specific plan details.</p>
+                    </div>
+                </div>
             </div>
         </section>
+    </main>
 
-    </div><!-- .page-wrapper -->
+    <!-- Footer will be loaded here by JavaScript -->
+    <footer id="footer-placeholder"></footer>
 
-    <!-- Placeholder for the footer, loaded by main.js -->
-    <div id="footer-placeholder"></div>
-
-    <!-- Script to load components and add interactivity -->
-    <script src="/js/main.js"></script>
-
+    <!-- Use the advanced, modular JavaScript file -->
+    <script src="js/main.js"></script>
 </body>
 </html>
