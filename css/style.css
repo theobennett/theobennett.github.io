@@ -1,20 +1,12 @@
-/* --- Altos Psychiatry - Agency-Quality Redesign --- */
+/* --- Altos Psychiatry - Agency-Quality Redesign (Amae-Style Dropdown) --- */
 
-/* --- 1. Root Variables & Font Import (Updated Palette) --- */
+/* --- 1. Root Variables & Font Import --- */
 :root {
-    --font-heading: 'DM Serif Display', serif;
-    --font-body: 'Inter', sans-serif;
-    
-    --color-bg-dark: #0A192F;        /* Deep, dark navy for backgrounds */
-    --color-primary: #1D3557;       /* Slate Blue for accents */
-    --color-accent: #6C8C7F;        /* Muted Sage Green for buttons (from screenshot) */
-    --color-bg-light: #F9F9F9;      /* Soft off-white for light sections */
-    --color-text-dark: #333333;     /* For light backgrounds */
-    --color-text-light: #FFFFFF;    /* For dark backgrounds */
-    --color-border: rgba(255, 255, 255, 0.1);
-
-    --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05);
-    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.1);
+    --font-heading: 'DM Serif Display', serif; --font-body: 'Inter', sans-serif;
+    --color-bg-dark: #0A192F; --color-primary: #1D3557; --color-accent: #6C8C7F; --color-bg-light: #F9F9F9;
+    --color-text-dark: #333333; --color-text-light: #FFFFFF; --color-border: rgba(255, 255, 255, 0.1);
+    --color-dropdown-bg: #FFFFFF; /* A solid white for max contrast */
+    --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05); --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap');
 
@@ -25,111 +17,89 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; color: var(
 h1 { font-size: clamp(2.8rem, 5vw + 1rem, 4.5rem); letter-spacing: -0.5px; }
 h2 { font-size: clamp(2rem, 4vw + 1rem, 3rem); }
 p { font-size: clamp(1rem, 0.5vw + 0.9rem, 1.1rem); }
-a { text-decoration: none; transition: color 0.3s ease; }
+a { text-decoration: none; transition: color 0.3s ease; } a:hover { color: var(--color-primary); }
 
-/* --- 3. THE HEADER FIX --- */
-.main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1.5rem 0;
-    z-index: 1000; /* Highest stacking order */
-    transition: all 0.4s ease;
-}
-/* This is the container that holds the logo, nav, and button */
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.main-header.scrolled {
-    background-color: rgba(249, 249, 249, 0.85);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-    box-shadow: var(--shadow-soft);
-}
+/* --- 3. Header & Navigation --- */
+.main-header { position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 0; z-index: 1000; transition: all 0.4s ease; }
+.header-container { display: flex; justify-content: space-between; align-items: center; }
+.main-header.scrolled { background-color: rgba(249, 249, 249, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 0, 0, 0.07); box-shadow: var(--shadow-soft); }
 .logo { font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem; }
-
-/* Text color logic: white on top, dark when scrolled */
 .main-header a { color: var(--color-text-light); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
 .main-header.scrolled a, .main-header.scrolled .logo { color: var(--color-text-dark); text-shadow: none; }
 .main-header.scrolled .dropdown-arrow { color: var(--color-text-dark); }
-
 .main-nav ul { margin: 0; padding: 0; list-style: none; display: flex; align-items: center; }
 .main-nav li { margin: 0 20px; position: relative; }
 .dropbtn { display: flex; align-items: center; gap: 6px; }
 .dropdown-arrow { transition: transform 0.3s ease; }
 .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+
+
+/* --- 3.1 THE NEW DROPDOWN STYLE --- */
 .dropdown-content {
-    opacity: 0; visibility: hidden; position: absolute; left: 50%;
-    transform: translate(-50%, 10px); top: 100%; margin-top: 1rem;
-    background-color: var(--color-white); min-width: 240px;
-    box-shadow: var(--shadow-medium); z-index: 1; border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.07); padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 10px);
+    top: 100%;
+    margin-top: 1rem;
+    
+    /* FIX 1: Solid, Opaque Background */
+    background-color: var(--color-dropdown-bg);
+    
+    min-width: 250px;
+    box-shadow: var(--shadow-medium);
+    z-index: 1010; /* Ensure it's above even other header elements if needed */
+
+    /* FIX 2: The Amae-style soft shape */
+    border-radius: 24px;
+    
+    border: none; /* Remove the hard border line */
+    padding: 12px; /* Use padding on the container for spacing */
+    box-sizing: border-box;
     transition: all 0.3s ease;
 }
-.dropdown-content a { color: var(--color-text-dark); display: block; padding: 10px 15px; border-radius: 8px; }
-.dropdown-content a:hover { background-color: var(--color-bg-light); color: var(--color-primary); }
-.dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
 
-/* --- 4. Buttons & Page Structure --- */
+.dropdown-content a {
+    /* FIX 3: Dark, high-contrast text */
+    color: var(--color-primary); 
+    text-shadow: none; /* Ensure text is crisp */
+    
+    display: block;
+    padding: 12px 16px;
+    border-radius: 14px; /* Softer radius for inner hover items */
+    font-weight: 500;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--color-bg-light);
+}
+
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+
+/* --- 4. Buttons, Pages, and Hero Section --- */
 .btn { display: inline-block; padding: 12px 28px; border-radius: 50px; font-weight: 600; font-family: var(--font-heading); text-decoration: none; transition: all 0.3s ease; border: 1px solid transparent; }
-.btn-primary { 
-    background-color: var(--color-accent); 
-    color: var(--color-white);
-    text-shadow: none !important;
-}
+.btn-primary { background-color: var(--color-accent); color: var(--color-text-light); text-shadow: none !important; }
 .btn-primary:hover { background-color: #5a7569; transform: translateY(-2px); }
-.page-wrapper { padding-top: 0; /* Remove top padding since hero is now the background */ }
-
-/* --- 5. THE VIDEO HERO FIX --- */
-.video-hero {
-    height: 100vh;
-    height: 100dvh;
-    position: relative; /* Changed from fixed/absolute */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center content horizontally */
-    color: var(--color-text-light);
-    text-align: center; /* Center all text within */
-}
-.background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* This is key for responsive scaling */
-    z-index: -2; /* Sits behind everything */
-}
-.video-hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 25, 47, 0.5); /* A dark blue overlay */
-    z-index: -1; /* Sits on top of video, behind content */
-}
-.hero-content {
-    position: relative;
-    z-index: 1; /* Ensures content is on top of overlay */
-    max-width: 800px;
-}
+.page-wrapper { padding-top: 0; }
+.video-hero { height: 100vh; height: 100dvh; position: relative; display: flex; align-items: center; justify-content: center; color: var(--color-text-light); text-align: center; }
+.background-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.video-hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.5); z-index: -1; }
+.hero-content { position: relative; z-index: 1; max-width: 800px; }
 .hero-content h1, .hero-content p { color: var(--color-text-light); }
 .hero-content p { font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 2rem auto; }
-
-/* Styles for other sections remain largely the same, but will adopt new colors */
 .content-section { padding: 100px 0; }
 .colored-section { background-color: var(--color-primary); color: var(--color-text-light); }
 .colored-section h2 { color: var(--color-text-light); }
 
-/* --- 6. Mobile & Responsive --- */
+/* --- 5. Mobile & Responsive --- */
 @media (max-width: 900px) {
-    .main-nav { display: none; } /* Hide the nav links and button container */
-    #header-cta-btn { display: none; }
+    .main-nav, #header-cta-btn { display: none; }
     .nav-toggle { display: block; }
     /* The rest of your mobile hamburger menu CSS will now work correctly */
 }
