@@ -44,7 +44,7 @@ h2 { font-size: clamp(2rem, 4vw + 1rem, 3rem); }
 p { font-size: clamp(1rem, 0.5vw + 0.9rem, 1.1rem); }
 a { text-decoration: none; transition: color 0.3s ease; }
 
-/* --- 3. THE HEADER (with Amae-Style Shape, Shadow & Animation) --- */
+/* --- 3. THE HEADER (Static Off-White Version) --- */
 .main-header {
     position: fixed;
     top: 0;
@@ -52,25 +52,27 @@ a { text-decoration: none; transition: color 0.3s ease; }
     width: 100%;
     padding: 1.5rem 0;
     z-index: 1000; 
-    transition: all 0.4s ease;
+    transition: all 0.4s ease; /* Kept for any future interactive effects */
+    
+    /* Styles are now applied directly, not via a .scrolled class */
+    background-color: rgba(249, 249, 249, 0.95); /* Slightly more opaque for better legibility */
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow: var(--shadow-soft);
 }
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.main-header.scrolled {
-    background-color: rgba(249, 249, 249, 0.85);
-    backdrop-filter: blur(12px); 
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-    box-shadow: var(--shadow-soft);
-}
 .logo { font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem; }
 
-/* Text color logic: white on top, dark when scrolled */
-.main-header a { color: var(--color-text-light); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
-.main-header.scrolled a, .main-header.scrolled .logo { color: var(--color-text-dark); text-shadow: none; }
+/* Text color is now always dark */
+.main-header a, .main-header .logo { 
+    color: var(--color-text-dark); 
+    text-shadow: none; 
+}
 
 .main-nav ul { margin: 0; padding: 0; list-style: none; display: flex; align-items: center; }
 .main-nav li { margin: 0 20px; position: relative; }
@@ -86,24 +88,15 @@ a { text-decoration: none; transition: color 0.3s ease; }
     left: 50%;
     top: 100%;
     margin-top: 1rem; 
-
-    /* Animation: Start smaller and lower, from the top-center */
     transform: translateX(-50%) scale(0.95) translateY(-10px);
     transform-origin: top center;
-
     background-color: var(--color-bg-light);
     min-width: 240px;
-    padding: 25px 8px 8px 8px; /* Extra top padding to clear the pointer cutout */
-    
-    /* Use drop-shadow filter, which respects clip-path */
+    padding: 25px 8px 8px 8px;
     filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.1));
-    
-    /* Custom Shape with clip-path */
     clip-path: path('M 0 20 C 0 8.954 8.954 0 20 0 L 85 0 C 90 -10, 110 -10, 115 0 L 220 0 C 231.046 0 240 8.954 240 20 L 240 180 C 240 191.046 231.046 200 220 200 L 20 200 C 8.954 200 0 191.046 0 180 Z');
-
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
 }
-
 .dropdown-content a { 
     color: var(--color-text-dark); 
     display: block; 
@@ -113,7 +106,6 @@ a { text-decoration: none; transition: color 0.3s ease; }
 }
 .dropdown-content a:hover { background-color: rgba(0,0,0,0.04); color: var(--color-primary); }
 
-/* On hover, animate into the final state */
 .dropdown:hover .dropdown-content { 
     opacity: 1; 
     visibility: visible; 
@@ -128,13 +120,15 @@ a { text-decoration: none; transition: color 0.3s ease; }
     text-shadow: none !important;
 }
 .btn-primary:hover { background-color: #5a7569; transform: translateY(-2px); box-shadow: var(--shadow-soft); }
-.page-wrapper { padding-top: 0; }
+
+/* Add padding to the top of the page wrapper to prevent content from being hidden by the fixed header */
+.page-wrapper { padding-top: 90px; }
 
 /* --- 5. THE VIDEO HERO --- */
 .video-hero {
     position: relative; 
-    height: 100vh;
-    height: 100dvh;
+    height: calc(100vh - 90px); /* Adjust height to account for the page wrapper's top padding */
+    height: calc(100dvh - 90px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,31 +136,15 @@ a { text-decoration: none; transition: color 0.3s ease; }
     overflow: hidden;
 }
 .background-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    z-index: -2;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    min-width: 100%; min-height: 100%; object-fit: cover; z-index: -2;
 }
 .video-hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 25, 47, 0.6);
-    z-index: -1;
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; background: rgba(10, 25, 47, 0.6); z-index: -1;
 }
 .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-    padding: 0 24px;
-    text-align: center;
+    position: relative; z-index: 1; max-width: 800px; padding: 0 24px; text-align: center;
 }
 .hero-content h1, .hero-content p { color: var(--color-text-light); }
 .hero-content p { font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 2rem auto; }
@@ -175,9 +153,8 @@ a { text-decoration: none; transition: color 0.3s ease; }
 .content-section { padding: 100px 0; }
 
 /* --- 6. Mobile & Responsive --- */
-.nav-toggle { display: none; } /* Hide hamburger on desktop */
 @media (max-width: 900px) {
     .main-nav { display: none; } 
     #header-cta-btn { display: none; }
-    .nav-toggle { display: block; background: transparent; border: none; z-index: 1001; } /* Basic styles for hamburger */
+    /* You would add styles for a mobile navigation menu here if needed */
 }
