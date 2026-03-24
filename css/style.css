@@ -1,16 +1,16 @@
 /* --- Altos Psychiatry - Agency-Quality Redesign --- */
 
-/* --- 1. Root Variables & Font Import (Updated Palette) --- */
+/* --- 1. Root Variables & Font Import --- */
 :root {
     --font-heading: 'DM Serif Display', serif;
     --font-body: 'Inter', sans-serif;
     
-    --color-bg-dark: #0A192F;        /* Deep, dark navy for backgrounds */
-    --color-primary: #1D3557;       /* Slate Blue for accents */
-    --color-accent: #6C8C7F;        /* Muted Sage Green for buttons */
-    --color-bg-light: #F9F9F9;      /* Soft off-white for light sections */
-    --color-text-dark: #333333;     /* For light backgrounds */
-    --color-text-light: #FFFFFF;    /* For dark backgrounds */
+    --color-bg-dark: #0A192F;
+    --color-primary: #1D3557;
+    --color-accent: #6C8C7F;
+    --color-bg-light: #F9F9F9;
+    --color-text-dark: #333333;
+    --color-text-light: #FFFFFF;
     --color-border: rgba(255, 255, 255, 0.1);
 
     --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -44,7 +44,12 @@ h2 { font-size: clamp(2rem, 4vw + 1rem, 3rem); }
 p { font-size: clamp(1rem, 0.5vw + 0.9rem, 1.1rem); }
 a { text-decoration: none; transition: color 0.3s ease; }
 
-/* --- 3. THE HEADER (Static Off-White Version) --- */
+/* The page wrapper pushes content below the fixed header */
+.page-wrapper {
+    padding-top: 80px; /* Adjust this value based on header height */
+}
+
+/* --- 3. THE HEADER (Dynamic Dark-to-Light) --- */
 .main-header {
     position: fixed;
     top: 0;
@@ -52,24 +57,36 @@ a { text-decoration: none; transition: color 0.3s ease; }
     width: 100%;
     padding: 1.5rem 0;
     z-index: 1000; 
-    transition: all 0.4s ease; /* Kept for any future interactive effects */
+    transition: all 0.4s ease;
     
-    /* Styles are now applied directly, not via a .scrolled class */
-    background-color: rgba(249, 249, 249, 0.95); /* Slightly more opaque for better legibility */
-    backdrop-filter: blur(12px); 
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-    box-shadow: var(--shadow-soft);
+    /* Initial Dark State */
+    background-color: rgba(10, 25, 47, 0.2); /* Semi-transparent dark blue */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-bottom: 1px solid var(--color-border);
 }
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
+/* Scrolled Light State */
+.main-header.scrolled {
+    background-color: rgba(249, 249, 249, 0.95);
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow: var(--shadow-soft);
+}
 .logo { font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem; }
 
-/* Text color is now always dark */
+/* Text color logic: light on top, dark when scrolled */
 .main-header a, .main-header .logo { 
+    color: var(--color-text-light); 
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+.main-header.scrolled a, .main-header.scrolled .logo { 
     color: var(--color-text-dark); 
     text-shadow: none; 
 }
@@ -80,74 +97,108 @@ a { text-decoration: none; transition: color 0.3s ease; }
 .dropdown-arrow { transition: transform 0.3s ease; }
 .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 
-/* FINAL "AMAE-STYLE" DROPDOWN */
 .dropdown-content {
-    opacity: 0; 
-    visibility: hidden; 
-    position: absolute; 
-    left: 50%;
-    top: 100%;
-    margin-top: 1rem; 
-    transform: translateX(-50%) scale(0.95) translateY(-10px);
-    transform-origin: top center;
-    background-color: var(--color-bg-light);
-    min-width: 240px;
-    padding: 25px 8px 8px 8px;
+    opacity: 0; visibility: hidden; position: absolute; left: 50%; top: 100%;
+    margin-top: 1rem; transform: translateX(-50%) scale(0.95) translateY(-10px);
+    transform-origin: top center; background-color: var(--color-bg-light);
+    min-width: 240px; padding: 25px 8px 8px 8px;
     filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.1));
     clip-path: path('M 0 20 C 0 8.954 8.954 0 20 0 L 85 0 C 90 -10, 110 -10, 115 0 L 220 0 C 231.046 0 240 8.954 240 20 L 240 180 C 240 191.046 231.046 200 220 200 L 20 200 C 8.954 200 0 191.046 0 180 Z');
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
 }
 .dropdown-content a { 
-    color: var(--color-text-dark); 
-    display: block; 
-    padding: 10px 15px; 
-    border-radius: 8px; 
-    text-align: center;
+    color: var(--color-text-dark); display: block; padding: 10px 15px; 
+    border-radius: 8px; text-align: center;
 }
 .dropdown-content a:hover { background-color: rgba(0,0,0,0.04); color: var(--color-primary); }
 
 .dropdown:hover .dropdown-content { 
-    opacity: 1; 
-    visibility: visible; 
-    transform: translateX(-50%) scale(1) translateY(0); 
+    opacity: 1; visibility: visible; transform: translateX(-50%) scale(1) translateY(0); 
 }
 
-/* --- 4. Buttons & Page Structure --- */
-.btn { display: inline-block; padding: 12px 28px; border-radius: 50px; font-weight: 600; font-family: var(--font-heading); text-decoration: none; transition: all 0.3s ease; border: 1px solid transparent; }
+/* --- 4. BUTTONS --- */
+.btn { 
+    display: inline-block; 
+    padding: 12px 28px; 
+    border-radius: 50px; 
+    font-weight: 500; 
+    transition: all 0.3s ease; 
+    cursor: pointer;
+    border: 1px solid transparent;
+}
 .btn-primary { 
     background-color: var(--color-accent); 
-    color: var(--color-text-light);
-    text-shadow: none !important;
+    color: var(--color-text-light); 
 }
-.btn-primary:hover { background-color: #5a7569; transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+.btn-primary:hover { 
+    background-color: #5a7a6c; /* Darker accent */
+    transform: translateY(-2px); 
+    box-shadow: var(--shadow-medium);
+}
+.main-header .btn-primary {
+    border-color: var(--color-text-light);
+    background-color: transparent;
+}
+.main-header.scrolled .btn-primary {
+    border-color: transparent;
+    background-color: var(--color-accent);
+}
 
-/* Add padding to the top of the page wrapper to prevent content from being hidden by the fixed header */
-.page-wrapper { padding-top: 90px; }
-
-/* --- 5. THE VIDEO HERO --- */
+/* --- 5. HERO SECTION --- */
 .video-hero {
-    position: relative; 
-    height: calc(100vh - 90px); /* Adjust height to account for the page wrapper's top padding */
-    height: calc(100dvh - 90px);
+    height: 100vh;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     color: var(--color-text-light);
     overflow: hidden;
+    margin-top: -80px; /* Pull it up to fill behind the header space */
 }
 .background-video {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    min-width: 100%; min-height: 100%; object-fit: cover; z-index: -2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    object-fit: cover;
 }
+/* Overlay for readability */
 .video-hero::after {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%; background: rgba(10, 25, 47, 0.6); z-index: -1;
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 25, 47, 0.5); /* Dark blue overlay */
+    z-index: -1;
 }
 .hero-content {
-    position: relative; z-index: 1; max-width: 800px; padding: 0 24px; text-align: center;
+    max-width: 800px;
+    padding: 0 24px;
 }
-.hero-content h1, .hero-content p { color: var(--color-text-light); }
-.hero-content p { font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 2rem auto; }
+.hero-content h1, .hero-content p {
+    color: var(--color-text-light);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 1.5rem auto 2.5rem;
+}
+.hero-content .btn-primary {
+    border: 2px solid var(--color-text-light);
+    background: transparent;
+    padding: 14px 32px;
+}
+.hero-content .btn-primary:hover {
+    background: var(--color-text-light);
+    color: var(--color-primary);
+}
+
 
 /* --- Styles for other sections --- */
 .content-section { padding: 100px 0; }
@@ -156,5 +207,4 @@ a { text-decoration: none; transition: color 0.3s ease; }
 @media (max-width: 900px) {
     .main-nav { display: none; } 
     #header-cta-btn { display: none; }
-    /* You would add styles for a mobile navigation menu here if needed */
 }
