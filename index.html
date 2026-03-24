@@ -10,75 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Stylesheet - THIS IS THE CRITICAL FIX -->
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-    <!-- ============================================ -->
-    <!--                 THE HEADER                   -->
-    <!-- ============================================ -->
+    <!-- Placeholder for the header, loaded by main.js -->
+    <div id="header-placeholder"></div>
 
-    <header class="main-header">
-        <div class="container">
-            <div class="header-container">
-                
-                <!-- Logo -->
-                <a href="index.html" class="logo">Altos Psychiatry</a>
-
-                <!-- Main Navigation -->
-                <nav class="main-nav">
-                    <ul>
-                        <!-- Why Altos -->
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Why Altos <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></span></a>
-                            <div class="dropdown-content">
-                                <a href="about-us.html">Our Story</a>
-                                <a href="for-patients.html">For Patients & Families</a>
-                                <a href="For-Providers.html">For Providers</a>
-                                <a href="our-providers.html">Our Providers</a>
-                            </div>
-                        </li>
-                        <!-- Our Services -->
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Our Services <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></span></a>
-                            <div class="dropdown-content">
-                                <a href="#">Psychiatry</a>
-                                <a href="#">Therapy</a>
-                                <a href="#">TMS</a>
-                            </div>
-                        </li>
-                        <!-- What We Treat -->
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">What We Treat <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></span></a>
-                            <div class="dropdown-content">
-                                <a href="#">Depression</a>
-                                <a href="#">Anxiety</a>
-                                <a href="#">ADHD</a>
-                                <a href="#">OCD</a>
-                            </div>
-                        </li>
-                         <!-- Resources -->
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Resources <span class="dropdown-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></span></a>
-                            <div class="dropdown-content">
-                                <a href="#">Blog</a>
-                                <a href="#">FAQ</a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-
-                <!-- Header CTA Button -->
-                <a href="#" class="btn btn-primary" id="header-cta-btn">Start Your Journey</a>
-
-            </div>
-        </div>
-    </header>
-
-    <!-- ============================================ -->
-    <!--            MAIN PAGE CONTENT WRAPPER           -->
-    <!-- ============================================ -->
+    <!-- MAIN PAGE CONTENT WRAPPER -->
     <div class="page-wrapper">
         
         <!-- Video Hero Section -->
@@ -90,11 +30,11 @@
             <div class="hero-content">
                 <h1>A Data-Driven Approach to Mental Wellness</h1>
                 <p>Personalized mental healthcare designed to help you find clarity, balance, and a path forward.</p>
-                <a href="#" class="btn btn-primary">Learn About Our Method</a>
+                <a href="/get-started.html" class="btn btn-primary">Learn About Our Method</a>
             </div>
         </section>
 
-        <!-- Example Content Section to demonstrate scrolling -->
+        <!-- Example Content Section -->
         <section class="content-section">
             <div class="container">
                 <h2>A New Standard in Mental Wellness</h2>
@@ -104,8 +44,11 @@
 
     </div><!-- .page-wrapper -->
 
-    <!-- Re-added the JavaScript file for the dynamic header effect -->
-    <script src="main.js"></script>
+    <!-- Placeholder for the footer, loaded by main.js -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Script to load components and add interactivity -->
+    <script src="/js/main.js"></script>
 
 </body>
 </html>
