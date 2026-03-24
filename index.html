@@ -1,69 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Altos Psychiatry | A New Standard in Mental Wellness</title>
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Altos Psychiatry | A New Standard in Mental Wellness</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Header (sticky, loaded via JS partials) -->
+  <div id="header-placeholder"></div>
+  
+  <main>
+    <!-- HERO SECTION with background video and overlay -->
+    <section class="hero">
+      <div class="hero-video">
+        <!-- Use your existing video reference -->
+        <video autoplay muted loop playsinline poster="/img/hero-poster.jpg">
+          <source src="/videos/hero.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content container">
+        <h1>Clinical Excellence. Natural Wellness.</h1>
+        <p>Redefining psychiatric care in Palo Alto. Personalized, modern, and compassionate mental health solutions.</p>
+        <a href="/get-started.html" class="btn btn-accent btn-lg">Request a Consultation</a>
+      </div>
+    </section>
 
-    <div id="header-placeholder"></div>
+    <!-- CONDITIONS TREATED SNAPSHOT -->
+    <section class="conditions-section container">
+      <h2>Conditions We Treat</h2>
+      <div class="conditions-cards">
+        <div class="condition-card">Depression</div>
+        <div class="condition-card">Anxiety</div>
+        <div class="condition-card">PTSD</div>
+        <div class="condition-card">Bipolar Disorder</div>
+        <div class="condition-card">ADHD</div>
+        <div class="condition-card">OCD</div>
+        <div class="condition-card">Addictions</div>
+        <!-- ...expand as needed -->
+      </div>
+      <a href="/conditions.html" class="link-arrow">View All Conditions</a>
+    </section>
 
-    <div class="page-wrapper">
-        <main>
-            <!-- 1. Immersive Video Hero Section -->
-            <section id="video-hero">
-                <div class="hero-content fade-in-element">
-                    <h1>Clarity, Compassion, and Care. Redefined.</h1>
-                    <p>Altos Psychiatry offers a bespoke, evidence-based approach to mental wellness for those seeking a higher standard of care.</p>
-                    <a href="/get-started.html" class="btn btn-primary">Begin Your Journey</a>
-                </div>
-                <video autoplay muted loop playsinline id="hero-video" class="background-video">
-                    <source src="/media/big_sur_video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </section>
+    <!-- SERVICES OVERVIEW -->
+    <section class="services-section container">
+      <h2>Our Services</h2>
+      <div class="services-cards">
+        <div class="service-card">
+          <h3>Medication Management</h3>
+          <p>Evidence-based, personalized treatment for optimal results.</p>
+        </div>
+        <div class="service-card">
+          <h3>Therapy</h3>
+          <p>Individual and group therapy, trauma-informed and holistic.</p>
+        </div>
+        <div class="service-card">
+          <h3>TMS & Psychedelic-Assisted Care</h3>
+          <p>Innovative care for stubborn depression and anxiety.</p>
+        </div>
+        <!-- More services as required -->
+      </div>
+      <a href="/resources.html" class="link-arrow">Explore Resources</a>
+    </section>
 
-            <!-- 2. "Private Path to Wellness" Section -->
-            <section class="content-section">
-                <div class="container fade-in-element" style="text-align: center; max-width: 700px;">
-                    <h2>A Private, Personalized Path to Wellness</h2>
-                    <p>We believe effective mental healthcare is not one-size-fits-all. It is a collaborative partnership built on trust, understanding, and clinical excellence. We integrate advanced diagnostics, tailored medication management, and in-depth psychotherapy to create a plan as unique as you are.</p>
-                </div>
-            </section>
+    <!-- WHY CHOOSE ALTOS -->
+    <section class="why-altos container">
+      <h2>Why Choose Altos?</h2>
+      <ul class="altos-list">
+        <li>Board-certified clinicians</li>
+        <li>Private, luxurious setting</li>
+        <li>Telehealth & in-person flexibility</li>
+        <li>Nature-inspired, calming environment</li>
+        <li>Full-spectrum support: therapy, medication, innovative interventions</li>
+      </ul>
+    </section>
 
-            <!-- 3. Second Video Section with Corrected Content Structure -->
-            <section class="video-background-section">
-                <!-- 
-                  THIS IS THE FIX: The content is now wrapped in a div with the new
-                  .video-section-content class, which handles centering and positioning.
-                -->
-                <div class="video-section-content fade-in-element">
-                    <h2>Our Services</h2>
-                    <p>From advanced TMS therapy to foundational psychotherapy, our services are designed to meet you where you are and guide you toward lasting well-being.</p>
-                    <a href="/services.html" class="btn btn-secondary">Explore Our Treatments</a>
-                </div>
-                <video autoplay muted loop playsinline class="background-video">
-                    <source src="/media/big_sur_2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </section>
+    <!-- PATIENT JOURNEY -->
+    <section class="journey-section container">
+      <h2>Your Journey to Wellness</h2>
+      <ol class="journey-steps">
+        <li><strong>Request a Consultation</strong> — quick online form</li>
+        <li><strong>Comprehensive Evaluation</strong> — personalized plan</li>
+        <li><strong>Integrated Care</strong> — ongoing support</li>
+      </ol>
+    </section>
 
-            <!-- 4. "Why Altos" Teaser Section -->
-            <section class="content-section">
-                <div class="container fade-in-element" style="text-align: center; max-width: 700px;">
-                    <h2>The Altos Difference</h2>
-                    <p>Discover our unique philosophy of care, meet our team of dedicated experts, and understand why discerning individuals choose Altos Psychiatry for their mental wellness journey.</p>
-                    <a href="/why-altos/about-us.html" class="btn btn-primary">Why Altos Psychiatry</a>
-                </div>
-            </section>
+    <!-- FAQ PREVIEW -->
+    <section class="faq-preview container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>How do I schedule?</h3>
+          <p>Easy online booking or call our front desk. <a href="/get-started.html">Get started →</a></p>
+        </div>
+        <div class="faq-item">
+          <h3>Do you accept insurance?</h3>
+          <p>We provide superbills for reimbursement and list our rates on the For Patients page.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What therapies are available?</h3>
+          <p>CBT, EMDR, trauma, wellness coaching, and much more.</p>
+        </div>
+      </div>
+      <a href="/faq.html" class="link-arrow">View All FAQs</a>
+    </section>
 
-        </main>
-
-        <div id="footer-placeholder"></div>
+    <!-- CTA FIXED BOTTOM FOR MOBILE -->
+    <div class="fixed-cta">
+      <a href="/get-started.html" class="btn btn-accent btn-lg">Consultation Request</a>
     </div>
+  </main>
 
-    <script src="/js/main.js"></script>
+  <!-- Footer (loaded via JS partials) -->
+  <div id="footer-placeholder"></div>
+  <script src="/js/main.js"></script>
 </body>
 </html>
