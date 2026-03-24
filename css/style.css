@@ -27,10 +27,7 @@ h2 { font-size: clamp(2rem, 4vw + 1rem, 3rem); }
 p { font-size: clamp(1rem, 0.5vw + 0.9rem, 1.1rem); }
 a { text-decoration: none; transition: color 0.3s ease; }
 
-/* --- 3. THE HEADER FIX (Corrected & Validated) --- */
-/* Your header logic is excellent. It correctly uses a fixed position and relies on a 'scrolled' 
-   class (to be added via JavaScript) to change its appearance. The only fix needed was
-   for an undefined CSS variable in the dropdown menu. */
+/* --- 3. THE HEADER FIX (with Amae-Style Shape, Shadow & Animation) --- */
 .main-header {
     position: fixed;
     top: 0;
@@ -53,33 +50,61 @@ a { text-decoration: none; transition: color 0.3s ease; }
 }
 .logo { font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem; }
 
-/* Text color logic is correct: white on top, dark when scrolled */
+/* Text color logic is correct */
 .main-header a { color: var(--color-text-light); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
 .main-header.scrolled a, .main-header.scrolled .logo { color: var(--color-text-dark); text-shadow: none; }
 .main-header.scrolled .dropdown-arrow { color: var(--color-text-dark); }
 
 .main-nav ul { margin: 0; padding: 0; list-style: none; display: flex; align-items: center; }
-.main-nav li { margin: 0 20px; position: relative; }
+.main-nav li { margin: 0 20px; position: relative; } /* position: relative is crucial */
 .dropbtn { display: flex; align-items: center; gap: 6px; }
 .dropdown-arrow { transition: transform 0.3s ease; }
 .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+
+
+/* --- FINAL "AMAE-STYLE" DROPDOWN --- */
 .dropdown-content {
-    opacity: 0; visibility: hidden; position: absolute; left: 50%;
-    transform: translate(-50%, 10px); top: 100%; margin-top: 1rem;
-    
-    /* --- FIX --- */
-    /* Changed 'var(--color-white)' to 'var(--color-bg-light)' because --color-white was 
-       not defined. Using --color-bg-light is consistent with the scrolled header's base color. */
+    opacity: 0; 
+    visibility: hidden; 
+    position: absolute; 
+    left: 50%;
+    top: 100%;
+    margin-top: 1rem; 
+
+    /* Animation: Start smaller and lower, from the top-center */
+    transform: translateX(-50%) scale(0.95) translateY(-10px);
+    transform-origin: top center;
+
     background-color: var(--color-bg-light);
-    
     min-width: 240px;
-    box-shadow: var(--shadow-medium); z-index: 1; border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.07); padding: 8px;
-    transition: all 0.3s ease;
+    padding: 25px 8px 8px 8px; /* Extra top padding to clear the pointer cutout */
+    
+    /* --- THE SHADOW FIX --- */
+    /* REMOVED: box-shadow: var(--shadow-medium); */
+    /* ADDED: Use drop-shadow filter, which respects clip-path. The values mirror --shadow-medium. */
+    filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.1));
+    
+    /* Custom Shape with clip-path */
+    clip-path: path('M 0 20 C 0 8.954 8.954 0 20 0 L 85 0 C 90 -10, 110 -10, 115 0 L 220 0 C 231.046 0 240 8.954 240 20 L 240 130 C 240 141.046 231.046 150 220 150 L 20 150 C 8.954 150 0 141.046 0 130 Z');
+
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
 }
-.dropdown-content a { color: var(--color-text-dark); display: block; padding: 10px 15px; border-radius: 8px; }
+
+.dropdown-content a { 
+    color: var(--color-text-dark); 
+    display: block; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    text-align: center;
+}
 .dropdown-content a:hover { background-color: rgba(0,0,0,0.04); color: var(--color-primary); }
-.dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+
+/* On hover, animate into the final state */
+.dropdown:hover .dropdown-content { 
+    opacity: 1; 
+    visibility: visible; 
+    transform: translateX(-50%) scale(1) translateY(0); 
+}
 
 /* --- 4. Buttons & Page Structure --- */
 .btn { display: inline-block; padding: 12px 28px; border-radius: 50px; font-weight: 600; font-family: var(--font-heading); text-decoration: none; transition: all 0.3s ease; border: 1px solid transparent; }
