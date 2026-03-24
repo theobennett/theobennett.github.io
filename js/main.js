@@ -80,57 +80,53 @@ document.addEventListener('DOMContentLoaded', () => {
             }, { passive: true }); // Improves scroll performance
         },
 
-        // --- UI FEATURE: SMOOTH SCROLLING ---
+        // --- UTILITY: SMOOTH SCROLL ---
         initSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
-                    // Ensure it's not just a standalone hash
-                    if (href.length > 1) {
-                        e.preventDefault();
-                        const targetElement = document.querySelector(href);
-                        if (targetElement) {
-                            targetElement.scrollIntoView({ behavior: 'smooth' });
-                        }
-                    }
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 });
             });
         },
-
+        
         // --- UI FEATURE: SCROLL REVEAL ANIMATIONS ---
         initScrollReveal() {
-            const elementsToAnimate = document.querySelectorAll('.fade-in-element');
-            if (elementsToAnimate.length === 0) return;
+            const revealElements = document.querySelectorAll('.fade-in-element');
+            if (revealElements.length === 0) return;
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, i) => {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.transitionDelay = `${i * 100}ms`;
                         entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target); // Optional: Stop observing once visible for performance
+                        observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1 });
 
-            elementsToAnimate.forEach(el => observer.observe(el));
+            revealElements.forEach(element => {
+                observer.observe(element);
+            });
         },
 
-        // --- UI FEATURE: GROUPED ACCORDION ---
+        // --- UI FEATURE: ACCORDIONS ---
         initAccordions() {
-            const accordions = document.querySelectorAll('.accordion');
-            accordions.forEach(accordion => {
-                const buttons = accordion.querySelectorAll('.accordion-button');
-                buttons.forEach(button => {
+            const accordionGroups = document.querySelectorAll('.accordion-group');
+            accordionGroups.forEach(group => {
+                const items = group.querySelectorAll('.accordion-item');
+                items.forEach(item => {
+                    const button = item.querySelector('.accordion-button');
+                    const content = item.querySelector('.accordion-content');
+                    
                     button.addEventListener('click', () => {
-                        const content = button.nextElementSibling;
                         const isCurrentlyActive = button.classList.contains('active');
-
-                        // Close all other items in this group
-                        buttons.forEach(otherButton => {
-                            if (otherButton !== button) {
-                                otherButton.classList.remove('active');
-                                otherButton.nextElementSibling.style.maxHeight = null;
-                            }
+                        
+                        // Deactivate all items in this group
+                        items.forEach(i => {
+                            i.querySelector('.accordion-button').classList.remove('active');
+                            i.querySelector('.accordion-content').style.maxHeight = null;
                         });
 
                         // Toggle the clicked item
