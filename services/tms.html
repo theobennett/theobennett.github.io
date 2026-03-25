@@ -3,53 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TMS Therapy | Alto Psychiatry</title>
-    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- NEW: This script sets the correct base path for all links and resources. -->
+    <script>
+        // --- IMPORTANT ---
+        // This should match your GitHub repository name.
+        const repoName = 'theobennett.github.io'; 
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? `/${repoName}/` : '/';
+        document.write(`<base href="${basePath}">`);
+    </script>
+
+    <title>TMS Therapy | Altos Psychiatry</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <div id="header-placeholder"></div>
+    <div class="page-wrapper">
+        <main>
+            <section class="page-hero">
+                <div class="container fade-in-element">
+                    <h1>TMS (Transcranial Magnetic Stimulation)</h1>
+                    <p>A non-invasive, FDA-approved treatment using targeted magnetic pulses to stimulate key brain regions.</p>
+                </div>
+            </section>
+            
+            <section class="content-section">
+                <div class="container" style="max-width: 800px;">
+                    <div class="fade-in-element">
+                        <h2>What is TMS?</h2>
+                        <p>TMS is a modern, non-invasive treatment that uses magnetic fields to gently stimulate specific areas of the brain that are underactive in people with depression. It’s like a targeted workout for your brain cells. The treatment is done while you are awake and comfortable, and it does not require anesthesia.</p>
+                    </div>
 
-    <header class="main-header">
-        <div class="container">
-            <a href="../index.html" class="logo">Alto Psychiatry</a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="../services.html">Our Services</a></li>
-                    <li><a href="../about.html">About Us</a></li>
-                    <li><a href="../resources.html">Resources</a></li>
-                    <li><a href="../get-started.html" class="btn btn-primary">Get Started</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+                    <div class="fade-in-element" style="margin-top: 60px;">
+                        <h2>Who is it for?</h2>
+                        <p>TMS is an FDA-approved treatment primarily for adults with major depression who have not had good results from antidepressant medications. If you've tried different medications and still feel "stuck," TMS could be a great option.</p>
+                    </div>
+                    
+                    <div class="fade-in-element" style="margin-top: 60px;">
+                        <h2>How does it work?</h2>
+                        <p>You'll sit in a comfortable chair, and a small magnetic coil is placed gently on your head. The coil sends brief magnetic pulses to the target area. A typical course of treatment involves daily sessions, five days a week, for about 4-6 weeks. Each session lasts about 20-30 minutes, and you can drive yourself home or back to work immediately after.</p>
+                    </div>
 
-    <main>
-        <header class="page-header">
-            <div class="container">
-                <h1>TMS (Transcranial Magnetic Stimulation)</h1>
-            </div>
-        </header>
-        <section class="content-section">
-            <div class="container" style="max-width: 800px;">
-                <h2>What is TMS?</h2>
-                <p>TMS is a modern, non-invasive treatment that uses magnetic fields to gently stimulate specific areas of the brain that are underactive in people with depression. It’s like a targeted workout for your brain cells. The treatment is done while you are awake and comfortable, and it does not require anesthesia.</p>
-                
-                <h2>Who is it for?</h2>
-                <p>TMS is an FDA-approved treatment primarily for adults with major depression who have not had good results from antidepressant medications. If you've tried different medications and still feel "stuck," TMS could be a great option.</p>
-
-                <h2>How does it work?</h2>
-                <p>You'll sit in a comfortable chair, and a small magnetic coil is placed gently on your head. The coil sends brief magnetic pulses to the target area. A typical course of treatment involves daily sessions, five days a week, for about 4-6 weeks. Each session lasts about 20-30 minutes, and you can drive yourself home or back to work immediately after.</p>
-                <br>
-                <a href="../get-started.html" class="btn btn-accent">Explore TMS Therapy</a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2024 Alto Psychiatry. All Rights Reserved.</p>
-            <p>123 Wellness Ave, Suite 100, San Francisco, CA 94102 | (555) 123-4567</p>
-        </div>
-    </footer>
-
+                    <div style="text-align: center; margin-top: 60px;">
+                        <a href="/get-started.html" class="btn btn-primary">Explore TMS Therapy</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <div id="footer-placeholder"></div>
+    </div>
+    <script src="/js/main.js"></script>
 </body>
 </html>
