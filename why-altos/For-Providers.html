@@ -3,44 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- NEW: This script sets the correct base path for all links and resources. -->
+    <script>
+        // --- IMPORTANT ---
+        // This should match your GitHub repository name.
+        const repoName = 'theobennett.github.io'; 
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? `/${repoName}/` : '/';
+        document.write(`<base href="${basePath}">`);
+    </script>
+
     <title>For Providers | Altos Psychiatry</title>
-    <link rel="stylesheet" href="/theobennett.github.io/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
     <div id="header-placeholder"></div>
 
-    <main>
-        <header class="page-header">
-            <div class="container">
-                <h1>For Referring Providers</h1>
-            </div>
-        </header>
+    <div class="page-wrapper">
+        <main>
+            <header class="page-header">
+                <div class="container">
+                    <h1>For Referring Providers</h1>
+                </div>
+            </header>
 
-        <section class="content-section">
-            <div class="container" style="max-width: 800px;">
-                <h2>Partnering in Patient Care</h2>
-                <p>At Altos Psychiatry, we believe in a collaborative approach to healthcare. We value our relationships with primary care physicians, therapists, and other specialists in the community. Our goal is to serve as a trusted partner, providing your patients with expert psychiatric care while maintaining open lines of communication.</p>
-                
-                <h3>Our Areas of Expertise</h3>
-                <p>We welcome referrals for patients requiring specialized care in:</p>
-                <ul>
-                    <li>Treatment-Resistant Depression (including TMS and psychedelic-assisted therapy evaluations)</li>
-                    <li>Complex Mood and Anxiety Disorders</li>
-                    <li>ADHD Diagnosis and Management</li>
-                    <li>Comprehensive Medication Management</li>
-                    <li>Integrated Psychiatric and Therapeutic Care</li>
-                </ul>
+            <section class="content-section">
+                <div class="container" style="max-width: 800px;">
+                    <h2>Partnering in Patient Care</h2>
+                    <p>At Altos Psychiatry, we believe in a collaborative approach to healthcare. We value our relationships with primary care physicians, therapists, and other specialists in the community. Our goal is to serve as a trusted partner, providing your patients with expert psychiatric care while maintaining open lines of communication.</p>
+                    
+                    <h3>Our Areas of Expertise</h3>
+                    <p>We welcome referrals for patients requiring specialized care in:</p>
+                    <ul>
+                        <li>Treatment-Resistant Depression (including TMS and psychedelic-assisted therapy evaluations)</li>
+                        <li>Complex Mood and Anxiety Disorders</li>
+                        <li>ADHD Diagnosis and Management</li>
+                        <li>Comprehensive Medication Management</li>
+                        <li>Integrated Psychiatric and Therapeutic Care</li>
+                    </ul>
 
-                <h3>How to Refer a Patient</h3>
-                <p>[This is a placeholder. Provide your preferred method for referrals. This could be a dedicated (and secure) referral form, a fax number, or a specific email address for your intake coordinator. Make the process as simple as possible for other providers.]</p>
-                <p>We are committed to a prompt intake process and will provide you with timely updates on your patient's treatment plan and progress, with the patient's consent. Thank you for considering Altos Psychiatry.</p>
-            </div>
-        </section>
-    </main>
+                    <h3>How to Refer a Patient</h3>
+                    <p>[This is a placeholder. Provide your preferred method for referrals. This could be a dedicated (and secure) referral form, a fax number, or a specific email address for your intake coordinator. Make the process as simple as possible for other providers.]</p>
+                    <p>We are committed to a prompt intake process and will provide you with timely updates on your patient's treatment plan and progress, with the patient's consent. Thank you for considering Altos Psychiatry.</p>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <div id="footer-placeholder"></div>
-    <script src="/theobennett.github.io/js/main.js"></script>
+    <script src="/js/main.js"></script>
 
 </body>
 </html>
