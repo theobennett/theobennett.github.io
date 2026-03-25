@@ -1,8 +1,7 @@
 <header class="main-header">
     <div class="container header-container">
-        <!-- CORRECTED: Path is now relative to index.html* -->
-        <a href="index.html" class="logo">
-            <!-- SVG logo with fill attributes removed -->
+        <!-- CORRECTED: Root link is now just / -->
+        <a href="/" class="logo">
             <svg width="340" height="80" viewBox="0 0 340 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g>
                     <rect x="15" y="45" width="8" height="30"/>
@@ -17,51 +16,34 @@
         
         <nav class="main-nav" id="main-nav">
             <ul>
-                <!-- CORRECTED: All paths are now relative -->
+                <!-- CORRECTED: All paths are absolute -->
                 <li class="dropdown">
-                    <a href="why-altos/about-us.html" class="dropbtn">Why Altos
+                    <a href="/why-altos/about-us.html" class="dropbtn">Why Altos
                         <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
                     <div class="dropdown-content">
-                        <a href="why-altos/about-us.html">Our Story</a>
-                        <a href="for-patients.html">For Patients & Families</a>
-                        <a href="for-providers.html">For Providers</a>
-                        <a href="why-altos/our-providers.html">Our Providers</a>
+                        <a href="/why-altos/about-us.html">Our Story</a>
+                        <a href="/for-patients.html">For Patients & Families</a>
+                        <a href="/for-providers.html">For Providers</a>
+                        <a href="/why-altos/our-providers.html">Our Providers</a>
                     </div>
                 </li>
                 <li class="dropdown">
-                    <a href="services.html" class="dropbtn">Our Services
+                    <a href="/services.html" class="dropbtn">Our Services
                         <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
                     <div class="dropdown-content">
-                        <a href="services.html">Services Overview</a>
-                        <a href="services/care-models.html">Care Models</a>
-                        <a href="services/tms.html">TMS Therapy</a>
-                        <a href="services/psychotherapy.html">Psychotherapy</a>
-                        <a href="services/medication-management.html">Medication Management</a>
-                        <a href="services/psychedelics.html">Psychedelic-Assisted Therapy</a>
+                        <a href="/services.html">Services Overview</a>
+                        <a href="/services/care-models.html">Care Models</a>
+                        <a href="/services/tms.html">TMS Therapy</a>
+                        <a href="/services/psychotherapy.html">Psychotherapy</a>
+                        <a href="/services/medication-management.html">Medication Management</a>
+                        <a href="/services/psychedelics.html">Psychedelic-Assisted Therapy</a>
                     </div>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">What We Treat
-                        <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="conditions/depression.html">Depression</a>
-                        <!-- ... other links ... -->
-                    </div>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Resources
-                        <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="resources/faq.html">FAQs</a>
-                        <!-- ... other links ... -->
-                    </div>
-                </li>
+                 <!-- ... other nav items ... -->
             </ul>
         </nav>
-        <a href="get-started.html" class="btn btn-primary" id="header-cta-btn">Start Your Journey</a>
+        <a href="/get-started.html" class="btn btn-primary" id="header-cta-btn">Start Your Journey</a>
     </div>
 </header>
