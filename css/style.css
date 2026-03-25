@@ -50,6 +50,13 @@ a { text-decoration: none; transition: color 0.3s ease; }
 }
 .logo { font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem; }
 
+/* --- NEW: Logo Image Styling --- */
+.logo img {
+    max-height: 35px; /* Controls the height of the logo */
+    width: auto;      /* Maintains the correct aspect ratio */
+    display: block;   /* Removes any extra space below the image */
+}
+
 .main-header a { color: var(--color-text-light); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
 .main-header.scrolled a, .main-header.scrolled .logo { color: var(--color-text-dark); text-shadow: none; }
 .main-header.scrolled .dropdown-arrow { color: var(--color-text-dark); }
