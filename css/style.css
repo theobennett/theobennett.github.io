@@ -5,12 +5,12 @@
     --font-heading: 'DM Serif Display', serif;
     --font-body: 'Inter', sans-serif;
     
-    --color-bg-dark: #0A192F;        /* Deep, dark navy for backgrounds */
-    --color-primary: #1D3557;       /* Slate Blue for accents */
-    --color-accent: #6C8C7F;        /* Muted Sage Green for buttons (from screenshot) */
-    --color-bg-light: #F9F9F9;      /* Soft off-white for light sections */
-    --color-text-dark: #333333;     /* For light backgrounds */
-    --color-text-light: #FFFFFF;    /* For dark backgrounds */
+    --color-bg-dark: #0A192F;
+    --color-primary: #1D3557;
+    --color-accent: #6C8C7F;
+    --color-bg-light: #F9F9F9;
+    --color-text-dark: #333333;
+    --color-text-light: #FFFFFF;
     --color-border: rgba(255, 255, 255, 0.1);
 
     --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -48,21 +48,20 @@ a { text-decoration: none; transition: color 0.3s ease; }
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     box-shadow: var(--shadow-soft);
 }
-.logo { display: flex; align-items: center; } /* Ensures vertical alignment */
+.logo { display: flex; align-items: center; }
 
-/* --- NEW: SVG Logo Styling --- */
 .logo svg {
-    height: 40px; /* Controls the height of the logo */
-    width: auto;      /* Maintains the correct aspect ratio */
-    fill: currentColor; /* Inherits color (white or blue) from parent link */
+    height: 40px;
+    width: auto;
+    fill: currentColor;
 }
 .logo svg text {
-    font-family: var(--font-heading); /* Match site branding */
+    font-family: var(--font-heading);
     font-weight: normal;
 }
 
 .main-header a { color: var(--color-text-light); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
-.main-header.scrolled a, .main-header.scrolled .logo { color: var(--color-primary); text-shadow: none; }
+.main-header.scrolled a { color: var(--color-primary); text-shadow: none; }
 .main-header.scrolled .dropdown-arrow { color: var(--color-text-dark); }
 
 .main-nav ul { margin: 0; padding: 0; list-style: none; display: flex; align-items: center; }
@@ -71,7 +70,6 @@ a { text-decoration: none; transition: color 0.3s ease; }
 .dropdown-arrow { transition: transform 0.3s ease; }
 .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 
-/* --- NEW DROPDOWN STYLES --- */
 .dropdown-content {
     opacity: 0; 
     visibility: hidden; 
