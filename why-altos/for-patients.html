@@ -3,68 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- NEW: This script sets the correct base path for all links and resources. -->
+    <script>
+        // --- IMPORTANT ---
+        // This should match your GitHub repository name.
+        const repoName = 'theobennett.github.io'; 
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? `/${repoName}/` : '/';
+        document.write(`<base href="${basePath}">`);
+    </script>
+
     <title>For Patients & Families | Altos Psychiatry</title>
-    <link rel="stylesheet" href="/theobennett.github.io/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-    <!-- Sticky, SEO-friendly header area -->
     <div id="header-placeholder"></div>
 
-    <main>
-        <header class="page-header">
-            <div class="container">
-                <h1>For Patients & Families</h1>
-            </div>
-        </header>
-
-        <section class="content-section">
-            <div class="container" style="max-width: 800px;">
-                <h2>Your Journey Starts Here</h2>
-                <p>
-                  Taking the first step toward better mental health is a brave and important decision.
-                  We are here to make the process as clear and comfortable as possible.
-                  This page provides information about what to expect when you become a patient at Altos Psychiatry.
-                </p>
-                
-                <h3>What to Expect on Your First Visit</h3>
-                <p>
-                  Your initial appointment is a <strong>comprehensive 60–90 minute evaluation</strong>. 
-                  This is a conversation, not an interrogation. 
-                  We’ll discuss your current challenges, personal and family history, and treatment goals. 
-                  It’s a collaborative session designed to create a personalized plan that feels right for you.
-                </p>
-
-                <h3>Insurance & Fees</h3>
-                <div class="info-box warning">
-                  <strong>Action Needed:</strong> 
-                  Update this section with insurance information, accepted plans, self-pay rates, and reimbursement procedures.
+    <div class="page-wrapper">
+        <main>
+            <header class="page-header">
+                <div class="container">
+                    <h1>For Patients & Families</h1>
                 </div>
-                <p>
-                  Please replace this text with details about accepted insurance plans. 
-                  If you are out-of-network, explain how patients can obtain a superbill for insurance reimbursement. 
-                  List your self-pay rates (e.g., initial evaluation, follow-up, therapy session).
-                </p>
+            </header>
 
-                <h3>Patient Portal</h3>
-                <div class="info-box warning">
-                  <strong>Action Needed:</strong>
-                  Add details about your patient portal, features, and a direct portal login link.
+            <section class="content-section">
+                <div class="container" style="max-width: 800px;">
+                    <h2>Your Journey Starts Here</h2>
+                    <p>
+                    Taking the first step toward better mental health is a brave and important decision.
+                    We are here to make the process as clear and comfortable as possible.
+                    This page provides information about what to expect when you become a patient at Altos Psychiatry.
+                    </p>
+                    
+                    <h3>What to Expect on Your First Visit</h3>
+                    <p>
+                    Your initial appointment is a <strong>comprehensive 60–90 minute evaluation</strong>. 
+                    This is a conversation, not an interrogation. 
+                    We’ll discuss your current challenges, personal and family history, and treatment goals. 
+                    It’s a collaborative session designed to create a personalized plan that feels right for you.
+                    </p>
+
+                    <h3>Insurance & Fees</h3>
+                    <div class="info-box warning">
+                    <strong>Action Needed:</strong> 
+                    Update this section with insurance information, accepted plans, self-pay rates, and reimbursement procedures.
+                    </div>
+                    <p>
+                    Please replace this text with details about accepted insurance plans. 
+                    If you are out-of-network, explain how patients can obtain a superbill for insurance reimbursement. 
+                    List your self-pay rates (e.g., initial evaluation, follow-up, therapy session).
+                    </p>
+
+                    <h3>Patient Portal</h3>
+                    <div class="info-box warning">
+                    <strong>Action Needed:</strong>
+                    Add details about your patient portal, features, and a direct portal login link.
+                    </div>
+                    <p>
+                    If you use a patient portal (like SimplePractice, Charm, etc.), describe its benefits here. 
+                    Patients can schedule appointments, message providers, request refills, and view health records. 
+                    <br>
+                    <a href="#" class="btn btn-outline" aria-disabled="true">Patient Portal Login</a>
+                    </p>
+                    
+                    <br>
+                    <a href="/get-started.html" class="btn btn-primary">Request an Appointment</a>
                 </div>
-                <p>
-                  If you use a patient portal (like SimplePractice, Charm, etc.), describe its benefits here. 
-                  Patients can schedule appointments, message providers, request refills, and view health records. 
-                  <br>
-                  <a href="#" class="btn btn-outline" aria-disabled="true">Patient Portal Login</a>
-                </p>
-                
-                <br>
-                <a href="/theobennett.github.io/get-started.html" class="btn btn-accent">Request an Appointment</a>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
+    </div>
 
     <div id="footer-placeholder"></div>
-    <script src="/theobennett.github.io/js/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>
