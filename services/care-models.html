@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- NEW: This script sets the correct base path for all links and resources. -->
+    <script>
+        // --- IMPORTANT ---
+        // This should match your GitHub repository name.
+        const repoName = 'theobennett.github.io'; 
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? `/${repoName}/` : '/';
+        document.write(`<base href="${basePath}">`);
+    </script>
+
     <title>Our Care Models | Altos Psychiatry</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
