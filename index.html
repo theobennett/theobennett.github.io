@@ -1,83 +1,42 @@
-<header class="main-header">
-    <div class="container header-container">
-        <!-- CORRECTED: Using your SVG logo. I have removed the fill="white" so CSS can control the color. -->
-        <a href="/" class="logo">
-            <svg width="340" height="80" viewBox="0 0 340 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g>
-                    <rect x="15" y="45" width="8" height="30"/>
-                    <polygon points="19,7 7,50 21,42 11,56 27,37 22,64 25,64 24,40 29,60 29,37 39,53 29,30 33,39 19,7"/>
-                </g>
-                <text x="50" y="57" font-size="40" font-family="Montserrat, Arial, sans-serif" font-weight="900" letter-spacing="2">
-                    <tspan font-size="52">A</tspan><tspan font-size="40">LTOS </tspan>
-                    <tspan font-size="52">P</tspan><tspan font-size="40">SYCHIATRY</tspan>
-                </text>
-            </svg>
-        </a>
-        
-        <nav class="main-nav" id="main-nav">
-            <ul>
-                <!-- 1. Why Altos (Dropdown) -->
-                <li class="dropdown">
-                    <a href="/why-altos/about-us.html" class="dropbtn">Why Altos
-                        <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="/why-altos/about-us.html">Our Story</a>
-                        <a href="/for-patients.html">For Patients & Families</a>
-                        <a href="/for-providers.html">For Providers</a>
-                        <a href="/why-altos/our-providers.html">Our Providers</a>
-                    </div>
-                </li>
-
-                <!-- 2. Our Services (Dropdown) -->
-                <li class="dropdown">
-                    <a href="/services.html" class="dropbtn">Our Services
-                        <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="/services.html">Services Overview</a>
-                        <a href="/services/care-models.html">Care Models</a>
-                        <a href="/services/tms.html">TMS Therapy</a>
-                        <a href="/services/psychotherapy.html">Psychotherapy</a>
-                        <a href="/services/medication-management.html">Medication Management</a>
-                        <a href="/services/psychedelics.html">Psychedelic-Assisted Therapy</a>
-                    </div>
-                </li>
-                
-                <!-- 3. What We Treat (Dropdown) -->
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">What We Treat
-                        <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="/conditions/depression.html">Depression</a>
-                        <a href="/conditions/anxiety.html">Anxiety Disorders</a>
-                        <a href="/conditions/treatment-resistant-depression.html">Treatment-Resistant Depression</a>
-                        <a href="/conditions/bipolar-disorder.html">Bipolar Disorder</a>
-                        <a href="/conditions/ptsd-trauma.html">Trauma & PTSD</a>
-                        <a href="/conditions/ocd.html">OCD</a>
-                        <a href="/conditions/adhd.html">ADHD</a>
-                        <a href="/conditions/substance-use.html">Substance Use Disorder</a>
-                        <a href="/conditions/sleep-order.html">Sleep Disorders</a>
-                        <a href="/conditions/schizophrenia.html">Schizophrenia</a>
-                    </div>
-                </li>
-
-                <!-- 4. Resources (Dropdown) -->
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Resources
-                        <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="/resources/faq.html">FAQs</a>
-                        <a href="/resources/testimonials.html">Patient Stories</a>
-                        <a href="/resources/contact.html">Contact Us</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-
-        <!-- 5. "Start Your Journey" Button -->
-        <a href="/get-started.html" class="btn btn-primary" id="header-cta-btn">Start Your Journey</a>
-    </div>
-</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- This script is essential for GitHub Pages pathing -->
+    <script>
+        const repoName = 'theobennett.github.io'; 
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? `/${repoName}/` : '/';
+        document.write(`<base href="${basePath}">`);
+    </script>
+    
+    <title>Altos Psychiatry | Personalized Mental Wellness</title>
+    
+    <!-- CORRECTED: The path is now relative (no leading slash) -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <main>
+        <section class="video-hero">
+            <div class="hero-content fade-in-element">
+                <h1>A Data-Driven Approach<br>to Mental Wellness</h1>
+                <p>Leveraging clinical expertise honed at Stanford and other world-class institutions, Altos Psychiatry provides a discreet, personalized, and evidence-based path to lasting mental well-being.</p>
+                <!-- Path is relative -->
+                <a href="get-started.html" class="btn btn-primary">Start Your Journey</a>
+            </div>
+            <video autoplay muted loop playsinline class="background-video">
+                <!-- Path is relative -->
+                <source src="media/big_sur_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        <!-- ... rest of your index.html content ... -->
+    </main>
+    <div id="footer-placeholder"></div>
+    <!-- Path is relative -->
+    <script src="js/main.js"></script>
+</body>
+</html>
