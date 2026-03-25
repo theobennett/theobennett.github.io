@@ -1,6 +1,6 @@
 /**
  * Altos Psychiatry - Main Application Script
- *
+ **
  * This script is structured in a modular "App" object to keep code organized,
  * maintainable, and prevent pollution of the global namespace.
  *
