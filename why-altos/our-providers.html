@@ -3,55 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- NEW: This script sets the correct base path for all links and resources. -->
+    <script>
+        // --- IMPORTANT ---
+        // This should match your GitHub repository name.
+        const repoName = 'theobennett.github.io'; 
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? `/${repoName}/` : '/';
+        document.write(`<base href="${basePath}">`);
+    </script>
+
     <title>Our Providers | Altos Psychiatry</title>
-    <link rel="stylesheet" href="/theobennett.github.io/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
     <div id="header-placeholder"></div>
 
-    <main>
-        <header class="page-header">
-            <div class="container">
-                <h1>Meet Our Expert Team</h1>
-            </div>
-        </header>
+    <div class="page-wrapper">
+        <main>
+            <header class="page-header">
+                <div class="container">
+                    <h1>Meet Our Expert Team</h1>
+                </div>
+            </header>
 
-        <section class="content-section">
-            <div class="container">
-                <p style="text-align: center; max-width: 800px; margin: 0 auto 50px auto; font-size: 1.2rem;">Altos Psychiatry is led by a team of dedicated, forward-thinking providers committed to patient-centered care. Get to know the experts who will be guiding your journey.</p>
-                <div class="grid-3">
-                    <!-- Provider 1 -->
-                    <div class="provider-card card">
-                        <img src="/theobennett.github.io/images/provider-1.jpg" alt="Photo of Dr. Anya Sharma">
-                        <h3>Dr. Anya Sharma, MD</h3>
-                        <p>Founder & Psychiatrist</p>
-                        <!-- Updated link to new location -->
-                        <a href="/theobennett.github.io/why-altos/providers/provider-1.html" class="btn btn-primary">View Bio</a>
-                    </div>
-                    <!-- Provider 2 -->
-                    <div class="provider-card card">
-                        <img src="/theobennett.github.io/images/provider-2.jpg" alt="Photo of Ben Carter">
-                        <h3>Ben Carter, PMHNP</h3>
-                        <p>Psychiatric Nurse Practitioner</p>
-                        <!-- Updated link to new location -->
-                        <a href="/theobennett.github.io/why-altos/providers/provider-2.html" class="btn btn-primary">View Bio</a>
-                    </div>
-                    <!-- Provider 3 -->
-                    <div class="provider-card card">
-                        <img src="/theobennett.github.io/images/provider-3.jpg" alt="Photo of Dr. Maria Flores">
-                        <h3>Dr. Maria Flores, PhD</h3>
-                        <p>Lead Therapist & TMS Specialist</p>
-                        <!-- Updated link to new location -->
-                        <a href="/theobennett.github.io/why-altos/providers/provider-3.html" class="btn btn-primary">View Bio</a>
+            <section class="content-section">
+                <div class="container">
+                    <p style="text-align: center; max-width: 800px; margin: 0 auto 50px auto; font-size: 1.2rem;">Altos Psychiatry is led by a team of dedicated, forward-thinking providers committed to patient-centered care. Get to know the experts who will be guiding your journey.</p>
+                    
+                    <div class="grid-3">
+                        <!-- Provider 1 -->
+                        <div class="provider-card card">
+                            <img src="/images/provider-1.jpg" alt="Photo of Dr. Anya Sharma">
+                            <h3>Dr. Anya Sharma, MD</h3>
+                            <p>Founder & Psychiatrist</p>
+                            <!-- CORRECTED PATH: Points to a future bio page -->
+                            <a href="/why-altos/providers/provider-1.html" class="btn btn-primary">View Bio</a>
+                        </div>
+                        <!-- Provider 2 -->
+                        <div class="provider-card card">
+                            <img src="/images/provider-2.jpg" alt="Photo of Ben Carter">
+                            <h3>Ben Carter, PMHNP</h3>
+                            <p>Psychiatric Nurse Practitioner</p>
+                            <!-- CORRECTED PATH: Points to a future bio page -->
+                            <a href="/why-altos/providers/provider-2.html" class="btn btn-primary">View Bio</a>
+                        </div>
+                        <!-- Provider 3 -->
+                        <div class="provider-card card">
+                            <img src="/images/provider-3.jpg" alt="Photo of Dr. Maria Flores">
+                            <h3>Dr. Maria Flores, PhD</h3>
+                            <p>Lead Therapist & TMS Specialist</p>
+                            <!-- CORRECTED PATH: Points to a future bio page -->
+                            <a href="/why-altos/providers/provider-3.html" class="btn btn-primary">View Bio</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
+    </div>
     
     <div id="footer-placeholder"></div>
-    <script src="/theobennett.github.io/js/main.js"></script>
+    <script src="/js/main.js"></script>
 
 </body>
 </html>
