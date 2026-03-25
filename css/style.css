@@ -27,10 +27,7 @@ h2 { font-size: clamp(2rem, 4vw + 1rem, 3rem); }
 p { font-size: clamp(1rem, 0.5vw + 0.9rem, 1.1rem); }
 a { text-decoration: none; transition: color 0.3s ease; }
 
-/* --- 3. THE HEADER FIX (Corrected & Validated) --- */
-/* Your header logic is excellent. It correctly uses a fixed position and relies on a 'scrolled' 
-   class (to be added via JavaScript) to change its appearance. The only fix needed was
-   for an undefined CSS variable in the dropdown menu. */
+/* --- 3. Header --- */
 .main-header {
     position: fixed;
     top: 0;
@@ -53,7 +50,6 @@ a { text-decoration: none; transition: color 0.3s ease; }
 }
 .logo { font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem; }
 
-/* Text color logic is correct: white on top, dark when scrolled */
 .main-header a { color: var(--color-text-light); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
 .main-header.scrolled a, .main-header.scrolled .logo { color: var(--color-text-dark); text-shadow: none; }
 .main-header.scrolled .dropdown-arrow { color: var(--color-text-dark); }
@@ -63,65 +59,82 @@ a { text-decoration: none; transition: color 0.3s ease; }
 .dropbtn { display: flex; align-items: center; gap: 6px; }
 .dropdown-arrow { transition: transform 0.3s ease; }
 .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+
+/* --- NEW DROPDOWN STYLES --- */
 .dropdown-content {
-    opacity: 0; visibility: hidden; position: absolute; left: 50%;
-    transform: translate(-50%, 10px); top: 100%; margin-top: 1rem;
+    opacity: 0; 
+    visibility: hidden; 
+    position: absolute; 
+    left: 50%;
+    transform: translate(-50%, 10px); 
+    top: 100%; 
+    margin-top: 1rem;
     
-    /* --- FIX --- */
-    /* Changed 'var(--color-white)' to 'var(--color-bg-light)' because --color-white was 
-       not defined. Using --color-bg-light is consistent with the scrolled header's base color. */
-    background-color: var(--color-bg-light);
+    /* Visuals */
+    background-color: rgba(249, 249, 249, 0.95); /* Off-white with transparency */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-medium); 
+    border: 1px solid rgba(0,0,0,0.07);
     
-    min-width: 240px;
-    box-shadow: var(--shadow-medium); z-index: 1; border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.07); padding: 8px;
-    transition: all 0.3s ease;
+    /* Asymmetrical Shape from Amae example */
+    border-radius: 8px 24px 8px 24px;
+
+    min-width: 260px;
+    padding: 12px;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    z-index: 1001; /* Ensure it's above everything */
 }
-.dropdown-content a { color: var(--color-text-dark); display: block; padding: 10px 15px; border-radius: 8px; }
-.dropdown-content a:hover { background-color: rgba(0,0,0,0.04); color: var(--color-primary); }
-.dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.dropdown-content a { 
+    color: var(--color-text-dark); /* Dark text for readability */
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    display: block; 
+    padding: 12px 20px; 
+    border-radius: 8px; /* Slightly rounded corners for links inside */
+    text-shadow: none; /* Ensure no text shadow from header is inherited */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.dropdown-content a:hover { 
+    background-color: rgba(0,0,0,0.05); /* Subtle hover effect */
+    color: var(--color-primary); 
+}
+.dropdown:hover .dropdown-content { 
+    opacity: 1; 
+    visibility: visible; 
+    transform: translate(-50%, 0); 
+}
 
 /* --- 4. Buttons & Page Structure --- */
 .btn { display: inline-block; padding: 12px 28px; border-radius: 50px; font-weight: 600; font-family: var(--font-heading); text-decoration: none; transition: all 0.3s ease; border: 1px solid transparent; }
 .btn-primary { 
     background-color: var(--color-accent); 
-    
-    /* --- FIX --- */
-    /* Changed 'var(--color-white)' to 'var(--color-text-light)' for consistency, as --color-white 
-       was not defined and --color-text-light is the designated variable for white. */
     color: var(--color-text-light);
-
     text-shadow: none !important;
 }
 .btn-primary:hover { background-color: #5a7569; transform: translateY(-2px); box-shadow: var(--shadow-soft); }
-.page-wrapper { padding-top: 0; /* Correct: No padding needed as the hero section handles the initial view. */ }
+.page-wrapper { padding-top: 120px; /* Provides space for fixed header */ }
 
-/* --- 5. THE VIDEO HERO FIX (Refined & Validated) --- */
-/* Your implementation here is already correct and robust for a full-screen hero that scrolls with the page.
-   The "fix" is to add comments validating the approach and make a minor refinement for clarity. */
+/* --- 5. Hero Sections --- */
 .video-hero {
-    /* VALIDATION: Using relative positioning is the correct choice for a hero section that
-       is part of the normal document flow and scrolls away with the page. */
     position: relative; 
     height: 100vh;
-    height: 100dvh; /* dvh is a great modern unit that accounts for mobile browser UI bars. */
+    height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-text-light);
-    overflow: hidden; /* Ensures nothing (like a slightly oversized video) spills out. */
+    overflow: hidden;
 }
 .background-video {
-    /* VALIDATION: Absolute positioning within the 'relative' parent is the key.
-       This makes the video a background layer for the .video-hero section. */
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centers the video to handle various aspect ratios. */
-    min-width: 100%; /* Ensures the video always covers the width... */
-    min-height: 100%; /* ...and the height, working with object-fit. */
-    object-fit: cover; /* Crucial: Scales the video to cover the container without distortion. */
-    z-index: -2; /* Places it behind the overlay and content. */
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: -2;
 }
 .video-hero::after {
     content: '';
@@ -130,29 +143,105 @@ a { text-decoration: none; transition: color 0.3s ease; }
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(10, 25, 47, 0.6); /* Slightly increased opacity for better text readability. */
-    z-index: -1; /* Sits on top of video, behind content. This layering is perfect. */
+    background: rgba(10, 25, 47, 0.6);
+    z-index: -1;
 }
 .hero-content {
-    position: relative; /* Not strictly necessary but good practice. */
+    position: relative;
     z-index: 1;
     max-width: 800px;
-    padding: 0 24px; /* Adds padding on mobile if content gets too wide. */
-    /* REFINEMENT: Moved text-align here for better specificity. */
+    padding: 0 24px;
     text-align: center;
 }
 .hero-content h1, .hero-content p { color: var(--color-text-light); }
 .hero-content p { font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 2rem auto; }
 
-/* --- Styles for other sections --- */
+/* --- 6. Content & General Page Styles --- */
 .content-section { padding: 100px 0; }
 .colored-section { background-color: var(--color-primary); color: var(--color-text-light); }
-.colored-section h2 { color: var(--color-text-light); }
+.colored-section h2, .colored-section h3, .colored-section p, .colored-section a { color: var(--color-text-light); }
+.page-header { padding: 60px 0; text-align: center; }
 
-/* --- 6. Mobile & Responsive --- */
+/* --- 7. Mobile & Responsive --- */
 @media (max-width: 900px) {
-    .main-nav { display: none; } 
+    .header-container { flex-wrap: wrap; justify-content: center; row-gap: 1rem; }
     #header-cta-btn { display: none; }
-    /* You would add your .nav-toggle styles here */
-    /* .nav-toggle { display: block; } */
+    .main-nav ul { flex-wrap: wrap; justify-content: center; }
+}
+
+/* --- 8. Components & Utilities --- */
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent) !important; 
+    text-shadow: none !important;
+}
+.btn-outline:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-light) !important;
+}
+.btn-outline[aria-disabled="true"] {
+    border-color: #cccccc;
+    color: #cccccc !important;
+    pointer-events: none;
+    cursor: default;
+}
+.info-box {
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    border-left: 5px solid;
+    border-radius: 4px;
+}
+.info-box.warning {
+    background-color: #fffbe6;
+    border-color: #f59e0b;
+    color: #92400e;
+}
+.info-box.warning p, .info-box.warning strong {
+    color: #92400e;
+}
+.info-box strong {
+    font-weight: 600;
+}
+
+/* --- 9. Layouts & Grids --- */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* --- 10. Card Component --- */
+.card {
+    background-color: var(--color-text-light); /* White */
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+.card p {
+    margin-bottom: 1.5rem;
+    color: #666;
+}
+.card a {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+.provider-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 4px solid var(--color-bg-light);
+    box-shadow: var(--shadow-soft);
 }
