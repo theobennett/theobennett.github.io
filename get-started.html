@@ -1,8 +1,19 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- NEW: This script sets the correct base path for all links and resources. -->
+    <script>
+        // --- IMPORTANT ---
+        // SET this to your GitHub repository name.
+        const repoName = 'theobennett.github.io'; 
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? `/${repoName}/` : '/';
+        document.write(`<base href="${basePath}">`);
+    </script>
+
     <title>Start Your Journey | Altos Psychiatry</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -18,7 +29,6 @@
                     </div>
 
                     <form id="consultation-form" class="form-container">
-                        <!-- All questions from pacificmindhealth.com/new-patient/ are replicated here -->
                         <fieldset class="form-fieldset">
                             <legend>Patient Information</legend>
                             <div class="form-group"><label for="firstName">First Name *</label><input type="text" id="firstName" name="firstName" required></div>
@@ -65,7 +75,6 @@
         e.preventDefault();
         loader.style.display = 'block';
         
-        // IMPORTANT: Replace this URL with your own Google Apps Script URL
         const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
         const formData = new FormData(form);
 
