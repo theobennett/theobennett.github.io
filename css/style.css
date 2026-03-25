@@ -48,17 +48,21 @@ a { text-decoration: none; transition: color 0.3s ease; }
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     box-shadow: var(--shadow-soft);
 }
-.logo { font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem; }
+.logo { display: flex; align-items: center; } /* Ensures vertical alignment */
 
-/* --- NEW: Logo Image Styling --- */
-.logo img {
-    max-height: 35px; /* Controls the height of the logo */
+/* --- NEW: SVG Logo Styling --- */
+.logo svg {
+    height: 40px; /* Controls the height of the logo */
     width: auto;      /* Maintains the correct aspect ratio */
-    display: block;   /* Removes any extra space below the image */
+    fill: currentColor; /* Inherits color (white or blue) from parent link */
+}
+.logo svg text {
+    font-family: var(--font-heading); /* Match site branding */
+    font-weight: normal;
 }
 
 .main-header a { color: var(--color-text-light); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
-.main-header.scrolled a, .main-header.scrolled .logo { color: var(--color-text-dark); text-shadow: none; }
+.main-header.scrolled a, .main-header.scrolled .logo { color: var(--color-primary); text-shadow: none; }
 .main-header.scrolled .dropdown-arrow { color: var(--color-text-dark); }
 
 .main-nav ul { margin: 0; padding: 0; list-style: none; display: flex; align-items: center; }
@@ -77,33 +81,29 @@ a { text-decoration: none; transition: color 0.3s ease; }
     top: 100%; 
     margin-top: 1rem;
     
-    /* Visuals */
-    background-color: rgba(249, 249, 249, 0.95); /* Off-white with transparency */
+    background-color: rgba(249, 249, 249, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: var(--shadow-medium); 
     border: 1px solid rgba(0,0,0,0.07);
-    
-    /* Asymmetrical Shape from Amae example */
     border-radius: 8px 24px 8px 24px;
-
     min-width: 260px;
     padding: 12px;
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-    z-index: 1001; /* Ensure it's above everything */
+    z-index: 1001;
 }
 .dropdown-content a { 
-    color: var(--color-text-dark); /* Dark text for readability */
+    color: var(--color-text-dark);
     font-family: var(--font-heading);
     font-size: 1.1rem;
     display: block; 
     padding: 12px 20px; 
-    border-radius: 8px; /* Slightly rounded corners for links inside */
-    text-shadow: none; /* Ensure no text shadow from header is inherited */
+    border-radius: 8px;
+    text-shadow: none;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 .dropdown-content a:hover { 
-    background-color: rgba(0,0,0,0.05); /* Subtle hover effect */
+    background-color: rgba(0,0,0,0.05);
     color: var(--color-primary); 
 }
 .dropdown:hover .dropdown-content { 
@@ -120,7 +120,7 @@ a { text-decoration: none; transition: color 0.3s ease; }
     text-shadow: none !important;
 }
 .btn-primary:hover { background-color: #5a7569; transform: translateY(-2px); box-shadow: var(--shadow-soft); }
-.page-wrapper { padding-top: 120px; /* Provides space for fixed header */ }
+.page-wrapper { padding-top: 120px; }
 
 /* --- 5. Hero Sections --- */
 .video-hero {
@@ -220,7 +220,7 @@ a { text-decoration: none; transition: color 0.3s ease; }
 
 /* --- 10. Card Component --- */
 .card {
-    background-color: var(--color-text-light); /* White */
+    background-color: var(--color-text-light);
     border-radius: 12px;
     box-shadow: var(--shadow-soft);
     padding: 2rem;
