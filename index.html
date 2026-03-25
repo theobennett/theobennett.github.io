@@ -3,19 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- This script is essential for GitHub Pages pathing -->
-    <script>
-        const repoName = 'theobennett.github.io'; 
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const basePath = isGitHubPages ? `/${repoName}/` : '/';
-        document.write(`<base href="${basePath}">`);
-    </script>
-    
     <title>Altos Psychiatry | Personalized Mental Wellness</title>
-    
-    <!-- CORRECTED: The path is now relative (no leading slash) -->
-    <link rel="stylesheet" href="css/style.css">
+    <!-- CORRECTED: Absolute path, starting with / -->
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div id="header-placeholder"></div>
@@ -24,19 +14,34 @@
             <div class="hero-content fade-in-element">
                 <h1>A Data-Driven Approach<br>to Mental Wellness</h1>
                 <p>Leveraging clinical expertise honed at Stanford and other world-class institutions, Altos Psychiatry provides a discreet, personalized, and evidence-based path to lasting mental well-being.</p>
-                <!-- Path is relative -->
-                <a href="get-started.html" class="btn btn-primary">Start Your Journey</a>
+                <a href="/get-started.html" class="btn btn-primary">Start Your Journey</a>
             </div>
             <video autoplay muted loop playsinline class="background-video">
-                <!-- Path is relative -->
-                <source src="media/big_sur_video.mp4" type="video/mp4">
+                <source src="/media/big_sur_video.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </section>
-        <!-- ... rest of your index.html content ... -->
+
+        <section class="content-section">
+            <div class="container fade-in-element" style="text-align: center; max-width: 700px; margin: 0 auto;">
+                <h2>The Altos Method: Precision & Personalization</h2>
+                <p>Our methodology combines a deep understanding of neurobiology with compassionate, patient-centered care. We don't just treat symptoms; we build a comprehensive understanding of you as an individual to create a truly personalized treatment plan.</p>
+            </div>
+        </section>
+        
+        <section class="video-hero" style="height: 70vh;">
+            <div class="hero-content fade-in-element">
+                <h2>Your Path to Clarity Begins Here.</h2>
+                <p>We provide the tools, expertise, and support to help you navigate your journey with confidence.</p>
+            </div>
+             <video autoplay muted loop playsinline class="background-video">
+                <source src="/media/big_sur_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
     </main>
     <div id="footer-placeholder"></div>
-    <!-- Path is relative -->
-    <script src="js/main.js"></script>
+    <!-- CORRECTED: Absolute path, starting with / -->
+    <script src="/js/main.js"></script>
 </body>
 </html>
