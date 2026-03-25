@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- COMPONENT LOADING ---
         loadComponents() {
             const load = (url, placeholderId, callback) => {
+                // CORRECTED PATHS: Removed leading slashes from URLs
                 fetch(url)
                     .then(response => response.ok ? response.text() : Promise.reject(`File not found: ${url}`))
                     .then(data => {
@@ -44,13 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             // Load header, then initialize header-dependent scripts
-            load('/header.html', 'header-placeholder', () => {
+            load('header.html', 'header-placeholder', () => {
                 this.initMobileMenu();
                 this.initHeaderScroll();
             });
 
             // Load footer
-            load('/footer.html', 'footer-placeholder');
+            load('footer.html', 'footer-placeholder');
         },
 
         // --- UI FEATURE: ADVANCED MOBILE MENU ---
@@ -125,24 +126,4 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         // Deactivate all items in this group
                         items.forEach(i => {
-                            i.querySelector('.accordion-button').classList.remove('active');
-                            i.querySelector('.accordion-content').style.maxHeight = null;
-                        });
-
-                        // Toggle the clicked item
-                        if (!isCurrentlyActive) {
-                            button.classList.add('active');
-                            content.style.maxHeight = content.scrollHeight + "px";
-                        } else {
-                            button.classList.remove('active');
-                            content.style.maxHeight = null;
-                        }
-                    });
-                });
-            });
-        }
-    };
-
-    // Run the application
-    App.init();
-});
+                            i.querySelector('.accordion-button
