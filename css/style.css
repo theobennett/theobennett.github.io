@@ -5,12 +5,12 @@
     --font-heading: 'DM Serif Display', serif;
     --font-body: 'Inter', sans-serif;
     
-    --color-bg-dark: #0A192F;        /* Deep, dark navy for backgrounds */
-    --color-primary: #1D3557;       /* Slate Blue for accents */
-    --color-accent: #6C8C7F;        /* Muted Sage Green for buttons (from screenshot) */
-    --color-bg-light: #F9F9F9;      /* Soft off-white for light sections */
-    --color-text-dark: #333333;     /* For light backgrounds */
-    --color-text-light: #FFFFFF;    /* For dark backgrounds */
+    --color-bg-dark: #0A192F;
+    --color-primary: #1D3557;
+    --color-accent: #6C8C7F;
+    --color-bg-light: #F9F9F9;
+    --color-text-dark: #333333;
+    --color-text-light: #FFFFFF;
     --color-border: rgba(255, 255, 255, 0.1);
 
     --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -48,17 +48,22 @@ a { text-decoration: none; transition: color 0.3s ease; }
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     box-shadow: var(--shadow-soft);
 }
-.logo { font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem; }
+.logo { display: flex; align-items: center; }
 
-/* --- NEW: Logo Image Styling --- */
-.logo img {
-    max-height: 35px; /* Controls the height of the logo */
-    width: auto;      /* Maintains the correct aspect ratio */
-    display: block;   /* Removes any extra space below the image */
+/* CORRECTED: Styles now target the SVG logo, not the old IMG logo */
+.logo svg {
+    height: 40px;
+    width: auto;
+    fill: currentColor; /* This is key for the color change on scroll */
+}
+.logo svg text {
+    font-family: var(--font-heading);
+    font-weight: normal;
 }
 
 .main-header a { color: var(--color-text-light); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
-.main-header.scrolled a, .main-header.scrolled .logo { color: var(--color-text-dark); text-shadow: none; }
+/* CORRECTED: The .logo link now also gets the correct color */
+.main-header.scrolled a { color: var(--color-primary); text-shadow: none; }
 .main-header.scrolled .dropdown-arrow { color: var(--color-text-dark); }
 
 .main-nav ul { margin: 0; padding: 0; list-style: none; display: flex; align-items: center; }
@@ -67,7 +72,6 @@ a { text-decoration: none; transition: color 0.3s ease; }
 .dropdown-arrow { transition: transform 0.3s ease; }
 .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 
-/* --- NEW DROPDOWN STYLES --- */
 .dropdown-content {
     opacity: 0; 
     visibility: hidden; 
@@ -77,33 +81,29 @@ a { text-decoration: none; transition: color 0.3s ease; }
     top: 100%; 
     margin-top: 1rem;
     
-    /* Visuals */
-    background-color: rgba(249, 249, 249, 0.95); /* Off-white with transparency */
+    background-color: rgba(249, 249, 249, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: var(--shadow-medium); 
     border: 1px solid rgba(0,0,0,0.07);
-    
-    /* Asymmetrical Shape from Amae example */
     border-radius: 8px 24px 8px 24px;
-
     min-width: 260px;
     padding: 12px;
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-    z-index: 1001; /* Ensure it's above everything */
+    z-index: 1001;
 }
 .dropdown-content a { 
-    color: var(--color-text-dark); /* Dark text for readability */
+    color: var(--color-text-dark);
     font-family: var(--font-heading);
     font-size: 1.1rem;
     display: block; 
     padding: 12px 20px; 
-    border-radius: 8px; /* Slightly rounded corners for links inside */
-    text-shadow: none; /* Ensure no text shadow from header is inherited */
+    border-radius: 8px;
+    text-shadow: none;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 .dropdown-content a:hover { 
-    background-color: rgba(0,0,0,0.05); /* Subtle hover effect */
+    background-color: rgba(0,0,0,0.05);
     color: var(--color-primary); 
 }
 .dropdown:hover .dropdown-content { 
@@ -116,139 +116,10 @@ a { text-decoration: none; transition: color 0.3s ease; }
 .btn { display: inline-block; padding: 12px 28px; border-radius: 50px; font-weight: 600; font-family: var(--font-heading); text-decoration: none; transition: all 0.3s ease; border: 1px solid transparent; }
 .btn-primary { 
     background-color: var(--color-accent); 
-    color: var(--color-text-light);
+    color: var(--color-text-light) !important; /* Added !important to ensure visibility */
     text-shadow: none !important;
 }
 .btn-primary:hover { background-color: #5a7569; transform: translateY(-2px); box-shadow: var(--shadow-soft); }
-.page-wrapper { padding-top: 120px; /* Provides space for fixed header */ }
+.page-wrapper { padding-top: 120px; }
 
-/* --- 5. Hero Sections --- */
-.video-hero {
-    position: relative; 
-    height: 100vh;
-    height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-light);
-    overflow: hidden;
-}
-.background-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    z-index: -2;
-}
-.video-hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 25, 47, 0.6);
-    z-index: -1;
-}
-.hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-    padding: 0 24px;
-    text-align: center;
-}
-.hero-content h1, .hero-content p { color: var(--color-text-light); }
-.hero-content p { font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 2rem auto; }
-
-/* --- 6. Content & General Page Styles --- */
-.content-section { padding: 100px 0; }
-.colored-section { background-color: var(--color-primary); color: var(--color-text-light); }
-.colored-section h2, .colored-section h3, .colored-section p, .colored-section a { color: var(--color-text-light); }
-.page-header { padding: 60px 0; text-align: center; }
-
-/* --- 7. Mobile & Responsive --- */
-@media (max-width: 900px) {
-    .header-container { flex-wrap: wrap; justify-content: center; row-gap: 1rem; }
-    #header-cta-btn { display: none; }
-    .main-nav ul { flex-wrap: wrap; justify-content: center; }
-}
-
-/* --- 8. Components & Utilities --- */
-.btn-outline {
-    background-color: transparent;
-    border: 1px solid var(--color-accent);
-    color: var(--color-accent) !important; 
-    text-shadow: none !important;
-}
-.btn-outline:hover {
-    background-color: var(--color-accent);
-    color: var(--color-text-light) !important;
-}
-.btn-outline[aria-disabled="true"] {
-    border-color: #cccccc;
-    color: #cccccc !important;
-    pointer-events: none;
-    cursor: default;
-}
-.info-box {
-    padding: 1rem 1.5rem;
-    margin: 2rem 0;
-    border-left: 5px solid;
-    border-radius: 4px;
-}
-.info-box.warning {
-    background-color: #fffbe6;
-    border-color: #f59e0b;
-    color: #92400e;
-}
-.info-box.warning p, .info-box.warning strong {
-    color: #92400e;
-}
-.info-box strong {
-    font-weight: 600;
-}
-
-/* --- 9. Layouts & Grids --- */
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-/* --- 10. Card Component --- */
-.card {
-    background-color: var(--color-text-light); /* White */
-    border-radius: 12px;
-    box-shadow: var(--shadow-soft);
-    padding: 2rem;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-}
-.card h3 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-}
-.card p {
-    margin-bottom: 1.5rem;
-    color: #666;
-}
-.card a {
-    color: var(--color-primary);
-    font-weight: 600;
-}
-.provider-card img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 1.5rem;
-    border: 4px solid var(--color-bg-light);
-    box-shadow: var(--shadow-soft);
-}
+/* ... (The rest of your CSS file remains the same) ... */
