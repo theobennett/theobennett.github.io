@@ -1,11 +1,21 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- The Title will be the only thing you change in the head -->
-    <title>Page Title | Altos Psychiatry</title>
-    <link rel="stylesheet" href="/theobennett.github.io/css/style.css">
+
+    <!-- NEW: This script sets the correct base path for all links and resources. -->
+    <script>
+        // --- IMPORTANT ---
+        // SET this to your GitHub repository name.
+        const repoName = 'theobennett.github.io'; 
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? `/${repoName}/` : '/';
+        document.write(`<base href="${basePath}">`);
+    </script>
+    
+    <title>Patient Resources | Altos Psychiatry</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -35,11 +45,13 @@
                 -->
             </div>
         </section>
+    </main>
+
    <!-- Placeholder for the footer -->
     <div id="footer-placeholder"></div>
 
     <!-- Script to load the header and footer -->
-    <script src="/theobennett.github.io/js/main.js"></script>
+    <script src="/js/main.js"></script>
 
 </body>
 </html>
