@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- NEW: This script sets the correct base path for all links and resources. -->
+    <script>
+        // --- IMPORTANT ---
+        // SET this to your GitHub repository name.
+        const repoName = 'theobennett.github.io'; 
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? `/${repoName}/` : '/';
+        document.write(`<base href="${basePath}">`);
+    </script>
+    
     <title>Altos Psychiatry | Personalized Mental Wellness</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div id="header-placeholder"></div>
 
-    <!-- No page-wrapper needed on homepage as hero is the full background -->
     <main>
-        <!-- 1. Video Hero Section -->
         <section class="video-hero">
             <div class="hero-content fade-in-element">
-                <!-- Heading with line breaks to match the screenshot -->
                 <h1>A Data-Driven Approach<br>to Mental Wellness</h1>
                 <p>Leveraging clinical expertise honed at Stanford and other world-class institutions, Altos Psychiatry provides a discreet, personalized, and evidence-based path to lasting mental well-being.</p>
                 <a href="/get-started.html" class="btn btn-primary">Start Your Journey</a>
@@ -25,7 +33,6 @@
             </video>
         </section>
 
-        <!-- 2. "Our Approach" Section -->
         <section class="content-section">
             <div class="container fade-in-element" style="text-align: center; max-width: 700px; margin: 0 auto;">
                 <h2>The Altos Method: Precision & Personalization</h2>
@@ -33,7 +40,6 @@
             </div>
         </section>
         
-        <!-- 3. Second Video Section -->
         <section class="video-hero" style="height: 70vh;">
             <div class="hero-content fade-in-element">
                 <h2>Your Path to Clarity Begins Here.</h2>
