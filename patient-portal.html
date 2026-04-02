@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        const repoName = 'theobennett.github.io';
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? `/${repoName}/` : '/';
+        document.write(`<base href="${basePath}">`);
+    </script>
+
+    <title>Patient Portal | Altos Psychiatry</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-wrapper">
+        <main>
+            <section class="page-header">
+                <div class="container">
+                    <h1>Patient Portal</h1>
+                    <p style="color: var(--color-text-dark); max-width: 700px; margin: 1rem auto 0;">Manage your care, request appointments, and communicate securely with your provider.</p>
+                </div>
+            </section>
+
+            <!-- Existing patient login section -->
+            <section class="content-section">
+                <div class="container" style="max-width: 700px;">
+                    <h2 style="text-align: center; margin-bottom: 2rem;">For Existing Patients</h2>
+
+                    <div style="background-color: var(--color-bg-light); padding: 2rem; border-radius: 12px; border: 1px solid var(--color-border); text-align: center;">
+                        <p style="color: var(--color-text-dark); margin-bottom: 1.5rem; font-size: 1.05rem;">
+                            Access your patient portal through SimplePractice. Log in to schedule appointments, message your provider, request medication refills, and view your health records.
+                        </p>
+
+                        <a href="https://altos-psychiatry.simplepractice.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display: inline-block;">Access Your Portal</a>
+
+                        <p style="color: var(--color-text-dark); margin-top: 2rem; font-size: 0.95rem;">
+                            <strong>First time logging in?</strong> You'll receive an email invitation from SimplePractice. If you don't see it, check your spam folder or <a href="#" style="color: var(--color-accent); font-weight: 600;" onclick="alert('Contact: [your-email@altos.com]'); return false;">contact our staff.</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features section -->
+            <section class="content-section colored-section">
+                <div class="container" style="max-width: 800px;">
+                    <h2 style="color: var(--color-text-light); text-align: center; margin-bottom: 2rem;">What You Can Do in Your Portal</h2>
+
+                    <div class="grid-3">
+                        <div style="padding: 1.5rem; background-color: rgba(255,255,255,0.08); border-radius: 12px;">
+                            <h3 style="color: var(--color-text-light); margin-bottom: 1rem;">📅 Schedule & Manage Appointments</h3>
+                            <p style="color: var(--color-text-light); font-size: 0.95rem;">View your upcoming appointments, cancel or reschedule with ease. See available times and book directly if there are openings.</p>
+                        </div>
+
+                        <div style="padding: 1.5rem; background-color: rgba(255,255,255,0.08); border-radius: 12px;">
+                            <h3 style="color: var(--color-text-light); margin-bottom: 1rem;">💬 Secure Messaging</h3>
+                            <p style="color: var(--color-text-light); font-size: 0.95rem;">Send messages to your provider between appointments. Get responses usually within 24 hours. It's like having email with your psychiatrist.</p>
+                        </div>
+
+                        <div style="padding: 1.5rem; background-color: rgba(255,255,255,0.08); border-radius: 12px;">
+                            <h3 style="color: var(--color-text-light); margin-bottom: 1rem;">💊 Medication Refills</h3>
+                            <p style="color: var(--color-text-light); font-size: 0.95rem;">Request refills directly through the portal. We'll review and send to your pharmacy. No more phone calls.</p>
+                        </div>
+
+                        <div style="padding: 1.5rem; background-color: rgba(255,255,255,0.08); border-radius: 12px;">
+                            <h3 style="color: var(--color-text-light); margin-bottom: 1rem;">📋 View Your Records</h3>
+                            <p style="color: var(--color-text-light); font-size: 0.95rem;">Access your treatment notes, assessment results, and care summaries anytime. All your information in one place.</p>
+                        </div>
+
+                        <div style="padding: 1.5rem; background-color: rgba(255,255,255,0.08); border-radius: 12px;">
+                            <h3 style="color: var(--color-text-light); margin-bottom: 1rem;">📝 Complete Forms</h3>
+                            <p style="color: var(--color-text-light); font-size: 0.95rem;">Fill out intake forms, symptom check-ins, and surveys directly in the portal. Save time at your appointment.</p>
+                        </div>
+
+                        <div style="padding: 1.5rem; background-color: rgba(255,255,255,0.08); border-radius: 12px;">
+                            <h3 style="color: var(--color-text-light); margin-bottom: 1rem;">🔒 Secure & Private</h3>
+                            <p style="color: var(--color-text-light); font-size: 0.95rem;">All communication is HIPAA-encrypted. Your privacy and security are our top priority.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- New patient section -->
+            <section class="content-section">
+                <div class="container" style="max-width: 700px;">
+                    <h2 style="text-align: center; margin-bottom: 1rem;">New to Altos?</h2>
+                    <p style="text-align: center; color: var(--color-text-dark); margin-bottom: 2rem;">Ready to get started? Schedule your first appointment today.</p>
+
+                    <div style="background-color: var(--color-primary); color: var(--color-text-light); padding: 2rem; border-radius: 12px; text-align: center;">
+                        <h3 style="color: var(--color-text-light); margin-bottom: 1rem;">Request a Consultation</h3>
+                        <p style="color: var(--color-text-light); margin-bottom: 1.5rem; opacity: 0.95;">
+                            Tell us what's going on, and we'll find you an appointment within 1–2 weeks. No waitlists, no judgment.
+                        </p>
+                        <a href="/get-started.html" class="btn btn-primary">Start Your Journey</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Support section -->
+            <section class="content-section">
+                <div class="container" style="max-width: 700px;">
+                    <h2>Need Help with the Portal?</h2>
+
+                    <div style="margin-top: 2rem;">
+                        <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Common Issues</h3>
+
+                        <div style="margin-bottom: 2rem;">
+                            <p style="font-weight: 600; color: var(--color-text-dark); margin-bottom: 0.5rem;">I haven't received my login invitation</p>
+                            <p style="color: var(--color-text-dark); font-size: 0.95rem;">Check your spam folder first. If it's not there, contact our staff at <a href="#" style="color: var(--color-accent); font-weight: 600;" onclick="alert('[your-email@altos.com]'); return false;">[your-email@altos.com]</a> and we'll resend it.</p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <p style="font-weight: 600; color: var(--color-text-dark); margin-bottom: 0.5rem;">I forgot my password</p>
+                            <p style="color: var(--color-text-dark); font-size: 0.95rem;">On the SimplePractice login page, click "Forgot your password?" and follow the instructions to reset it. If you need help, contact us.</p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <p style="font-weight: 600; color: var(--color-text-dark); margin-bottom: 0.5rem;">I can't find my appointment history</p>
+                            <p style="color: var(--color-text-dark); font-size: 0.95rem;">Log in, go to "Appointments," and select "Past Appointments" to view your history.</p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <p style="font-weight: 600; color: var(--color-text-dark); margin-bottom: 0.5rem;">I have a technical issue</p>
+                            <p style="color: var(--color-text-dark); font-size: 0.95rem;">Try refreshing your browser or logging out and back in. If the problem persists, contact SimplePractice support directly (link available in your portal) or reach out to our staff.</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 1.5rem; background-color: var(--color-bg-light); border-radius: 8px; border-left: 4px solid var(--color-accent);">
+                        <p style="color: var(--color-text-dark); margin: 0;">
+                            <strong>Questions?</strong> Email us at <a href="#" style="color: var(--color-accent); font-weight: 600;" onclick="alert('[your-email@altos.com]'); return false;">[your-email@altos.com]</a> or call us. Our staff is here to help.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script src="/js/main.js"></script>
+</body>
+</html>
