@@ -1,82 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- NEW: This script sets the correct base path for all links and resources. -->
-    <script>
-        // --- IMPORTANT ---
-        // This should match your GitHub repository name.
-        const repoName = 'theobennett.github.io'; 
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const basePath = isGitHubPages ? `/${repoName}/` : '/';
-        document.write(`<base href="${basePath}">`);
-    </script>
-
-    <title>For Patients & Families | Altos Psychiatry</title>
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Patients &amp; Families | Altos Psychiatry</title>
+  <meta name="description" content="Everything you need to know before becoming a patient at Altos Psychiatry — what to expect, insurance, fees, and the patient portal.">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<div id="header-placeholder"></div>
+<div class="page-wrapper">
+<main>
 
-    <div id="header-placeholder"></div>
-
-    <div class="page-wrapper">
-        <main>
-            <header class="page-header">
-                <div class="container">
-                    <h1>For Patients & Families</h1>
-                </div>
-            </header>
-
-            <section class="content-section">
-                <div class="container" style="max-width: 800px;">
-                    <h2>Your Journey Starts Here</h2>
-                    <p>
-                    Taking the first step toward better mental health is a brave and important decision.
-                    We are here to make the process as clear and comfortable as possible.
-                    This page provides information about what to expect when you become a patient at Altos Psychiatry.
-                    </p>
-                    
-                    <h3>What to Expect on Your First Visit</h3>
-                    <p>
-                    Your initial appointment is a <strong>comprehensive 60–90 minute evaluation</strong>. 
-                    This is a conversation, not an interrogation. 
-                    We’ll discuss your current challenges, personal and family history, and treatment goals. 
-                    It’s a collaborative session designed to create a personalized plan that feels right for you.
-                    </p>
-
-                    <h3>Insurance & Fees</h3>
-                    <div class="info-box warning">
-                    <strong>Action Needed:</strong> 
-                    Update this section with insurance information, accepted plans, self-pay rates, and reimbursement procedures.
-                    </div>
-                    <p>
-                    Please replace this text with details about accepted insurance plans. 
-                    If you are out-of-network, explain how patients can obtain a superbill for insurance reimbursement. 
-                    List your self-pay rates (e.g., initial evaluation, follow-up, therapy session).
-                    </p>
-
-                    <h3>Patient Portal</h3>
-                    <div class="info-box warning">
-                    <strong>Action Needed:</strong>
-                    Add details about your patient portal, features, and a direct portal login link.
-                    </div>
-                    <p>
-                    If you use a patient portal (like SimplePractice, Charm, etc.), describe its benefits here. 
-                    Patients can schedule appointments, message providers, request refills, and view health records. 
-                    <br>
-                    <a href="#" class="btn btn-outline" aria-disabled="true">Patient Portal Login</a>
-                    </p>
-                    
-                    <br>
-                    <a href="/get-started.html" class="btn btn-primary">Request an Appointment</a>
-                </div>
-            </section>
-        </main>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow" style="color:var(--sage-light);">New Patients</p>
+      <h1>For Patients &amp; Families</h1>
+      <p>Everything you need to know before your first appointment — what to expect, how payment works, and how to reach us.</p>
     </div>
+  </section>
 
-    <div id="footer-placeholder"></div>
-    <script src="/js/main.js"></script>
+  <!-- FIRST VISIT -->
+  <section class="section section--light">
+    <div class="container" style="max-width:820px;">
+
+      <div class="split reveal" style="gap:3rem;margin-bottom:5rem;">
+        <div>
+          <span class="section-tag">The First Appointment</span>
+          <h2>What to expect</h2>
+          <p>Your initial evaluation is a <strong style="color:var(--ocean-deep);">60–90 minute conversation</strong> — not a questionnaire, not a checklist. We want to understand your full picture: what you're experiencing now, your history, your goals, and what has and hasn't worked before.</p>
+          <p style="margin-top:1rem;">By the end of that first session, you'll have our clinical assessment and a proposed treatment plan to discuss. Nothing is decided without your input.</p>
+        </div>
+        <div style="background:var(--fog-dark);padding:2rem;border-left:3px solid var(--ocean-mist);">
+          <h4 style="margin-bottom:1.25rem;">What to bring</h4>
+          <ul style="display:flex;flex-direction:column;gap:0.75rem;">
+            <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--sage);font-size:0.9rem;margin-top:2px;">✓</span><span style="font-size:0.95rem;color:var(--stone);">A list of current medications and dosages</span></li>
+            <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--sage);font-size:0.9rem;margin-top:2px;">✓</span><span style="font-size:0.95rem;color:var(--stone);">Names of prior providers if you'd like records transferred</span></li>
+            <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--sage);font-size:0.9rem;margin-top:2px;">✓</span><span style="font-size:0.95rem;color:var(--stone);">Notes on what's helped and what hasn't — even informally</span></li>
+            <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--sage);font-size:0.9rem;margin-top:2px;">✓</span><span style="font-size:0.95rem;color:var(--stone);">Any questions you'd like to ask us</span></li>
+          </ul>
+          <p style="font-size:0.85rem;color:var(--pebble);margin-top:1.5rem;">Intake forms will be sent through our secure patient portal before your appointment. Please complete them at least 24 hours ahead if possible.</p>
+        </div>
+      </div>
+
+      <!-- FEES & INSURANCE -->
+      <div class="reveal mb-xl">
+        <span class="section-tag">Fees &amp; Insurance</span>
+        <h2 style="margin-bottom:1rem;">Private pay with superbills</h2>
+        <p>We are a private-pay practice, which means you pay at the time of service. We provide detailed <strong style="color:var(--ocean-deep);">superbills</strong> — receipts formatted for insurance reimbursement — for patients who wish to seek reimbursement from their PPO insurance carrier.</p>
+
+        <div class="info-box note" style="margin:2rem 0;">
+          <p><strong>Out-of-network reimbursement:</strong> If you have PPO insurance (common with Bay Area tech employers), you likely have out-of-network benefits that cover 50–80% of the allowable rate after your deductible is met. We recommend calling the member services number on the back of your insurance card and asking about your out-of-network mental health benefits before scheduling.</p>
+        </div>
+
+        <div style="background:var(--white);border:1px solid var(--fog-dark);overflow:hidden;border-radius:2px;margin-top:2rem;">
+          <table>
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Typical Duration</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Initial Evaluation</strong></td>
+                <td>60–90 min</td>
+                <td>Comprehensive psychiatric assessment</td>
+              </tr>
+              <tr>
+                <td>Follow-up (Complex)</td>
+                <td>30–50 min</td>
+                <td>Medication + therapy combined</td>
+              </tr>
+              <tr>
+                <td>Follow-up (Standard)</td>
+                <td>20–30 min</td>
+                <td>Medication management</td>
+              </tr>
+              <tr>
+                <td>Individual Therapy</td>
+                <td>50 min</td>
+                <td>Psychotherapy session</td>
+              </tr>
+              <tr>
+                <td>After-hours consult</td>
+                <td>Up to 15 min</td>
+                <td>Concierge plan; may incur visit fee if medication changed</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="disclaimer" style="margin-top:1rem;">Exact fees are provided during your intake call before you confirm your first appointment. All fees are due at the time of service.</p>
+      </div>
+
+      <!-- CARE TIERS -->
+      <div class="reveal mb-xl">
+        <span class="section-tag">Care Tiers</span>
+        <h2 style="margin-bottom:1rem;">Standard and Concierge Plans</h2>
+        <p>We offer two levels of care to match different needs and preferences.</p>
+
+        <div class="grid-2" style="margin-top:2rem;">
+          <div class="card">
+            <h4>Standard Plan</h4>
+            <h3 style="margin-bottom:1rem;">Core psychiatric care</h3>
+            <ul style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem;">
+              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);">
+                <span style="color:var(--sage);">✓</span> Medication management within appointments
+              </li>
+              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);">
+                <span style="color:var(--sage);">✓</span> Telehealth and in-person options
+              </li>
+              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);">
+                <span style="color:var(--sage);">✓</span> Refill requests within 1 business day
+              </li>
+              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);">
+                <span style="color:var(--sage);">✓</span> Secure patient portal messaging
+              </li>
+            </ul>
+          </div>
+          <div class="card" style="border-color:var(--ocean-mist);border-width:2px;">
+            <h4 style="color:var(--ocean);">Concierge Plan</h4>
+            <h3 style="margin-bottom:1rem;">Elevated access &amp; availability</h3>
+            <ul style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem;">
+              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);">
+                <span style="color:var(--ocean);">✓</span> Everything in Standard
+              </li>
+              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);">
+                <span style="color:var(--ocean);">✓</span> 24/7 nurse triage line
+              </li>
+              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);">
+                <span style="color:var(--ocean);">✓</span> After-hours MD support for urgent needs
+              </li>
+              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);">
+                <span style="color:var(--ocean);">✓</span> Extended scheduling (6 AM – 8 PM)
+              </li>
+              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);">
+                <span style="color:var(--ocean);">✓</span> Patient-preferred communication (text/phone)
+              </li>
+              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);">
+                <span style="color:var(--ocean);">✓</span> Same-day appointments (Premium add-on)
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p class="disclaimer" style="margin-top:1rem;">Concierge plan pricing is discussed during your intake call. Plans are billed monthly and can be cancelled with 30 days' notice.</p>
+      </div>
+
+      <!-- PATIENT PORTAL -->
+      <div class="reveal mb-xl">
+        <span class="section-tag">Patient Portal</span>
+        <h2 style="margin-bottom:1rem;">Your care, in one place</h2>
+        <p>We use <strong style="color:var(--ocean-deep);">SimplePractice</strong> as our patient management platform. Through your secure portal you can:</p>
+        <ul style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem 2rem;margin:1.5rem 0;">
+          <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);">✓</span> Schedule and manage appointments</li>
+          <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);">✓</span> Complete intake and consent forms</li>
+          <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);">✓</span> Securely message your provider</li>
+          <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);">✓</span> Access superbills and documents</li>
+          <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);">✓</span> Join telehealth video visits</li>
+          <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);">✓</span> Review and update your information</li>
+        </ul>
+        <a href="https://altospsychiatry.simplepractice.com" target="_blank" rel="noopener" class="btn btn-primary">Access Patient Portal</a>
+        <p class="disclaimer" style="margin-top:1rem;">The patient portal is separate from this website. You'll receive an activation email from SimplePractice after your intake is confirmed.</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="reveal" style="text-align:center;padding:3rem;background:var(--sand-pale);border:1px solid var(--sand-light);">
+        <h3 style="margin-bottom:0.75rem;">Ready to get started?</h3>
+        <p style="margin-bottom:1.75rem;">Submit a consultation request and we'll be in touch within one business day.</p>
+        <a href="/get-started.html" class="btn btn-primary">Request a Consultation</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+</div>
+<div id="footer-placeholder"></div>
+<script src="/js/main.js"></script>
 </body>
 </html>
