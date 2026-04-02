@@ -75,46 +75,7 @@ To connect to GitHub Pages:
 
 ---
 
-## 3. Consultation Form → Google Sheets Setup
 
-The `get-started.html` form sends to Google Apps Script (free).
-
-### Steps:
-1. Go to [script.google.com](https://script.google.com)
-2. Create a new project → paste this code:
-
-```javascript
-function doPost(e) {
-  const sheet = SpreadsheetApp.openById('YOUR_SHEET_ID').getActiveSheet();
-  const data = e.parameter;
-  
-  sheet.appendRow([
-    new Date(),
-    data.firstName + ' ' + data.lastName,
-    data.email,
-    data.phone,
-    data.contactPref,
-    data.seekingFor,
-    data.concerns,
-    data.priorTreatment,
-    data.referralSource,
-    data.apptType,
-    data.payment
-  ]);
-  
-  return ContentService
-    .createTextOutput(JSON.stringify({ result: 'success' }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-```
-
-3. Create a Google Sheet → copy its ID from the URL (the long string between `/d/` and `/edit`)
-4. Replace `YOUR_SHEET_ID` in the script
-5. Deploy → **New deployment** → Type: **Web App**
-   - Execute as: **Me**
-   - Who has access: **Anyone**
-6. Copy the Web App URL
-7. In `get-started.html`, replace `YOUR_APPS_SCRIPT_URL_HERE` with your URL
 
 ### ⚠️ HIPAA WARNING:
 Google Sheets is NOT HIPAA-compliant without a BAA. This form collects **scheduling information only** — name, contact, brief reason for reaching out. Do NOT collect:
@@ -201,7 +162,6 @@ Search the codebase for these placeholders:
 | `hello@altospsychiatry.com` | Your actual email |
 | `referrals@altospsychiatry.com` | Your referral email |
 | `401 Quarry Road, Suite 120` | Your actual office address |
-| `YOUR_APPS_SCRIPT_URL_HERE` | Google Apps Script URL |
 | `altospsychiatry.simplepractice.com` | Your SimplePractice URL |
 | Provider names / bios | Your real provider information |
 | `/images/*.jpg` | Real photos of your office and team |
@@ -231,10 +191,7 @@ These images are referenced but not included (you need to provide them):
 
 | File | Suggested content |
 |------|----------|
-| `/media/big_sur_video.mp4` | Aerial coastal footage (Big Sur, Point Reyes, etc.) — royalty-free from Pexels/Pixabay |
-| `/media/hero-poster.jpg` | Still frame from your video |
-| `/images/clinic-room.jpg` | Your office or a calm, clean consultation space |
-| `/images/about-hero.jpg` | Nature / landscape photo |
+
 | `/images/provider-1.jpg` | Headshot of provider |
 | `/images/provider-2.jpg` | Headshot of provider |
 
