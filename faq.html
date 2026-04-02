@@ -1,273 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script>
-        const repoName = 'theobennett.github.io';
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const basePath = isGitHubPages ? `/${repoName}/` : '/';
-        document.write(`<base href="${basePath}">`);
-    </script>
-
-    <title>FAQ | Altos Psychiatry</title>
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions | Altos Psychiatry</title>
+  <meta name="description" content="Common questions about our psychiatric services, pricing, insurance, and what to expect as a new patient.">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
+<div id="header-placeholder"></div>
+<div class="page-wrapper">
+<main>
 
-    <div class="page-wrapper">
-        <main>
-            <section class="page-header">
-                <div class="container">
-                    <h1>Frequently Asked Questions</h1>
-                    <p style="color: var(--color-text-dark); max-width: 600px; margin: 1rem auto 0;">Answers to what our patients ask most.</p>
-                </div>
-            </section>
-
-            <section class="faq-container">
-                <!-- PRICING & PAYMENT -->
-                <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--color-primary);">Pricing & Payment</h2>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">What does a consultation cost?</h3>
-                    <div class="faq-answer">
-                        <p>Your first appointment is a comprehensive 60–90 minute evaluation. This includes a full psychiatric assessment, diagnostic discussion, and treatment planning. The cost is <strong>$600</strong>.</p>
-                        <p style="margin-top: 1rem;">Follow-up appointments vary based on complexity and time:</p>
-                        <ul style="margin-top: 1rem;">
-                            <li><strong>Brief follow-up (medication refill, check-in):</strong> $150 (15–20 min)</li>
-                            <li><strong>Standard follow-up (medication adjustment + therapy):</strong> $350 (30 min)</li>
-                            <li><strong>Complex follow-up (diagnostic work, multiple issues):</strong> $450 (45 min)</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">Do you offer a sliding scale or reduced fees?</h3>
-                    <div class="faq-answer">
-                        <p>We're a private-pay practice, so we don't have a sliding scale. However, we work with you on payment and are happy to discuss options if cost is a barrier. Reach out and let's talk about what works for your situation.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">Do you take insurance?</h3>
-                    <div class="faq-answer">
-                        <p><strong>Short answer:</strong> We're private-pay, but we help you maximize your insurance benefits.</p>
-                        <p style="margin-top: 1rem;">Here's how it works:</p>
-                        <ul style="margin-top: 1rem;">
-                            <li><strong>You pay us at the time of service.</strong> We provide you with an itemized receipt and a "superbill" (detailed claim form) that includes all the information your insurance needs.</li>
-                            <li><strong>You submit the superbill to your insurance.</strong> If you have out-of-network benefits (which most PPO plans do), your insurance reimburses you directly, typically 50–80% of the "Usual, Customary &amp; Reasonable" (UCR) rate.</li>
-                            <li><strong>We handle the paperwork.</strong> Our staff can help answer questions about your benefits and walk you through the submission process—you don't have to do this alone.</li>
-                        </ul>
-                        <p style="margin-top: 1.5rem;"><strong>Many of our patients find they pay less out-of-pocket with our private-pay model than they would with in-network copays and deductibles.</strong> It depends on your specific plan.</p>
-                        <p style="margin-top: 1rem;"><strong>In rare cases,</strong> we may pursue a Single Case Agreement or out-of-network exemption with your insurance (especially for complex/treatment-resistant cases). Ask us if this might apply to you.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">How do I know what my insurance will reimburse?</h3>
-                    <div class="faq-answer">
-                        <p>Great question. Contact your insurance company and ask:</p>
-                        <ul style="margin-top: 1rem;">
-                            <li>"What are my out-of-network mental health benefits?"</li>
-                            <li>"What's my deductible and out-of-pocket maximum?"</li>
-                            <li>"What's the typical reimbursement rate for out-of-network psychiatry?" (usually listed as percentage, like 50%, 70%, or 80%)</li>
-                        </ul>
-                        <p style="margin-top: 1rem;">Once you know your benefits, we can estimate how much you'll pay out-of-pocket. Our staff is also happy to walk you through this conversation.</p>
-                    </div>
-                </div>
-
-                <!-- CONFIDENTIALITY & PRIVACY -->
-                <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--color-primary);">Confidentiality & Privacy</h2>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">Is my information completely confidential?</h3>
-                    <div class="faq-answer">
-                        <p><strong>Yes, absolutely.</strong> Everything you tell us is protected by law (California Mental Health Confidentiality Law, HIPAA, and medical privilege). We do not share your information with anyone—not your employer, not your family, not your insurance company—without your written consent.</p>
-                        <p style="margin-top: 1rem;">The only exceptions (required by law) are:</p>
-                        <ul style="margin-top: 1rem;">
-                            <li>If we have serious reason to believe you're a danger to yourself or others (we'd talk to you first)</li>
-                            <li>If there's abuse of a child or dependent elder (we're mandated reporters)</li>
-                            <li>If we receive a court order</li>
-                        </ul>
-                        <p style="margin-top: 1.5rem;"><strong>Your privacy is sacred. We treat it that way.</strong></p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">Will my employer find out I'm seeing a psychiatrist?</h3>
-                    <div class="faq-answer">
-                        <p><strong>No, unless you tell them.</strong> Here's why:</p>
-                        <ul style="margin-top: 1rem;">
-                            <li><strong>You pay us directly,</strong> so there's no claim going through your employer's health plan.</li>
-                            <li><strong>We provide superbills for you to submit to insurance,</strong> not explanations of benefits that go to your employer.</li>
-                            <li><strong>Your medical records are completely separate from your employment records.</strong> Your employer has no access to them.</li>
-                        </ul>
-                        <p style="margin-top: 1.5rem;"><strong>Bottom line:</strong> Your psychiatric care is private. What you do with that information is your choice.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">What if I need to take FMLA or disability leave?</h3>
-                    <div class="faq-answer">
-                        <p>That's completely your decision. If you decide to pursue FMLA, short-term disability, or long-term disability, we can provide documentation to support your claim. But we only do this with your explicit request—we don't initiate it.</p>
-                        <p style="margin-top: 1rem;">We understand these are sensitive decisions, and we're happy to discuss how to navigate them in a way that protects your privacy while getting you the support you need.</p>
-                    </div>
-                </div>
-
-                <!-- TREATMENT & OUTCOMES -->
-                <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--color-primary);">Treatment & Outcomes</h2>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">How long until I feel better?</h3>
-                    <div class="faq-answer">
-                        <p>This depends on what's going on, but here's what we typically see:</p>
-                        <ul style="margin-top: 1rem;">
-                            <li><strong>Anxiety:</strong> 2–4 weeks of medication adjustment, often with noticeable improvement in sleep and worry within that timeframe.</li>
-                            <li><strong>Depression:</strong> 4–6 weeks to find the right medication; most patients see meaningful improvement by week 6–8.</li>
-                            <li><strong>ADHD:</strong> 1–2 weeks to feel the effect of medication; clarity on what works in 2–4 weeks.</li>
-                        </ul>
-                        <p style="margin-top: 1.5rem;">We measure your progress every visit using validated symptom scales, so we know if something's working or if we need to adjust.</p>
-                        <p style="margin-top: 1rem;"><strong>Important:</strong> Feeling better takes time. We're in this for the long haul with you, not just chasing quick fixes.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">What if medication doesn't work for me?</h3>
-                    <div class="faq-answer">
-                        <p>We have a systematic approach to medication-resistant cases. If the first medication doesn't work, we:</p>
-                        <ul style="margin-top: 1rem;">
-                            <li>Adjust the dose</li>
-                            <li>Switch to a different class of medication</li>
-                            <li>Add a complementary medication to boost effectiveness</li>
-                            <li>Consider specialized assessments (like pharmacogenomic testing) to predict what might work better</li>
-                        </ul>
-                        <p style="margin-top: 1.5rem;"><strong>You're not alone in this.</strong> We specialize in treatment-resistant cases. If standard approaches aren't working, we'll keep working until we find what does.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">Do I have to take medication?</h3>
-                    <div class="faq-answer">
-                        <p><strong>No.</strong> Medication is one tool in the toolbox. Some people benefit from medication. Some prefer therapy alone. Some benefit from a combination.</p>
-                        <p style="margin-top: 1rem;">We'll discuss all your options and let you decide what feels right for you. Our job is to inform you; your job is to choose.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">What conditions do you treat?</h3>
-                    <div class="faq-answer">
-                        <p>We have expertise in:</p>
-                        <ul style="margin-top: 1rem;">
-                            <li>Depression (including treatment-resistant depression)</li>
-                            <li>Anxiety disorders (GAD, panic, social anxiety)</li>
-                            <li>ADHD (diagnosis and medication management)</li>
-                            <li>Bipolar disorder</li>
-                            <li>PTSD and trauma-related conditions</li>
-                            <li>OCD</li>
-                            <li>Sleep disorders</li>
-                            <li>General adult psychiatry across the full spectrum</li>
-                        </ul>
-                        <p style="margin-top: 1.5rem;">If you have a specific condition you're not sure about, <a href="/get-started.html" style="color: var(--color-accent); font-weight: 600;">reach out and ask.</a> We can talk about whether Altos is a good fit.</p>
-                    </div>
-                </div>
-
-                <!-- APPOINTMENTS & ACCESS -->
-                <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--color-primary);">Appointments & Access</h2>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">How do I schedule an appointment?</h3>
-                    <div class="faq-answer">
-                        <p><strong>Option 1: Online intake form</strong> — Fill out our brief form at <a href="/get-started.html" style="color: var(--color-accent); font-weight: 600;">get-started</a>, and we'll call you within 24 hours to find the perfect appointment time.</p>
-                        <p style="margin-top: 1rem;"><strong>Option 2: Call us directly</strong> — [Your phone number]. Our staff will find an appointment that works with your schedule.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">How long is the wait for an appointment?</h3>
-                    <div class="faq-answer">
-                        <p><strong>No waitlists.</strong> We aim to schedule new patients within 1–2 weeks. For urgent situations, we often have same-day or next-day availability.</p>
-                        <p style="margin-top: 1rem;">If you're in a crisis, <strong>please call us immediately</strong> or go to your nearest emergency room.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">Do you offer telehealth (video) appointments?</h3>
-                    <div class="faq-answer">
-                        <p><strong>Yes.</strong> We offer both in-person and telehealth appointments. Many patients prefer telehealth for convenience, and it works great for ongoing medication management and therapy.</p>
-                        <p style="margin-top: 1rem;">Your first evaluation can be either in-person or via video—whatever works best for you.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">What happens if I need help after hours?</h3>
-                    <div class="faq-answer">
-                        <p>If you're having a mental health emergency (thoughts of harming yourself, severe panic, etc.), <strong>please call 911 or go to the nearest emergency room.</strong></p>
-                        <p style="margin-top: 1.5rem;"><strong>National crisis resources:</strong></p>
-                        <ul style="margin-top: 1rem;">
-                            <li><strong>National Suicide &amp; Crisis Lifeline:</strong> Call or text <strong>988</strong></li>
-                            <li><strong>Crisis Text Line:</strong> Text <strong>HOME</strong> to <strong>741741</strong></li>
-                        </ul>
-                        <p style="margin-top: 1.5rem;">For non-emergency after-hours issues, we provide resources and guidance in your intake materials. If you're a concierge member (coming soon), you'll have 24/7 clinician access.</p>
-                    </div>
-                </div>
-
-                <!-- ABOUT ALTOS -->
-                <h2 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--color-primary);">About Altos</h2>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">Who am I actually working with?</h3>
-                    <div class="faq-answer">
-                        <p>You'll be working with a board-certified psychiatrist trained at Stanford and UCSF, with a deep focus on treatment-resistant depression, mood disorders, and integrated psychiatric care.</p>
-                        <p style="margin-top: 1rem;">We believe psychiatry should be a partnership. We listen, we explain, and we collaborate with you every step of the way.</p>
-                        <p style="margin-top: 1rem;"><a href="/why-altos/providers.html" style="color: var(--color-accent); font-weight: 600;">Read full provider bios</a> to learn more about our team.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">What makes Altos different from other psychiatric practices?</h3>
-                    <div class="faq-answer">
-                        <p><strong>Three things:</strong></p>
-                        <ul style="margin-top: 1rem;">
-                            <li><strong>Wrap-around availability.</strong> Same-day appointments, after-hours access, direct clinician contact. We're here when you need us, not just during office hours.</li>
-                            <li><strong>Whole-person approach.</strong> We look at medication, therapy, lifestyle, nutrition, sleep, exercise. Not just one thing in isolation.</li>
-                            <li><strong>Outcomes-focused.</strong> We measure your progress continuously and adjust our approach based on data. If something isn't working, we change it.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h3 onclick="toggleFAQ(this)">Are you accepting new patients?</h3>
-                    <div class="faq-answer">
-                        <p><strong>Yes.</strong> We're actively accepting new patients and have availability for most scheduling preferences.</p>
-                        <p style="margin-top: 1rem;">Ready to get started? <a href="/get-started.html" style="color: var(--color-accent); font-weight: 600;">Request a consultation</a> or call us directly.</p>
-                    </div>
-                </div>
-
-                <!-- FINAL CTA -->
-                <div style="margin-top: 4rem; padding: 2rem; background-color: var(--color-primary); border-radius: 12px; text-align: center;">
-                    <h3 style="color: var(--color-text-light); margin-bottom: 1rem;">Didn't find your answer?</h3>
-                    <p style="color: var(--color-text-light); margin-bottom: 1.5rem;">Send us a message and we'll get back to you within 24 hours.</p>
-                    <a href="/get-started.html" class="btn btn-primary">Contact Us</a>
-                </div>
-            </section>
-        </main>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow" style="color:var(--sage-light);">Resources</p>
+      <h1>Frequently Asked Questions</h1>
+      <p>Straightforward answers to common questions about our practice, services, and how to get started.</p>
     </div>
+  </section>
 
-    <div id="footer-placeholder"></div>
-    <script src="/js/main.js"></script>
-    <script>
-        function toggleFAQ(element) {
-            const item = element.closest('.faq-item');
-            item.classList.toggle('open');
-        }
+  <section class="section section--light">
+    <div class="container" style="max-width:760px;">
 
-        // Open first item by default
-        document.addEventListener('DOMContentLoaded', () => {
-            const first = document.querySelector('.faq-item');
-            if (first) first.classList.add('open');
-        });
-    </script>
+      <!-- GETTING STARTED -->
+      <div class="mb-xl reveal">
+        <h2 style="margin-bottom:1.5rem;font-size:2rem;">Getting Started</h2>
+        <div class="accordion-group">
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              How do I become a patient?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>Start by completing our <a href="/get-started.html" style="color:var(--ocean);">consultation request form</a>. Our care coordinator will reach out within one business day to discuss fit, answer questions, and schedule your initial evaluation if it's a good match. The first appointment is a comprehensive evaluation, typically 60–90 minutes.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              What happens at the first appointment?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>Your initial evaluation is a comprehensive 60–90 minute conversation. We review your current concerns, personal and family history, prior treatments, lifestyle factors, and goals. It's collaborative, not interrogative. By the end, you'll have a clear picture of our assessment and a proposed care plan to discuss and refine together.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              Do you offer telehealth?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>Yes. We offer both telehealth (secure video) and in-person appointments at our Menlo Park office. Many patients use a mix of both depending on their schedule. Some services, such as TMS therapy, require in-person attendance.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              Do you currently have availability for new patients?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>We maintain a limited panel to ensure every patient receives meaningful attention. Submit a consultation request and we'll confirm current availability. We maintain a short waitlist during high-demand periods and will let you know our realistic timeline.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- COST & INSURANCE -->
+      <div class="mb-xl reveal">
+        <h2 style="margin-bottom:1.5rem;font-size:2rem;">Cost &amp; Insurance</h2>
+        <div class="accordion-group">
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              Do you accept insurance?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>We are a private-pay practice and do not bill insurance directly. However, we provide detailed superbills — itemized receipts with the diagnostic and procedure codes your insurance needs. If you have PPO insurance with out-of-network benefits, you may be able to submit for partial reimbursement, often 50–80% of the allowable rate after your deductible is met.</p>
+                <p style="margin-top:0.75rem;">We're happy to help you understand your out-of-network benefits before you schedule.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              What does a typical visit cost?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>Fees vary by visit type and length. Our initial evaluation is a 60–90 minute comprehensive appointment. Follow-up visits range from brief medication checks to full therapy sessions. We share our full fee schedule during your intake call before you commit to anything.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              What is the concierge plan and who is it for?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>Our concierge plan is for patients who want same-day access, after-hours availability, and direct clinical communication outside of scheduled appointments. It includes a 24/7 nurse triage line, direct physician support for urgent medication questions, and extended scheduling hours (6 AM–8 PM). It's a good fit for anyone managing an active condition who values knowing there's always someone to reach.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              Will my employer know I'm in psychiatric treatment?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>No. As a private-pay practice, your care is between you and your provider. We do not bill through employer-sponsored insurance, so no explanation of benefits is sent to your insurer or employer. All records are maintained under strict HIPAA protections and are never shared without your explicit written consent.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CARE & TREATMENT -->
+      <div class="mb-xl reveal">
+        <h2 style="margin-bottom:1.5rem;font-size:2rem;">Care &amp; Treatment</h2>
+        <div class="accordion-group">
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              Do you prescribe medication, or do you only do therapy?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>We do both, and often together. Our psychiatrists are medical doctors who can prescribe and manage psychiatric medications. We also offer individual and group psychotherapy. Many patients benefit from integrated care — medication plus therapy — and we're well positioned to coordinate that within a single practice.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              What does "integrative" mean in practice?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>It means we treat the whole person. We routinely assess sleep quality, diet, exercise, metabolic health, and stress patterns as part of your psychiatric evaluation — not as a peripheral concern, but as clinical variables that directly affect treatment outcomes. Our founder has additional training in metabolic and nutritional medicine, which informs how we approach medication choices and lifestyle recommendations.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              I've tried multiple medications that haven't worked. Can you help?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>Treatment-resistant depression and complex mood disorders are a clinical specialty of ours. We approach these cases differently: a thorough re-evaluation of diagnosis, pharmacogenomic testing when appropriate, and consideration of interventional options including TMS (available 2026) and other evidence-based approaches. If prior treatments haven't worked, that history is data — and it guides the next step.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              Do you work with patients who have a therapist already?
+              <svg class="accordion-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>Absolutely. We work closely with external therapists and actively support coordinated care. If you have a therapist you trust, we're happy to serve as the medication management partner and communicate with them as needed (with your consent). Continuity between your providers leads to better outcomes, and we take that seriously.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="reveal" style="background:var(--sand-pale);border:1px solid var(--sand-light);padding:2.5rem;text-align:center;margin-top:3rem;">
+        <h3 style="margin-bottom:0.75rem;">Have a question we didn't answer?</h3>
+        <p style="margin-bottom:1.75rem;">We're happy to talk through any questions before you decide to schedule.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="/get-started.html" class="btn btn-primary">Request a Consultation</a>
+          <a href="/resources/contact.html" class="btn btn-outline">Contact Us</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+</div>
+<div id="footer-placeholder"></div>
+<script src="/js/main.js"></script>
 </body>
 </html>
