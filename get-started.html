@@ -1,206 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script>
-        const repoName = 'theobennett.github.io';
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const basePath = isGitHubPages ? `/${repoName}/` : '/';
-        document.write(`<base href="${basePath}">`);
-    </script>
-
-    <title>Start Your Journey | Altos Psychiatry</title>
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request a Consultation | Altos Psychiatry</title>
+  <meta name="description" content="Request a new patient consultation at Altos Psychiatry. Our care coordinator will follow up within one business day.">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
-    <div class="page-wrapper">
-        <main>
-            <section class="content-section">
-                <div class="container" style="max-width: 700px;">
-                    <div style="text-align:center; margin-bottom: 2rem;">
-                        <h1 style="margin-bottom: 0.5rem;">Ready for Clarity?</h1>
-                        <p style="color: var(--color-text-dark); font-size: 1.05rem; line-height: 1.7;">
-                            We'll listen to what's going on, answer your questions, and find the perfect appointment time. No long intake process. No judgment. Just a genuine conversation about how we can help.
-                        </p>
-                    </div>
+<div id="header-placeholder"></div>
+<div class="page-wrapper">
+<main>
 
-                    <!-- Step 1: Email & Phone (soft commitment) -->
-                    <form id="intake-form" class="form-container">
-                        <fieldset class="form-fieldset" style="background-color: var(--color-bg-light); padding: 2rem; border-radius: 12px; border: none; margin-bottom: 2rem;">
-                            <legend style="font-size: 1.1rem; font-weight: 600; color: var(--color-primary); margin-bottom: 1.5rem; padding: 0;">Your contact information</legend>
-                            
-                            <div class="form-group">
-                                <label for="firstName" style="color: var(--color-primary); font-weight: 600;">First name</label>
-                                <input type="text" id="firstName" name="firstName" placeholder="e.g., Sarah" required style="border-radius: 8px; border: 1px solid var(--color-border); padding: 12px 14px;">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="lastName" style="color: var(--color-primary); font-weight: 600;">Last name</label>
-                                <input type="text" id="lastName" name="lastName" placeholder="e.g., Johnson" required style="border-radius: 8px; border: 1px solid var(--color-border); padding: 12px 14px;">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email" style="color: var(--color-primary); font-weight: 600;">Email address</label>
-                                <input type="email" id="email" name="email" placeholder="you@example.com" required style="border-radius: 8px; border: 1px solid var(--color-border); padding: 12px 14px;">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="phone" style="color: var(--color-primary); font-weight: 600;">Phone number</label>
-                                <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required style="border-radius: 8px; border: 1px solid var(--color-border); padding: 12px 14px;">
-                            </div>
-                        </fieldset>
-
-                        <!-- Step 2: Why you're here -->
-                        <fieldset class="form-fieldset" style="background-color: var(--color-bg-light); padding: 2rem; border-radius: 12px; border: none; margin-bottom: 2rem;">
-                            <legend style="font-size: 1.1rem; font-weight: 600; color: var(--color-primary); margin-bottom: 1.5rem; padding: 0;">What's bringing you here?</legend>
-                            
-                            <div class="form-group">
-                                <label for="reason" style="color: var(--color-primary); font-weight: 600;">Tell us what's going on (in your own words)</label>
-                                <textarea id="reason" name="reason" rows="5" placeholder="You don't need to write an essay—just give us a sense of what you're dealing with. What brought you to look for help?" required style="border-radius: 8px; border: 1px solid var(--color-border); padding: 12px 14px; font-family: inherit; font-size: 1rem;"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label style="color: var(--color-primary); font-weight: 600; display: block; margin-bottom: 1rem;">Which of these resonates most with you? (optional)</label>
-                                <div style="display: flex; flex-direction: column; gap: 10px;">
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
-                                        <input type="checkbox" name="concerns" value="Depression" style="margin-right: 10px;">
-                                        Depression or low mood
-                                    </label>
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
-                                        <input type="checkbox" name="concerns" value="Anxiety" style="margin-right: 10px;">
-                                        Anxiety or worry
-                                    </label>
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
-                                        <input type="checkbox" name="concerns" value="ADHD" style="margin-right: 10px;">
-                                        Trouble focusing / ADHD
-                                    </label>
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
-                                        <input type="checkbox" name="concerns" value="Sleep" style="margin-right: 10px;">
-                                        Sleep problems
-                                    </label>
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
-                                        <input type="checkbox" name="concerns" value="Trauma" style="margin-right: 10px;">
-                                        Trauma or past events
-                                    </label>
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
-                                        <input type="checkbox" name="concerns" value="Other" style="margin-right: 10px;">
-                                        Something else
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label style="color: var(--color-primary); font-weight: 600; display: block; margin-bottom: 1rem;">Have you worked with a psychiatrist or therapist before?</label>
-                                <div style="display: flex; gap: 20px;">
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
-                                        <input type="radio" name="priorTreatment" value="Yes" style="margin-right: 10px;">
-                                        Yes
-                                    </label>
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
-                                        <input type="radio" name="priorTreatment" value="No" style="margin-right: 10px;">
-                                        No
-                                    </label>
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
-                                        <input type="radio" name="priorTreatment" value="Not sure" style="margin-right: 10px;">
-                                        Not sure
-                                    </label>
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <!-- Step 3: Privacy reassurance -->
-                        <div style="background-color: #EAF3DE; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--color-accent); margin-bottom: 2rem;">
-                            <p style="margin: 0; color: var(--color-text-dark); font-size: 0.95rem;">
-                                <strong>Your privacy is sacred.</strong> Everything you share is confidential and protected by law. We don't share information with your employer, family, or anyone else without your consent. <a href="/faq.html" style="color: var(--color-accent); font-weight: 600;">Learn more about confidentiality →</a>
-                            </p>
-                        </div>
-
-                        <!-- Submission status messages -->
-                        <div id="form-loading" style="text-align: center; display: none; margin-bottom: 2rem;">
-                            <p style="color: var(--color-text-dark); font-weight: 600;">Sending your information...</p>
-                        </div>
-
-                        <div id="form-success" style="text-align: center; display: none; margin-bottom: 2rem; padding: 1.5rem; background-color: #EAF3DE; border-radius: 8px;">
-                            <p style="color: var(--color-text-dark); font-weight: 600; margin-bottom: 1rem;">✓ Thank you! We've received your request.</p>
-                            <p style="color: var(--color-text-dark); margin-bottom: 1.5rem;">Dr. Sharma personally reviews all intake forms. We'll call you within 24 hours to find the perfect appointment time.</p>
-                            <p style="color: var(--color-text-dark); font-size: 0.95rem; margin-bottom: 0;">In the meantime, feel free to <a href="/faq.html" style="color: var(--color-accent); font-weight: 600;">check out our FAQ</a> or explore more about <a href="/" style="color: var(--color-accent); font-weight: 600;">what we offer.</a></p>
-                        </div>
-
-                        <div id="form-error" style="text-align: center; display: none; margin-bottom: 2rem; padding: 1.5rem; background-color: #FCEBEB; border-radius: 8px;">
-                            <p style="color: var(--color-text-dark); font-weight: 600; margin-bottom: 1rem;">Something went wrong.</p>
-                            <p style="color: var(--color-text-dark); margin-bottom: 1.5rem;">Please try again, or call us directly at <strong>[Your Phone Number]</strong>.</p>
-                        </div>
-
-                        <!-- Submit button -->
-                        <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; font-size: 1.05rem; padding: 14px 24px; margin-bottom: 1rem;">Request a Consultation</button>
-
-                        <p style="text-align: center; color: var(--color-text-dark); font-size: 0.9rem; margin-top: 1rem;">
-                            Don't have time to fill this out right now? <a href="#" style="color: var(--color-accent); font-weight: 600;" onclick="showPhoneOption(event);">Call us instead</a>
-                        </p>
-                    </form>
-                </div>
-            </section>
-        </main>
-        <div id="footer-placeholder"></div>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow" style="color:var(--sage-light);">Getting Started</p>
+      <h1>Request a Consultation</h1>
+      <p>Complete the form below. Our care coordinator will reach out within one business day to discuss next steps and confirm fit.</p>
     </div>
+  </section>
 
-    <script src="/js/main.js"></script>
-    <script>
-        const form = document.getElementById('intake-form');
-        const loading = document.getElementById('form-loading');
-        const success = document.getElementById('form-success');
-        const error = document.getElementById('form-error');
-        const submitBtn = document.getElementById('submit-btn');
+  <section class="section section--light">
+    <div class="container" style="max-width:860px;">
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Show loading state
-            loading.style.display = 'block';
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.6';
+      <!-- Trust bar -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--fog-dark);margin-bottom:3rem;border:1px solid var(--fog-dark);" class="reveal">
+        <div style="background:var(--white);padding:1.25rem 1.5rem;text-align:center;">
+          <p style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:0.25rem;">Response Time</p>
+          <p style="font-size:1rem;color:var(--ocean-deep);font-weight:500;margin:0;">Within 1 business day</p>
+        </div>
+        <div style="background:var(--white);padding:1.25rem 1.5rem;text-align:center;">
+          <p style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:0.25rem;">Your Information</p>
+          <p style="font-size:1rem;color:var(--ocean-deep);font-weight:500;margin:0;">Kept strictly confidential</p>
+        </div>
+        <div style="background:var(--white);padding:1.25rem 1.5rem;text-align:center;">
+          <p style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:0.25rem;">No Obligation</p>
+          <p style="font-size:1rem;color:var(--ocean-deep);font-weight:500;margin:0;">A conversation, not a commitment</p>
+        </div>
+      </div>
 
-            try {
-                // Collect form data
-                const formData = new FormData(form);
-                const data = {
-                    firstName: formData.get('firstName'),
-                    lastName: formData.get('lastName'),
-                    email: formData.get('email'),
-                    phone: formData.get('phone'),
-                    reason: formData.get('reason'),
-                    concerns: formData.getAll('concerns').join(', ') || 'Not specified',
-                    priorTreatment: formData.get('priorTreatment') || 'Not specified',
-                    timestamp: new Date().toLocaleString(),
-                };
+      <!-- Important notice -->
+      <div class="info-box caution reveal" style="margin-bottom:2.5rem;">
+        <p><strong>Please note:</strong> This form is for scheduling purposes only and is not a secure clinical channel. Do not include detailed medical history, symptoms, or sensitive health information here. You will share that with your provider during your initial evaluation.</p>
+        <p style="margin-top:0.75rem;"><strong>If you are in crisis</strong>, please call or text <strong>988</strong> or go to your nearest emergency room. Do not use this form for urgent matters.</p>
+      </div>
 
-                // TODO: Send to your backend/CRM
-                // For now, log to console and show success
-                console.log('Lead captured:', data);
+      <div class="form-section reveal">
+        <form id="consultation-form" novalidate>
 
-                // Simulate successful submission
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                    form.style.display = 'none';
-                    success.style.display = 'block';
-                    submitBtn.disabled = false;
-                }, 500);
-            } catch (err) {
-                console.error('Error:', err);
-                loading.style.display = 'none';
-                error.style.display = 'block';
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-            }
-        });
+          <!-- Section 1: Contact -->
+          <fieldset class="form-fieldset">
+            <legend>Contact Information</legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="firstName">First Name *</label>
+                <input class="form-input" type="text" id="firstName" name="firstName" autocomplete="given-name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="lastName">Last Name *</label>
+                <input class="form-input" type="text" id="lastName" name="lastName" autocomplete="family-name" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address *</label>
+                <input class="form-input" type="email" id="email" name="email" autocomplete="email" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone Number *</label>
+                <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contactPref">Preferred Contact Method *</label>
+              <select class="form-select" id="contactPref" name="contactPref" required>
+                <option value="">— Please select —</option>
+                <option value="email">Email</option>
+                <option value="phone-call">Phone call</option>
+                <option value="text">Text message</option>
+              </select>
+            </div>
+          </fieldset>
 
-        function showPhoneOption(e) {
-            e.preventDefault();
-            alert('Call us at: [Your Phone Number]');
-        }
-    </script>
+          <!-- Section 2: About Your Care -->
+          <fieldset class="form-fieldset">
+            <legend>About Your Care</legend>
+            <div class="form-group">
+              <label class="form-label">Are you seeking care for yourself or someone else? *</label>
+              <div class="radio-group">
+                <label class="radio-label"><input type="radio" name="seekingFor" value="Myself" required> Myself</label>
+                <label class="radio-label"><input type="radio" name="seekingFor" value="Another person"> Another person (family member, etc.)</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="concerns">What brings you to Altos Psychiatry? *</label>
+              <textarea class="form-textarea" id="concerns" name="concerns" rows="4" placeholder="A brief description of what you're looking for help with. You'll share more detail with your provider." required></textarea>
+              <p class="form-hint">Keep this brief — a sentence or two is fine. This is for scheduling, not clinical purposes.</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Have you received psychiatric treatment before? *</label>
+              <div class="radio-group">
+                <label class="radio-label"><input type="radio" name="priorTreatment" value="Yes" required> Yes</label>
+                <label class="radio-label"><input type="radio" name="priorTreatment" value="No"> No</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="referralSource">How did you hear about us?</label>
+              <select class="form-select" id="referralSource" name="referralSource">
+                <option value="">— Please select —</option>
+                <option value="physician-referral">Physician or provider referral</option>
+                <option value="therapist-referral">Therapist referral</option>
+                <option value="friend-family">Friend or family recommendation</option>
+                <option value="psychology-today">Psychology Today</option>
+                <option value="google">Google search</option>
+                <option value="zocdoc">Zocdoc</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <!-- Section 3: Logistics -->
+          <fieldset class="form-fieldset">
+            <legend>Logistics</legend>
+            <div class="form-group">
+              <label class="form-label">Appointment preference *</label>
+              <div class="radio-group">
+                <label class="radio-label"><input type="radio" name="apptType" value="telehealth" required> Telehealth (video)</label>
+                <label class="radio-label"><input type="radio" name="apptType" value="in-person"> In-person (Menlo Park)</label>
+                <label class="radio-label"><input type="radio" name="apptType" value="no-preference"> No preference</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Payment *</label>
+              <div class="radio-group">
+                <label class="radio-label"><input type="radio" name="payment" value="self-pay" required> I will self-pay</label>
+                <label class="radio-label"><input type="radio" name="payment" value="oon-reimbursement"> I plan to seek out-of-network reimbursement</label>
+              </div>
+              <p class="form-hint">We are a private-pay practice. We provide superbills for patients who wish to seek reimbursement from their PPO insurance.</p>
+            </div>
+          </fieldset>
+
+          <!-- Legal consent -->
+          <div class="form-group" style="background:var(--fog);padding:1.5rem;border:1px solid var(--fog-dark);">
+            <label class="radio-label" style="align-items:flex-start;gap:12px;">
+              <input type="checkbox" id="consent" name="consent" required style="margin-top:3px;accent-color:var(--ocean);width:16px;height:16px;flex-shrink:0;">
+              <span style="font-size:0.9rem;color:var(--stone-light);line-height:1.7;">
+                I understand this form is for scheduling purposes only and does not establish a patient-provider relationship. I confirm that I am 18 years of age or older and located in California. I have read and agree to Altos Psychiatry's <a href="/privacy.html" style="color:var(--ocean);">Privacy Policy</a>. *
+              </span>
+            </label>
+          </div>
+
+          <!-- Feedback states -->
+          <div id="form-loader">Submitting your request…</div>
+          <div id="form-success">
+            <p style="font-size:1.15rem;color:var(--ocean-deep);font-weight:500;margin-bottom:0.5rem;">Thank you — your request has been received.</p>
+            <p>Our care coordinator will be in touch within one business day via your preferred contact method.</p>
+          </div>
+          <div id="form-error">
+            <p>Something went wrong. Please try again, or reach us directly at <a href="mailto:hello@altospsychiatry.com" style="color:var(--ocean);">hello@altospsychiatry.com</a>.</p>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem;font-size:0.9rem;padding:18px;">
+            Submit Consultation Request
+          </button>
+
+        </form>
+      </div>
+
+      <!-- Alternative CTA -->
+      <div style="margin-top:2rem;text-align:center;" class="reveal">
+        <p class="disclaimer">Prefer to talk first? Call us at <a href="tel:+16505550000" style="color:var(--ocean);">(650) 555-0000</a> during business hours (M–F, 9 AM–5 PM).</p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+</div>
+<div id="footer-placeholder"></div>
+<script src="/js/main.js"></script>
+<script>
+/* ── Form submission → Google Apps Script ── */
+/* 
+  SETUP INSTRUCTIONS:
+  1. Go to script.google.com → create a new project
+  2. Paste the Apps Script code (see README)
+  3. Deploy as Web App → copy the URL
+  4. Replace YOUR_APPS_SCRIPT_URL_HERE below
+  
+  IMPORTANT: This form does NOT send HIPAA-protected data.
+  It collects scheduling/contact info only.
+  For clinical data, use SimplePractice.
+*/
+const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+const form    = document.getElementById('consultation-form');
+const loader  = document.getElementById('form-loader');
+const success = document.getElementById('form-success');
+const error   = document.getElementById('form-error');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Basic validation
+  const required = form.querySelectorAll('[required]');
+  let valid = true;
+  required.forEach(f => {
+    if (f.type === 'radio') {
+      const group = form.querySelectorAll(`[name="${f.name}"]`);
+      const checked = Array.from(group).some(r => r.checked);
+      if (!checked) { valid = false; f.closest('.form-group')?.classList.add('error'); }
+    } else if (f.type === 'checkbox') {
+      if (!f.checked) { valid = false; f.closest('.form-group')?.classList.add('error'); }
+    } else {
+      if (!f.value.trim()) { valid = false; f.classList.add('error'); }
+    }
+  });
+  if (!valid) { return; }
+
+  if (SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+    // Dev mode: show success without submitting
+    form.style.display = 'none';
+    success.style.display = 'block';
+    return;
+  }
+
+  loader.style.display = 'block';
+  const data = new FormData(form);
+
+  fetch(SCRIPT_URL, { method: 'POST', body: data })
+    .then(r => {
+      loader.style.display = 'none';
+      if (r.ok) { form.style.display = 'none'; success.style.display = 'block'; }
+      else       { throw new Error('Response not ok'); }
+    })
+    .catch(() => {
+      loader.style.display = 'none';
+      error.style.display = 'block';
+    });
+});
+</script>
 </body>
 </html>

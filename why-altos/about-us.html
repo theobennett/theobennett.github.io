@@ -1,75 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- NEW: This script sets the correct base path for all links and resources. -->
-    <script>
-        // --- IMPORTANT ---
-        // This should match your GitHub repository name.
-        const repoName = 'theobennett.github.io'; 
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const basePath = isGitHubPages ? `/${repoName}/` : '/';
-        document.write(`<base href="${basePath}">`);
-    </script>
-
-    <title>About Us | Altos Psychiatry</title>
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story | Altos Psychiatry</title>
+  <meta name="description" content="Altos Psychiatry was founded to offer something different: precision psychiatric care built around the patient's full life, not just the appointment.">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<div id="header-placeholder"></div>
+<div class="page-wrapper">
+<main>
 
-    <div id="header-placeholder"></div>
-
-    <div class="page-wrapper">
-        <main>
-            <!-- CORRECTED PATH: Path for background-image is now absolute. -->
-            <section class="hero-subpage" style="background-image: url('/images/hero-about.jpg');">
-                <div class="container">
-                    <h1>A New Standard in Mental Healthcare</h1>
-                    <p>Altos Psychiatry was founded on the belief that everyone deserves access to compassionate, evidence-based mental healthcare that addresses the whole person.</p>
-                </div>
-            </section>
-
-            <section class="content-section">
-                <div class="container">
-                    <div class="two-column-layout">
-                        <div class="column-text">
-                            <h2>Our Mission</h2>
-                            <p>Our mission is to provide personalized, integrated mental wellness solutions that empower individuals to live healthier, more fulfilling lives. We combine modern medicine with time-tested therapeutic approaches in a supportive and collaborative environment.</p>
-                            <!-- CORRECTED PATH -->
-                            <a href="/services.html" class="btn btn-primary">Explore Our Services</a>
-                        </div>
-                        <div class="column-image">
-                            <!-- CORRECTED PATH -->
-                            <img src="/images/clinic-room.jpg" alt="A welcoming therapy room">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CORRECTED: Replaced broken inline style with the proper 'colored-section' class -->
-            <section class="content-section colored-section">
-                <div class="container">
-                    <div class="two-column-layout">
-                         <div class="column-image">
-                            <!-- CORRECTED PATH -->
-                            <img src="/images/collaboration.jpg" alt="A team collaborating">
-                        </div>
-                        <div class="column-text">
-                            <h2>Our Approach</h2>
-                            <p>We see you as a partner in your own care. Your journey with us begins with a comprehensive evaluation to understand your unique needs, history, and goals. From there, we build a customized treatment plan that may include medication management, psychotherapy, TMS, or other advanced treatments.</p>
-                             <!-- CORRECTED PATH -->
-                             <a href="/why-altos/our-providers.html" class="btn btn-primary">Meet Our Team</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow" style="color:var(--sage-light);">Why Altos</p>
+      <h1>Our Story</h1>
+      <p>A practice built around the care most psychiatrists want to give — and most patients actually need.</p>
     </div>
+  </section>
 
-    <div id="footer-placeholder"></div>
-    <script src="/js/main.js"></script>
+  <section class="section section--light">
+    <div class="container" style="max-width:820px;">
 
+      <div class="split reveal" style="margin-bottom:5rem;">
+        <div>
+          <span class="section-tag">Our Mission</span>
+          <h2>Psychiatry that meets you where you are</h2>
+          <p style="margin-top:1rem;">Most psychiatric practices are built around the schedule, not the patient. Appointments every 4–6 weeks. Voicemail during a crisis. A provider who sees so many patients they can't remember the nuance of your situation.</p>
+          <p style="margin-top:1rem;">We started Altos Psychiatry because we believed it was possible to do better — to run a financially sustainable practice <em>and</em> actually be there for patients when it matters.</p>
+        </div>
+        <div class="split-media reveal reveal-delay-1">
+          <img src="/images/about-hero.jpg" alt="A calm consultation space overlooking nature" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="reveal mb-xl">
+        <span class="section-tag">Core Values</span>
+        <h2 style="margin-bottom:2rem;">What drives our care</h2>
+        <div class="grid-2">
+          <div style="padding:1.75rem;border-left:2px solid var(--ocean-mist);">
+            <h3 style="font-size:1.3rem;margin-bottom:0.5rem;">Availability</h3>
+            <p style="font-size:0.95rem;">Mental health crises don't respect business hours. We build systems that let us be reachable for the moments that matter, without burning out our providers.</p>
+          </div>
+          <div style="padding:1.75rem;border-left:2px solid var(--sage-light);">
+            <h3 style="font-size:1.3rem;margin-bottom:0.5rem;">Whole-Person Care</h3>
+            <p style="font-size:0.95rem;">Sleep, nutrition, metabolic health, and exercise are not peripheral to psychiatry — they are core variables. We treat them as such.</p>
+          </div>
+          <div style="padding:1.75rem;border-left:2px solid var(--sand);">
+            <h3 style="font-size:1.3rem;margin-bottom:0.5rem;">Continuity</h3>
+            <p style="font-size:0.95rem;">Your psychiatric history is yours. If you move, need a hand-off, or seek a second opinion, we facilitate seamless transitions — not blank slates.</p>
+          </div>
+          <div style="padding:1.75rem;border-left:2px solid var(--pebble);">
+            <h3 style="font-size:1.3rem;margin-bottom:0.5rem;">Clinical Rigor</h3>
+            <p style="font-size:0.95rem;">Innovation without evidence is not care. We adopt new treatments when the data supports them, and we track outcomes to know whether they're working for you.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location / Silicon Valley context -->
+      <div class="reveal mb-xl" style="background:var(--fog-dark);padding:2.5rem;">
+        <span class="section-tag">Where We Practice</span>
+        <h2 style="margin-bottom:1rem;">Menlo Park · Silicon Valley</h2>
+        <p>We are based in Menlo Park, California, serving adults throughout the Peninsula and Silicon Valley. Our patient population skews toward high-functioning professionals navigating the particular pressures of high-performance careers — the gap between how capable they appear and how they actually feel.</p>
+        <p style="margin-top:1rem;">We understand that context. We've also built the practice to serve patients across California via telehealth.</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="reveal" style="text-align:center;">
+        <h3 style="margin-bottom:0.75rem;">Learn more about our team</h3>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+          <a href="/why-altos/our-providers.html" class="btn btn-primary">Meet Our Providers</a>
+          <a href="/get-started.html" class="btn btn-outline">Request a Consultation</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+</div>
+<div id="footer-placeholder"></div>
+<script src="/js/main.js"></script>
 </body>
 </html>
