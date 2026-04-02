@@ -1,61 +1,96 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- NEW: This script sets the correct base path for all links and resources. -->
-    <script>
-        // --- IMPORTANT ---
-        // SET this to your GitHub repository name.
-        const repoName = 'theobennett.github.io'; 
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const basePath = isGitHubPages ? `/${repoName}/` : '/';
-        document.write(`<base href="${basePath}">`);
-    </script>
-
-    <title>Our Services | Altos Psychiatry</title>
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services | Altos Psychiatry</title>
+  <meta name="description" content="Medication management, psychotherapy, TMS therapy, and psychedelic-assisted treatment — an integrated suite of evidence-based psychiatric care.">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
-    <div class="page-wrapper">
-        <main>
-            <section class="page-hero">
-                <div class="container fade-in-element">
-                    <h1>Our Services</h1>
-                    <p>A suite of advanced, evidence-based treatments tailored to your unique neurobiology.</p>
-                </div>
-            </section>
+<div id="header-placeholder"></div>
+<div class="page-wrapper">
+<main>
 
-            <section class="content-section">
-                <div class="container">
-                    <div style="text-align: center; max-width: 700px; margin: 0 auto 60px auto;" class="fade-in-element">
-                        <h2>A Spectrum of Modern Care</h2>
-                        <p>We offer a curated selection of the most effective treatments in modern psychiatry, from foundational therapies to cutting-edge interventions. Each service is delivered within our integrated care model, ensuring a cohesive and personalized experience.</p>
-                    </div>
-                    <div class="grid-3 fade-in-element">
-                        <div class="condition-card">
-                            <h3>TMS Therapy</h3>
-                            <p>A non-invasive, FDA-approved treatment for depression using targeted magnetic pulses to stimulate key brain regions.</p>
-                            <a href="/services/tms.html">Explore TMS &rarr;</a>
-                        </div>
-                        <div class="condition-card">
-                            <h3>Psychotherapy</h3>
-                            <p>Engage in structured, evidence-based talk therapy to build resilience and develop lasting coping strategies.</p>
-                            <a href="/services/psychotherapy.html">Discover Therapy Models &rarr;</a>
-                        </div>
-                        <div class="condition-card">
-                            <h3>Medication Management</h3>
-                            <p>A precise, data-informed approach to psychiatric medication, optimizing for efficacy and minimizing side effects.</p>
-                            <a href="/services/medication-management.html">Learn About Our Process &rarr;</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <div id="footer-placeholder"></div>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow" style="color:var(--sage-light);">Our Care</p>
+      <h1>Our Services</h1>
+      <p>A curated range of evidence-based treatments, delivered within an integrated and personalized care model.</p>
     </div>
-    <script src="/js/main.js"></script>
+  </section>
+
+  <section class="section section--light">
+    <div class="container">
+
+      <div class="text-center max-narrow mx-auto mb-lg reveal">
+        <h2>Every service, one team</h2>
+        <p>Rather than referring you across multiple providers, we coordinate medication, therapy, and interventional treatments within a single practice. This means your whole picture is visible to the people making clinical decisions about your care.</p>
+      </div>
+
+      <!-- Service blocks -->
+      <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:5rem;">
+
+        <div class="reveal" style="display:grid;grid-template-columns:1fr 2fr;gap:0;background:var(--white);border:1px solid var(--fog-dark);">
+          <div style="background:var(--ocean-deep);padding:2.5rem;display:flex;flex-direction:column;justify-content:center;">
+            <h4 style="color:var(--sage-light);margin-bottom:0.5rem;">Core Service</h4>
+            <h3 style="color:var(--white);font-size:1.6rem;">Medication Management</h3>
+          </div>
+          <div style="padding:2.5rem;">
+            <p>Precision psychopharmacology informed by your full clinical picture. We don't just prescribe — we monitor, adjust, and manage side effects systematically. Where appropriate, we use pharmacogenomic testing to predict medication response and reduce trial-and-error.</p>
+            <a href="/services/medication-management.html" class="card-link" style="margin-top:1rem;display:inline-flex;">Learn more</a>
+          </div>
+        </div>
+
+        <div class="reveal" style="display:grid;grid-template-columns:1fr 2fr;gap:0;background:var(--white);border:1px solid var(--fog-dark);">
+          <div style="background:var(--sage);padding:2.5rem;display:flex;flex-direction:column;justify-content:center;">
+            <h4 style="color:rgba(255,255,255,0.75);margin-bottom:0.5rem;">Core Service</h4>
+            <h3 style="color:var(--white);font-size:1.6rem;">Psychotherapy</h3>
+          </div>
+          <div style="padding:2.5rem;">
+            <p>Individual and group therapy grounded in psychodynamic and cognitive-behavioral frameworks. We offer therapy as a standalone service or integrated with medication management. Group therapy programs for specific conditions are in development.</p>
+            <a href="/services/psychotherapy.html" class="card-link" style="margin-top:1rem;display:inline-flex;">Learn more</a>
+          </div>
+        </div>
+
+        <div class="reveal" style="display:grid;grid-template-columns:1fr 2fr;gap:0;background:var(--white);border:1px solid var(--fog-dark);">
+          <div style="background:var(--ocean-light);padding:2.5rem;display:flex;flex-direction:column;justify-content:center;">
+            <h4 style="color:rgba(255,255,255,0.75);margin-bottom:0.5rem;">Interventional</h4>
+            <h3 style="color:var(--white);font-size:1.6rem;">TMS Therapy <span class="badge-soon" style="background:rgba(255,255,255,0.2);color:var(--white);">2026</span></h3>
+          </div>
+          <div style="padding:2.5rem;">
+            <p>Transcranial Magnetic Stimulation (TMS) is an FDA-cleared, non-invasive treatment for major depression and OCD. We will offer standard TMS and the accelerated SAINT protocol (Stanford Accelerated Intelligent Neuromodulation Therapy) beginning in 2026.</p>
+            <a href="/services/tms.html" class="card-link" style="margin-top:1rem;display:inline-flex;">Learn more</a>
+          </div>
+        </div>
+
+        <div class="reveal" style="display:grid;grid-template-columns:1fr 2fr;gap:0;background:var(--white);border:1px solid var(--fog-dark);">
+          <div style="background:var(--stone);padding:2.5rem;display:flex;flex-direction:column;justify-content:center;">
+            <h4 style="color:rgba(255,255,255,0.6);margin-bottom:0.5rem;">Interventional</h4>
+            <h3 style="color:var(--white);font-size:1.6rem;">Psychedelic Therapy <span class="badge-soon" style="background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.75);">Future</span></h3>
+          </div>
+          <div style="padding:2.5rem;">
+            <p>We are tracking the evolving regulatory landscape for psychedelic-assisted therapy in California, including psilocybin and ketamine-assisted treatment. We intend to offer these services as legal frameworks mature and evidence continues to build.</p>
+            <a href="/services/psychedelics.html" class="card-link" style="margin-top:1rem;display:inline-flex;">Learn more</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Care philosophy -->
+      <div class="reveal text-center" style="padding:4rem;background:var(--sand-pale);border:1px solid var(--sand-light);">
+        <span class="section-tag">Our Approach</span>
+        <h2 style="max-width:600px;margin:0 auto 1rem;">Integrative by design</h2>
+        <p style="max-width:600px;margin:0 auto 2rem;">Every service is delivered within our integrative care model — factoring in metabolic health, sleep, nutrition, and lifestyle as clinical variables. Learn more about how we think about care.</p>
+        <a href="/services/care-models.html" class="btn btn-primary">Our Care Philosophy</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+</div>
+<div id="footer-placeholder"></div>
+<script src="/js/main.js"></script>
 </body>
 </html>
