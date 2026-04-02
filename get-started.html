@@ -1,14 +1,11 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- NEW: This script sets the correct base path for all links and resources. -->
     <script>
-        // --- IMPORTANT ---
-        // SET this to your GitHub repository name.
-        const repoName = 'theobennett.github.io'; 
+        const repoName = 'theobennett.github.io';
         const isGitHubPages = window.location.hostname.includes('github.io');
         const basePath = isGitHubPages ? `/${repoName}/` : '/';
         document.write(`<base href="${basePath}">`);
@@ -22,78 +19,188 @@
     <div class="page-wrapper">
         <main>
             <section class="content-section">
-                <div class="container" style="max-width: 800px;">
-                    <div style="text-align:center; margin-bottom: 40px;">
-                        <h2>New Patient Consultation Request</h2>
-                        <p>Please complete the form below to request a consultation. Our care coordinator will contact you within one business day. Your information is kept confidential and secure.</p>
+                <div class="container" style="max-width: 700px;">
+                    <div style="text-align:center; margin-bottom: 2rem;">
+                        <h1 style="margin-bottom: 0.5rem;">Ready for Clarity?</h1>
+                        <p style="color: var(--color-text-dark); font-size: 1.05rem; line-height: 1.7;">
+                            We'll listen to what's going on, answer your questions, and find the perfect appointment time. No long intake process. No judgment. Just a genuine conversation about how we can help.
+                        </p>
                     </div>
 
-                    <form id="consultation-form" class="form-container">
-                        <fieldset class="form-fieldset">
-                            <legend>Patient Information</legend>
-                            <div class="form-group"><label for="firstName">First Name *</label><input type="text" id="firstName" name="firstName" required></div>
-                            <div class="form-group"><label for="lastName">Last Name *</label><input type="text" id="lastName" name="lastName" required></div>
-                            <div class="form-group"><label for="dob">Date of Birth *</label><input type="date" id="dob" name="dob" required></div>
-                            <div class="form-group"><label for="email">Email *</label><input type="email" id="email" name="email" required></div>
-                            <div class="form-group"><label for="phone">Phone *</label><input type="tel" id="phone" name="phone" required></div>
-                            <div class="form-group"><label for="address">Address *</label><input type="text" id="address" name="address" required></div>
+                    <!-- Step 1: Email & Phone (soft commitment) -->
+                    <form id="intake-form" class="form-container">
+                        <fieldset class="form-fieldset" style="background-color: var(--color-bg-light); padding: 2rem; border-radius: 12px; border: none; margin-bottom: 2rem;">
+                            <legend style="font-size: 1.1rem; font-weight: 600; color: var(--color-primary); margin-bottom: 1.5rem; padding: 0;">Your contact information</legend>
+                            
+                            <div class="form-group">
+                                <label for="firstName" style="color: var(--color-primary); font-weight: 600;">First name</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="e.g., Sarah" required style="border-radius: 8px; border: 1px solid var(--color-border); padding: 12px 14px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName" style="color: var(--color-primary); font-weight: 600;">Last name</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="e.g., Johnson" required style="border-radius: 8px; border: 1px solid var(--color-border); padding: 12px 14px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" style="color: var(--color-primary); font-weight: 600;">Email address</label>
+                                <input type="email" id="email" name="email" placeholder="you@example.com" required style="border-radius: 8px; border: 1px solid var(--color-border); padding: 12px 14px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" style="color: var(--color-primary); font-weight: 600;">Phone number</label>
+                                <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required style="border-radius: 8px; border: 1px solid var(--color-border); padding: 12px 14px;">
+                            </div>
                         </fieldset>
 
-                        <fieldset class="form-fieldset">
-                            <legend>Consultation Details</legend>
-                            <div class="form-group"><label>Are you seeking services for yourself or someone else? *</label><div class="radio-group"><label><input type="radio" name="seekingFor" value="Myself" required> Myself</label><label><input type="radio" name="seekingFor" value="Someone Else"> Someone Else</label></div></div>
-                            <div class="form-group"><label>Primary reason for seeking treatment? *</label><textarea id="reason" name="reason" rows="4" required></textarea></div>
-                            <div class="form-group"><label>Have you ever been in psychiatric treatment before? *</label><div class="radio-group"><label><input type="radio" name="priorTreatment" value="Yes" required> Yes</label><label><input type="radio"name="priorTreatment" value="No"> No</label></div></div>
+                        <!-- Step 2: Why you're here -->
+                        <fieldset class="form-fieldset" style="background-color: var(--color-bg-light); padding: 2rem; border-radius: 12px; border: none; margin-bottom: 2rem;">
+                            <legend style="font-size: 1.1rem; font-weight: 600; color: var(--color-primary); margin-bottom: 1.5rem; padding: 0;">What's bringing you here?</legend>
+                            
+                            <div class="form-group">
+                                <label for="reason" style="color: var(--color-primary); font-weight: 600;">Tell us what's going on (in your own words)</label>
+                                <textarea id="reason" name="reason" rows="5" placeholder="You don't need to write an essay—just give us a sense of what you're dealing with. What brought you to look for help?" required style="border-radius: 8px; border: 1px solid var(--color-border); padding: 12px 14px; font-family: inherit; font-size: 1rem;"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="color: var(--color-primary); font-weight: 600; display: block; margin-bottom: 1rem;">Which of these resonates most with you? (optional)</label>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
+                                        <input type="checkbox" name="concerns" value="Depression" style="margin-right: 10px;">
+                                        Depression or low mood
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
+                                        <input type="checkbox" name="concerns" value="Anxiety" style="margin-right: 10px;">
+                                        Anxiety or worry
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
+                                        <input type="checkbox" name="concerns" value="ADHD" style="margin-right: 10px;">
+                                        Trouble focusing / ADHD
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
+                                        <input type="checkbox" name="concerns" value="Sleep" style="margin-right: 10px;">
+                                        Sleep problems
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
+                                        <input type="checkbox" name="concerns" value="Trauma" style="margin-right: 10px;">
+                                        Trauma or past events
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
+                                        <input type="checkbox" name="concerns" value="Other" style="margin-right: 10px;">
+                                        Something else
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="color: var(--color-primary); font-weight: 600; display: block; margin-bottom: 1rem;">Have you worked with a psychiatrist or therapist before?</label>
+                                <div style="display: flex; gap: 20px;">
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
+                                        <input type="radio" name="priorTreatment" value="Yes" style="margin-right: 10px;">
+                                        Yes
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
+                                        <input type="radio" name="priorTreatment" value="No" style="margin-right: 10px;">
+                                        No
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--color-text-dark);">
+                                        <input type="radio" name="priorTreatment" value="Not sure" style="margin-right: 10px;">
+                                        Not sure
+                                    </label>
+                                </div>
+                            </div>
                         </fieldset>
 
-                        <fieldset class="form-fieldset">
-                            <legend>Insurance Information</legend>
-                            <div class="form-group"><label for="insuranceProvider">Insurance Provider *</label><input type="text" id="insuranceProvider" name="insuranceProvider" required></div>
-                            <div class="form-group"><label for="memberId">Member ID *</label><input type="text" id="memberId" name="memberId" required></div>
-                        </fieldset>
+                        <!-- Step 3: Privacy reassurance -->
+                        <div style="background-color: #EAF3DE; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--color-accent); margin-bottom: 2rem;">
+                            <p style="margin: 0; color: var(--color-text-dark); font-size: 0.95rem;">
+                                <strong>Your privacy is sacred.</strong> Everything you share is confidential and protected by law. We don't share information with your employer, family, or anyone else without your consent. <a href="/faq.html" style="color: var(--color-accent); font-weight: 600;">Learn more about confidentiality →</a>
+                            </p>
+                        </div>
 
-                        <div id="form-loader" style="text-align: center;"><p>Submitting...</p></div>
-                        <div id="form-success"><p>Thank you! Your request has been submitted. Our team will be in touch shortly.</p></div>
-                        <div id="form-error"><p>An error occurred. Please try again or contact our office directly.</p></div>
+                        <!-- Submission status messages -->
+                        <div id="form-loading" style="text-align: center; display: none; margin-bottom: 2rem;">
+                            <p style="color: var(--color-text-dark); font-weight: 600;">Sending your information...</p>
+                        </div>
 
-                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.2rem; margin-top: 20px;">Submit Request</button>
+                        <div id="form-success" style="text-align: center; display: none; margin-bottom: 2rem; padding: 1.5rem; background-color: #EAF3DE; border-radius: 8px;">
+                            <p style="color: var(--color-text-dark); font-weight: 600; margin-bottom: 1rem;">✓ Thank you! We've received your request.</p>
+                            <p style="color: var(--color-text-dark); margin-bottom: 1.5rem;">Dr. Sharma personally reviews all intake forms. We'll call you within 24 hours to find the perfect appointment time.</p>
+                            <p style="color: var(--color-text-dark); font-size: 0.95rem; margin-bottom: 0;">In the meantime, feel free to <a href="/faq.html" style="color: var(--color-accent); font-weight: 600;">check out our FAQ</a> or explore more about <a href="/" style="color: var(--color-accent); font-weight: 600;">what we offer.</a></p>
+                        </div>
+
+                        <div id="form-error" style="text-align: center; display: none; margin-bottom: 2rem; padding: 1.5rem; background-color: #FCEBEB; border-radius: 8px;">
+                            <p style="color: var(--color-text-dark); font-weight: 600; margin-bottom: 1rem;">Something went wrong.</p>
+                            <p style="color: var(--color-text-dark); margin-bottom: 1.5rem;">Please try again, or call us directly at <strong>[Your Phone Number]</strong>.</p>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; font-size: 1.05rem; padding: 14px 24px; margin-bottom: 1rem;">Request a Consultation</button>
+
+                        <p style="text-align: center; color: var(--color-text-dark); font-size: 0.9rem; margin-top: 1rem;">
+                            Don't have time to fill this out right now? <a href="#" style="color: var(--color-accent); font-weight: 600;" onclick="showPhoneOption(event);">Call us instead</a>
+                        </p>
                     </form>
                 </div>
             </section>
         </main>
         <div id="footer-placeholder"></div>
     </div>
+
     <script src="/js/main.js"></script>
     <script>
-    // --- Google Sheet Integration Script ---
-    const form = document.getElementById('consultation-form');
-    const loader = document.getElementById('form-loader');
-    const successMessage = document.getElementById('form-success');
-    const errorMessage = document.getElementById('form-error');
+        const form = document.getElementById('intake-form');
+        const loading = document.getElementById('form-loading');
+        const success = document.getElementById('form-success');
+        const error = document.getElementById('form-error');
+        const submitBtn = document.getElementById('submit-btn');
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        loader.style.display = 'block';
-        
-        const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
-        const formData = new FormData(form);
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Show loading state
+            loading.style.display = 'block';
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.6';
 
-        fetch(scriptURL, { method: 'POST', body: formData })
-            .then(response => {
-                loader.style.display = 'none';
-                if (response.ok) {
-                    successMessage.style.display = 'block';
+            try {
+                // Collect form data
+                const formData = new FormData(form);
+                const data = {
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    reason: formData.get('reason'),
+                    concerns: formData.getAll('concerns').join(', ') || 'Not specified',
+                    priorTreatment: formData.get('priorTreatment') || 'Not specified',
+                    timestamp: new Date().toLocaleString(),
+                };
+
+                // TODO: Send to your backend/CRM
+                // For now, log to console and show success
+                console.log('Lead captured:', data);
+
+                // Simulate successful submission
+                setTimeout(() => {
+                    loading.style.display = 'none';
                     form.style.display = 'none';
-                } else {
-                    throw new Error('Network response was not ok.');
-                }
-            })
-            .catch(error => {
-                loader.style.display = 'none';
-                errorMessage.style.display = 'block';
-                console.error('Error!', error.message);
-            });
-    });
+                    success.style.display = 'block';
+                    submitBtn.disabled = false;
+                }, 500);
+            } catch (err) {
+                console.error('Error:', err);
+                loading.style.display = 'none';
+                error.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+            }
+        });
+
+        function showPhoneOption(e) {
+            e.preventDefault();
+            alert('Call us at: [Your Phone Number]');
+        }
     </script>
 </body>
 </html>
