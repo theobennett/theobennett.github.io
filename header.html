@@ -1,72 +1,85 @@
 <header class="main-header" id="main-header">
   <div class="container header-inner">
 
-```
-<a href="/" class="logo">Altos Psychiatry</a>
+    <a href="/" class="logo">Altos Psychiatry</a>
 
-<nav class="main-nav" id="main-nav">
+    <nav class="main-nav" id="main-nav">
 
-  <!-- Why Altos -->
-  <div class="nav-item">
-    <a href="/why-altos/about-us.html" class="nav-link">
-      Why Altos
-      <svg class="dropdown-chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <div class="dropdown-panel">
-      <a href="/why-altos/about-us.html">About Us</a>
-      <a href="/why-altos/care-philosophy.html">Our Care</a>
-      <a href="/conditions/what-we-treat.html" class="nav-link">What We Treat</a>
-      <a href="/why-altos/our-team.html">Our Team</a>
-      <a href="/why-altos/for-patients.html">For Patients &amp; Families</a>
-      <a href="/why-altos/for-providers.html">For Providers</a>
+      <!-- Why Altos -->
+      <div class="nav-item">
+        <a href="/why-altos/about-us.html" class="nav-link dropbtn">
+          Why Altos
+          <svg class="dropdown-chevron" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="dropdown-panel">
+          <a href="/why-altos/about-us.html">About Us</a>
+          <a href="/why-altos/care-philosophy.html">Care Philosophy</a>
+          <a href="/why-altos/our-team.html">Our Team</a>
+          <a href="/why-altos/for-patients.html">For Patients &amp; Families</a>
+          <a href="/why-altos/for-providers.html">For Providers</a>
+        </div>
+      </div>
+
+      <!-- Our Care -->
+      <div class="nav-item">
+        <a href="/services.html" class="nav-link dropbtn">
+          Our Care
+          <svg class="dropdown-chevron" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="dropdown-panel">
+          <a href="/services.html">Overview</a>
+          <a href="/services/medication-management.html">Medication Management</a>
+          <a href="/services/psychotherapy.html">Psychotherapy</a>
+          <a href="/services/tms.html">TMS Therapy</a>
+          <a href="/services/psychedelics.html">Psychedelic Therapy</a>
+        </div>
+      </div>
+
+      <!-- What We Treat -->
+      <div class="nav-item">
+        <a href="/conditions/what-we-treat.html" class="nav-link">What We Treat</a>
+      </div>
+
+      <!-- Resources -->
+      <div class="nav-item">
+        <a href="/resources/faq.html" class="nav-link dropbtn">
+          Resources
+          <svg class="dropdown-chevron" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="dropdown-panel">
+          <a href="/resources/faq.html">FAQ</a>
+          <a href="/resources/contact.html">Contact Us</a>
+          <a href="/resources/careers.html">Careers</a>
+          <a href="/privacy.html">Privacy</a>
+        </div>
+      </div>
+
+      <!-- Mobile-only action links -->
+      <div class="nav-item mobile-only-actions">
+        <a href="/patient-portal.html" class="nav-link">Current Patients</a>
+      </div>
+      <div class="nav-item mobile-only-actions">
+        <a href="/why-altos/for-providers.html" class="nav-link">Referrals</a>
+      </div>
+      <div class="nav-item mobile-only-actions">
+        <a href="/get-started.html" class="nav-link" style="color:var(--sand-light,#E8D9C4);">Request Consultation</a>
+      </div>
+
+    </nav>
+
+    <!-- Desktop right-side buttons -->
+    <div class="header-actions" id="header-actions">
+      <a href="/patient-portal.html" class="btn-header btn-header--ghost">Current Patients</a>
+      <a href="/why-altos/for-providers.html" class="btn-header btn-header--ghost">Referrals</a>
+      <a href="/get-started.html" class="btn-header btn-header--primary">Request Consultation</a>
     </div>
-  </div>
 
-  <!-- Our Care -->
-  <div class="nav-item">
-    <a href="/services.html" class="nav-link">
-      Our Care
-      <svg class="dropdown-chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <div class="dropdown-panel">
-      <a href="/services.html">Overview</a>
-      <div class="dropdown-divider"></div>
-      <a href="/services/medication-management.html">Medications</a>
-      <a href="/services/psychotherapy.html">Psychotherapy</a>
-      <a href="/services/tms.html">TMS</a>
-      <a href="/services/psychedelics.html">Psychedelics</a>
-    </div>
-  </div>
-
-  <!-- Resources -->
-  <div class="nav-item">
-    <a href="/resources/faq.html" class="nav-link">
-      Resources
-      <svg class="dropdown-chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <div class="dropdown-panel">
-      <a href="/resources/faq.html">FAQ</a>
-      <a href="/resources/contact.html">Contact Us</a>
-      <a href="/resources/careers.html">Careers</a>
-      <a href="/privacy.html">Privacy &amp; HIPAA</a>
-    </div>
-  </div>
-
-</nav>
-
-<!-- Right-side action buttons -->
-<div class="header-actions" id="header-actions">
-  <a href="/patient-portal.html" class="btn-header-ghost">Current Patients</a>
-  <a href="/why-altos/for-providers.html" class="btn-header-ghost">Referrals</a>
-  <a href="/get-started.html" class="btn-header-cta">Request Consultation</a>
-</div>
-
-<button class="nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-```
+    <!-- Mobile toggle -->
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
   </div>
 </header>
