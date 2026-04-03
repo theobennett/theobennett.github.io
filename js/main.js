@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (toggle && nav) {
       toggle.addEventListener('click', () => {
         const open = nav.classList.toggle('is-open');
-        toggle.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', open);
         document.body.style.overflow = open ? 'hidden' : '';
       });
     }
@@ -43,8 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
     nav?.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
         nav.classList.remove('is-open');
-        if (toggle) toggle.classList.remove('is-open');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
+      });
+    });
+
+    // Keyboard accessibility for dropdowns
+    nav?.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          item.querySelector('.dropdown-panel')?.blur();
+        }
       });
     });
   }
@@ -57,19 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.07 });
 
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
   /* ── Accordions ───────────────────────────────────── */
   document.querySelectorAll('.accordion-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const body = btn.nextElementSibling;
+      const body   = btn.nextElementSibling;
       const isOpen = btn.classList.contains('open');
 
-      // Close all in same group
-      const group = btn.closest('.accordion-group') || btn.closest('section');
-      group?.querySelectorAll('.accordion-btn.open').forEach(b => {
+      // Close siblings in same group
+      const container = btn.closest('.accordion-group') || btn.closest('section') || document;
+      container.querySelectorAll('.accordion-btn.open').forEach(b => {
         b.classList.remove('open');
         b.nextElementSibling.style.maxHeight = null;
       });
@@ -87,8 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(a.getAttribute('href'));
       if (target) {
         e.preventDefault();
-        const offset = 90;
-        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.scrollY - 90,
+          behavior: 'smooth'
+        });
       }
     });
   });
