@@ -78,7 +78,6 @@
   <section class="section section--light">
     <div class="container" style="max-width:860px;">
 
-      <!-- Success screen (shown after submission) -->
       <div id="success-screen">
         <div class="success-icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -96,10 +95,8 @@
         </div>
       </div>
 
-      <!-- Form (hidden after submission) -->
       <div id="form-wrapper">
 
-        <!-- Trust bar -->
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--fog-dark);margin-bottom:3rem;border:1px solid var(--fog-dark);" class="reveal">
           <div style="background:var(--white);padding:1.25rem 1.5rem;text-align:center;">
             <p style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:0.25rem;">Response Time</p>
@@ -145,7 +142,7 @@
                 </div>
                 <div class="form-group">
                   <label class="form-label" for="phone">Phone Number *</label>
-                  <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel">
+                  <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel" placeholder="XXX-XXX-XXXX">
                   <span class="field-error" id="err-phone">Please enter your phone number.</span>
                 </div>
               </div>
@@ -164,25 +161,9 @@
             <fieldset class="form-fieldset">
               <legend>About Your Care</legend>
               <div class="form-group">
-                <label class="form-label">Are you seeking care for yourself or someone else? *</label>
-                <div class="radio-group" id="rg-seekingFor">
-                  <label class="radio-label"><input type="radio" name="seekingFor" value="Myself"> Myself</label>
-                  <label class="radio-label"><input type="radio" name="seekingFor" value="Someone else"> Someone else</label>
-                </div>
-                <span class="field-error" id="err-seekingFor">Please select one.</span>
-              </div>
-              <div class="form-group">
                 <label class="form-label" for="concerns">What brings you to Altos Psychiatry? *</label>
                 <textarea class="form-textarea" id="concerns" name="concerns" rows="4" placeholder="A brief description — one or two sentences is fine. Clinical details stay between you and your provider."></textarea>
                 <span class="field-error" id="err-concerns">Please briefly describe what you're looking for help with.</span>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Have you received psychiatric treatment before? *</label>
-                <div class="radio-group" id="rg-priorTreatment">
-                  <label class="radio-label"><input type="radio" name="priorTreatment" value="Yes"> Yes</label>
-                  <label class="radio-label"><input type="radio" name="priorTreatment" value="No"> No</label>
-                </div>
-                <span class="field-error" id="err-priorTreatment">Please select one.</span>
               </div>
               <div class="form-group">
                 <label class="form-label" for="referralSource">How did you hear about us?</label>
@@ -209,15 +190,6 @@
                   <label class="radio-label"><input type="radio" name="apptType" value="No preference"> No preference</label>
                 </div>
                 <span class="field-error" id="err-apptType">Please select one.</span>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Payment *</label>
-                <div class="radio-group" id="rg-payment">
-                  <label class="radio-label"><input type="radio" name="payment" value="Self-pay"> I will self-pay</label>
-                  <label class="radio-label"><input type="radio" name="payment" value="OON reimbursement"> I plan to seek out-of-network reimbursement</label>
-                </div>
-                <span class="field-error" id="err-payment">Please select one.</span>
-                <p class="form-hint">We are a private-pay practice. We provide superbills for PPO out-of-network reimbursement.</p>
               </div>
             </fieldset>
 
@@ -246,8 +218,7 @@
           <p class="disclaimer">Prefer to talk first? Call us at <a href="tel:+16505550000" style="color:var(--ocean);">(650) 555-0000</a> during business hours (Mon–Fri, 9 AM–5 PM).</p>
         </div>
 
-      </div><!-- /#form-wrapper -->
-    </div>
+      </div></div>
   </section>
 
 </main>
@@ -255,23 +226,21 @@
 <div id="footer-placeholder"></div>
 <script src="/js/main.js"></script>
 <script>
-// ─────────────────────────────────────────────────────────────
-// ALTOS PSYCHIATRY — Patient Consultation Form
-//
-// HOW TO CONNECT TO GOOGLE SHEETS:
-//   1. Go to script.google.com → New project
-//   2. Delete all code, paste google-apps-script.gs
-//   3. Save, then Deploy → New Deployment
-//      Type: Web App | Execute as: Me | Access: Anyone
-//   4. Copy the /exec URL and paste it below
-// ─────────────────────────────────────────────────────────────
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMB2WMDihV43zZ3w4JULnsy1GNLQh4dKr_UjUwJ1Vsj6zL7XQxDsJ-YCF5p3064Iqc/exec';
+// Replace this with your newly deployed Web App URL
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjKojdmIKv9vZftmSCe5QbvEMVtuGHG61qAUamuYULZds0HrXCI2K5FOX4e2WDNls-/exec';
 
 var form       = document.getElementById('consultation-form');
 var wrapper    = document.getElementById('form-wrapper');
 var successEl  = document.getElementById('success-screen');
 var submitBtn  = document.getElementById('submit-btn');
 var submitErr  = document.getElementById('submission-error');
+var phoneInput = document.getElementById('phone');
+
+// ── Phone Number Auto-Formatter ──────────────────────────────
+phoneInput.addEventListener('input', function (e) {
+  var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+  e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '');
+});
 
 // ── Validation helpers ───────────────────────────────────────
 function showError(id, show) {
@@ -294,8 +263,6 @@ function getRadio(name) {
 
 function validate() {
   var ok = true;
-
-  // Text fields
   var textFields = ['firstName','lastName','email','phone'];
   textFields.forEach(function(id) {
     var el = form.querySelector('[name="' + id + '"]');
@@ -305,26 +272,20 @@ function validate() {
     if (bad) ok = false;
   });
 
-  // Select fields
   var sel = form.querySelector('[name="contactPref"]');
   var selBad = !sel || !sel.value;
   markField(sel, selBad);
   showError('contactPref', selBad);
   if (selBad) ok = false;
 
-  // Textarea
   var ta = form.querySelector('[name="concerns"]');
   var taBad = !ta || !ta.value.trim();
   markField(ta, taBad);
   showError('concerns', taBad);
   if (taBad) ok = false;
 
-  // Radio groups
   var radios = [
-    { name: 'seekingFor',     groupId: 'rg-seekingFor' },
-    { name: 'priorTreatment', groupId: 'rg-priorTreatment' },
-    { name: 'apptType',       groupId: 'rg-apptType' },
-    { name: 'payment',        groupId: 'rg-payment' }
+    { name: 'apptType', groupId: 'rg-apptType' }
   ];
   radios.forEach(function(r) {
     var bad = !getRadio(r.name);
@@ -333,7 +294,6 @@ function validate() {
     if (bad) ok = false;
   });
 
-  // Consent checkbox
   var cb = document.getElementById('consent');
   var cbBad = !cb || !cb.checked;
   showError('consent', cbBad);
@@ -348,15 +308,8 @@ form.addEventListener('submit', function(e) {
   submitErr.style.display = 'none';
 
   if (!validate()) {
-    // Scroll to first error
     var firstErr = form.querySelector('.has-error, .field-error[style*="block"]');
     if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
-  }
-
-  // Dev mode — no URL set yet
-  if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwMB2WMDihV43zZ3w4JULnsy1GNLQh4dKr_UjUwJ1Vsj6zL7XQxDsJ-YCF5p3064Iqc/exec') {
-    showSuccess();
     return;
   }
 
@@ -364,30 +317,27 @@ form.addEventListener('submit', function(e) {
   submitBtn.classList.add('loading');
   submitBtn.textContent = 'Submitting';
 
-  // Build query string — GET request bypasses CORS entirely with GAS
-  var params = new URLSearchParams({
-    formType:       'patient_inquiry',
-    firstName:      form.querySelector('[name="firstName"]').value.trim(),
-    lastName:       form.querySelector('[name="lastName"]').value.trim(),
-    email:          form.querySelector('[name="email"]').value.trim(),
-    phone:          form.querySelector('[name="phone"]').value.trim(),
-    contactPref:    form.querySelector('[name="contactPref"]').value,
-    seekingFor:     getRadio('seekingFor'),
-    concerns:       form.querySelector('[name="concerns"]').value.trim(),
-    priorTreatment: getRadio('priorTreatment'),
-    referralSource: form.querySelector('[name="referralSource"]').value,
-    apptType:       getRadio('apptType'),
-    payment:        getRadio('payment'),
-    timestamp:      new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+  // Build the FormData
+  var formData = new FormData(form);
+  formData.append('formType', 'patient_inquiry');
+  formData.append('timestamp', new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+
+  // Send request via modern fetch
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors' 
+  })
+  .then(function() {
+    showSuccess();
+  })
+  .catch(function(error) {
+    console.error('Error!', error.message);
+    submitErr.style.display = 'block';
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('loading');
+    submitBtn.textContent = 'Submit Consultation Request';
   });
-
-  var img = new Image();
-  img.onload  = function() { showSuccess(); };
-  img.onerror = function() { showSuccess(); }; // GAS returns 302 which triggers onerror — treat as success
-  img.src = SCRIPT_URL + '?' + params.toString();
-
-  // Fallback: show success after 4 seconds no matter what
-  setTimeout(function() { showSuccess(); }, 4000);
 });
 
 function showSuccess() {
