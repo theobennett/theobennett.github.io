@@ -1,7 +1,6 @@
 <header class="main-header" id="main-header">
   <div class="container header-inner">
 
-```
 <a href="/" class="logo">Altos Psychiatry</a>
 
 <nav class="main-nav" id="main-nav">
@@ -54,19 +53,34 @@
 
 </nav>
 
-<!-- Right-side action buttons -->
-<div class="header-actions" id="header-actions">
-  <a href="/patient-portal.html" class="btn-header-ghost">Current Patients</a>
-  <a href="/why-altos/for-providers.html" class="btn-header-ghost">Referrals</a>
-  <a href="/get-started.html" class="btn-header-cta">Request Consultation</a>
-</div>
-
-<button class="nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-```
+      <!-- Mobile-only action links -->
+      <div class="nav-item mobile-only-actions">
+        <a href="/patient-portal.html" class="nav-link">Current Patients</a>
+      </div>
+      <div class="nav-item mobile-only-actions">
+        <a href="/why-altos/for-providers.html" class="nav-link">Referrals</a>
+      </div>
+      <div class="nav-item mobile-only-actions">
+        <a href="/get-started.html" class="nav-link" style="color:var(--sand-light,#E8D9C4);">Request Consultation</a>
+      </div>
+ 
+    </nav>
+ 
+    <!-- Desktop right-side buttons -->
+    <div class="header-actions" id="header-actions">
+      <a href="/patient-portal.html" class="btn-header btn-header--ghost">Current Patients</a>
+      <a href="/why-altos/for-providers.html" class="btn-header btn-header--ghost">Referrals</a>
+      <a href="/get-started.html" class="btn-header btn-header--primary">Request Consultation</a>
+    </div>
+ 
+    <!-- Mobile toggle -->
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+ 
+  </div>
 
   </div>
 </header>
