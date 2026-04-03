@@ -170,7 +170,7 @@
 <script>
 // ── Provider Referral Form → Google Sheets ───────────────────
 // Same URL as the patient form. formType routes to the correct tab.
-var REFERRAL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMB2WMDihV43zZ3w4JULnsy1GNLQh4dKr_UjUwJ1Vsj6zL7XQxDsJ-YCF5p3064Iqc/exec';
+var REFERRAL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjKojdmIKv9vZftmSCe5QbvEMVtuGHG61qAUamuYULZds0HrXCI2K5FOX4e2WDNls-/exec';
 
 var rForm    = document.getElementById('referral-form');
 var rLoader  = document.getElementById('ref-loader');
@@ -188,33 +188,6 @@ rForm.addEventListener('submit', function(e) {
     else if (f) f.style.borderColor = '';
   });
   if (!valid) return;
-
-  // Dev mode
-  if (REFERRAL_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwMB2WMDihV43zZ3w4JULnsy1GNLQh4dKr_UjUwJ1Vsj6zL7XQxDsJ-YCF5p3064Iqc/exec') {
-    rForm.style.display = 'none';
-    rSuccess.style.display = 'block';
-    return;
-  }
-
-  rLoader.style.display = 'block';
-
-  var params = new URLSearchParams({
-    formType:         'provider_referral',
-    providerName:     rForm.querySelector('[name="providerName"]').value.trim(),
-    organization:     rForm.querySelector('[name="organization"]').value.trim(),
-    providerEmail:    rForm.querySelector('[name="providerEmail"]').value.trim(),
-    officePhone:      rForm.querySelector('[name="officePhone"]').value.trim(),
-    relationship:     rForm.querySelector('[name="relationship"]').value,
-    patientFirst:     rForm.querySelector('[name="patientFirst"]').value.trim(),
-    patientLast:      rForm.querySelector('[name="patientLast"]').value.trim(),
-    patientPhone:     rForm.querySelector('[name="patientPhone"]').value.trim(),
-    patientEmail:     rForm.querySelector('[name="patientEmail"]').value.trim(),
-    preferredDay:     rForm.querySelector('[name="preferredDay"]').value,
-    referralContext:  rForm.referralContext.value.trim(),
-    timestamp:        new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
-    referralContext:  rForm.querySelector('[name="referralContext"]').value.trim(),
-    timestamp:        new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
-  });
 
   // Use Image() GET — bypasses CORS, works reliably with Google Apps Script
   var img = new Image();
