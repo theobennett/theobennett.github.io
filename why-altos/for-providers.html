@@ -186,36 +186,8 @@
 <script>
 /*
   REFERRAL FORM → GOOGLE SHEETS (separate "Provider Referrals" tab)
-  
-  In your Google Apps Script, update doPost() to route by formType:
-  
-  function doPost(e) {
-    const ss = SpreadsheetApp.openById('YOUR_SHEET_ID');
-    const data = e.parameter;
-    
-    if (data.formType === 'referral') {
-      const tab = ss.getSheetByName('Provider Referrals') || ss.insertSheet('Provider Referrals');
-      tab.appendRow([
-        new Date(), 'New',
-        data.providerName, data.providerOrg, data.providerEmail, data.providerPhone, data.providerRelationship,
-        data.patientFirst + ' ' + data.patientLast, data.patientPhone, data.patientEmail,
-        data.referralReason, data.preferredTiming
-      ]);
-    } else {
-      const tab = ss.getSheetByName('Patient Inquiries') || ss.getActiveSheet();
-      tab.appendRow([new Date(), 'New',
-        data.firstName + ' ' + data.lastName, data.email, data.phone, data.contactPref,
-        data.seekingFor, data.concerns, data.priorTreatment, data.referralSource,
-        data.apptType, data.payment
-      ]);
-    }
-    return ContentService.createTextOutput(JSON.stringify({result:'success'}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-  
-  Replace the URL below:
 */
-const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxy7QdfofJYqaXbi0Fir2lzVOYcqrp0Cx-TpKzkD222kT-s8bKcdnzQQTsgZi0jU5p4/exec';
 
 const form    = document.getElementById('referral-form');
 const loader  = document.getElementById('ref-loader');
@@ -232,7 +204,7 @@ form.addEventListener('submit', function(e) {
     alert('Please complete all required fields and confirm patient consent.');
     return;
   }
-  if (SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+  if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxy7QdfofJYqaXbi0Fir2lzVOYcqrp0Cx-TpKzkD222kT-s8bKcdnzQQTsgZi0jU5p4/exec') {
     form.style.display = 'none'; success.style.display = 'block'; return;
   }
   loader.style.display = 'block';
