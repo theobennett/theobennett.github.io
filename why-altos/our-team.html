@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team | Altos Psychiatry</title>
+  <meta name="description" content="Meet the psychiatric providers at Altos Psychiatry — experienced, board-certified clinicians based in Menlo Park, California.">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .team-card {
+      background: var(--white);
+      border: 1px solid var(--fog-dark);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: all 0.3s var(--ease);
+    }
+    .team-card:hover { box-shadow: 0 12px 40px rgba(44,95,122,0.1); transform: translateY(-3px); }
+    .team-card-img {
+      width: 100%; height: 280px; object-fit: cover;
+      display: block; background: var(--ocean-mist);
+    }
+    .team-card-img-placeholder {
+      width: 100%; height: 280px;
+      background: linear-gradient(160deg, var(--ocean-mist) 0%, var(--sage-pale) 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .team-card-img-placeholder svg { opacity: 0.35; }
+    .team-card-body { padding: 2rem; }
+    .team-card-name { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; color: var(--ocean-deep); margin-bottom: 0.2rem; }
+    .team-card-title { font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.25rem; font-weight: 500; }
+    .team-card-bio { font-size: 0.93rem; color: var(--stone-light); line-height: 1.8; margin-bottom: 1.25rem; }
+    .team-card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem; }
+    .team-tag { font-size: 0.78rem; padding: 4px 12px; background: var(--fog-dark); color: var(--stone); font-weight: 500; border-radius: 1px; }
+    .team-card-cert { font-size: 0.82rem; color: var(--pebble); }
+  </style>
+</head>
+<body>
+<div id="header-placeholder"></div>
+<div class="page-wrapper">
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow" style="color:var(--sage-light);">Who We Are</p>
+      <h1>Our Team</h1>
+      <p>Board-certified clinicians with deep clinical expertise and a genuine commitment to the patients we serve.</p>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="container" style="max-width:1000px;">
+
+      <div class="text-center max-narrow mx-auto mb-lg reveal">
+        <p class="text-lead">Our team is small by design. Every provider maintains a manageable panel so they can give each patient genuine attention — not just a slot in the schedule.</p>
+      </div>
+
+      <!-- Team grid — replace with real bios -->
+      <div class="grid-2 reveal" style="margin-bottom:4rem;">
+
+        <!-- Provider 1 — REPLACE WITH REAL BIO -->
+        <div class="team-card">
+          <div class="team-card-img-placeholder">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--ocean)" stroke-width="1"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="team-card-body">
+            <p class="team-card-name">Dr. [First Last], MD</p>
+            <p class="team-card-title">Founder &amp; Psychiatrist</p>
+            <p class="team-card-bio">
+              [Replace this with your actual bio. Include your training background, residency, clinical interests, and why you founded this practice. Keep it genuine and specific — patients read this to decide whether they trust you.]
+            </p>
+            <div class="team-card-tags">
+              <span class="team-tag">Treatment-Resistant Depression</span>
+              <span class="team-tag">Metabolic Psychiatry</span>
+              <span class="team-tag">ADHD</span>
+            </div>
+            <p class="team-card-cert">Board Certified in Psychiatry · American Board of Psychiatry and Neurology</p>
+          </div>
+        </div>
+
+        <!-- Provider 2 placeholder — remove if solo practice at launch -->
+        <div class="team-card" style="opacity:0.5;">
+          <div class="team-card-img-placeholder">
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="team-card-body">
+            <p class="team-card-name">Team Member</p>
+            <p class="team-card-title">Coming Soon</p>
+            <p class="team-card-bio">We are growing thoughtfully. Additional providers will be introduced as the practice expands. Our hiring criteria prioritize clinical excellence, patient-centered values, and commitment to integrative care.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Values section -->
+      <div class="reveal" style="background:var(--fog-dark);padding:3rem;border:1px solid rgba(106,140,122,0.15);margin-bottom:4rem;">
+        <h2 style="margin-bottom:2rem;font-size:1.8rem;">Who we look for — and who we are</h2>
+        <div class="grid-3">
+          <div>
+            <h4 style="margin-bottom:0.5rem;">Clinical Rigor</h4>
+            <p style="font-size:0.9rem;">Every provider at Altos trained at respected academic medical centers and holds board certification in their specialty. We stay current with the evidence and are willing to say when we don't know.</p>
+          </div>
+          <div>
+            <h4 style="margin-bottom:0.5rem;">Genuine Availability</h4>
+            <p style="font-size:0.9rem;">We cap panel sizes deliberately. A provider who is spread too thin cannot give patients the attention they deserve — and will burn out. We treat provider wellbeing as a clinical quality issue.</p>
+          </div>
+          <div>
+            <h4 style="margin-bottom:0.5rem;">Long-Term Thinking</h4>
+            <p style="font-size:0.9rem;">Our goal is not to manage your condition indefinitely. It is to help you achieve durable remission — and to equip you with the understanding of your own neurobiology to sustain it.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="reveal" style="text-align:center;">
+        <h3 style="margin-bottom:0.75rem;">Ready to work with our team?</h3>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+          <a href="/get-started.html" class="btn btn-primary">Request a Consultation</a>
+          <a href="/why-altos/care-philosophy.html" class="btn btn-outline">Our Care Philosophy</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+</div>
+<div id="footer-placeholder"></div>
+<script src="/js/main.js"></script>
+</body>
+</html>
