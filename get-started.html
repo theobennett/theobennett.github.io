@@ -180,19 +180,9 @@
 <div id="footer-placeholder"></div>
 <script src="/js/main.js"></script>
 <script>
-/* ── Form submission → Google Apps Script ── */
-/* 
-  SETUP INSTRUCTIONS:
-  1. Go to script.google.com → create a new project
-  2. Paste the Apps Script code (see README)
-  3. Deploy as Web App → copy the URL
-  4. Replace YOUR_APPS_SCRIPT_URL_HERE below
-  
-  IMPORTANT: This form does NOT send HIPAA-protected data.
-  It collects scheduling/contact info only.
-  For clinical data, use SimplePractice.
+
 */
-const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxy7QdfofJYqaXbi0Fir2lzVOYcqrp0Cx-TpKzkD222kT-s8bKcdnzQQTsgZi0jU5p4/exec';
 
 const form    = document.getElementById('consultation-form');
 const loader  = document.getElementById('form-loader');
@@ -218,7 +208,7 @@ form.addEventListener('submit', function(e) {
   });
   if (!valid) { return; }
 
-  if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbx0J9itNHWghdP2dScHbV0TEzl0ni9YRhpjY8_dGMZvhgdLB1WRkGIjYGVR5JsDnc8tOg/exec') {
+  if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxy7QdfofJYqaXbi0Fir2lzVOYcqrp0Cx-TpKzkD222kT-s8bKcdnzQQTsgZi0jU5p4/exec') {
     // Dev mode: show success without submitting
     form.style.display = 'none';
     success.style.display = 'block';
