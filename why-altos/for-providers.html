@@ -6,6 +6,13 @@
   <title>For Referring Providers | Altos Psychiatry</title>
   <meta name="description" content="Submit a referral to Altos Psychiatry. We partner with primary care, therapists, and specialists across the Peninsula.">
   <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* Error state styling for required fields */
+    .form-input.has-error {
+      border-color: #c0392b !important;
+      box-shadow: 0 0 0 3px rgba(192,57,43,0.1);
+    }
+  </style>
 </head>
 <body>
 <div id="header-placeholder"></div>
@@ -23,7 +30,6 @@
   <section class="section section--light">
     <div class="container" style="max-width:900px;">
 
-      <!-- Clinical focus -->
       <div class="reveal mb-xl">
         <div class="grid-2" style="margin-bottom:2.5rem;">
           <div>
@@ -54,7 +60,6 @@
         </div>
       </div>
 
-      <!-- Referral form -->
       <div id="referral-form-section" class="reveal">
         <span class="section-tag">Submit a Referral</span>
         <h2 style="margin-bottom:0.5rem;">Send us a referral</h2>
@@ -82,7 +87,7 @@
                 </div>
                 <div class="form-group">
                   <label class="form-label" for="officePhone">Office Phone</label>
-                  <input class="form-input" type="tel" id="officePhone" name="officePhone">
+                  <input class="form-input" type="tel" id="officePhone" name="officePhone" placeholder="XXX-XXX-XXXX">
                 </div>
               </div>
               <div class="form-group">
@@ -115,7 +120,7 @@
               <div class="form-row">
                 <div class="form-group">
                   <label class="form-label" for="patientPhone">Patient Phone</label>
-                  <input class="form-input" type="tel" id="patientPhone" name="patientPhone">
+                  <input class="form-input" type="tel" id="patientPhone" name="patientPhone" placeholder="XXX-XXX-XXXX">
                 </div>
                 <div class="form-group">
                   <label class="form-label" for="patientEmail">Patient Email</label>
@@ -123,14 +128,11 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="form-label" for="preferredDay">Preferred intake day / timing</label>
+                <label class="form-label" for="preferredDay">Referral Timeline</label>
                 <select class="form-select" id="preferredDay" name="preferredDay">
-                  <option value="">— No preference —</option>
-                  <option value="early-week">Early week (Mon–Tue)</option>
-                  <option value="mid-week">Mid-week (Wed–Thu)</option>
-                  <option value="friday">Friday</option>
-                  <option value="flexible">Flexible</option>
-                  <option value="urgent">Urgent — as soon as possible</option>
+                  <option value="">— Select Timeline —</option>
+                  <option value="Urgent">Urgent — As soon as possible</option>
+                  <option value="Flexible">Flexible</option>
                 </select>
               </div>
               <div class="form-group">
@@ -140,16 +142,18 @@
               </div>
             </fieldset>
 
-            <div id="ref-loader" style="display:none;text-align:center;padding:1.5rem;color:var(--pebble);">Submitting…</div>
+            <div id="ref-loader" style="display:none;text-align:center;padding:1.5rem;color:var(--ocean);font-weight:bold;">Submitting... Please wait.</div>
+            
             <div id="ref-success" style="display:none;padding:2rem;background:var(--sage-pale);border-left:3px solid var(--sage);">
               <p style="font-size:1.1rem;color:var(--ocean-deep);font-weight:500;margin-bottom:0.4rem;">Referral received. Thank you.</p>
               <p>We'll follow up with you within one business day to confirm next steps for your patient.</p>
             </div>
+            
             <div id="ref-error" style="display:none;padding:1.5rem;background:#fce8e8;border-left:3px solid #c0392b;">
               <p>Something went wrong. Please try again or call us at <a href="tel:+16505550000" style="color:var(--ocean);">(650) 555-0000</a>.</p>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem;font-size:0.88rem;padding:16px;">
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem;font-size:0.88rem;padding:16px;">
               Submit Referral
             </button>
           </form>
@@ -169,61 +173,73 @@
 <script src="/js/main.js"></script>
 <script>
 // ── Provider Referral Form → Google Sheets ───────────────────
-// Same URL as the patient form. formType routes to the correct tab.
-var REFERRAL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMB2WMDihV43zZ3w4JULnsy1GNLQh4dKr_UjUwJ1Vsj6zL7XQxDsJ-YCF5p3064Iqc/exec';
+// IMPORTANT: Be sure to use your active Google Apps Script Web App URL below
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjKojdmIKv9vZftmSCe5QbvEMVtuGHG61qAUamuYULZds0HrXCI2K5FOX4e2WDNls-/exec';
 
-var rForm    = document.getElementById('referral-form');
-var rLoader  = document.getElementById('ref-loader');
-var rSuccess = document.getElementById('ref-success');
-var rError   = document.getElementById('ref-error');
+var rForm     = document.getElementById('referral-form');
+var rLoader   = document.getElementById('ref-loader');
+var rSuccess  = document.getElementById('ref-success');
+var rError    = document.getElementById('ref-error');
+var submitBtn = document.getElementById('submit-btn');
 
+var officePhoneInput = document.getElementById('officePhone');
+var patientPhoneInput = document.getElementById('patientPhone');
+
+// ── Phone Number Auto-Formatter ──────────────────────────────
+function formatPhone(e) {
+  var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+  e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '');
+}
+if (officePhoneInput) officePhoneInput.addEventListener('input', formatPhone);
+if (patientPhoneInput) patientPhoneInput.addEventListener('input', formatPhone);
+
+// ── Submit handler ───────────────────────────────────────────
 rForm.addEventListener('submit', function(e) {
   e.preventDefault();
+  rError.style.display = 'none'; // reset error state
 
   // Validation
   var valid = true;
   ['providerName','organization','patientFirst','patientLast'].forEach(function(name) {
     var f = rForm.querySelector('[name="' + name + '"]');
-    if (f && !f.value.trim()) { valid = false; f.style.borderColor = '#c0392b'; }
-    else if (f) f.style.borderColor = '';
+    if (f && !f.value.trim()) { 
+      valid = false; 
+      f.classList.add('has-error'); 
+    } else if (f) {
+      f.classList.remove('has-error');
+    }
   });
-  if (!valid) return;
 
-  // Dev mode
-  if (REFERRAL_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwMB2WMDihV43zZ3w4JULnsy1GNLQh4dKr_UjUwJ1Vsj6zL7XQxDsJ-YCF5p3064Iqc/exec') {
-    rForm.style.display = 'none';
-    rSuccess.style.display = 'block';
+  if (!valid) {
+    var firstErr = rForm.querySelector('.has-error');
+    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
+  // Show loading state
+  submitBtn.style.display = 'none';
   rLoader.style.display = 'block';
 
-  var params = new URLSearchParams({
-    formType:         'provider_referral',
-    providerName:     rForm.querySelector('[name="providerName"]').value.trim(),
-    organization:     rForm.querySelector('[name="organization"]').value.trim(),
-    providerEmail:    rForm.querySelector('[name="providerEmail"]').value.trim(),
-    officePhone:      rForm.querySelector('[name="officePhone"]').value.trim(),
-    relationship:     rForm.querySelector('[name="relationship"]').value,
-    patientFirst:     rForm.querySelector('[name="patientFirst"]').value.trim(),
-    patientLast:      rForm.querySelector('[name="patientLast"]').value.trim(),
-    patientPhone:     rForm.querySelector('[name="patientPhone"]').value.trim(),
-    patientEmail:     rForm.querySelector('[name="patientEmail"]').value.trim(),
-    preferredDay:     rForm.querySelector('[name="preferredDay"]').value,
-    referralContext:  rForm.referralContext.value.trim(),
-    timestamp:        new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
-    referralContext:  rForm.querySelector('[name="referralContext"]').value.trim(),
-    timestamp:        new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+  // Build FormData and route it to the proper tab
+  var formData = new FormData(rForm);
+  formData.append('formType', 'provider_referral');
+  formData.append('timestamp', new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+
+  // Send request via fetch API
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors' 
+  })
+  .then(function() {
+    showReferralSuccess();
+  })
+  .catch(function(error) {
+    console.error('Submission Error:', error);
+    rError.style.display = 'block';
+    rLoader.style.display = 'none';
+    submitBtn.style.display = 'flex';
   });
-
-  // Use Image() GET — bypasses CORS, works reliably with Google Apps Script
-  var img = new Image();
-  img.onload  = function() { showReferralSuccess(); };
-  img.onerror = function() { showReferralSuccess(); }; // GAS 302 redirect triggers onerror — treat as success
-  img.src = REFERRAL_SCRIPT_URL + '?' + params.toString();
-
-  // Fallback after 4s
-  setTimeout(function() { showReferralSuccess(); }, 4000);
 });
 
 function showReferralSuccess() {
