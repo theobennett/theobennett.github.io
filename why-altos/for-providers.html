@@ -187,7 +187,7 @@
 /*
   REFERRAL FORM → GOOGLE SHEETS (separate "Provider Referrals" tab)
 */
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxy7QdfofJYqaXbi0Fir2lzVOYcqrp0Cx-TpKzkD222kT-s8bKcdnzQQTsgZi0jU5p4/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmg5k1VxAd0A-x_mOufVPhNSaqzjqkCK4lSMrpFQJRyRvDDMS3Iw0oHQtUQGNrZjEY/exec';
 
 const form    = document.getElementById('referral-form');
 const loader  = document.getElementById('ref-loader');
@@ -204,7 +204,7 @@ form.addEventListener('submit', function(e) {
     alert('Please complete all required fields and confirm patient consent.');
     return;
   }
-  if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxy7QdfofJYqaXbi0Fir2lzVOYcqrp0Cx-TpKzkD222kT-s8bKcdnzQQTsgZi0jU5p4/exec') {
+  if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwmg5k1VxAd0A-x_mOufVPhNSaqzjqkCK4lSMrpFQJRyRvDDMS3Iw0oHQtUQGNrZjEY/exec') {
     form.style.display = 'none'; success.style.display = 'block'; return;
   }
   loader.style.display = 'block';
