@@ -77,24 +77,26 @@ p  { font-size: clamp(0.97rem, 0.4vw + 0.88rem, 1.08rem); color: var(--stone-lig
 .btn-ghost:hover   { background: rgba(255,255,255,0.12); border-color: var(--white); }
 
 /* ================================================================
-   HEADER — Mobile-first
+   HEADER — Always ocean-deep blue, mobile-first
    ================================================================ */
 .main-header {
   position: fixed; top: 0; left: 0; width: 100%; height: var(--header-h);
   z-index: 1000; display: flex; align-items: center;
-  transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease), height 0.35s var(--ease);
+  /* Always the same deep blue — no scroll color change */
+  background: var(--ocean-deep);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 8px; }
 
+/* Logo — always white */
 .logo {
   font-family: var(--font-display); font-size: 1.3rem; font-weight: 300;
   letter-spacing: 0.03em; color: var(--white); flex-shrink: 0;
-  transition: color 0.3s var(--ease); z-index: 1002; position: relative;
+  z-index: 1002; position: relative;
 }
-.main-header.scrolled { background: rgba(220,232,223,0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(106,140,122,0.25); box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
-.main-header.scrolled .logo { color: var(--ocean-deep); }
+.logo:hover { color: var(--sage-light); }
 
-/* Hamburger */
+/* Hamburger — always white bars */
 .nav-toggle {
   display: flex; flex-direction: column; justify-content: center; gap: 5px;
   width: 40px; height: 40px; background: none; border: none;
@@ -102,35 +104,30 @@ p  { font-size: clamp(0.97rem, 0.4vw + 0.88rem, 1.08rem); color: var(--stone-lig
   -webkit-tap-highlight-color: transparent;
 }
 .nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: all 0.3s var(--ease); transform-origin: center; }
-.main-header.scrolled .nav-toggle span { background: var(--stone); }
-.nav-toggle.is-open span { background: var(--white) !important; }
 .nav-toggle.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .nav-toggle.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-toggle.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* Desktop nav — hidden by default, shown ≥1024px */
+/* Desktop nav hidden by default */
 .main-nav { display: none; }
 .header-actions { display: none; }
 
-/* Mobile right-side wrapper: CTA + hamburger sit together */
-.mobile-header-right {
-  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
-}
+/* Mobile right wrapper: compact CTA + hamburger */
+.mobile-header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
-/* Mobile action button (visible on mobile, hidden on desktop) */
+/* Mobile CTA button — white bg, ocean text (like "Request Consultation" on footer) */
 .header-cta-mobile {
   padding: 8px 14px;
   font-family: var(--font-body); font-size: 0.76rem; font-weight: 500;
   letter-spacing: 0.05em; border-radius: 2px;
-  background: var(--ocean); border: 1px solid var(--ocean); color: var(--white);
+  background: var(--white); border: 1px solid var(--white); color: var(--ocean-deep);
   text-decoration: none; white-space: nowrap; flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
-  transition: background 0.25s var(--ease);
-  line-height: 1;
+  transition: all 0.22s var(--ease); line-height: 1;
 }
-.header-cta-mobile:hover { background: var(--ocean-deep); color: var(--white); }
+.header-cta-mobile:hover { background: var(--sage-pale); border-color: var(--sage-pale); color: var(--ocean-deep); }
 
-/* ── Mobile overlay nav ── */
+/* ── Mobile overlay nav — same ocean-deep blue as header ── */
 .mobile-nav-overlay {
   position: fixed; inset: 0;
   background: var(--ocean-deep);
@@ -147,95 +144,94 @@ p  { font-size: clamp(0.97rem, 0.4vw + 0.88rem, 1.08rem); color: var(--stone-lig
 .mobile-nav-list { padding: 8px 0; flex: 1; }
 .mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
 
-/* Top-level mobile link / button */
+/* Mobile top-level links — sage green, like footer section headers */
 .mobile-nav-link {
   display: flex; align-items: center; justify-content: space-between;
   padding: 17px 24px; width: 100%; text-align: left;
   background: none; border: none;
-  font-size: 1rem; font-weight: 400; color: rgba(255,255,255,0.88);
+  font-size: 1rem; font-weight: 500; letter-spacing: 0.02em;
+  color: var(--sage-light);
   -webkit-tap-highlight-color: transparent;
   min-height: 54px;
 }
 a.mobile-nav-link { text-decoration: none; }
-.mobile-chevron { width: 16px; height: 16px; flex-shrink: 0; stroke: rgba(255,255,255,0.4); fill: none; transition: transform 0.28s var(--ease); }
+.mobile-chevron { width: 16px; height: 16px; flex-shrink: 0; stroke: var(--sage-light); fill: none; transition: transform 0.28s var(--ease); opacity: 0.7; }
 .mobile-nav-item.is-expanded .mobile-chevron { transform: rotate(180deg); }
 
-/* Mobile sub-links */
+/* Mobile sub-links — white */
 .mobile-dropdown { max-height: 0; overflow: hidden; transition: max-height 0.34s var(--ease); }
 .mobile-dropdown a {
-  display: block; padding: 13px 24px 13px 40px;
-  font-size: 0.93rem; color: rgba(255,255,255,0.58);
+  display: flex; align-items: center;
+  padding: 13px 24px 13px 40px;
+  font-size: 0.93rem; color: rgba(255,255,255,0.82);
   border-top: 1px solid rgba(255,255,255,0.05);
-  transition: color 0.2s var(--ease);
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
   -webkit-tap-highlight-color: transparent;
-  min-height: 48px; display: flex; align-items: center;
+  min-height: 48px;
 }
-.mobile-dropdown a:active, .mobile-dropdown a:hover { color: rgba(255,255,255,0.92); background: rgba(255,255,255,0.04); }
+.mobile-dropdown a:active, .mobile-dropdown a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
 
-/* Mobile action buttons */
-.mobile-nav-actions { padding: 20px 24px 32px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-.mobile-nav-actions a { display: block; padding: 15px 20px; text-align: center; font-size: 0.86rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 2px; -webkit-tap-highlight-color: transparent; }
-.mobile-action-ghost   { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.18); }
-.mobile-action-ghost:hover { background: rgba(255,255,255,0.13); color: var(--white); }
-.mobile-action-primary { background: var(--ocean); color: var(--white); border: 1px solid var(--ocean); }
-.mobile-action-primary:hover { background: var(--ocean-light); color: var(--white); }
+/* Mobile action buttons at bottom */
+.mobile-nav-actions { padding: 20px 24px 36px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.mobile-nav-actions a { display: block; padding: 15px 20px; text-align: center; font-size: 0.84rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 2px; -webkit-tap-highlight-color: transparent; transition: all 0.22s var(--ease); }
+/* Ghost buttons: ocean bg with white text (like non-primary footer links) */
+.mobile-action-ghost   { background: rgba(255,255,255,0.08); color: var(--white); border: 1px solid rgba(255,255,255,0.2); }
+.mobile-action-ghost:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4); }
+/* Primary CTA: white bg with ocean text */
+.mobile-action-primary { background: var(--white); color: var(--ocean-deep); border: 1px solid var(--white); }
+.mobile-action-primary:hover { background: var(--sage-pale); border-color: var(--sage-pale); color: var(--ocean-deep); }
 
 /* ── Desktop nav ≥1024px ── */
 @media (min-width: 1024px) {
   :root { --header-h: 76px; }
-  .nav-toggle           { display: none; }
-  .mobile-header-right  { display: none; }
-  .header-cta-mobile    { display: none; }
-  .header-actions    { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-  .mobile-nav-overlay { display: none !important; }
+  .nav-toggle          { display: none; }
+  .mobile-header-right { display: none; }
+  .header-actions      { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .mobile-nav-overlay  { display: none !important; }
 
   .main-nav { display: flex; align-items: center; gap: 0; flex: 1; margin: 0 12px; }
   .nav-item { position: relative; }
-  /* Invisible hover bridge */
   .nav-item::after { content: ''; position: absolute; left: 0; top: 100%; width: 100%; height: 14px; }
 
+  /* Nav links — sage green like footer */
   .nav-link {
     display: flex; align-items: center; gap: 5px;
     padding: 8px 11px; font-size: 0.84rem; font-weight: 500;
-    letter-spacing: 0.04em; color: rgba(255,255,255,0.9);
+    letter-spacing: 0.04em; color: var(--sage-light);
     transition: color 0.22s var(--ease); white-space: nowrap;
     background: none; border: none;
   }
   a.nav-link { text-decoration: none; }
   .nav-link:hover { color: var(--white); }
-    .main-header.scrolled .nav-link { color: var(--ocean-deep); }
-    .main-header.scrolled .nav-link:hover { color: var(--ocean); }
 
   .dropdown-chevron { width: 10px; height: 6px; stroke: currentColor; fill: none; transition: transform 0.25s var(--ease); flex-shrink: 0; }
   .nav-item.is-hovered .dropdown-chevron { transform: rotate(180deg); }
 
+  /* Dropdown panel — light background for readability */
   .dropdown-panel {
     position: absolute; top: calc(100% + 6px); left: 50%;
     transform: translateX(-50%) translateY(8px);
-    background: rgba(247,248,246,0.97);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(106,140,122,0.2);
-    border-radius: 2px 16px 2px 16px;
+    background: var(--ocean-deep);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 2px 14px 2px 14px;
     min-width: 220px; padding: 8px;
     opacity: 0; visibility: hidden; pointer-events: none;
     transition: opacity 0.26s var(--ease), transform 0.26s var(--ease), visibility 0.26s;
-    box-shadow: 0 16px 48px rgba(26,61,82,0.14); z-index: 100;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3); z-index: 100;
   }
   .nav-item.is-hovered .dropdown-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
-  .dropdown-panel a { display: block; padding: 10px 16px; font-size: 0.89rem; color: var(--stone); border-radius: 2px; transition: all 0.17s var(--ease); }
-  .dropdown-panel a:hover { color: var(--ocean); background: rgba(44,95,122,0.06); padding-left: 22px; }
+  /* Dropdown items — white text */
+  .dropdown-panel a { display: block; padding: 10px 16px; font-size: 0.89rem; color: rgba(255,255,255,0.82); border-radius: 2px; transition: all 0.17s var(--ease); }
+  .dropdown-panel a:hover { color: var(--white); background: rgba(255,255,255,0.07); padding-left: 22px; }
 
+  /* Header action buttons */
   .btn-header { padding: 8px 16px; font-family: var(--font-body); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; border-radius: 2px; transition: all 0.25s var(--ease); white-space: nowrap; text-decoration: none; display: inline-block; }
-  .btn-header--ghost   { background: transparent; border: 1px solid rgba(255,255,255,0.42); color: rgba(255,255,255,0.88); }
-  .btn-header--ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.75); color: var(--white); }
-  .btn-header--primary { background: var(--ocean); border: 1px solid var(--ocean); color: var(--white); }
-  .btn-header--primary:hover { background: var(--ocean-deep); color: var(--white); }
-  .main-header.scrolled .btn-header--ghost { border-color: rgba(26,61,82,0.35); color: var(--ocean-deep); }
-  .main-header.scrolled .btn-header--ghost:hover { background: rgba(26,61,82,0.08); color: var(--ocean-deep); border-color: rgba(26,61,82,0.6); }
-}
-
-/* Tablet: show CTA only in header */
-/* Tablet (768–1023px): mobile-header-right is already visible, no override needed */
+  /* Ghost buttons — ocean bg, white text */
+  .btn-header--ghost { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); color: var(--white); }
+  .btn-header--ghost:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.4); color: var(--white); }
+  /* Primary CTA — white bg, ocean text */
+  .btn-header--primary { background: var(--white); border: 1px solid var(--white); color: var(--ocean-deep); font-weight: 600; }
+  .btn-header--primary:hover { background: var(--sage-pale); border-color: var(--sage-pale); color: var(--ocean-deep); }
 }
 
 /* ================================================================
