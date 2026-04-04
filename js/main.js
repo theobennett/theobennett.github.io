@@ -32,12 +32,7 @@
 
     if (!header) return;
 
-    /* ── Scroll state ── */
-    function onScroll() {
-      header.classList.toggle('scrolled', window.scrollY > 40);
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    /* ── No scroll color change — header stays ocean-deep always ── */
 
     /* ── Mobile: hamburger → overlay ── */
     if (toggle && overlay) {
