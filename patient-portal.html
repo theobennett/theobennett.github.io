@@ -1,147 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Access your patient portal, schedule appointments, join telehealth visits, and manage billing at Altos Psychiatry." />
+  <meta name="robots" content="noindex" />
   <title>Current Patients | Altos Psychiatry</title>
-  <meta name="description" content="Access your patient portal, schedule appointments, join telehealth visits, and manage billing.">
-  <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    /* ═══ Portal Page Hero ═══ */
+    .portal-hero {
+      background: linear-gradient(135deg, #1a3a4a 0%, #2a6b7c 60%, #3d5a3e 100%);
+      padding: clamp(120px, 15vw, 170px) 0 clamp(48px, 6vw, 72px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .portal-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(42,107,124,0.2) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .portal-hero * { position: relative; }
+    .portal-hero .eyebrow { color: rgba(168,212,220,0.85); }
+    .portal-hero .eyebrow::before { background: rgba(168,212,220,0.85); }
+    .portal-hero h1 { color: #fff; margin-bottom: 0.75rem; }
+    .portal-hero p { color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto; }
+
+    /* ═══ Crisis Banner ═══ */
+    .crisis-banner {
+      background: #fef2f2;
+      border-bottom: 1px solid #fca5a5;
+      padding: 14px 0;
+    }
+    .crisis-banner__inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .crisis-banner p {
+      font-size: 0.88rem;
+      color: #7f1d1d;
+      margin: 0;
+    }
+
+    /* ═══ Portal Cards ═══ */
+    .portal-card {
+      background: #fff;
+      border: 1px solid rgba(42,107,124,0.08);
+      border-radius: 16px;
+      padding: clamp(24px, 3vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .portal-card:hover {
+      box-shadow: 0 8px 30px rgba(26,58,74,0.08);
+      transform: translateY(-2px);
+    }
+    .portal-card--primary {
+      border-top: 3px solid #2a6b7c;
+    }
+    .portal-card--sage {
+      border-top: 3px solid #6b8f6b;
+    }
+    .portal-card__header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .portal-card__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .portal-card__icon--ocean {
+      background: #d4eef3;
+      color: #2a6b7c;
+    }
+    .portal-card__icon--sage {
+      background: #dce8dc;
+      color: #6b8f6b;
+    }
+    .portal-card__icon--neutral {
+      background: #edf1f1;
+      color: #4a6060;
+    }
+    .portal-card h3 {
+      font-size: clamp(1.15rem, 1.5vw, 1.3rem);
+      margin-bottom: 0.35rem;
+    }
+    .portal-card p {
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+    .portal-card .portal-note {
+      font-size: 0.8rem;
+      color: #7a8a8a;
+      margin: 0;
+    }
+    .portal-card .btn {
+      align-self: flex-start;
+    }
+
+    /* ═══ Quick Access Grid ═══ */
+    .quick-card {
+      background: #fff;
+      border: 1px solid rgba(42,107,124,0.06);
+      border-radius: 14px;
+      padding: clamp(20px, 2.5vw, 28px);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .quick-card:hover {
+      box-shadow: 0 6px 20px rgba(26,58,74,0.06);
+      transform: translateY(-1px);
+    }
+    .quick-card__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .quick-card__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #edf1f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #4a6060;
+    }
+    .quick-card h3 {
+      font-size: 1.08rem;
+    }
+    .quick-card p {
+      font-size: 0.9rem;
+    }
+
+    /* ═══ Info Box ═══ */
+    .info-box {
+      background: #edf1f1;
+      padding: 2rem;
+      border-left: 3px solid #a8d4dc;
+      border-radius: 0 12px 12px 0;
+    }
+    .info-box h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+    .info-box p {
+      font-size: 0.93rem;
+    }
+    .info-box ol {
+      padding-left: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .info-box ol li {
+      font-size: 0.93rem;
+      color: #4a6060;
+    }
+
+    /* ═══ CTA Box ═══ */
+    .cta-box {
+      text-align: center;
+      padding: 2.5rem;
+      background: #faf6f0;
+      border: 1px solid #dcc8a8;
+      border-radius: 14px;
+    }
+    .cta-box h3 {
+      margin-bottom: 0.5rem;
+    }
+    .cta-box p {
+      margin-bottom: 1.5rem;
+    }
+
+    /* ═══ Grid layouts ═══ */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(16px, 2.5vw, 28px);
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(16px, 2.5vw, 24px);
+    }
+    @media (min-width: 640px) {
+      .grid-2 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ═══ Btn styles (supplemental) ═══ */
+    .btn-sm {
+      font-size: 0.82rem;
+      padding: 10px 20px;
+    }
+  </style>
 </head>
+
 <body>
-<div id="header-placeholder"></div>
-<div class="page-wrapper">
-<main>
+  <div id="header-placeholder"></div>
+  <div class="page-wrapper">
+  <main>
 
-  <section class="page-hero" style="padding-bottom:clamp(50px,7vw,80px);">
-    <div class="container">
-      <p class="eyebrow" style="color:var(--sage-light);">Welcome Back</p>
-      <h1>Current Patients</h1>
-      <p>Everything you need to manage your care in one place.</p>
-    </div>
-  </section>
+    <!-- ═══ HERO ═══ -->
+    <section class="portal-hero" aria-labelledby="portal-hero-h">
+      <div class="container">
+        <p class="eyebrow">Welcome Back</p>
+        <h1 id="portal-hero-h">Current Patients</h1>
+        <p>Everything you need to manage your care in one place.</p>
+      </div>
+    </section>
 
-  <!-- Crisis banner -->
-  <div style="background:#fef3f2;border-bottom:1px solid #fca5a5;padding:14px 0;">
-    <div class="container" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-      <p style="font-size:0.88rem;color:#7f1d1d;margin:0;">If you are experiencing a psychiatric emergency, please call or text <strong>988</strong> or go to your nearest emergency room. Do not use these portals for urgent matters.</p>
+    <!-- ═══ CRISIS BANNER ═══ -->
+    <div class="crisis-banner" role="alert">
+      <div class="container">
+        <div class="crisis-banner__inner">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <p>If you are experiencing a psychiatric emergency, please call or text <strong>988</strong> or go to your nearest emergency room. Do not use these portals for urgent matters.</p>
+        </div>
+      </div>
     </div>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <section class="section section--light">
+      <div class="container" style="max-width: 960px;">
+
+        <!-- Primary Actions -->
+        <div style="margin-bottom: 3rem;">
+          <h2 class="reveal" style="margin-bottom: 1.5rem; font-size: clamp(1.6rem, 3vw, 2rem);">Your Care Dashboard</h2>
+          <div class="grid-2 reveal">
+
+            <!-- Patient Portal Card -->
+            <div class="portal-card portal-card--primary">
+              <div class="portal-card__header">
+                <div class="portal-card__icon portal-card__icon--ocean">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>
+                </div>
+                <div>
+                  <h3>Patient Portal</h3>
+                  <p>Access your health records, complete forms, send secure messages to your provider, and view past visit summaries.</p>
+                </div>
+              </div>
+              <a href="https://altospsychiatry.clientsecure.me" target="_blank" rel="noopener" class="btn btn-primary">
+                Open Patient Portal →
+              </a>
+              <p class="portal-note">Powered by Osmind · HIPAA-compliant</p>
+            </div>
+
+            <!-- Schedule Card -->
+            <div class="portal-card portal-card--sage">
+              <div class="portal-card__header">
+                <div class="portal-card__icon portal-card__icon--sage">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                </div>
+                <div>
+                  <h3>Schedule an Appointment</h3>
+                  <p>Book a follow-up, medication check, or therapy session. New appointment slots are released weekly.</p>
+                </div>
+              </div>
+              <a href="https://altospsychiatry.clientsecure.me" target="_blank" rel="noopener" class="btn btn-outline">
+                Schedule Now →
+              </a>
+              <p class="portal-note">You can also request appointments via the portal.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Quick Access -->
+        <h3 class="reveal" style="font-size: 1.35rem; margin-bottom: 1.25rem; color: #1a3a4a;">Quick Access</h3>
+        <div class="grid-3 reveal" style="margin-bottom: 3rem;">
+
+          <!-- Telehealth -->
+          <div class="quick-card">
+            <div class="quick-card__header">
+              <div class="quick-card__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="7" width="15" height="11" rx="1"/><path d="M17 10l5-3v10l-5-3V10z"/></svg>
+              </div>
+              <h3>Join Telehealth Visit</h3>
+            </div>
+            <p>Your video link will be sent to you via the patient portal before your appointment. Click the link at your scheduled time.</p>
+            <a href="https://altospsychiatry.clientsecure.me" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Go to Portal</a>
+          </div>
+
+          <!-- Billing -->
+          <div class="quick-card">
+            <div class="quick-card__header">
+              <div class="quick-card__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              </div>
+              <h3>Billing &amp; Payments</h3>
+            </div>
+            <p>View and pay invoices, download superbills for insurance reimbursement, and update your payment method.</p>
+            <a href="https://altospsychiatry.clientsecure.me" target="_blank" rel="noopener" class="btn btn-outline btn-sm">View Billing</a>
+          </div>
+
+          <!-- Messaging -->
+          <div class="quick-card">
+            <div class="quick-card__header">
+              <div class="quick-card__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              </div>
+              <h3>Message Your Provider</h3>
+            </div>
+            <p>Send secure messages, request refills, or ask non-urgent questions. Responses within 1–2 business days.</p>
+            <a href="https://altospsychiatry.clientsecure.me" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Open Messages</a>
+          </div>
+
+        </div>
+
+        <!-- Superbill Instructions -->
+        <div class="info-box reveal" style="margin-bottom: 3rem;">
+          <h3>Getting reimbursed by your insurance</h3>
+          <p style="margin-bottom: 0.75rem;">We provide superbills — detailed receipts with CPT and diagnosis codes — that you can submit to your PPO insurance for out-of-network reimbursement. To access yours:</p>
+          <ol>
+            <li>Log in to the Patient Portal above</li>
+            <li>Navigate to Billing → Documents</li>
+            <li>Download your superbill as a PDF</li>
+            <li>Submit via your insurance carrier's member portal or mail</li>
+          </ol>
+          <p style="font-size: 0.85rem; color: #7a8a8a; margin-top: 0.75rem;">Questions? Send us a secure message through the portal or call our office at <a href="tel:+16505550000" style="color: #2a6b7c;">(650) 555-0000</a>.</p>
+        </div>
+
+        <!-- Not a patient CTA -->
+        <div class="cta-box reveal">
+          <h3>Not a patient yet?</h3>
+          <p>If you're interested in becoming a patient, start with a consultation request.</p>
+          <a href="/get-started.html" class="btn btn-primary">Request a Consultation</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
   </div>
-
-  <section class="section section--light">
-    <div class="container" style="max-width:960px;">
-
-      <!-- Primary actions -->
-      <div style="margin-bottom:3rem;">
-        <h2 class="reveal" style="margin-bottom:1.5rem;font-size:2rem;">Your Care Dashboard</h2>
-        <div class="grid-2 reveal">
-
-          <!-- SimplePractice portal -->
-          <div class="portal-card" style="border-top:3px solid var(--ocean);border-color:var(--ocean);">
-            <div style="display:flex;align-items:flex-start;gap:1rem;">
-              <div class="portal-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>
-              </div>
-              <div>
-                <h3>Patient Portal</h3>
-                <p>Access your health records, complete forms, send secure messages to your provider, and view past visit summaries.</p>
-              </div>
-            </div>
-            <a href="https://altospsychiatry.simplepractice.com" target="_blank" rel="noopener" class="btn btn-primary" style="align-self:flex-start;">
-              Open Patient Portal →
-            </a>
-            <p style="font-size:0.8rem;color:var(--pebble);margin:0;">Powered by SimplePractice · HIPAA-compliant</p>
-          </div>
-
-          <!-- Schedule -->
-          <div class="portal-card" style="border-top:3px solid var(--sage);">
-            <div style="display:flex;align-items:flex-start;gap:1rem;">
-              <div class="portal-card-icon" style="background:var(--sage-pale);">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              </div>
-              <div>
-                <h3>Schedule an Appointment</h3>
-                <p>Book a follow-up, medication check, or therapy session. New appointment slots are released weekly.</p>
-              </div>
-            </div>
-            <a href="https://altospsychiatry.simplepractice.com" target="_blank" rel="noopener" class="btn btn-outline" style="align-self:flex-start;">
-              Schedule Now →
-            </a>
-            <p style="font-size:0.8rem;color:var(--pebble);margin:0;">You can also request appointments via the portal.</p>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Secondary actions -->
-      <h3 class="reveal" style="font-size:1.4rem;margin-bottom:1.25rem;color:var(--ocean-deep);">Quick Access</h3>
-      <div class="grid-3 reveal" style="margin-bottom:3rem;">
-
-        <!-- Telehealth -->
-        <div class="portal-card">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.5rem;">
-            <div class="portal-card-icon" style="width:40px;height:40px;background:var(--fog-dark);">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--stone)" stroke-width="1.5"><rect x="2" y="7" width="15" height="11" rx="1"/><path d="M17 10l5-3v10l-5-3V10z"/></svg>
-            </div>
-            <h3 style="font-size:1.1rem;">Join Telehealth Visit</h3>
-          </div>
-          <p style="font-size:0.9rem;">Your video link will be sent to you via the patient portal before your appointment. Click the link at your scheduled time.</p>
-          <a href="https://altospsychiatry.simplepractice.com" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.82rem;padding:9px 18px;margin-top:0.5rem;">Go to Portal</a>
-        </div>
-
-        <!-- Billing -->
-        <div class="portal-card">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.5rem;">
-            <div class="portal-card-icon" style="width:40px;height:40px;background:var(--fog-dark);">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--stone)" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-            </div>
-            <h3 style="font-size:1.1rem;">Billing &amp; Payments</h3>
-          </div>
-          <p style="font-size:0.9rem;">View and pay invoices, download superbills for insurance reimbursement, and update your payment method.</p>
-          <a href="https://altospsychiatry.simplepractice.com" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.82rem;padding:9px 18px;margin-top:0.5rem;">View Billing</a>
-        </div>
-
-        <!-- Messaging -->
-        <div class="portal-card">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.5rem;">
-            <div class="portal-card-icon" style="width:40px;height:40px;background:var(--fog-dark);">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--stone)" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            </div>
-            <h3 style="font-size:1.1rem;">Message Your Provider</h3>
-          </div>
-          <p style="font-size:0.9rem;">Send secure messages, request refills, or ask non-urgent questions. Responses within 1–2 business days.</p>
-          <a href="https://altospsychiatry.simplepractice.com" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.82rem;padding:9px 18px;margin-top:0.5rem;">Open Messages</a>
-        </div>
-
-      </div>
-
-      <!-- Superbill help -->
-      <div class="reveal" style="background:var(--fog-dark);padding:2rem;border-left:3px solid var(--ocean-mist);margin-bottom:3rem;">
-        <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">Getting reimbursed by your insurance</h3>
-        <p style="font-size:0.93rem;margin-bottom:0.75rem;">We provide superbills — detailed receipts with CPT and diagnosis codes — that you can submit to your PPO insurance for out-of-network reimbursement. To access yours:</p>
-        <ol style="padding-left:1.5rem;display:flex;flex-direction:column;gap:0.4rem;">
-          <li style="font-size:0.93rem;color:var(--stone-light);">Log in to the Patient Portal above</li>
-          <li style="font-size:0.93rem;color:var(--stone-light);">Navigate to Billing → Documents</li>
-          <li style="font-size:0.93rem;color:var(--stone-light);">Download your superbill as a PDF</li>
-          <li style="font-size:0.93rem;color:var(--stone-light);">Submit via your insurance carrier's member portal or mail</li>
-        </ol>
-        <p style="font-size:0.85rem;color:var(--pebble);margin-top:0.75rem;">Questions? Send us a secure message through the portal or call our office at <a href="tel:+16505550000" style="color:var(--ocean);">(650) 555-0000</a>.</p>
-      </div>
-
-      <!-- Not a patient yet -->
-      <div class="reveal" style="text-align:center;padding:2.5rem;background:var(--sand-pale);border:1px solid var(--sand-light);">
-        <h3 style="margin-bottom:0.5rem;">Not a patient yet?</h3>
-        <p style="margin-bottom:1.5rem;">If you're interested in becoming a patient, start with a consultation request.</p>
-        <a href="/get-started.html" class="btn btn-primary">Request a Consultation</a>
-      </div>
-
-    </div>
-  </section>
-
-</main>
-</div>
-<div id="footer-placeholder"></div>
-<script src="/js/main.js"></script>
+  <div id="footer-placeholder"></div>
+  <script src="/js/main.js"></script>
 </body>
 </html>
