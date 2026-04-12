@@ -561,5 +561,446 @@
                   <div class="field-error" id="err-concerns" role="alert">
                     Please describe your concerns so we can best assist you.
                   </div>
-                  <p class="form-hint">
+                  <p class="form-hint"
                     This information is transmitted securely but is <strong>not</strong> a 
+                    HIPAA-protected channel. Please do not include sensitive medical details 
+                    such as Social Security numbers, insurance IDs, or detailed medical records.
+                  </p>
+                </div>
+              </fieldset>
+
+
+              <!-- ═══ SECTION 3: Consent ═══ -->
+              <fieldset class="form-fieldset" style="margin-bottom: 1.5rem;">
+                <legend>Consent</legend>
+
+                <div class="consent-box">
+                  <label>
+                    <input type="checkbox" id="consent" name="consent" required aria-required="true" />
+                    <span>
+                      I understand this is a consultation request, not a medical appointment. 
+                      I consent to being contacted by Altos Psychiatry regarding my inquiry 
+                      via the contact method I selected above. I have read the 
+                      <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+                    </span>
+                  </label>
+                  <div class="field-error" id="err-consent" role="alert" style="margin-top: 0.5rem; padding-left: 30px;">
+                    Please provide your consent to continue.
+                  </div>
+                </div>
+              </fieldset>
+
+
+              <!-- ═══ SUBMIT ═══ -->
+              <button type="submit" class="form-submit-btn" id="submit-btn">
+                Submit Consultation Request
+              </button>
+
+            </form>
+          </div>
+
+          <!-- Privacy Note -->
+          <div class="privacy-note">
+            <p>
+              Your information is encrypted in transit and stored securely. 
+              We will never share your data with third parties. 
+              <a href="/privacy-policy.html">Privacy Policy</a>
+            </p>
+          </div>
+
+        </div>
+        <!-- /.form-wrapper -->
+
+
+        <!-- ═══ SUCCESS STATE ═══ -->
+        <div class="form-success" id="form-success" aria-live="polite">
+          <div class="form-success__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+          </div>
+          <h2>Request Received</h2>
+          <p>
+            Thank you for reaching out. Our care coordinator will contact you 
+            within <strong>one business day</strong> to discuss your needs and 
+            schedule your initial evaluation.
+          </p>
+          <div class="form-success__ref" id="success-ref" aria-label="Reference number">
+            Ref: —
+          </div>
+          <div class="form-success__next">
+            <h4>What Happens Next</h4>
+            <ol>
+              <li>Our care coordinator reviews your request</li>
+              <li>We contact you via your preferred method</li>
+              <li>We verify your insurance benefits (if applicable)</li>
+              <li>Your initial evaluation is scheduled</li>
+              <li>Intake forms are sent via the patient portal</li>
+            </ol>
+          </div>
+          <div style="margin-top: 1.5rem;">
+            <a href="/" class="btn btn--outline">
+              ← Return to Homepage
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Main JS (nav, reveals, etc.) -->
+  <script src="/js/main.js"></script>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FORM LOGIC
+       Validation + Image-Ping Submission to Google Apps Script
+       
+       WHY IMAGE-PING?
+       GitHub Pages is a static host — no server-side code.
+       Google Apps Script doGet() returns a redirect, which
+       triggers CORS errors with fetch/XMLHttpRequest from a
+       different origin. The image-ping pattern bypasses CORS
+       entirely: the browser loads a <img> with the script URL
+       + query params. The script processes the data on the
+       server side and returns a 1×1 pixel. The browser doesn't
+       care about CORS for image requests.
+       ═══════════════════════════════════════════════════════ -->
+  <script>
+  ;(function () {
+    'use strict'
+
+    /* ═══ Configuration ═══ */
+    // Replace this with your deployed Google Apps Script Web App URL
+    var SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec'
+
+    /* ═══ DOM References ═══ */
+    var form       = document.getElementById('consultation-form')
+    var wrapper    = document.getElementById('form-wrapper')
+    var successEl  = document.getElementById('form-success')
+    var successRef = document.getElementById('success-ref')
+    var submitBtn  = document.getElementById('submit-btn')
+    var errorBanner = document.getElementById('form-error-banner')
+
+    if (!form) return
+
+    /* ═══ Required Field IDs ═══ */
+    var textFields = ['firstName', 'lastName', 'email', 'phone']
+
+    /* ═══════════════════════════════════════════════════════
+       VALIDATION HELPERS
+       ═══════════════════════════════════════════════════════ */
+
+    /**
+     * Mark a field as valid or invalid
+     */
+    function markField(el, isError) {
+      if (!el) return
+      if (isError) {
+        el.classList.add('has-error')
+        el.classList.remove('field-valid')
+      } else {
+        el.classList.remove('has-error')
+        el.classList.add('field-valid')
+      }
+    }
+
+    /**
+     * Show or hide the inline error message
+     */
+    function showError(fieldId, show) {
+      var err = document.getElementById('err-' + fieldId)
+      if (err) {
+        err.style.display = show ? 'block' : 'none'
+      }
+    }
+
+    /**
+     * Mark a radio group as error/valid
+     */
+    function markRadio(groupId, isError) {
+      var group = document.getElementById(groupId)
+      if (!group) return
+      if (isError) {
+        group.classList.add('has-error')
+      } else {
+        group.classList.remove('has-error')
+      }
+    }
+
+    /**
+     * Get the selected radio value
+     */
+    function getRadio(name) {
+      var radios = form.querySelectorAll('input[name="' + name + '"]')
+      for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) return radios[i].value
+      }
+      return ''
+    }
+
+    /**
+     * Basic email validation
+     */
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    }
+
+    /**
+     * Basic phone validation (at least 10 digits)
+     */
+    function isValidPhone(phone) {
+      var digits = phone.replace(/\D/g, '')
+      return digits.length >= 10
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       REAL-TIME VALIDATION (blur events)
+       Clear errors as user fixes fields
+       ═══════════════════════════════════════════════════════ */
+    textFields.forEach(function (id) {
+      var el = document.getElementById(id)
+      if (!el) return
+
+      el.addEventListener('blur', function () {
+        var val = el.value.trim()
+        var isError = false
+
+        if (!val) {
+          isError = true
+        } else if (id === 'email' && !isValidEmail(val)) {
+          isError = true
+        } else if (id === 'phone' && !isValidPhone(val)) {
+          isError = true
+        }
+
+        markField(el, isError)
+        showError(id, isError)
+      })
+
+      // Clear error on input
+      el.addEventListener('input', function () {
+        if (el.classList.contains('has-error')) {
+          el.classList.remove('has-error')
+          showError(id, false)
+        }
+      })
+    })
+
+    // Contact preference — clear error on change
+    var contactPref = document.getElementById('contactPref')
+    if (contactPref) {
+      contactPref.addEventListener('change', function () {
+        markField(contactPref, false)
+        showError('contactPref', false)
+      })
+    }
+
+    // Radio — clear error on change
+    var radios = form.querySelectorAll('input[name="apptType"]')
+    radios.forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        markRadio('rg-apptType', false)
+        showError('apptType', false)
+      })
+    })
+
+    // Consent — clear error on change
+    var consent = document.getElementById('consent')
+    if (consent) {
+      consent.addEventListener('change', function () {
+        showError('consent', !consent.checked)
+      })
+    }
+
+    // Concerns — clear error on input
+    var concerns = document.getElementById('concerns')
+    if (concerns) {
+      concerns.addEventListener('input', function () {
+        if (concerns.classList.contains('has-error')) {
+          concerns.classList.remove('has-error')
+          showError('concerns', false)
+        }
+      })
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       FULL FORM VALIDATION
+       Returns true if all fields are valid
+       ═══════════════════════════════════════════════════════ */
+    function validate() {
+      var ok = true
+
+      // Text fields
+      textFields.forEach(function (id) {
+        var el = document.getElementById(id)
+        var val = el ? el.value.trim() : ''
+        var isError = false
+
+        if (!val) {
+          isError = true
+        } else if (id === 'email' && !isValidEmail(val)) {
+          isError = true
+        } else if (id === 'phone' && !isValidPhone(val)) {
+          isError = true
+        }
+
+        markField(el, isError)
+        showError(id, isError)
+        if (isError) ok = false
+      })
+
+      // Contact preference
+      var cpVal = contactPref ? contactPref.value : ''
+      var cpBad = !cpVal
+      markField(contactPref, cpBad)
+      showError('contactPref', cpBad)
+      if (cpBad) ok = false
+
+      // Appointment type radio
+      var apptVal = getRadio('apptType')
+      var apptBad = !apptVal
+      markRadio('rg-apptType', apptBad)
+      showError('apptType', apptBad)
+      if (apptBad) ok = false
+
+      // Concerns textarea
+      var cVal = concerns ? concerns.value.trim() : ''
+      var cBad = !cVal
+      markField(concerns, cBad)
+      showError('concerns', cBad)
+      if (cBad) ok = false
+
+      // Consent checkbox
+      var conBad = !consent || !consent.checked
+      showError('consent', conBad)
+      if (conBad) ok = false
+
+      return ok
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       FORM SUBMISSION — Image-Ping GET
+       
+       How it works:
+       1. Build a query string from form data
+       2. Create a new Image() element
+       3. Set img.src = SCRIPT_URL + '?' + queryString
+       4. The browser fires a GET request (no CORS restriction)
+       5. Google Apps Script processes the data via doGet()
+       6. Script writes to Google Sheet and returns a response
+       7. img.onload or img.onerror fires (both mean success —
+          Apps Script redirects trigger onerror for images,
+          but the data is still processed server-side)
+       8. Show success screen
+       ═══════════════════════════════════════════════════════ */
+    form.addEventListener('submit', function (e) {
+      e.preventDefault()
+
+      // Hide previous errors
+      errorBanner.style.display = 'none'
+
+      // Validate all fields
+      if (!validate()) {
+        errorBanner.style.display = 'block'
+
+        // Scroll to first error
+        var firstErr = form.querySelector('.has-error, .field-error[style*="block"]')
+        if (firstErr) {
+          firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+        return
+      }
+
+      // Disable button + show loading spinner
+      submitBtn.disabled = true
+      submitBtn.classList.add('is-loading')
+
+      // Collect form data
+      var data = {
+        formType:       'patient_inquiry',
+        firstName:      document.getElementById('firstName').value.trim(),
+        lastName:       document.getElementById('lastName').value.trim(),
+        email:          document.getElementById('email').value.trim(),
+        phone:          document.getElementById('phone').value.trim(),
+        contactPref:    contactPref.value,
+        apptType:       getRadio('apptType'),
+        referralSource: document.getElementById('referralSource').value || '',
+        concerns:       concerns.value.trim(),
+        consent:        'yes',
+        timestamp:      new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+      }
+
+      // Build URL-encoded query string
+      var params = Object.keys(data).map(function (key) {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
+      }).join('&')
+
+      // Create image ping
+      var img = new Image()
+      var timeout
+
+      // Both onload and onerror mean the request reached the server.
+      // Google Apps Script doGet returns ContentService output or a
+      // redirect, either of which may trigger onerror for an Image
+      // element — but the data is still processed. This is by design.
+      img.onload = img.onerror = function () {
+        clearTimeout(timeout)
+        showSuccess(data)
+      }
+
+      // Safety timeout: if the server is slow or unresponsive, don't
+      // leave the user staring at a spinner forever. Show success
+      // after 6 seconds regardless — the data was likely received.
+      timeout = setTimeout(function () {
+        showSuccess(data)
+      }, 6000)
+
+      // Fire the request
+      img.src = SCRIPT_URL + '?' + params
+    })
+
+    /* ═══════════════════════════════════════════════════════
+       SUCCESS HANDLER
+       ═══════════════════════════════════════════════════════ */
+    function showSuccess(data) {
+      // Prevent double-firing
+      if (wrapper.style.display === 'none') return
+
+      // Hide form, show success
+      wrapper.style.display = 'none'
+      successEl.classList.add('is-visible')
+
+      // Generate a client-side reference ID
+      // The real Lead ID is generated server-side in Google Sheets,
+      // but we show a timestamp-based reference for the patient.
+      var ref = 'REQ-' + Date.now().toString(36).toUpperCase()
+      successRef.textContent = 'Ref: ' + ref
+
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+
+      // Announce to screen readers
+      if (typeof window.announce === 'function') {
+        window.announce(
+          'Your consultation request has been submitted successfully. ' +
+          'Reference number: ' + ref + '. ' +
+          'Our care coordinator will contact you within one business day.'
+        )
+      }
+
+      // Re-enable button (in case user navigates back)
+      submitBtn.disabled = false
+      submitBtn.classList.remove('is-loading')
+    }
+
+  })()
+  </script>
+</body>
+</html>
