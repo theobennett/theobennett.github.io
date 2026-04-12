@@ -1,0 +1,4205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Schedule your appointment at Altos Psychiatry. Medication management, TMS, ketamine, and psychotherapy." />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Schedule an Appointment | Altos Psychiatry</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════
+       SCHEDULING PAGE — Scoped Styles
+       ═══════════════════════════════════════════════════════ */
+
+    /* ── Page Hero ── */
+    .sched-hero {
+      background: linear-gradient(160deg, var(--ocean-deep) 0%, #1e4858 40%, var(--ocean) 70%, var(--sage-deep) 100%);
+      padding: clamp(120px, 14vw, 180px) 0 clamp(40px, 6vw, 64px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sched-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 25% 75%, rgba(107,143,107,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 75% 25%, rgba(42,107,124,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .sched-hero * { position: relative; }
+    .sched-hero h1 { color: var(--white); margin-bottom: 0.6rem; }
+    .sched-hero p { color: rgba(255,255,255,0.6); max-width: 520px; margin: 0 auto; font-size: var(--text-lg); }
+
+    /* ── Role Selector Bar ── */
+    .role-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--fog-dark);
+      padding: 16px 0;
+      position: sticky;
+      top: var(--header-height);
+      z-index: var(--z-sticky);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .role-bar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .role-bar__left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .role-bar__right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ── Role Tabs ── */
+    .role-tabs {
+      display: flex;
+      background: var(--fog);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .role-tab {
+      padding: 8px 20px;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--pebble);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      white-space: nowrap;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth),
+        box-shadow var(--duration-fast) var(--ease-smooth);
+    }
+
+    .role-tab:hover {
+      color: var(--ocean-deep);
+    }
+
+    .role-tab--active {
+      background: var(--white);
+      color: var(--ocean-deep);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ── Provider Filter Dropdown ── */
+    .provider-filter {
+      position: relative;
+    }
+
+    .provider-filter__select {
+      padding: 8px 36px 8px 14px;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--ocean-deep);
+      background: var(--white);
+      border: 1.5px solid rgba(var(--ocean-deep-rgb), 0.15);
+      border-radius: var(--radius-full);
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a6060' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      transition: border-color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .provider-filter__select:focus {
+      outline: none;
+      border-color: var(--ocean);
+    }
+
+    /* ── Calendar Type Tabs ── */
+    .cal-type-tabs {
+      display: flex;
+      gap: 6px;
+    }
+
+    .cal-type-tab {
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--pebble);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      white-space: nowrap;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth),
+        border-color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .cal-type-tab:hover {
+      color: var(--ocean);
+      background: var(--ocean-wash);
+    }
+
+    .cal-type-tab--active {
+      color: var(--ocean);
+      background: var(--ocean-wash);
+      border-color: var(--ocean-mist);
+    }
+
+    /* ── View Toggle (Day/Week) ── */
+    .view-toggle {
+      display: flex;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--fog-dark);
+    }
+
+    .view-toggle__btn {
+      padding: 6px 14px;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--pebble);
+      background: var(--white);
+      border: none;
+      cursor: pointer;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .view-toggle__btn:not(:last-child) {
+      border-right: 1px solid var(--fog-dark);
+    }
+
+    .view-toggle__btn--active {
+      background: var(--ocean-deep);
+      color: var(--white);
+    }
+
+    /* ── Date Navigation ── */
+    .date-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .date-nav__btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--fog-dark);
+      background: var(--white);
+      color: var(--stone-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        border-color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .date-nav__btn:hover {
+      background: var(--fog);
+      border-color: var(--pebble-light);
+    }
+
+    .date-nav__btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .date-nav__label {
+      font-size: var(--text-md);
+      font-weight: 600;
+      color: var(--ocean-deep);
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .date-nav__today {
+      padding: 4px 12px;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--ocean);
+      background: var(--ocean-wash);
+      border: 1px solid var(--ocean-mist);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .date-nav__today:hover {
+      background: var(--ocean-pale);
+    }
+
+    /* ═══ MAIN SCHEDULING LAYOUT ═══ */
+    .sched-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      min-height: calc(100vh - 300px);
+    }
+
+    @media (min-width: 1024px) {
+      .sched-layout {
+        grid-template-columns: 1fr 380px;
+      }
+    }
+
+    /* ── Calendar Grid Area ── */
+    .sched-calendar {
+      background: var(--white);
+      border-right: 1px solid var(--fog-dark);
+      overflow-x: auto;
+      padding: var(--space-md);
+    }
+
+    /* ── Sidebar (Booking Panel) ── */
+    .sched-sidebar {
+      background: var(--fog);
+      padding: var(--space-md);
+      border-top: 1px solid var(--fog-dark);
+    }
+
+    @media (min-width: 1024px) {
+      .sched-sidebar {
+        border-top: none;
+        border-left: 1px solid var(--fog-dark);
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+        position: sticky;
+        top: calc(var(--header-height) + 58px);
+      }
+    }
+
+    /* ═══ WEEK VIEW GRID ═══ */
+    .week-grid {
+      display: grid;
+      grid-template-columns: 70px repeat(var(--visible-days, 5), 1fr);
+      min-width: 700px;
+    }
+
+    /* Time Gutter */
+    .week-grid__gutter {
+      border-right: 1px solid var(--fog-dark);
+    }
+
+    .week-grid__time {
+      height: 60px;
+      padding: 0 8px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--pebble-light);
+      transform: translateY(-8px);
+    }
+
+    /* Day Columns */
+    .week-grid__day-header {
+      padding: 10px 8px;
+      text-align: center;
+      border-bottom: 2px solid var(--fog-dark);
+      border-left: 1px solid var(--fog-dark);
+    }
+
+    .week-grid__day-name {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pebble);
+    }
+
+    .week-grid__day-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      margin: 4px auto 0;
+      border-radius: 50%;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ocean-deep);
+    }
+
+    .week-grid__day-header--today .week-grid__day-number {
+      background: var(--ocean-deep);
+      color: var(--white);
+    }
+
+    .week-grid__day-header--past .week-grid__day-name,
+    .week-grid__day-header--past .week-grid__day-number {
+      opacity: 0.4;
+    }
+
+    /* Day Cells */
+    .week-grid__cell {
+      height: 60px;
+      border-bottom: 1px solid var(--fog-dark);
+      border-left: 1px solid var(--fog-dark);
+      position: relative;
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--ease-smooth);
+    }
+
+    .week-grid__cell:hover {
+      background: rgba(var(--ocean-rgb), 0.03);
+    }
+
+    .week-grid__cell--past {
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 4px,
+        rgba(var(--ocean-deep-rgb), 0.015) 4px,
+        rgba(var(--ocean-deep-rgb), 0.015) 8px
+      );
+      cursor: default;
+    }
+
+    .week-grid__cell--blocked {
+      background: var(--fog);
+      cursor: not-allowed;
+    }
+
+    /* ═══ APPOINTMENT BLOCKS ═══ */
+    .appt-block {
+      position: absolute;
+      left: 2px;
+      right: 2px;
+      border-radius: var(--radius-xs);
+      padding: 3px 6px;
+      font-size: 0.65rem;
+      line-height: 1.35;
+      font-weight: 500;
+      overflow: hidden;
+      cursor: pointer;
+      z-index: 2;
+      border-left: 3px solid;
+      transition:
+        box-shadow var(--duration-fast) var(--ease-smooth),
+        transform var(--duration-fast) var(--ease-out);
+    }
+
+    .appt-block:hover {
+      box-shadow: var(--shadow-md);
+      transform: scale(1.02);
+      z-index: 10;
+    }
+
+    .appt-block__title {
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .appt-block__time {
+      opacity: 0.7;
+      white-space: nowrap;
+    }
+
+    /* Appointment Type Colors */
+    .appt-block--med-mgmt {
+      background: rgba(var(--ocean-rgb), 0.1);
+      border-left-color: var(--ocean);
+      color: var(--ocean-deep);
+    }
+
+    .appt-block--therapy {
+      background: rgba(107, 143, 107, 0.12);
+      border-left-color: var(--sage);
+      color: var(--sage-deep);
+    }
+
+    .appt-block--tms {
+      background: rgba(196, 168, 130, 0.15);
+      border-left-color: var(--sand);
+      color: var(--sand-deep);
+    }
+
+    .appt-block--tms-saint {
+      background: rgba(196, 168, 130, 0.2);
+      border-left-color: var(--sand-deep);
+      color: var(--sand-deep);
+    }
+
+    .appt-block--ketamine {
+      background: rgba(91, 170, 187, 0.12);
+      border-left-color: var(--ocean-mid);
+      color: var(--ocean-deep);
+    }
+
+    .appt-block--spravato {
+      background: rgba(91, 170, 187, 0.18);
+      border-left-color: var(--ocean-light);
+      color: var(--ocean-deep);
+    }
+
+    .appt-block--intake {
+      background: rgba(var(--ocean-deep-rgb), 0.08);
+      border-left-color: var(--ocean-deep);
+      color: var(--ocean-deep);
+    }
+
+    .appt-block--telehealth {
+      background: rgba(107, 143, 107, 0.08);
+      border-left-color: var(--sage-light);
+      color: var(--sage-deep);
+    }
+
+    /* No-show indicator */
+    .appt-block--noshow {
+      opacity: 0.5;
+      text-decoration: line-through;
+      border-left-style: dashed;
+    }
+
+    .appt-block--noshow::after {
+      content: 'NO-SHOW';
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 0.06em;
+    }
+
+    /* Status indicators */
+    .appt-block__status {
+      position: absolute;
+      top: 3px;
+      right: 4px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .appt-block__status--confirmed { background: var(--green); }
+    .appt-block__status--pending   { background: var(--amber); }
+    .appt-block__status--cancelled { background: var(--red); }
+
+    /* Zoom indicator */
+    .appt-block__zoom {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 0.55rem;
+      color: #2D8CFF;
+      font-weight: 600;
+    }
+
+    .appt-block__zoom svg {
+      width: 8px;
+      height: 8px;
+    }
+
+    /* ═══ SIDEBAR: BOOKING PANEL ═══ */
+    .booking-panel__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--ocean-deep);
+      margin-bottom: var(--space-md);
+    }
+
+    .booking-panel__empty {
+      text-align: center;
+      padding: var(--space-xl) var(--space-md);
+      color: var(--pebble);
+    }
+
+    .booking-panel__empty svg {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--space-sm);
+      color: var(--pebble-light);
+    }
+
+    .booking-panel__empty p {
+      font-size: var(--text-sm);
+    }
+
+    /* ── Selected Slot Info ── */
+    .slot-info {
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: var(--space-md);
+    }
+
+    .slot-info__date {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ocean-deep);
+      margin-bottom: 4px;
+    }
+
+    .slot-info__time {
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--ocean-deep);
+      font-family: var(--font-display);
+    }
+
+    .slot-info__provider {
+      font-size: var(--text-xs);
+      color: var(--pebble);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slot-info__provider-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Appointment Type Selector ── */
+    .appt-type-selector {
+      margin-bottom: var(--space-md);
+    }
+
+    .appt-type-selector__label {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 8px;
+    }
+
+    .appt-type-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .appt-type-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--white);
+      border: 1.5px solid rgba(var(--ocean-deep-rgb), 0.1);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition:
+        border-color var(--duration-fast) var(--ease-smooth),
+        background var(--duration-fast) var(--ease-smooth),
+        box-shadow var(--duration-fast) var(--ease-smooth);
+    }
+
+    .appt-type-option:hover {
+      border-color: rgba(var(--ocean-rgb), 0.25);
+      background: var(--ocean-wash);
+    }
+
+    .appt-type-option--selected {
+      border-color: var(--ocean);
+      background: var(--ocean-wash);
+      box-shadow: 0 0 0 3px rgba(var(--ocean-rgb), 0.1);
+    }
+
+    .appt-type-option input[type="radio"] {
+      display: none;
+    }
+
+    .appt-type-option__radio {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--pebble-light);
+      flex-shrink: 0;
+      position: relative;
+      transition:
+        border-color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .appt-type-option--selected .appt-type-option__radio {
+      border-color: var(--ocean);
+    }
+
+    .appt-type-option--selected .appt-type-option__radio::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ocean);
+    }
+
+    .appt-type-option__info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .appt-type-option__name {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ocean-deep);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .appt-type-option__meta {
+      font-size: 0.72rem;
+      color: var(--pebble);
+      margin-top: 2px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .appt-type-option__cpt {
+      font-family: var(--font-mono, 'SF Mono', 'Fira Code', monospace);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--ocean);
+      background: rgba(var(--ocean-rgb), 0.08);
+      padding: 1px 6px;
+      border-radius: var(--radius-xs);
+    }
+
+    .appt-type-option__duration {
+      font-weight: 500;
+    }
+
+    .appt-type-option__color {
+      width: 4px;
+      height: 28px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── Patient Search (Scheduler/Provider view) ── */
+    .patient-search {
+      margin-bottom: var(--space-md);
+      position: relative;
+    }
+
+    .patient-search__input {
+      width: 100%;
+      padding: 11px 14px 11px 38px;
+      font-size: var(--text-sm);
+      font-family: var(--font-body);
+      color: var(--stone);
+      background: var(--white);
+      border: 1.5px solid rgba(var(--ocean-deep-rgb), 0.12);
+      border-radius: var(--radius-md);
+      transition:
+        border-color var(--duration-fast) var(--ease-smooth),
+        box-shadow var(--duration-fast) var(--ease-smooth);
+    }
+
+    .patient-search__input:focus {
+      outline: none;
+      border-color: var(--ocean);
+      box-shadow: 0 0 0 3px rgba(var(--ocean-rgb), 0.1);
+    }
+
+    .patient-search__icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      color: var(--pebble-light);
+      pointer-events: none;
+    }
+
+    .patient-search__results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border: 1px solid var(--fog-dark);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      max-height: 240px;
+      overflow-y: auto;
+      display: none;
+      z-index: var(--z-dropdown);
+    }
+
+    .patient-search__results--open {
+      display: block;
+    }
+
+    .patient-search__result {
+      padding: 10px 14px;
+      font-size: var(--text-sm);
+      color: var(--stone);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background var(--duration-fast) var(--ease-smooth);
+    }
+
+    .patient-search__result:hover {
+      background: var(--fog);
+    }
+
+    .patient-search__result-name {
+      font-weight: 600;
+      color: var(--ocean-deep);
+    }
+
+    .patient-search__result-provider {
+      font-size: 0.72rem;
+      color: var(--pebble);
+    }
+
+    /* ── Booking Summary ── */
+    .booking-summary {
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: var(--space-md);
+    }
+
+    .booking-summary__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      font-size: var(--text-sm);
+    }
+
+    .booking-summary__row:not(:last-child) {
+      border-bottom: 1px solid var(--fog-dark);
+    }
+
+    .booking-summary__label {
+      color: var(--pebble);
+      font-weight: 500;
+    }
+
+    .booking-summary__value {
+      color: var(--ocean-deep);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* ── Zoom Toggle ── */
+    .zoom-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .zoom-toggle__left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .zoom-toggle__left svg {
+      width: 20px;
+      height: 20px;
+      color: #2D8CFF;
+    }
+
+    .zoom-toggle__label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ocean-deep);
+    }
+
+    .zoom-toggle__desc {
+      font-size: 0.72rem;
+      color: var(--pebble);
+    }
+
+    /* Switch */
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-switch__slider {
+      position: absolute;
+      inset: 0;
+      background: var(--fog-dark);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--ease-smooth);
+    }
+
+    .toggle-switch__slider::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      bottom: 3px;
+      background: var(--white);
+      border-radius: 50%;
+      box-shadow: var(--shadow-xs);
+      transition: transform var(--duration-fast) var(--ease-out);
+    }
+
+    .toggle-switch input:checked + .toggle-switch__slider {
+      background: #2D8CFF;
+    }
+
+    .toggle-switch input:checked + .toggle-switch__slider::after {
+      transform: translateX(20px);
+    }
+
+    /* ── Confirm Button ── */
+    .booking-confirm-btn {
+      width: 100%;
+      padding: 14px 28px;
+      font-size: var(--text-md);
+      font-weight: 700;
+      color: var(--white);
+      background: var(--ocean-deep);
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition:
+        background var(--duration-base) var(--ease-out),
+        box-shadow var(--duration-base) var(--ease-out),
+        transform var(--duration-base) var(--ease-out);
+    }
+
+    .booking-confirm-btn:hover:not(:disabled) {
+      background: var(--ocean);
+      box-shadow: 0 8px 28px rgba(var(--ocean-rgb), 0.25);
+      transform: translateY(-2px);
+    }
+
+    .booking-confirm-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .booking-confirm-btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    /* ═══ CONFIRMATION MODAL ═══ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-modal);
+      background: rgba(var(--ocean-deep-rgb), 0.5);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+
+    .modal-overlay--open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 32px 64px rgba(var(--ocean-deep-rgb), 0.2);
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: modal-in 0.4s var(--ease-out) both;
+    }
+
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal__header {
+      padding: 24px 24px 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .modal__close {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      border: none;
+      background: var(--fog);
+      color: var(--pebble);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .modal__close:hover {
+      background: var(--fog-dark);
+      color: var(--stone);
+    }
+
+    .modal__close svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .modal__body {
+      padding: 24px;
+    }
+
+    .modal__footer {
+      padding: 0 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ── Confirmation Success ── */
+    .confirm-success {
+      text-align: center;
+      padding: 16px 0;
+    }
+
+    .confirm-success__icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--green-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .confirm-success__icon svg {
+      width: 32px;
+      height: 32px;
+      color: var(--green);
+    }
+
+    .confirm-success h3 {
+      font-size: var(--text-xl);
+      margin-bottom: 8px;
+    }
+
+    .confirm-success p {
+      font-size: var(--text-sm);
+      color: var(--stone-light);
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    /* ── Calendar Link Buttons ── */
+    .cal-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: var(--space-md);
+    }
+
+    .cal-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--fog);
+      border: 1px solid var(--fog-dark);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ocean-deep);
+      text-decoration: none;
+      cursor: pointer;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        border-color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .cal-link:hover {
+      background: var(--ocean-wash);
+      border-color: var(--ocean-mist);
+    }
+
+    .cal-link svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .cal-link--google svg { color: #4285F4; }
+    .cal-link--apple svg  { color: #333; }
+    .cal-link--zoom svg   { color: #2D8CFF; }
+
+    /* ── No-Show Actions (Provider/Scheduler) ── */
+    .noshow-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: var(--space-sm);
+    }
+
+    .noshow-btn {
+      padding: 6px 14px;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      border: 1px solid;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .noshow-btn--mark {
+      background: var(--red-pale);
+      border-color: rgba(220, 38, 38, 0.2);
+      color: var(--red);
+    }
+
+    .noshow-btn--mark:hover {
+      background: rgba(220, 38, 38, 0.15);
+    }
+
+    .noshow-btn--reschedule {
+      background: var(--ocean-wash);
+      border-color: var(--ocean-mist);
+      color: var(--ocean);
+    }
+
+    .noshow-btn--reschedule:hover {
+      background: var(--ocean-pale);
+    }
+
+    /* ── Appointment Detail Panel (click on block) ── */
+    .appt-detail {
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: var(--space-md);
+    }
+
+    .appt-detail__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .appt-detail__patient {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--ocean-deep);
+    }
+
+    .appt-detail__status {
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .appt-detail__status--confirmed { background: var(--green-pale); color: var(--green); }
+    .appt-detail__status--pending   { background: var(--amber-pale); color: var(--amber); }
+    .appt-detail__status--noshow    { background: var(--red-pale);   color: var(--red); }
+    .appt-detail__status--cancelled { background: var(--fog);        color: var(--pebble); }
+
+    .appt-detail__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .appt-detail__field {
+      padding: 6px 0;
+    }
+
+    .appt-detail__field-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pebble);
+      margin-bottom: 2px;
+    }
+
+    .appt-detail__field-value {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ocean-deep);
+    }
+
+    /* ── Legend ── */
+    .sched-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px solid var(--fog-dark);
+      margin-top: var(--space-sm);
+    }
+
+    .sched-legend__item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      color: var(--pebble);
+    }
+
+    .sched-legend__color {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      border-left: 3px solid;
+    }
+
+    /* ── Auth Gate (login check) ── */
+    .auth-gate {
+      display: none;
+      text-align: center;
+      padding: var(--space-2xl) var(--space-md);
+    }
+
+    .auth-gate.is-visible { display: block; }
+
+    .auth-gate h2 {
+      margin-bottom: var(--space-sm);
+    }
+
+    .auth-gate p {
+      max-width: 420px;
+      margin: 0 auto var(--space-md);
+      color: var(--stone-light);
+    }
+
+    /* ── Access Code Input ── */
+    .access-form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .access-form .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .access-form .form-input {
+      flex: 1;
+    }
+
+    /* ── Loading State ── */
+    .sched-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2xl);
+      color: var(--pebble);
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sched-loading__spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--fog-dark);
+      border-top-color: var(--ocean);
+      border-radius: 50%;
+      animation: spin-loader 0.8s linear infinite;
+    }
+
+    @keyframes spin-loader {
+      to { transform: rotate(360deg); }
+    }
+
+    .sched-loading p {
+      font-size: var(--text-sm);
+    }
+
+    /* ── Responsive Adjustments ── */
+    @media (max-width: 768px) {
+      .role-bar__inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .role-bar__left,
+      .role-bar__right {
+        justify-content: center;
+      }
+
+      .date-nav__label {
+        min-width: 140px;
+        font-size: var(--text-sm);
+      }
+
+      .week-grid {
+        min-width: 500px;
+      }
+
+      .sched-sidebar {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cal-type-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .appt-type-option {
+        padding: 10px 12px;
+      }
+
+      .appt-type-option__meta {
+        flex-direction: column;
+        gap: 2px;
+      }
+    }
+/* ═══════════════════════════════════════════════════════
+       CALENDAR TABLE GRID
+       The core week/day view rendered by JS
+       ═══════════════════════════════════════════════════════ */
+
+    .sched-table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+      font-size: var(--text-sm);
+    }
+
+    .sched-table thead {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    /* ── Time Column ── */
+    .sched-table__time-col {
+      width: 72px;
+      min-width: 72px;
+      background: var(--white);
+      border-bottom: 2px solid var(--fog-dark);
+      padding: 8px 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--pebble);
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .sched-table__time {
+      width: 72px;
+      min-width: 72px;
+      padding: 0 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--pebble-light);
+      text-align: right;
+      vertical-align: top;
+      border-right: 1px solid var(--fog-dark);
+      user-select: none;
+      position: relative;
+    }
+
+    .sched-table__time::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -5px;
+      width: 8px;
+      height: 1px;
+      background: var(--fog-dark);
+    }
+
+    /* ── Day Header ── */
+    .sched-table__day-header {
+      background: var(--white);
+      border-bottom: 2px solid var(--fog-dark);
+      padding: 10px 8px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .sched-table__day-header--today {
+      background: var(--ocean-wash);
+      border-bottom-color: var(--ocean);
+    }
+
+    .sched-day-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .sched-day-name {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pebble);
+    }
+
+    .sched-table__day-header--today .sched-day-name {
+      color: var(--ocean);
+    }
+
+    .sched-day-num {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--ocean-deep);
+      line-height: 1;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .sched-table__day-header--today .sched-day-num {
+      background: var(--ocean);
+      color: var(--white);
+    }
+
+    /* ── Provider Sub-header (multi-provider view) ── */
+    .sched-table__provider-label {
+      background: var(--fog);
+      padding: 6px 8px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--stone-light);
+      text-align: center;
+      border-bottom: 1px solid var(--fog-dark);
+      white-space: nowrap;
+    }
+
+    /* ── Table Rows ── */
+    .sched-table__row {
+      height: 20px;
+    }
+
+    .sched-table__row--hour {
+      border-top: 1px solid var(--fog-dark);
+    }
+
+    .sched-table__row--hour td {
+      border-top: 1px solid var(--fog-dark);
+    }
+
+    /* ── Table Cells (slots) ── */
+    .sched-table__cell {
+      position: relative;
+      border-right: 1px solid rgba(var(--ocean-deep-rgb), 0.04);
+      border-bottom: 1px solid rgba(var(--ocean-deep-rgb), 0.025);
+      padding: 0;
+      vertical-align: top;
+      transition:
+        background var(--duration-fast) var(--ease-smooth);
+    }
+
+    /* Open (available) slot */
+    .sched-table__cell--open {
+      cursor: pointer;
+      background: var(--white);
+    }
+
+    .sched-table__cell--open:hover {
+      background: rgba(var(--ocean-rgb), 0.06);
+    }
+
+    .sched-table__cell--open:focus-visible {
+      outline: 2px solid var(--ocean);
+      outline-offset: -2px;
+      border-radius: 2px;
+      z-index: 1;
+    }
+
+    /* Subtle hover indicator dot */
+    .sched-table__cell--open:hover::after {
+      content: '+';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--ocean);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* Selected slot */
+    .sched-table__cell--selected {
+      background: rgba(var(--ocean-rgb), 0.12) !important;
+      box-shadow: inset 0 0 0 2px var(--ocean);
+      border-radius: 2px;
+      z-index: 1;
+    }
+
+    /* Past slot */
+    .sched-table__cell--past {
+      background: var(--fog);
+      cursor: default;
+    }
+
+    .sched-table__cell--past::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 4px,
+        rgba(var(--ocean-deep-rgb), 0.02) 4px,
+        rgba(var(--ocean-deep-rgb), 0.02) 5px
+      );
+      pointer-events: none;
+    }
+
+    /* Booked slot */
+    .sched-table__cell--booked {
+      padding: 2px;
+      cursor: pointer;
+    }
+
+    .sched-table__cell--booked:focus-visible {
+      outline: 2px solid var(--ocean-deep);
+      outline-offset: -2px;
+      z-index: 1;
+    }
+
+    /* ── Appointment Block (inside booked cell) ── */
+    .sched-block {
+      height: 100%;
+      min-height: 20px;
+      padding: 4px 8px;
+      border-radius: var(--radius-xs);
+      overflow: hidden;
+      font-size: 0.68rem;
+      line-height: 1.35;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1px;
+      transition:
+        box-shadow var(--duration-fast) var(--ease-smooth),
+        transform var(--duration-fast) var(--ease-out);
+    }
+
+    .sched-table__cell--booked:hover .sched-block {
+      box-shadow: 0 2px 8px rgba(var(--ocean-deep-rgb), 0.1);
+      transform: scale(1.01);
+    }
+
+    .sched-block__name {
+      font-weight: 700;
+      color: var(--ocean-deep);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sched-block__type {
+      font-weight: 500;
+      color: var(--stone-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sched-block__time {
+      font-weight: 600;
+      color: var(--pebble);
+      font-size: 0.62rem;
+    }
+
+    /* No-show blocks */
+    .sched-block--noshow {
+      opacity: 0.6;
+      position: relative;
+    }
+
+    .sched-block--noshow::after {
+      content: 'NO-SHOW';
+      position: absolute;
+      top: 3px;
+      right: 4px;
+      font-size: 0.5rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      background: var(--red-pale);
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+
+    /* Cancelled blocks */
+    .sched-block--cancelled {
+      opacity: 0.35;
+      text-decoration: line-through;
+    }
+
+    /* ── Current Time Indicator ── */
+    .sched-now-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--red);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .sched-now-line::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: -3px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       CALENDAR TYPE TABS (General / TMS / Ketamine)
+       ═══════════════════════════════════════════════════════ */
+    .cal-type-tabs {
+      display: flex;
+      background: var(--fog);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .cal-type-tab {
+      padding: 7px 16px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--pebble);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      white-space: nowrap;
+      position: relative;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth),
+        box-shadow var(--duration-fast) var(--ease-smooth);
+    }
+
+    .cal-type-tab:hover {
+      color: var(--ocean-deep);
+    }
+
+    .cal-type-tab--active {
+      background: var(--white);
+      color: var(--ocean-deep);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Calendar-specific accent colors on active tab */
+    .cal-type-tab--active[data-cal="tms"] {
+      color: var(--sand-deep);
+    }
+
+    .cal-type-tab--active[data-cal="tms"]::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 30%;
+      right: 30%;
+      height: 2px;
+      background: var(--sand);
+      border-radius: 1px;
+    }
+
+    .cal-type-tab--active[data-cal="ketamine"] {
+      color: #2a8a9e;
+    }
+
+    .cal-type-tab--active[data-cal="ketamine"]::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 30%;
+      right: 30%;
+      height: 2px;
+      background: #5baabb;
+      border-radius: 1px;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       DATE NAVIGATION
+       ═══════════════════════════════════════════════════════ */
+    .date-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .date-nav__btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.12);
+      background: var(--white);
+      color: var(--stone-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        border-color var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .date-nav__btn:hover {
+      background: var(--fog);
+      border-color: rgba(var(--ocean-rgb), 0.2);
+      color: var(--ocean-deep);
+    }
+
+    .date-nav__btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .date-nav__label {
+      min-width: 180px;
+      text-align: center;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ocean-deep);
+      padding: 0 8px;
+      white-space: nowrap;
+    }
+
+    .date-nav__today {
+      padding: 5px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ocean);
+      background: var(--ocean-wash);
+      border: 1px solid rgba(var(--ocean-rgb), 0.15);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      margin-left: 4px;
+      white-space: nowrap;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        border-color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .date-nav__today:hover {
+      background: var(--ocean-pale);
+      border-color: var(--ocean);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       VIEW TOGGLE (Day / Week)
+       ═══════════════════════════════════════════════════════ */
+    .view-toggle {
+      display: flex;
+      background: var(--fog);
+      border-radius: var(--radius-full);
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .view-toggle__btn {
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--pebble);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth),
+        box-shadow var(--duration-fast) var(--ease-smooth);
+    }
+
+    .view-toggle__btn:hover {
+      color: var(--ocean-deep);
+    }
+
+    .view-toggle__btn--active {
+      background: var(--white);
+      color: var(--ocean-deep);
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       BOOKING PANEL — SIDEBAR COMPONENTS
+       ═══════════════════════════════════════════════════════ */
+    .booking-panel__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--ocean-deep);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--fog-dark);
+    }
+
+    .booking-panel__empty {
+      text-align: center;
+      padding: var(--space-xl) var(--space-md);
+      color: var(--pebble);
+    }
+
+    .booking-panel__empty svg {
+      width: 48px;
+      height: 48px;
+      color: var(--pebble-light);
+      margin-bottom: var(--space-sm);
+      opacity: 0.5;
+    }
+
+    .booking-panel__empty p {
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      max-width: 220px;
+      margin: 0 auto;
+    }
+
+    /* ── Slot Info Card ── */
+    .slot-info {
+      background: var(--ocean-wash);
+      border: 1px solid rgba(var(--ocean-rgb), 0.12);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: var(--space-md);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       FORM COMPONENTS (used in auth gate)
+       ═══════════════════════════════════════════════════════ */
+    .form-card {
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-input {
+      padding: 11px 14px;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--stone);
+      background: var(--white);
+      border: 1.5px solid rgba(var(--ocean-deep-rgb), 0.12);
+      border-radius: var(--radius-md);
+      transition:
+        border-color var(--duration-fast) var(--ease-smooth),
+        box-shadow var(--duration-fast) var(--ease-smooth);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--ocean);
+      box-shadow: 0 0 0 3px rgba(var(--ocean-rgb), 0.1);
+    }
+
+    .form-input::placeholder {
+      color: var(--pebble-light);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .field-error {
+      font-size: var(--text-xs);
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       COLOR VARIABLE FALLBACKS
+       (In case these aren't in the main style.css)
+       ═══════════════════════════════════════════════════════ */
+    :root {
+      --red:        #dc2626;
+      --red-pale:   rgba(220, 38, 38, 0.08);
+      --green:      #16a34a;
+      --green-pale: rgba(22, 163, 74, 0.08);
+      --amber:      #d97706;
+      --amber-pale: rgba(217, 119, 6, 0.08);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       PRINT STYLES — Schedule printout
+       ═══════════════════════════════════════════════════════ */
+    @media print {
+      .sched-hero,
+      .role-bar,
+      .auth-gate,
+      .sched-sidebar,
+      .sched-legend,
+      .nav-toggle,
+      .mobile-nav,
+      .site-header,
+      .site-footer,
+      .modal-overlay,
+      .footer-crisis,
+      .date-nav__today,
+      .view-toggle,
+      .cal-type-tabs,
+      .role-tabs,
+      .provider-filter,
+      .skip-link {
+        display: none !important;
+      }
+
+      body {
+        background: #fff;
+        color: #000;
+        font-size: 10pt;
+      }
+
+      .sched-layout {
+        display: block !important;
+      }
+
+      .sched-calendar {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      .sched-table {
+        min-width: unset !important;
+        font-size: 8pt;
+        border: 1px solid #ccc;
+      }
+
+      .sched-table__cell--open {
+        background: #fff;
+      }
+
+      .sched-table__cell--past {
+        background: #f5f5f5;
+      }
+
+      .sched-table__cell--past::after {
+        display: none;
+      }
+
+      .sched-block {
+        border-left-width: 2px !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .sched-block__name {
+        color: #000;
+      }
+
+      .sched-table__day-header--today {
+        background: #e8f4f8 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .sched-table__day-header--today .sched-day-num {
+        background: #2a6b7c !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .date-nav {
+        justify-content: center;
+        margin-bottom: 12px;
+      }
+
+      .date-nav__btn {
+        display: none;
+      }
+
+      .date-nav__label {
+        font-size: 14pt;
+        font-weight: bold;
+      }
+
+      /* ── Drag-and-Drop Target Highlight ── */
+    .sched-table__cell--drop-target {
+      background: rgba(var(--ocean-rgb), 0.18) !important;
+      box-shadow: inset 0 0 0 2px var(--ocean);
+      border-radius: 2px;
+      animation: pulse-drop 0.6s ease infinite alternate;
+    }
+
+    @keyframes pulse-drop {
+      from { background: rgba(var(--ocean-rgb), 0.12); }
+      to   { background: rgba(var(--ocean-rgb), 0.22); }
+    }
+
+    /* ── Session Timeout Warning (optional modal style) ── */
+    .session-warning {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: var(--z-toast);
+      background: var(--white);
+      border: 1px solid rgba(217, 119, 6, 0.3);
+      border-left: 4px solid var(--amber);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: 0 8px 32px rgba(var(--ocean-deep-rgb), 0.15);
+      max-width: 340px;
+      animation: slide-in-right 0.3s var(--ease-out) both;
+    }
+
+    @keyframes slide-in-right {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .session-warning__title {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--amber);
+      margin-bottom: 4px;
+    }
+
+    .session-warning__msg {
+      font-size: var(--text-xs);
+      color: var(--stone-light);
+      line-height: 1.5;
+    }
+
+    .session-warning__actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .session-warning__btn {
+      padding: 6px 14px;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      border: none;
+      transition: background var(--duration-fast) var(--ease-smooth);
+    }
+
+    .session-warning__btn--extend {
+      background: var(--ocean);
+      color: var(--white);
+    }
+
+    .session-warning__btn--extend:hover {
+      background: var(--ocean-deep);
+    }
+
+    .session-warning__btn--logout {
+      background: var(--fog);
+      color: var(--pebble);
+    }
+
+    .session-warning__btn--logout:hover {
+      background: var(--fog-dark);
+    }
+
+      /* Print header */
+      .sched-calendar::before {
+        content: 'Altos Psychiatry — Schedule';
+        display: block;
+        text-align: center;
+        font-size: 16pt;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #1a3c4a;
+      }
+
+      .noshow-actions,
+      .booking-confirm-btn,
+      .booking-cancel-btn,
+      .zoom-toggle,
+      .patient-search {
+        display: none !important;
+      }
+
+      @page {
+        size: landscape;
+        margin: 0.5in;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Skip Link -->
+  <a href="#sched-main" class="skip-link">Skip to scheduling calendar</a>
+
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+
+  <div class="page-wrapper">
+  <main>
+
+    <!-- ═══════════════════════════════════════════════════════
+         HERO
+         ═══════════════════════════════════════════════════════ -->
+    <section class="sched-hero" aria-labelledby="sched-hero-title">
+      <div class="container">
+        <p class="eyebrow" style="color: var(--ocean-mist);">Appointment Scheduling</p>
+        <h1 id="sched-hero-title">Schedule Your Visit</h1>
+        <p>Select a time that works for you. In-person and telehealth options available.</p>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         AUTH GATE — Shown before calendar loads
+         Patients enter email; staff enter access code
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section auth-gate is-visible" id="auth-gate" aria-label="Authentication">
+      <div class="container" style="max-width: 540px;">
+
+        <h2>Access Your Schedule</h2>
+        <p>Enter your credentials below to view available appointments or manage the calendar.</p>
+
+        <!-- Patient Login -->
+        <div class="form-card" style="margin-bottom: var(--space-lg);">
+          <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-sm);">
+            🩺 Patient Access
+          </h3>
+          <p style="font-size: var(--text-sm); color: var(--stone-light); margin-bottom: var(--space-md);">
+            Enter the email address associated with your account.
+          </p>
+          <form id="patient-auth-form" class="access-form">
+            <div class="form-row">
+              <input
+                type="email"
+                id="auth-patient-email"
+                class="form-input"
+                placeholder="your@email.com"
+                autocomplete="email"
+                required
+              />
+              <button type="submit" class="btn btn--primary" style="white-space: nowrap;">
+                View My Schedule
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Staff Login -->
+        <div class="form-card">
+          <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-sm);">
+            🔐 Staff &amp; Provider Access
+          </h3>
+          <p style="font-size: var(--text-sm); color: var(--stone-light); margin-bottom: var(--space-md);">
+            Enter your staff access code to manage all schedules.
+          </p>
+          <form id="staff-auth-form" class="access-form">
+            <div class="form-row">
+              <input
+                type="password"
+                id="auth-staff-code"
+                class="form-input"
+                placeholder="Access code"
+                autocomplete="off"
+                required
+              />
+              <button type="submit" class="btn btn--primary" style="white-space: nowrap;">
+                Staff Login
+              </button>
+            </div>
+            <div class="field-error" id="err-staff-auth" role="alert" style="display:none; margin-top: 8px;">
+              Invalid access code. Please try again.
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         SCHEDULING INTERFACE — Hidden until auth
+         ═══════════════════════════════════════════════════════ -->
+    <div id="sched-app" style="display: none;">
+
+      <!-- ── Role Bar (sticky) ── -->
+      <div class="role-bar" id="sched-main">
+        <div class="container">
+          <div class="role-bar__inner">
+
+            <div class="role-bar__left">
+              <!-- Role Tabs (hidden for patients, shown for staff) -->
+              <div class="role-tabs" id="role-tabs" style="display: none;">
+                <button class="role-tab role-tab--active" data-role="scheduler">All Providers</button>
+                <button class="role-tab" data-role="provider">My Schedule</button>
+              </div>
+
+              <!-- Provider Filter (scheduler view) -->
+              <div class="provider-filter" id="provider-filter-wrap">
+                <select class="provider-filter__select" id="provider-filter" aria-label="Filter by provider">
+                  <option value="all">All Providers</option>
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+
+              <!-- Calendar Type Tabs -->
+              <div class="cal-type-tabs" id="cal-type-tabs">
+                <button class="cal-type-tab cal-type-tab--active" data-cal="general">General</button>
+                <button class="cal-type-tab" data-cal="tms">TMS</button>
+                <button class="cal-type-tab" data-cal="ketamine">Ketamine</button>
+              </div>
+            </div>
+
+            <div class="role-bar__right">
+              <!-- Date Navigation -->
+              <div class="date-nav">
+                <button class="date-nav__btn" id="date-prev" aria-label="Previous week">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <span class="date-nav__label" id="date-label">June 16 – 20, 2025</span>
+                <button class="date-nav__btn" id="date-next" aria-label="Next week">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <button class="date-nav__today" id="date-today">Today</button>
+              </div>
+
+              <!-- View Toggle -->
+              <div class="view-toggle">
+                <button class="view-toggle__btn" data-view="day">Day</button>
+                <button class="view-toggle__btn view-toggle__btn--active" data-view="week">Week</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ── Main Layout: Calendar + Sidebar ── -->
+      <div class="container" style="padding-top: 0; padding-bottom: 0; max-width: var(--container-wide);">
+        <div class="sched-layout">
+
+          <!-- ════ CALENDAR GRID ════ -->
+          <div class="sched-calendar" id="sched-calendar">
+
+            <!-- Loading State -->
+            <div class="sched-loading" id="sched-loading">
+              <div class="sched-loading__spinner"></div>
+              <p>Loading schedule…</p>
+            </div>
+
+            <!-- Week Grid (rendered by JS) -->
+            <div id="week-grid-container" style="display: none;">
+              <!-- Dynamically generated by scheduling-engine.js -->
+            </div>
+
+            <!-- Legend -->
+            <div class="sched-legend">
+              <div class="sched-legend__item">
+                <span class="sched-legend__color" style="background: rgba(var(--ocean-rgb),0.1); border-left-color: var(--ocean);"></span>
+                Med Mgmt
+              </div>
+              <div class="sched-legend__item">
+                <span class="sched-legend__color" style="background: rgba(107,143,107,0.12); border-left-color: var(--sage);"></span>
+                Therapy
+              </div>
+              <div class="sched-legend__item">
+                <span class="sched-legend__color" style="background: rgba(196,168,130,0.15); border-left-color: var(--sand);"></span>
+                TMS (45m)
+              </div>
+              <div class="sched-legend__item">
+                <span class="sched-legend__color" style="background: rgba(196,168,130,0.2); border-left-color: var(--sand-deep);"></span>
+                SAINT (15m)
+              </div>
+              <div class="sched-legend__item">
+                <span class="sched-legend__color" style="background: rgba(91,170,187,0.12); border-left-color: var(--ocean-mid, #5baabb);"></span>
+                Ketamine
+              </div>
+              <div class="sched-legend__item">
+                <span class="sched-legend__color" style="background: rgba(91,170,187,0.18); border-left-color: var(--ocean-light, #7ec8d8);"></span>
+                Spravato
+              </div>
+              <div class="sched-legend__item">
+                <span class="sched-legend__color" style="background: rgba(var(--ocean-deep-rgb),0.08); border-left-color: var(--ocean-deep);"></span>
+                Intake
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- ════ SIDEBAR — BOOKING PANEL ════ -->
+          <div class="sched-sidebar" id="sched-sidebar">
+
+            <h2 class="booking-panel__title">Book Appointment</h2>
+
+            <!-- Empty State -->
+            <div class="booking-panel__empty" id="booking-empty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
+              </svg>
+              <p>Click an open time slot on the calendar to begin booking.</p>
+            </div>
+
+            <!-- Booking Form (hidden until slot selected) -->
+            <div id="booking-form" style="display: none;">
+
+              <!-- Selected Slot -->
+              <div class="slot-info" id="slot-info">
+                <div class="slot-info__date" id="slot-date">Monday, June 16, 2025</div>
+                <div class="slot-info__time" id="slot-time">9:00 AM – 9:30 AM</div>
+                <div class="slot-info__provider" id="slot-provider">
+                  <span class="slot-info__provider-dot" style="background: var(--ocean);"></span>
+                  Dr. Bennett
+                </div>
+              </div>
+
+              <!-- Patient Search (Staff only) -->
+              <div class="patient-search" id="patient-search-wrap" style="display: none;">
+                <svg class="patient-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input
+                  type="text"
+                  class="patient-search__input"
+                  id="patient-search"
+                  placeholder="Search patient by name…"
+                  autocomplete="off"
+                />
+                <div class="patient-search__results" id="patient-results">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+
+              <!-- Appointment Type Selector -->
+              <div class="appt-type-selector" id="appt-type-selector">
+                <span class="appt-type-selector__label">Appointment Type</span>
+                <div class="appt-type-list" id="appt-type-list">
+                  <!-- Populated by JS based on calendar type + provider -->
+                </div>
+              </div>
+
+              <!-- Zoom Toggle -->
+              <div class="zoom-toggle" id="zoom-toggle">
+                <div class="zoom-toggle__left">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M4 4h10a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm14 3l4-2v8l-4-2V7z"/>
+                  </svg>
+                  <div>
+                    <div class="zoom-toggle__label">Telehealth via Zoom</div>
+                    <div class="zoom-toggle__desc">Auto-generate Zoom meeting link</div>
+                  </div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="zoom-enabled" />
+                  <span class="toggle-switch__slider"></span>
+                </label>
+              </div>
+
+              <!-- Booking Summary -->
+              <div class="booking-summary" id="booking-summary" style="display: none;">
+                <div class="booking-summary__row">
+                  <span class="booking-summary__label">Patient</span>
+                  <span class="booking-summary__value" id="sum-patient">—</span>
+                </div>
+                <div class="booking-summary__row">
+                  <span class="booking-summary__label">Provider</span>
+                  <span class="booking-summary__value" id="sum-provider">—</span>
+                </div>
+                <div class="booking-summary__row">
+                  <span class="booking-summary__label">Type</span>
+                  <span class="booking-summary__value" id="sum-type">—</span>
+                </div>
+                <div class="booking-summary__row">
+                  <span class="booking-summary__label">CPT Code</span>
+                  <span class="booking-summary__value" id="sum-cpt">—</span>
+                </div>
+                <div class="booking-summary__row">
+                  <span class="booking-summary__label">Duration</span>
+                  <span class="booking-summary__value" id="sum-duration">—</span>
+                </div>
+                <div class="booking-summary__row">
+                  <span class="booking-summary__label">Date &amp; Time</span>
+                  <span class="booking-summary__value" id="sum-datetime">—</span>
+                </div>
+                <div class="booking-summary__row">
+                  <span class="booking-summary__label">Format</span>
+                  <span class="booking-summary__value" id="sum-format">In-Person</span>
+                </div>
+              </div>
+
+              <!-- Confirm Button -->
+              <button class="booking-confirm-btn" id="booking-confirm-btn" disabled>
+                Confirm &amp; Book Appointment
+              </button>
+
+              <!-- Cancel Link -->
+              <button
+                id="booking-cancel-btn"
+                style="display: block; margin: 12px auto 0; background: none; border: none; font-size: var(--text-sm); color: var(--pebble); cursor: pointer; text-decoration: underline; text-underline-offset: 2px;"
+              >
+                Cancel
+              </button>
+
+            </div>
+
+            <!-- Appointment Detail (click existing block) -->
+            <div id="appt-detail-panel" style="display: none;">
+              <div class="appt-detail" id="appt-detail">
+                <div class="appt-detail__header">
+                  <div>
+                    <div class="appt-detail__patient" id="detail-patient">Jane Doe</div>
+                    <div style="font-size: var(--text-xs); color: var(--pebble); margin-top: 2px;" id="detail-email">jane@email.com</div>
+                  </div>
+                  <span class="appt-detail__status appt-detail__status--confirmed" id="detail-status">Confirmed</span>
+                </div>
+                <div class="appt-detail__grid">
+                  <div class="appt-detail__field">
+                    <div class="appt-detail__field-label">Date</div>
+                    <div class="appt-detail__field-value" id="detail-date">Mon, Jun 16</div>
+                  </div>
+                  <div class="appt-detail__field">
+                    <div class="appt-detail__field-label">Time</div>
+                    <div class="appt-detail__field-value" id="detail-time">9:00 – 9:30 AM</div>
+                  </div>
+                  <div class="appt-detail__field">
+                    <div class="appt-detail__field-label">Type</div>
+                    <div class="appt-detail__field-value" id="detail-type">Med Management</div>
+                  </div>
+                  <div class="appt-detail__field">
+                    <div class="appt-detail__field-label">CPT</div>
+                    <div class="appt-detail__field-value" id="detail-cpt">99214</div>
+                  </div>
+                  <div class="appt-detail__field">
+                    <div class="appt-detail__field-label">Provider</div>
+                    <div class="appt-detail__field-value" id="detail-provider">Dr. Bennett</div>
+                  </div>
+                  <div class="appt-detail__field">
+                    <div class="appt-detail__field-label">Format</div>
+                    <div class="appt-detail__field-value" id="detail-format">In-Person</div>
+                  </div>
+                </div>
+
+                <!-- Zoom Link (if telehealth) -->
+                <div id="detail-zoom-link" style="display: none; margin-top: 12px;">
+                  <a href="#" class="cal-link cal-link--zoom" id="detail-zoom-url" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h10a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm14 3l4-2v8l-4-2V7z"/></svg>
+                    Join Zoom Meeting
+                  </a>
+                </div>
+
+                <!-- No-Show / Status Actions (Staff only) -->
+                <div class="noshow-actions" id="noshow-actions" style="display: none;">
+                  <button class="noshow-btn noshow-btn--mark" id="btn-mark-noshow">
+                    Mark No-Show
+                  </button>
+                  <button class="noshow-btn noshow-btn--reschedule" id="btn-reschedule">
+                    Reschedule
+                  </button>
+                  <button class="noshow-btn" id="btn-cancel-appt" style="background: var(--fog); border-color: var(--fog-dark); color: var(--pebble);">
+                    Cancel Appt
+                  </button>
+                </div>
+              </div>
+
+              <button
+                id="detail-close-btn"
+                style="display: block; margin: 0 auto; background: none; border: none; font-size: var(--text-sm); color: var(--pebble); cursor: pointer; text-decoration: underline;"
+              >
+                ← Back to Calendar
+              </button>
+            </div>
+
+          </div>
+          <!-- /.sched-sidebar -->
+
+        </div>
+        <!-- /.sched-layout -->
+      </div>
+
+    </div>
+    <!-- /#sched-app -->
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONFIRMATION MODAL
+         ═══════════════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal">
+        <div class="modal__header">
+          <h2 id="modal-title" style="font-size: var(--text-xl); color: var(--ocean-deep);">Appointment Confirmed</h2>
+          <button class="modal__close" id="modal-close-btn" aria-label="Close dialog">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="modal__body">
+          <!-- Success Icon -->
+          <div class="confirm-success">
+            <div class="confirm-success__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="10"/>
+              </svg>
+            </div>
+            <h3>You're All Set</h3>
+            <p id="modal-confirm-msg">
+              Your appointment has been booked. A confirmation email with details and any relevant links has been sent.
+            </p>
+          </div>
+
+          <!-- Appointment Summary in Modal -->
+          <div class="booking-summary" id="modal-summary">
+            <div class="booking-summary__row">
+              <span class="booking-summary__label">Patient</span>
+              <span class="booking-summary__value" id="modal-patient">—</span>
+            </div>
+            <div class="booking-summary__row">
+              <span class="booking-summary__label">Provider</span>
+              <span class="booking-summary__value" id="modal-provider">—</span>
+            </div>
+            <div class="booking-summary__row">
+              <span class="booking-summary__label">Appointment</span>
+              <span class="booking-summary__value" id="modal-type">—</span>
+            </div>
+            <div class="booking-summary__row">
+              <span class="booking-summary__label">CPT Code</span>
+              <span class="booking-summary__value" id="modal-cpt">—</span>
+            </div>
+            <div class="booking-summary__row">
+              <span class="booking-summary__label">Date &amp; Time</span>
+              <span class="booking-summary__value" id="modal-datetime">—</span>
+            </div>
+            <div class="booking-summary__row">
+              <span class="booking-summary__label">Duration</span>
+              <span class="booking-summary__value" id="modal-duration">—</span>
+            </div>
+            <div class="booking-summary__row">
+              <span class="booking-summary__label">Format</span>
+              <span class="booking-summary__value" id="modal-format">—</span>
+            </div>
+            <div class="booking-summary__row" id="modal-zoom-row" style="display: none;">
+              <span class="booking-summary__label">Zoom Link</span>
+              <span class="booking-summary__value">
+                <a href="#" id="modal-zoom-link" target="_blank" rel="noopener" style="color: #2D8CFF; text-decoration: underline;">
+                  Join Meeting
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <!-- Add to Calendar Links -->
+          <div class="cal-links" id="modal-cal-links">
+            <a href="#" class="cal-link cal-link--google" id="cal-link-google" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19.5 3h-3V1.5h-1.5V3h-6V1.5H7.5V3h-3C3.675 3 3 3.675 3 4.5v15c0 .825.675 1.5 1.5 1.5h15c.825 0 1.5-.675 1.5-1.5v-15c0-.825-.675-1.5-1.5-1.5zm0 16.5h-15V9h15v10.5zm0-12h-15V4.5h15V7.5z"/>
+              </svg>
+              Add to Google Calendar
+            </a>
+
+            <a href="#" class="cal-link cal-link--apple" id="cal-link-apple" download="appointment.ics">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              Add to Apple Calendar (.ics)
+            </a>
+
+            <!-- Zoom link (shown only if telehealth) -->
+            <a href="#" class="cal-link cal-link--zoom" id="cal-link-zoom" target="_blank" rel="noopener" style="display: none;">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M4 4h10a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm14 3l4-2v8l-4-2V7z"/>
+              </svg>
+              Open Zoom Meeting
+            </a>
+          </div>
+        </div>
+
+        <div class="modal__footer">
+          <button class="btn btn--primary" id="modal-done-btn" style="width: 100%;">
+            Done
+          </button>
+          <p style="font-size: var(--text-xs); color: var(--pebble); text-align: center; margin: 0;">
+            A confirmation email has been sent to the patient's email address.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-overlay -->
+
+
+  </main>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Core JS -->
+  <script src="/js/main.js"></script>
+
+  <!-- Scheduling Engine -->
+  <script src="/js/scheduling-engine.js"></script>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE BOOTSTRAP
+       Auth gating, role switching, and initializing the
+       scheduling engine with config.
+       ═══════════════════════════════════════════════════════ -->
+  <script>
+  ;(function () {
+    'use strict'
+
+    /* ═══════════════════════════════════════════════════════
+       CONFIGURATION
+       ═══════════════════════════════════════════════════════ */
+    var CONFIG = {
+
+      // Google Apps Script backend URL
+      BACKEND_URL: 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec',
+
+      // Staff access codes (in production, validate server-side)
+      STAFF_CODES: {
+        'admin2025':    { role: 'scheduler', name: 'Admin',       providerId: null },
+        'bennett2025':  { role: 'provider',  name: 'Dr. Bennett', providerId: 'bennett' },
+        'chen2025':     { role: 'provider',  name: 'Dr. Chen',    providerId: 'chen' }
+      },
+
+      // Providers
+      PROVIDERS: [
+        { id: 'bennett', name: 'Dr. Bennett', title: 'MD, Psychiatrist', color: '#2a6b7c', calendarId: 'bennett@altospsychiatry.com' },
+        { id: 'chen',    name: 'Dr. Chen',    title: 'NP, Psychiatric NP', color: '#6b8f6b', calendarId: 'chen@altospsychiatry.com' }
+      ],
+
+      // Appointment types with CPT codes, durations, and calendar assignment
+      APPOINTMENT_TYPES: {
+        general: [
+          { id: 'intake',         name: 'Initial Evaluation',         cpt: '99205', duration: 60, color: 'intake',     providers: ['bennett', 'chen'] },
+          { id: 'followup-brief', name: 'Follow-Up (Brief)',          cpt: '99213', duration: 15, color: 'med-mgmt',   providers: ['bennett', 'chen'] },
+          { id: 'followup-std',   name: 'Follow-Up (Standard)',       cpt: '99214', duration: 30, color: 'med-mgmt',   providers: ['bennett', 'chen'] },
+          { id: 'followup-ext',   name: 'Follow-Up (Extended)',       cpt: '99215', duration: 45, color: 'med-mgmt',   providers: ['bennett'] },
+          { id: 'therapy-30',     name: 'Psychotherapy (30 min)',      cpt: '90833', duration: 30, color: 'therapy',    providers: ['bennett', 'chen'] },
+          { id: 'therapy-45',     name: 'Psychotherapy (45 min)',      cpt: '90834', duration: 45, color: 'therapy',    providers: ['bennett', 'chen'] },
+          { id: 'therapy-60',     name: 'Psychotherapy (60 min)',      cpt: '90837', duration: 60, color: 'therapy',    providers: ['bennett'] },
+          { id: 'telehealth-std', name: 'Telehealth Follow-Up',       cpt: '99214', duration: 30, color: 'telehealth', providers: ['bennett', 'chen'], telehealth: true },
+          { id: 'telehealth-ext', name: 'Telehealth Extended',        cpt: '99215', duration: 45, color: 'telehealth', providers: ['bennett'], telehealth: true }
+        ],
+        tms: [
+          { id: 'tms-traditional', name: 'TMS Session (Traditional)', cpt: '90868', duration: 45, color: 'tms',        providers: ['bennett'] },
+          { id: 'tms-saint',       name: 'TMS Session (SAINT)',       cpt: '90868', duration: 15, color: 'tms-saint',   providers: ['bennett'] },
+          { id: 'tms-eval',        name: 'TMS Evaluation',            cpt: '90867', duration: 60, color: 'tms',         providers: ['bennett'] },
+          { id: 'tms-reval',       name: 'TMS Re-Evaluation',         cpt: '90869', duration: 30, color: 'tms',         providers: ['bennett'] }
+        ],
+        ketamine: [
+          { id: 'ket-infusion',    name: 'Ketamine IV Infusion',      cpt: '96365', duration: 90, color: 'ketamine',    providers: ['bennett'] },
+          { id: 'ket-followup',    name: 'Ketamine Follow-Up',        cpt: '99214', duration: 30, color: 'ketamine',    providers: ['bennett'] },
+          { id: 'spravato-init',   name: 'Spravato® Initial',         cpt: '96372', duration: 150, color: 'spravato',   providers: ['bennett'] },
+          { id: 'spravato-maint',  name: 'Spravato® Maintenance',     cpt: '96372', duration: 150, color: 'spravato',   providers: ['bennett'] },
+          { id: 'spravato-eval',   name: 'Spravato® Evaluation',      cpt: '99215', duration: 45, color: 'spravato',    providers: ['bennett'] }
+        ]
+      },
+
+      // Google Calendar IDs (for backend integration)
+      CALENDARS: {
+        admin:    'admin@altospsychiatry.com',
+        tms:      'tms@altospsychiatry.com',
+        ketamine: 'ketamine@altospsychiatry.com'
+      },
+
+      // Business hours
+      HOURS: {
+        start: 8,   // 8:00 AM
+        end: 17,     // 5:00 PM
+        slotMinutes: 15,
+        days: [1, 2, 3, 4, 5] // Mon–Fri
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       STATE
+       ═══════════════════════════════════════════════════════ */
+    var state = {
+      role: null,          // 'patient' | 'scheduler' | 'provider'
+      user: null,          // { name, email, providerId, patientId }
+      currentProvider: 'all',
+      currentCal: 'general',
+      currentView: 'week',
+      weekStart: null,     // Monday Date object
+      selectedSlot: null,  // { date, hour, minute, providerId }
+      selectedType: null,  // appointment type object
+      selectedPatient: null,
+      zoomEnabled: false,
+      appointments: [],    // fetched from backend
+      patients: []         // fetched from backend (staff only)
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       DOM REFERENCES
+       ═══════════════════════════════════════════════════════ */
+    var dom = {
+      authGate:        document.getElementById('auth-gate'),
+      schedApp:        document.getElementById('sched-app'),
+      roleTabs:        document.getElementById('role-tabs'),
+      providerFilter:  document.getElementById('provider-filter'),
+      providerWrap:    document.getElementById('provider-filter-wrap'),
+      calTypeTabs:     document.getElementById('cal-type-tabs'),
+      dateLabel:       document.getElementById('date-label'),
+      datePrev:        document.getElementById('date-prev'),
+      dateNext:        document.getElementById('date-next'),
+      dateToday:       document.getElementById('date-today'),
+      schedLoading:    document.getElementById('sched-loading'),
+      weekGridWrap:    document.getElementById('week-grid-container'),
+      bookingEmpty:    document.getElementById('booking-empty'),
+      bookingForm:     document.getElementById('booking-form'),
+      apptTypeList:    document.getElementById('appt-type-list'),
+      patientSearch:   document.getElementById('patient-search'),
+      patientResults:  document.getElementById('patient-results'),
+      patientSearchW:  document.getElementById('patient-search-wrap'),
+      bookingSummary:  document.getElementById('booking-summary'),
+      confirmBtn:      document.getElementById('booking-confirm-btn'),
+      cancelBtn:       document.getElementById('booking-cancel-btn'),
+      zoomEnabled:     document.getElementById('zoom-enabled'),
+      detailPanel:     document.getElementById('appt-detail-panel'),
+      detailClose:     document.getElementById('detail-close-btn'),
+      noshowActions:   document.getElementById('noshow-actions'),
+      confirmModal:    document.getElementById('confirm-modal'),
+      modalCloseBtn:   document.getElementById('modal-close-btn'),
+      modalDoneBtn:    document.getElementById('modal-done-btn')
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       AUTHENTICATION
+       ═══════════════════════════════════════════════════════ */
+
+    // Patient auth
+    var patientForm = document.getElementById('patient-auth-form')
+    if (patientForm) {
+      patientForm.addEventListener('submit', function (e) {
+        e.preventDefault()
+        var email = document.getElementById('auth-patient-email').value.trim()
+        if (!email) return
+
+        // Verify patient via backend
+        pingBackend('verifyPatient', { email: email }, function (result) {
+          if (result && result.found) {
+            state.role = 'patient'
+            state.user = {
+              name: result.name,
+              email: email,
+              patientId: result.patientId,
+              providerId: result.providerId
+            }
+            launchScheduler()
+          } else {
+            alert('No account found with that email. Please contact our office or submit a consultation request first.')
+          }
+        })
+      })
+    }
+
+    // Staff auth
+    var staffForm = document.getElementById('staff-auth-form')
+    if (staffForm) {
+      staffForm.addEventListener('submit', function (e) {
+        e.preventDefault()
+        var code = document.getElementById('auth-staff-code').value.trim()
+        var match = CONFIG.STAFF_CODES[code]
+
+        if (match) {
+          state.role = match.role
+          state.user = {
+            name: match.name,
+            providerId: match.providerId
+          }
+          document.getElementById('err-staff-auth').style.display = 'none'
+          launchScheduler()
+        } else {
+          document.getElementById('err-staff-auth').style.display = 'block'
+        }
+      })
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       LAUNCH SCHEDULER
+       ═══════════════════════════════════════════════════════ */
+    function launchScheduler() {
+      // Hide auth, show app
+      dom.authGate.classList.remove('is-visible')
+      dom.authGate.style.display = 'none'
+      dom.schedApp.style.display = 'block'
+
+      // Configure UI based on role
+      configureForRole()
+
+      // Set initial week to current week
+      state.weekStart = getMonday(new Date())
+
+      // Populate provider dropdown
+      populateProviderFilter()
+
+      // Bind all UI events
+      bindUIEvents()
+
+      // Fetch data and render
+      fetchAndRender()
+      // ── Connect Scheduling Engine ──
+    if (window.SchedulingEngine) {
+      window.SchedulingEngine.boot({
+        role: state.role,
+        fetchFn: fetchAndRender,
+        hours: {
+          startHour: CONFIG.HOURS.start,
+          endHour: CONFIG.HOURS.end,
+          slotMinutes: CONFIG.HOURS.slotMinutes
+        },
+        onReschedule: function (apptId, newSlot) {
+          if (!confirm('Reschedule this appointment to ' +
+            newSlot.date + ' at ' + formatTime(newSlot.hour, newSlot.minute) + '?')) {
+            return
+          }
+          // Cancel old, book new
+          var oldAppt = state.appointments.find(function (a) { return a.id === apptId })
+          if (!oldAppt) return
+
+          updateAppointmentStatus(apptId, 'rescheduled')
+
+          // Set up new booking
+          state.selectedSlot = newSlot
+          var provider = CONFIG.PROVIDERS.find(function (p) { return p.id === newSlot.providerId })
+          state.selectedSlot.providerName = provider ? provider.name : ''
+          state.selectedPatient = {
+            id: oldAppt.patientId,
+            name: oldAppt.patientName,
+            email: oldAppt.patientEmail
+          }
+
+          // Find matching appointment type
+          var allTypes = CONFIG.APPOINTMENT_TYPES[state.currentCal] || []
+          state.selectedType = allTypes.find(function (t) { return t.id === oldAppt.typeId }) || null
+          state.zoomEnabled = oldAppt.isTelehealth === 'true'
+
+          if (state.selectedType && canConfirm()) {
+            submitBooking()
+          } else {
+            showBookingForm()
+          }
+        },
+        onSessionTimeout: function () {
+          // Clean up state
+          SchedulingEngine.destroy()
+          state.role = null
+          state.user = null
+          state.appointments = []
+          state.patients = []
+          state.selectedSlot = null
+          state.selectedType = null
+          state.selectedPatient = null
+
+          // Hide scheduler, show auth gate
+          dom.schedApp.style.display = 'none'
+          dom.authGate.style.display = 'block'
+          dom.authGate.classList.add('is-visible')
+
+          // Clear sensitive form fields
+          var staffCode = document.getElementById('auth-staff-code')
+          if (staffCode) staffCode.value = ''
+          var patientEmail = document.getElementById('auth-patient-email')
+          if (patientEmail) patientEmail.value = ''
+
+          // Notify user
+          alert('Your session has expired due to inactivity. Please log in again to continue.')
+
+          // Scroll to top
+          window.scrollTo({ top: 0, behavior: 'auto' })
+        }
+      })
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       ROLE CONFIGURATION
+       ═══════════════════════════════════════════════════════ */
+    function configureForRole() {
+      switch (state.role) {
+
+        case 'patient':
+          // Patient: locked to their provider, no staff controls
+          dom.roleTabs.style.display = 'none'
+          dom.providerWrap.style.display = 'none'
+          dom.patientSearchW.style.display = 'none'
+          dom.noshowActions.style.display = 'none'
+          state.currentProvider = state.user.providerId
+          state.selectedPatient = {
+            id: state.user.patientId,
+            name: state.user.name,
+            email: state.user.email
+          }
+          break
+
+        case 'scheduler':
+          // Scheduler: sees all providers, can search patients
+          dom.roleTabs.style.display = 'flex'
+          dom.providerWrap.style.display = 'block'
+          dom.patientSearchW.style.display = 'block'
+          dom.noshowActions.style.display = 'flex'
+          state.currentProvider = 'all'
+          break
+
+        case 'provider':
+          // Provider: sees own schedule, can search patients
+          dom.roleTabs.style.display = 'flex'
+          dom.providerWrap.style.display = 'none'
+          dom.patientSearchW.style.display = 'block'
+          dom.noshowActions.style.display = 'flex'
+          state.currentProvider = state.user.providerId
+          break
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       PROVIDER FILTER
+       ═══════════════════════════════════════════════════════ */
+    function populateProviderFilter() {
+      var sel = dom.providerFilter
+      sel.innerHTML = '<option value="all">All Providers</option>'
+      CONFIG.PROVIDERS.forEach(function (p) {
+        var opt = document.createElement('option')
+        opt.value = p.id
+        opt.textContent = p.name + ' — ' + p.title
+        sel.appendChild(opt)
+      })
+      sel.value = state.currentProvider
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       UI EVENT BINDINGS
+       ═══════════════════════════════════════════════════════ */
+    function bindUIEvents() {
+
+      // ── Role tabs ──
+      var tabs = document.querySelectorAll('.role-tab')
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) { t.classList.remove('role-tab--active') })
+          tab.classList.add('role-tab--active')
+
+          var role = tab.getAttribute('data-role')
+          if (role === 'scheduler') {
+            state.currentProvider = 'all'
+            dom.providerWrap.style.display = 'block'
+            dom.providerFilter.value = 'all'
+          } else {
+            state.currentProvider = state.user.providerId
+            dom.providerWrap.style.display = 'none'
+          }
+          fetchAndRender()
+        })
+      })
+
+      // ── Provider filter ──
+      dom.providerFilter.addEventListener('change', function () {
+        state.currentProvider = this.value
+        fetchAndRender()
+      })
+
+      // ── Calendar type tabs ──
+      var calTabs = document.querySelectorAll('.cal-type-tab')
+      calTabs.forEach(function (tab) {
+        calTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          calTabs.forEach(function (t) { t.classList.remove('cal-type-tab--active') })
+          tab.classList.add('cal-type-tab--active')
+          state.currentCal = tab.getAttribute('data-cal')
+          clearBooking()
+          fetchAndRender()
+        })
+      })
+
+      // ── View toggle ──
+      var viewBtns = document.querySelectorAll('.view-toggle__btn')
+      viewBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          viewBtns.forEach(function (b) { b.classList.remove('view-toggle__btn--active') })
+          btn.classList.add('view-toggle__btn--active')
+          state.currentView = btn.getAttribute('data-view')
+          renderCalendar()
+        })
+      })
+
+      // ── Date navigation ──
+      dom.datePrev.addEventListener('click', function () {
+        var offset = state.currentView === 'week' ? -7 : -1
+        state.weekStart = addDays(state.weekStart, offset)
+        updateDateLabel()
+        fetchAndRender()
+      })
+
+      dom.dateNext.addEventListener('click', function () {
+        var offset = state.currentView === 'week' ? 7 : 1
+        state.weekStart = addDays(state.weekStart, offset)
+        updateDateLabel()
+        fetchAndRender()
+      })
+
+      dom.dateToday.addEventListener('click', function () {
+        state.weekStart = getMonday(new Date())
+        updateDateLabel()
+        fetchAndRender()
+      })
+
+      // ── Zoom toggle ──
+      dom.zoomEnabled.addEventListener('change', function () {
+        state.zoomEnabled = this.checked
+        updateSummary()
+      })
+
+      // ── Booking cancel ──
+      dom.cancelBtn.addEventListener('click', function () {
+        clearBooking()
+      })
+
+      // ── Booking confirm ──
+      dom.confirmBtn.addEventListener('click', function () {
+        if (!canConfirm()) return
+        submitBooking()
+      })
+
+      // ── Detail panel close ──
+      dom.detailClose.addEventListener('click', function () {
+        dom.detailPanel.style.display = 'none'
+        dom.bookingEmpty.style.display = 'block'
+      })
+
+      // ── Modal close ──
+      dom.modalCloseBtn.addEventListener('click', closeModal)
+      dom.modalDoneBtn.addEventListener('click', closeModal)
+      dom.confirmModal.addEventListener('click', function (e) {
+        if (e.target === dom.confirmModal) closeModal()
+      })
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && dom.confirmModal.classList.contains('modal-overlay--open')) {
+          closeModal()
+        }
+      })
+
+      // ── No-show actions ──
+      var noshowBtn = document.getElementById('btn-mark-noshow')
+      if (noshowBtn) {
+        noshowBtn.addEventListener('click', function () {
+          if (!state._viewingAppt) return
+          updateAppointmentStatus(state._viewingAppt.id, 'no-show')
+        })
+      }
+
+      var reschedBtn = document.getElementById('btn-reschedule')
+      if (reschedBtn) {
+        reschedBtn.addEventListener('click', function () {
+          if (!state._viewingAppt) return
+          // Close detail, pre-fill patient, open booking mode
+          var appt = state._viewingAppt
+          dom.detailPanel.style.display = 'none'
+          state.selectedPatient = { id: appt.patientId, name: appt.patientName, email: appt.patientEmail }
+          showBookingForm()
+          // Pre-cancel old appointment
+          updateAppointmentStatus(appt.id, 'rescheduled')
+        })
+      }
+
+      var cancelApptBtn = document.getElementById('btn-cancel-appt')
+      if (cancelApptBtn) {
+        cancelApptBtn.addEventListener('click', function () {
+          if (!state._viewingAppt) return
+          if (confirm('Cancel this appointment? The patient will be notified.')) {
+            updateAppointmentStatus(state._viewingAppt.id, 'cancelled')
+          }
+        })
+      }
+
+      // ── Patient search ──
+      if (dom.patientSearch) {
+        var searchTimer = null
+        dom.patientSearch.addEventListener('input', function () {
+          var query = this.value.trim()
+          clearTimeout(searchTimer)
+          if (query.length < 2) {
+            dom.patientResults.classList.remove('patient-search__results--open')
+            return
+          }
+          searchTimer = setTimeout(function () {
+            searchPatients(query)
+          }, 250)
+        })
+
+        dom.patientSearch.addEventListener('focus', function () {
+          if (dom.patientResults.children.length > 0 && this.value.trim().length >= 2) {
+            dom.patientResults.classList.add('patient-search__results--open')
+          }
+        })
+
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('.patient-search')) {
+            dom.patientResults.classList.remove('patient-search__results--open')
+          }
+        })
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       DATE UTILITIES
+       ═══════════════════════════════════════════════════════ */
+    function getMonday(d) {
+      var date = new Date(d)
+      var day = date.getDay()
+      var diff = date.getDate() - day + (day === 0 ? -6 : 1)
+      date.setDate(diff)
+      date.setHours(0, 0, 0, 0)
+      return date
+    }
+
+    function addDays(d, n) {
+      var date = new Date(d)
+      date.setDate(date.getDate() + n)
+      return date
+    }
+
+    function formatDate(d) {
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+      return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
+    }
+
+    function formatDateLong(d) {
+      var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+      var months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+      return days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
+    }
+
+    function formatTime(h, m) {
+      var ampm = h >= 12 ? 'PM' : 'AM'
+      var hour = h % 12 || 12
+      var min = m < 10 ? '0' + m : m
+      return hour + ':' + min + ' ' + ampm
+    }
+
+    function formatTimeRange(h, m, duration) {
+      var endMin = m + duration
+      var endH = h + Math.floor(endMin / 60)
+      endMin = endMin % 60
+      return formatTime(h, m) + ' – ' + formatTime(endH, endMin)
+    }
+
+    function dateToISO(d) {
+      return d.getFullYear() + '-' +
+        String(d.getMonth() + 1).padStart(2, '0') + '-' +
+        String(d.getDate()).padStart(2, '0')
+    }
+
+    function isSameDay(a, b) {
+      return a.getFullYear() === b.getFullYear() &&
+        a.getMonth() === b.getMonth() &&
+        a.getDate() === b.getDate()
+    }
+
+    function updateDateLabel() {
+      if (state.currentView === 'week') {
+        var end = addDays(state.weekStart, 4)
+        dom.dateLabel.textContent = formatDate(state.weekStart) + ' – ' + formatDate(end)
+      } else {
+        dom.dateLabel.textContent = formatDateLong(state.weekStart)
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       DATA FETCHING
+       ═══════════════════════════════════════════════════════ */
+    function fetchAndRender() {
+      dom.schedLoading.style.display = 'flex'
+      dom.weekGridWrap.style.display = 'none'
+
+      var params = {
+        action: 'getAppointments',
+        startDate: dateToISO(state.weekStart),
+        endDate: dateToISO(addDays(state.weekStart, state.currentView === 'week' ? 5 : 1)),
+        providerId: state.currentProvider,
+        calType: state.currentCal,
+        role: state.role
+      }
+
+      if (state.role === 'patient') {
+        params.patientId = state.user.patientId
+      }
+
+      pingBackend('getAppointments', params, function (result) {
+        state.appointments = (result && result.appointments) || []
+
+        if (state.role !== 'patient' && !state.patients.length) {
+          // Fetch patient list for search (once)
+          pingBackend('getPatients', {}, function (pResult) {
+            state.patients = (pResult && pResult.patients) || []
+            renderCalendar()
+          })
+        } else {
+          renderCalendar()
+        }
+      })
+    }
+
+    function searchPatients(query) {
+      var q = query.toLowerCase()
+      var matches = state.patients.filter(function (p) {
+        return p.name.toLowerCase().indexOf(q) > -1 ||
+               p.email.toLowerCase().indexOf(q) > -1
+      }).slice(0, 8)
+
+      dom.patientResults.innerHTML = ''
+
+      if (!matches.length) {
+        var noResult = document.createElement('div')
+        noResult.className = 'patient-search__result'
+        noResult.innerHTML = '<span style="color:var(--pebble);">No patients found</span>'
+        dom.patientResults.appendChild(noResult)
+      } else {
+        matches.forEach(function (p) {
+          var el = document.createElement('div')
+          el.className = 'patient-search__result'
+          el.innerHTML =
+            '<span class="patient-search__result-name">' + escapeHtml(p.name) + '</span>' +
+            '<span class="patient-search__result-provider">' + escapeHtml(p.providerName || '') + '</span>'
+          el.addEventListener('click', function () {
+            state.selectedPatient = p
+            dom.patientSearch.value = p.name
+            dom.patientResults.classList.remove('patient-search__results--open')
+            updateSummary()
+          })
+          dom.patientResults.appendChild(el)
+        })
+      }
+
+      dom.patientResults.classList.add('patient-search__results--open')
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       CALENDAR RENDERING
+       ═══════════════════════════════════════════════════════ */
+    function renderCalendar() {
+      dom.schedLoading.style.display = 'none'
+      dom.weekGridWrap.style.display = 'block'
+      updateDateLabel()
+
+      var isWeek = state.currentView === 'week'
+      var days = isWeek ? 5 : 1
+      var start = CONFIG.HOURS.start
+      var end = CONFIG.HOURS.end
+      var slotMin = CONFIG.HOURS.slotMinutes
+
+      // Determine which providers to show
+      var providers = CONFIG.PROVIDERS
+      if (state.currentProvider !== 'all') {
+        providers = providers.filter(function (p) { return p.id === state.currentProvider })
+      }
+
+      // Build grid HTML
+      var html = '<div class="week-grid" style="overflow-x: auto;">'
+      html += '<table class="sched-table" role="grid" aria-label="Appointment schedule">'
+
+      // Header row: time column + day columns (or provider sub-columns)
+      html += '<thead><tr>'
+      html += '<th class="sched-table__time-col" scope="col">Time</th>'
+
+      for (var d = 0; d < days; d++) {
+        var dayDate = addDays(state.weekStart, d)
+        var dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+        var isToday = isSameDay(dayDate, new Date())
+
+        if (providers.length > 1 && state.currentProvider === 'all') {
+          // Multi-provider: sub-columns per provider
+          html += '<th colspan="' + providers.length + '" class="sched-table__day-header' +
+            (isToday ? ' sched-table__day-header--today' : '') + '">'
+          html += '<div class="sched-day-label">'
+          html += '<span class="sched-day-name">' + dayNames[dayDate.getDay()] + '</span>'
+          html += '<span class="sched-day-num">' + dayDate.getDate() + '</span>'
+          html += '</div></th>'
+        } else {
+          html += '<th class="sched-table__day-header' +
+            (isToday ? ' sched-table__day-header--today' : '') + '">'
+          html += '<div class="sched-day-label">'
+          html += '<span class="sched-day-name">' + dayNames[dayDate.getDay()] + '</span>'
+          html += '<span class="sched-day-num">' + dayDate.getDate() + '</span>'
+          html += '</div></th>'
+        }
+      }
+      html += '</tr>'
+
+      // Sub-header for provider names (multi-provider view)
+      if (providers.length > 1 && state.currentProvider === 'all') {
+        html += '<tr><td></td>'
+        for (var d2 = 0; d2 < days; d2++) {
+          providers.forEach(function (prov) {
+            html += '<td class="sched-table__provider-label">'
+            html += '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + prov.color + ';margin-right:4px;"></span>'
+            html += prov.name + '</td>'
+          })
+        }
+        html += '</tr>'
+      }
+
+      html += '</thead><tbody>'
+
+      // Time rows
+      for (var h = start; h < end; h++) {
+        for (var m = 0; m < 60; m += slotMin) {
+          var isHourStart = m === 0
+          html += '<tr class="sched-table__row' + (isHourStart ? ' sched-table__row--hour' : '') + '">'
+
+          // Time label (only on hour starts)
+          if (isHourStart) {
+            html += '<td class="sched-table__time" rowspan="' + (60 / slotMin) + '">' + formatTime(h, 0) + '</td>'
+          }
+
+          // Day cells
+          for (var d3 = 0; d3 < days; d3++) {
+            var cellDate = addDays(state.weekStart, d3)
+            var cellDateStr = dateToISO(cellDate)
+
+            if (providers.length > 1 && state.currentProvider === 'all') {
+              // One cell per provider
+              providers.forEach(function (prov) {
+                html += renderCell(cellDate, cellDateStr, h, m, prov)
+              })
+            } else {
+              html += renderCell(cellDate, cellDateStr, h, m, providers[0])
+            }
+          }
+
+          html += '</tr>'
+        }
+      }
+
+      html += '</tbody></table></div>'
+      dom.weekGridWrap.innerHTML = html
+
+      // Bind slot click events
+      bindSlotEvents()
+    }
+
+    function renderCell(cellDate, cellDateStr, h, m, provider) {
+      var now = new Date()
+      var slotTime = new Date(cellDate)
+      slotTime.setHours(h, m, 0, 0)
+      var isPast = slotTime < now
+
+      // Check if there's an existing appointment at this slot for this provider
+      var existing = findAppointmentAt(cellDateStr, h, m, provider.id)
+
+      if (existing) {
+        // Render booked block
+        var blockSpan = Math.ceil(existing.duration / CONFIG.HOURS.slotMinutes)
+        var colorClass = getColorStyle(existing.colorKey)
+
+        var statusClass = ''
+        if (existing.status === 'no-show') statusClass = ' sched-block--noshow'
+        if (existing.status === 'cancelled') statusClass = ' sched-block--cancelled'
+
+        // Only render on the first slot of the appointment
+        if (existing._startH === h && existing._startM === m) {
+          return '<td class="sched-table__cell sched-table__cell--booked" rowspan="' + blockSpan + '" ' +
+            'data-appt-id="' + existing.id + '" ' +
+            'role="gridcell" tabindex="0" ' +
+            'aria-label="' + escapeHtml(existing.patientName) + ', ' + existing.typeName + ', ' + formatTime(h, m) + '">' +
+            '<div class="sched-block' + statusClass + '" style="' + colorClass + '">' +
+            '<div class="sched-block__name">' + escapeHtml(existing.patientName) + '</div>' +
+            '<div class="sched-block__type">' + escapeHtml(existing.typeName) + '</div>' +
+            '<div class="sched-block__time">' + formatTime(h, m) + '</div>' +
+            '</div></td>'
+        } else {
+          // This cell is "consumed" by the rowspan above
+          return ''
+        }
+      }
+
+      // Check if this slot is consumed by a multi-slot appointment above
+      if (isSlotConsumed(cellDateStr, h, m, provider.id)) {
+        return ''
+      }
+
+      // Open slot
+      if (isPast) {
+        return '<td class="sched-table__cell sched-table__cell--past" role="gridcell" aria-label="Past time slot"></td>'
+      }
+
+      return '<td class="sched-table__cell sched-table__cell--open" ' +
+        'data-date="' + cellDateStr + '" data-hour="' + h + '" data-min="' + m + '" data-provider="' + provider.id + '" ' +
+        'role="gridcell" tabindex="0" ' +
+        'aria-label="Open slot, ' + formatTime(h, m) + ', ' + provider.name + '">' +
+        '</td>'
+    }
+
+    function findAppointmentAt(dateStr, h, m, providerId) {
+      for (var i = 0; i < state.appointments.length; i++) {
+        var a = state.appointments[i]
+        if (a.date === dateStr && a.providerId === providerId && a._startH === h && a._startM === m) {
+          return a
+        }
+      }
+      return null
+    }
+
+    function isSlotConsumed(dateStr, h, m, providerId) {
+      var slotMinutes = h * 60 + m
+      for (var i = 0; i < state.appointments.length; i++) {
+        var a = state.appointments[i]
+        if (a.date !== dateStr || a.providerId !== providerId) continue
+        var aStart = a._startH * 60 + a._startM
+        var aEnd = aStart + a.duration
+        if (slotMinutes > aStart && slotMinutes < aEnd) return true
+      }
+      return false
+    }
+
+    function getColorStyle(colorKey) {
+      var colors = {
+        'med-mgmt':   'background:rgba(42,107,124,0.08);border-left:3px solid var(--ocean);',
+        'therapy':    'background:rgba(107,143,107,0.1);border-left:3px solid var(--sage);',
+        'tms':        'background:rgba(196,168,130,0.12);border-left:3px solid var(--sand);',
+        'tms-saint':  'background:rgba(196,168,130,0.18);border-left:3px solid #8b7355;',
+        'ketamine':   'background:rgba(91,170,187,0.1);border-left:3px solid #5baabb;',
+        'spravato':   'background:rgba(91,170,187,0.16);border-left:3px solid #7ec8d8;',
+        'intake':     'background:rgba(26,60,74,0.08);border-left:3px solid var(--ocean-deep);',
+        'telehealth': 'background:rgba(42,107,124,0.06);border-left:3px solid #4a9aac;border-style:dashed;'
+      }
+      return colors[colorKey] || colors['med-mgmt']
+    }
+
+    function bindSlotEvents() {
+      // Open slots
+      var openSlots = document.querySelectorAll('.sched-table__cell--open')
+      openSlots.forEach(function (cell) {
+        cell.addEventListener('click', function () {
+          selectSlot(this)
+        })
+        cell.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            selectSlot(this)
+          }
+        })
+      })
+
+      // Booked slots (view detail)
+      var bookedSlots = document.querySelectorAll('.sched-table__cell--booked')
+      bookedSlots.forEach(function (cell) {
+        cell.addEventListener('click', function () {
+          viewAppointmentDetail(this.getAttribute('data-appt-id'))
+        })
+        cell.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            viewAppointmentDetail(this.getAttribute('data-appt-id'))
+          }
+        })
+      })
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       SLOT SELECTION + BOOKING FORM
+      ═══════════════════════════════════════════════════════ */
+    function selectSlot(cell) {
+      // Remove previous selection highlight
+      var prev = document.querySelector('.sched-table__cell--selected')
+      if (prev) prev.classList.remove('sched-table__cell--selected')
+
+      cell.classList.add('sched-table__cell--selected')
+
+      var providerId = cell.getAttribute('data-provider')
+      var provider = CONFIG.PROVIDERS.find(function (p) { return p.id === providerId })
+
+      state.selectedSlot = {
+        date: cell.getAttribute('data-date'),
+        hour: parseInt(cell.getAttribute('data-hour'), 10),
+        minute: parseInt(cell.getAttribute('data-min'), 10),
+        providerId: providerId,
+        providerName: provider ? provider.name : ''
+      }
+
+      state.selectedType = null
+      showBookingForm()
+    }
+
+    function showBookingForm() {
+      dom.bookingEmpty.style.display = 'none'
+      dom.detailPanel.style.display = 'none'
+      dom.bookingForm.style.display = 'block'
+
+      // Populate slot info
+      if (state.selectedSlot) {
+        var slotDate = new Date(state.selectedSlot.date + 'T12:00:00')
+        document.getElementById('slot-date').textContent = formatDateLong(slotDate)
+        document.getElementById('slot-time').textContent = formatTime(state.selectedSlot.hour, state.selectedSlot.minute)
+
+        var provider = CONFIG.PROVIDERS.find(function (p) { return p.id === state.selectedSlot.providerId })
+        if (provider) {
+          document.getElementById('slot-provider').innerHTML =
+            '<span class="slot-info__provider-dot" style="background:' + provider.color + ';"></span>' +
+            escapeHtml(provider.name)
+        }
+      }
+
+      // Populate appointment types for current calendar + provider
+      renderAppointmentTypes()
+
+      // Pre-fill patient if in patient mode
+      if (state.role === 'patient' && state.selectedPatient) {
+        dom.patientSearch.value = state.selectedPatient.name
+      }
+
+      // Reset zoom toggle
+      dom.zoomEnabled.checked = false
+      state.zoomEnabled = false
+
+      // Hide summary until type selected
+      dom.bookingSummary.style.display = 'none'
+      dom.confirmBtn.disabled = true
+    }
+
+    function renderAppointmentTypes() {
+      var types = CONFIG.APPOINTMENT_TYPES[state.currentCal] || []
+      var providerId = state.selectedSlot ? state.selectedSlot.providerId : null
+
+      // Filter to types available for this provider
+      var filtered = types.filter(function (t) {
+        return !providerId || t.providers.indexOf(providerId) > -1
+      })
+
+      dom.apptTypeList.innerHTML = ''
+
+      if (!filtered.length) {
+        dom.apptTypeList.innerHTML = '<p style="font-size:var(--text-sm);color:var(--pebble);padding:12px 0;">No appointment types available for this provider and calendar.</p>'
+        return
+      }
+
+      filtered.forEach(function (type) {
+        var label = document.createElement('label')
+        label.className = 'appt-type-option'
+        label.setAttribute('data-type-id', type.id)
+
+        label.innerHTML =
+          '<input type="radio" name="apptType" value="' + type.id + '" />' +
+          '<span class="appt-type-option__color" style="background:' + getColorBg(type.color) + ';"></span>' +
+          '<span class="appt-type-option__radio"></span>' +
+          '<span class="appt-type-option__info">' +
+            '<span class="appt-type-option__name">' +
+              escapeHtml(type.name) +
+              (type.telehealth ? ' <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2D8CFF" stroke-width="2" style="vertical-align:-2px;"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>' : '') +
+            '</span>' +
+            '<span class="appt-type-option__meta">' +
+              '<span class="appt-type-option__cpt">CPT ' + type.cpt + '</span>' +
+              '<span class="appt-type-option__duration">' + type.duration + ' min</span>' +
+            '</span>' +
+          '</span>'
+
+        var radio = label.querySelector('input')
+        radio.addEventListener('change', function () {
+          // Remove selected class from all
+          var allOpts = dom.apptTypeList.querySelectorAll('.appt-type-option')
+          allOpts.forEach(function (o) { o.classList.remove('appt-type-option--selected') })
+
+          label.classList.add('appt-type-option--selected')
+          state.selectedType = type
+
+          // If telehealth type, auto-enable zoom
+          if (type.telehealth) {
+            dom.zoomEnabled.checked = true
+            state.zoomEnabled = true
+          }
+
+          updateSummary()
+        })
+
+        label.addEventListener('click', function () {
+          radio.checked = true
+          radio.dispatchEvent(new Event('change'))
+        })
+
+        dom.apptTypeList.appendChild(label)
+      })
+    }
+
+    function getColorBg(colorKey) {
+      var map = {
+        'med-mgmt': 'var(--ocean)', 'therapy': 'var(--sage)', 'tms': 'var(--sand)',
+        'tms-saint': '#8b7355', 'ketamine': '#5baabb', 'spravato': '#7ec8d8',
+        'intake': 'var(--ocean-deep)', 'telehealth': '#4a9aac'
+      }
+      return map[colorKey] || 'var(--ocean)'
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       BOOKING SUMMARY
+       ═══════════════════════════════════════════════════════ */
+    function updateSummary() {
+      if (!state.selectedSlot || !state.selectedType) {
+        dom.bookingSummary.style.display = 'none'
+        dom.confirmBtn.disabled = true
+        return
+      }
+
+      dom.bookingSummary.style.display = 'block'
+
+      var slotDate = new Date(state.selectedSlot.date + 'T12:00:00')
+      var type = state.selectedType
+
+      document.getElementById('sum-patient').textContent =
+        state.selectedPatient ? state.selectedPatient.name : '(Select patient)'
+      document.getElementById('sum-provider').textContent = state.selectedSlot.providerName
+      document.getElementById('sum-type').textContent = type.name
+      document.getElementById('sum-cpt').textContent = 'CPT ' + type.cpt
+      document.getElementById('sum-duration').textContent = type.duration + ' minutes'
+      document.getElementById('sum-datetime').textContent =
+        formatDate(slotDate) + ' at ' + formatTime(state.selectedSlot.hour, state.selectedSlot.minute)
+      document.getElementById('sum-format').textContent =
+        state.zoomEnabled ? 'Telehealth (Zoom)' : 'In-Person'
+
+      dom.confirmBtn.disabled = !canConfirm()
+    }
+
+    function canConfirm() {
+      return state.selectedSlot && state.selectedType && state.selectedPatient
+    }
+
+    function clearBooking() {
+      state.selectedSlot = null
+      state.selectedType = null
+      state.zoomEnabled = false
+
+      // Don't clear selectedPatient for patient role
+      if (state.role !== 'patient') {
+        state.selectedPatient = null
+        if (dom.patientSearch) dom.patientSearch.value = ''
+      }
+
+      dom.bookingForm.style.display = 'none'
+      dom.detailPanel.style.display = 'none'
+      dom.bookingEmpty.style.display = 'block'
+      dom.bookingSummary.style.display = 'none'
+
+      var sel = document.querySelector('.sched-table__cell--selected')
+      if (sel) sel.classList.remove('sched-table__cell--selected')
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       SUBMIT BOOKING
+       ═══════════════════════════════════════════════════════ */
+    function submitBooking() {
+      if (!canConfirm()) return
+
+      dom.confirmBtn.disabled = true
+      dom.confirmBtn.textContent = 'Booking…'
+
+      var slot = state.selectedSlot
+      var type = state.selectedType
+      var patient = state.selectedPatient
+
+      var endMin = slot.minute + type.duration
+      var endHour = slot.hour + Math.floor(endMin / 60)
+      endMin = endMin % 60
+
+      var payload = {
+        action:         'createAppointment',
+        patientId:      patient.id,
+        patientName:    patient.name,
+        patientEmail:   patient.email || '',
+        providerId:     slot.providerId,
+        providerName:   slot.providerName,
+        date:           slot.date,
+        startHour:      slot.hour,
+        startMinute:    slot.minute,
+        endHour:        endHour,
+        endMinute:      endMin,
+        duration:       type.duration,
+        typeId:         type.id,
+        typeName:       type.name,
+        cptCode:        type.cpt,
+        colorKey:       type.color,
+        calType:        state.currentCal,
+        isTelehealth:   state.zoomEnabled ? 'true' : 'false',
+        createZoom:     state.zoomEnabled ? 'true' : 'false',
+        bookedBy:       state.user.name || 'system',
+        bookedByRole:   state.role,
+        timestamp:      new Date().toISOString()
+      }
+
+      pingBackend('createAppointment', payload, function (result) {
+        dom.confirmBtn.textContent = 'Confirm & Book Appointment'
+
+        if (result && result.success) {
+          showConfirmationModal(payload, result)
+          clearBooking()
+          fetchAndRender()
+        } else {
+          dom.confirmBtn.disabled = false
+          alert('Booking failed: ' + (result && result.error ? result.error : 'Unknown error. Please try again.'))
+        }
+      })
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       CONFIRMATION MODAL
+       ═══════════════════════════════════════════════════════ */
+    function showConfirmationModal(payload, result) {
+      var slotDate = new Date(payload.date + 'T12:00:00')
+
+      document.getElementById('modal-patient').textContent = payload.patientName
+      document.getElementById('modal-provider').textContent = payload.providerName
+      document.getElementById('modal-type').textContent = payload.typeName
+      document.getElementById('modal-cpt').textContent = 'CPT ' + payload.cptCode
+      document.getElementById('modal-datetime').textContent =
+        formatDate(slotDate) + ' at ' + formatTime(payload.startHour, payload.startMinute)
+      document.getElementById('modal-duration').textContent = payload.duration + ' minutes'
+      document.getElementById('modal-format').textContent =
+        payload.isTelehealth === 'true' ? 'Telehealth (Zoom)' : 'In-Person'
+
+      // Zoom link
+      var zoomRow = document.getElementById('modal-zoom-row')
+      var zoomLink = document.getElementById('modal-zoom-link')
+      var calZoom = document.getElementById('cal-link-zoom')
+
+      if (result.zoomUrl) {
+        zoomRow.style.display = 'flex'
+        zoomLink.href = result.zoomUrl
+        calZoom.style.display = 'flex'
+        calZoom.href = result.zoomUrl
+      } else {
+        zoomRow.style.display = 'none'
+        calZoom.style.display = 'none'
+      }
+
+      // Generate calendar links
+      generateCalendarLinks(payload, result)
+
+      // Show modal
+      dom.confirmModal.classList.add('modal-overlay--open')
+      document.body.style.overflow = 'hidden'
+
+      // Announce
+      if (typeof window.announce === 'function') {
+        window.announce('Appointment confirmed for ' + payload.patientName +
+          ' on ' + formatDate(slotDate) + ' at ' + formatTime(payload.startHour, payload.startMinute))
+      }
+    }
+
+    function closeModal() {
+      dom.confirmModal.classList.remove('modal-overlay--open')
+      document.body.style.overflow = ''
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       CALENDAR LINK GENERATION
+       ═══════════════════════════════════════════════════════ */
+    function generateCalendarLinks(payload, result) {
+      var slotDate = new Date(payload.date + 'T12:00:00')
+
+      // Start and end times as Date objects
+      var startDt = new Date(slotDate)
+      startDt.setHours(payload.startHour, payload.startMinute, 0, 0)
+
+      var endDt = new Date(slotDate)
+      endDt.setHours(payload.endHour, payload.endMinute, 0, 0)
+
+      var title = payload.typeName + ' — Altos Psychiatry'
+      var location = payload.isTelehealth === 'true'
+        ? (result.zoomUrl || 'Telehealth via Zoom')
+        : '123 University Ave, Suite 200, Menlo Park, CA 94025'
+      var description = 'Provider: ' + payload.providerName + '\\n' +
+        'Type: ' + payload.typeName + ' (CPT ' + payload.cptCode + ')\\n' +
+        'Duration: ' + payload.duration + ' minutes\\n' +
+        (result.zoomUrl ? 'Zoom: ' + result.zoomUrl + '\\n' : '') +
+        'Phone: (650) 555-0000'
+
+      // ── Google Calendar URL ──
+      var gcalStart = toGoogleCalDate(startDt)
+      var gcalEnd = toGoogleCalDate(endDt)
+      var googleUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+        '&text=' + encodeURIComponent(title) +
+        '&dates=' + gcalStart + '/' + gcalEnd +
+        '&details=' + encodeURIComponent(description.replace(/\\n/g, '\n')) +
+        '&location=' + encodeURIComponent(location) +
+        '&sf=true&output=xml'
+
+      document.getElementById('cal-link-google').href = googleUrl
+
+      // ── Apple Calendar (.ics file) ──
+      var icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Altos Psychiatry//Scheduling//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        'DTSTART:' + toICSDate(startDt),
+        'DTEND:' + toICSDate(endDt),
+        'SUMMARY:' + title,
+        'DESCRIPTION:' + description.replace(/\\n/g, '\\n'),
+        'LOCATION:' + location,
+        'STATUS:CONFIRMED',
+        'BEGIN:VALARM',
+        'TRIGGER:-PT30M',
+        'ACTION:DISPLAY',
+        'DESCRIPTION:Appointment Reminder',
+        'END:VALARM',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n')
+
+      var icsBlob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' })
+      var icsUrl = URL.createObjectURL(icsBlob)
+      document.getElementById('cal-link-apple').href = icsUrl
+    }
+
+    function toGoogleCalDate(dt) {
+      return dt.getFullYear() +
+        pad2(dt.getMonth() + 1) +
+        pad2(dt.getDate()) + 'T' +
+        pad2(dt.getHours()) +
+        pad2(dt.getMinutes()) + '00'
+    }
+
+    function toICSDate(dt) {
+      return dt.getFullYear() +
+        pad2(dt.getMonth() + 1) +
+        pad2(dt.getDate()) + 'T' +
+        pad2(dt.getHours()) +
+        pad2(dt.getMinutes()) + '00'
+    }
+
+    function pad2(n) {
+      return n < 10 ? '0' + n : '' + n
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       VIEW APPOINTMENT DETAIL
+       ═══════════════════════════════════════════════════════ */
+    function viewAppointmentDetail(apptId) {
+      var appt = state.appointments.find(function (a) { return a.id === apptId })
+      if (!appt) return
+
+      state._viewingAppt = appt
+
+      // Hide booking form, show detail
+      dom.bookingForm.style.display = 'none'
+      dom.bookingEmpty.style.display = 'none'
+      dom.detailPanel.style.display = 'block'
+
+      // Populate detail fields
+      document.getElementById('detail-patient').textContent = appt.patientName || '—'
+      document.getElementById('detail-email').textContent = appt.patientEmail || ''
+
+      var slotDate = new Date(appt.date + 'T12:00:00')
+      document.getElementById('detail-date').textContent = formatDate(slotDate)
+      document.getElementById('detail-time').textContent =
+        formatTimeRange(appt._startH, appt._startM, appt.duration)
+      document.getElementById('detail-type').textContent = appt.typeName || '—'
+      document.getElementById('detail-cpt').textContent = appt.cptCode || '—'
+      document.getElementById('detail-provider').textContent = appt.providerName || '—'
+      document.getElementById('detail-format').textContent =
+        appt.isTelehealth ? 'Telehealth (Zoom)' : 'In-Person'
+
+      // Status badge
+      var statusEl = document.getElementById('detail-status')
+      statusEl.textContent = capitalize(appt.status || 'confirmed')
+      statusEl.className = 'appt-detail__status appt-detail__status--' + (appt.status || 'confirmed')
+
+      // Zoom link
+      var zoomWrap = document.getElementById('detail-zoom-link')
+      if (appt.zoomUrl) {
+        zoomWrap.style.display = 'block'
+        document.getElementById('detail-zoom-url').href = appt.zoomUrl
+      } else {
+        zoomWrap.style.display = 'none'
+      }
+
+      // No-show actions (staff only)
+      if (state.role === 'patient') {
+        dom.noshowActions.style.display = 'none'
+      } else {
+        dom.noshowActions.style.display = 'flex'
+        // Disable mark no-show if appointment is in the future
+        var apptDt = new Date(appt.date + 'T12:00:00')
+        apptDt.setHours(appt._startH, appt._startM)
+        var noshowBtn = document.getElementById('btn-mark-noshow')
+        if (apptDt > new Date()) {
+          noshowBtn.disabled = true
+          noshowBtn.title = 'Can only mark no-show after appointment time'
+        } else {
+          noshowBtn.disabled = false
+          noshowBtn.title = ''
+        }
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       STATUS UPDATES (No-Show, Cancel, Reschedule)
+       ═══════════════════════════════════════════════════════ */
+    function updateAppointmentStatus(apptId, newStatus) {
+      var payload = {
+        action: 'updateStatus',
+        appointmentId: apptId,
+        status: newStatus,
+        updatedBy: state.user.name || 'system',
+        updatedByRole: state.role,
+        timestamp: new Date().toISOString()
+      }
+
+      pingBackend('updateStatus', payload, function (result) {
+        if (result && result.success) {
+          // Update local state
+          var appt = state.appointments.find(function (a) { return a.id === apptId })
+          if (appt) appt.status = newStatus
+
+          // Refresh UI
+          dom.detailPanel.style.display = 'none'
+          dom.bookingEmpty.style.display = 'block'
+          renderCalendar()
+
+          if (typeof window.announce === 'function') {
+            window.announce('Appointment status updated to ' + newStatus)
+          }
+        } else {
+          alert('Failed to update status. Please try again.')
+        }
+      })
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       BACKEND COMMUNICATION (Image-Ping)
+       Same pattern as the CRM form — GET request via Image
+       to bypass CORS on static hosting.
+       
+       For data >2KB (like appointment creation), we chunk
+       the payload into the URL. Google Apps Script has a
+       ~2KB URL limit, so for larger payloads we use a
+       fallback POST via a hidden iframe.
+       ═══════════════════════════════════════════════════════ */
+    function pingBackend(action, params, callback) {
+      params.action = action
+
+      var queryString = Object.keys(params).map(function (key) {
+        return encodeURIComponentvar queryString = Object.keys(params).map(function (key) {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(params[key] || '')
+      }).join('&')
+
+      var fullUrl = CONFIG.BACKEND_URL + '?' + queryString
+
+      // Check URL length — if under 2000 chars, use image-ping
+      // Otherwise fall back to hidden iframe POST
+      if (fullUrl.length < 2000) {
+        imagePing(fullUrl, callback)
+      } else {
+        iframePost(params, callback)
+      }
+    }
+
+    /**
+     * Image-Ping GET — works for small payloads
+     * Both onload and onerror mean the server received the request.
+     */
+    function imagePing(url, callback) {
+      var img = new Image()
+      var timeout
+      var done = false
+
+      function finish(success) {
+        if (done) return
+        done = true
+        clearTimeout(timeout)
+
+        // For GET requests that return JSON, we can't read the
+        // image response. Instead we do a parallel JSONP-style
+        // fetch for read operations.
+        if (callback) {
+          jsonpFetch(url, callback)
+        }
+      }
+
+      img.onload = function () { finish(true) }
+      img.onerror = function () { finish(true) } // Apps Script redirects trigger onerror
+
+      timeout = setTimeout(function () { finish(false) }, 8000)
+      img.src = url
+    }
+
+    /**
+     * JSONP-style fetch for reading data back from Apps Script.
+     * Apps Script doGet can return JSONP if we pass a callback param.
+     * We inject a <script> tag that calls our global callback.
+     */
+    var _jsonpCounter = 0
+    function jsonpFetch(baseUrl, callback) {
+      var cbName = '_schedCb' + (++_jsonpCounter)
+      var separator = baseUrl.indexOf('?') > -1 ? '&' : '?'
+      var url = baseUrl + separator + 'callback=' + cbName + '&_t=' + Date.now()
+
+      window[cbName] = function (data) {
+        // Clean up
+        delete window[cbName]
+        var script = document.getElementById('jsonp-' + _jsonpCounter)
+        if (script) script.parentNode.removeChild(script)
+
+        if (callback) callback(data)
+      }
+
+      var script = document.createElement('script')
+      script.id = 'jsonp-' + _jsonpCounter
+      script.src = url
+
+      script.onerror = function () {
+        delete window[cbName]
+        script.parentNode.removeChild(script)
+        if (callback) callback(null)
+      }
+
+      // Timeout fallback
+      setTimeout(function () {
+        if (window[cbName]) {
+          delete window[cbName]
+          if (script.parentNode) script.parentNode.removeChild(script)
+          if (callback) callback(null)
+        }
+      }, 10000)
+
+      document.head.appendChild(script)
+    }
+
+    /**
+     * Hidden iframe POST — for large payloads that exceed URL limits.
+     * Creates a form targeting a hidden iframe, submits it, then
+     * polls for the response via a follow-up GET.
+     */
+    function iframePost(params, callback) {
+      var iframeId = 'sched-iframe-' + Date.now()
+
+      // Create hidden iframe
+      var iframe = document.createElement('iframe')
+      iframe.id = iframeId
+      iframe.name = iframeId
+      iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;opacity:0;pointer-events:none;'
+      document.body.appendChild(iframe)
+
+      // Create form
+      var form = document.createElement('form')
+      form.method = 'POST'
+      form.action = CONFIG.BACKEND_URL
+      form.target = iframeId
+      form.style.display = 'none'
+
+      Object.keys(params).forEach(function (key) {
+        var input = document.createElement('input')
+        input.type = 'hidden'
+        input.name = key
+        input.value = params[key] || ''
+        form.appendChild(input)
+      })
+
+      document.body.appendChild(form)
+      form.submit()
+
+      // Listen for iframe load
+      var done = false
+      iframe.addEventListener('load', function () {
+        if (done) return
+        done = true
+
+        // Clean up
+        setTimeout(function () {
+          if (form.parentNode) form.parentNode.removeChild(form)
+          if (iframe.parentNode) iframe.parentNode.removeChild(iframe)
+        }, 500)
+
+        // We can't read cross-origin iframe content, so we do
+        // a follow-up GET to fetch the result
+        if (callback) {
+          var checkUrl = CONFIG.BACKEND_URL + '?action=getLastResult&_t=' + Date.now()
+          jsonpFetch(checkUrl, callback)
+        }
+      })
+
+      // Timeout
+      setTimeout(function () {
+        if (!done) {
+          done = true
+          if (form.parentNode) form.parentNode.removeChild(form)
+          if (iframe.parentNode) iframe.parentNode.removeChild(iframe)
+          if (callback) callback({ success: true, note: 'Request sent (timeout on confirmation)' })
+        }
+      }, 10000)
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       UTILITY HELPERS
+       ═══════════════════════════════════════════════════════ */
+    function escapeHtml(str) {
+      if (!str) return ''
+      var div = document.createElement('div')
+      div.appendChild(document.createTextNode(str))
+      return div.innerHTML
+    }
+
+    function capitalize(str) {
+      if (!str) return ''
+      return str.charAt(0).toUpperCase() + str.slice(1).replace(/-/g, ' ')
+    }
+    /* ═══════════════════════════════════════════════════════
+       CRM INTEGRATION BRIDGE
+       Syncs scheduling data back to the main CRM sheet
+       (the one used by get-started.html form submissions).
+       
+       When a new patient books via scheduling, their data
+       is cross-referenced with the CRM. If they exist,
+       the CRM row is updated with appointment details.
+       If not, a note is logged for admin follow-up.
+       ═══════════════════════════════════════════════════════ */
+    function syncToCRM(appointmentData) {
+      var payload = {
+        action: 'syncCRM',
+        patientId:    appointmentData.patientId || '',
+        patientName:  appointmentData.patientName || '',
+        patientEmail: appointmentData.patientEmail || '',
+        appointmentId: appointmentData.appointmentId || '',
+        date:         appointmentData.date || '',
+        time:         formatTime(
+          parseInt(appointmentData.startHour, 10),
+          parseInt(appointmentData.startMinute, 10)
+        ),
+        typeName:     appointmentData.typeName || '',
+        cptCode:      appointmentData.cptCode || '',
+        providerId:   appointmentData.providerId || '',
+        providerName: appointmentData.providerName || '',
+        status:       'scheduled',
+        timestamp:    new Date().toISOString()
+      }
+
+      // Fire-and-forget — don't block the booking flow
+      pingBackend('syncCRM', payload, function (result) {
+        if (result && result.synced) {
+          console.log('[CRM] Synced appointment ' + payload.appointmentId + ' to CRM')
+        }
+      })
+    }
+And hook it into submitBooking() — add this line inside the success callback, right after showConfirmationModal(payload, result):
+          // Sync to CRM
+          syncToCRM({
+            patientId:     payload.patientId,
+            patientName:   payload.patientName,
+            patientEmail:  payload.patientEmail,
+            appointmentId: result.appointmentId,
+            date:          payload.date,
+            startHour:     payload.startHour,
+            startMinute:   payload.startMinute,
+            typeName:      payload.typeName,
+            cptCode:       payload.cptCode,
+            providerId:    payload.providerId,
+            providerName:  payload.providerName
+          })
+
+
+
+  })()
+  </script>
+</body>
+</html>

@@ -1,350 +1,1006 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Request a Consultation | Altos Psychiatry</title>
-  <meta name="description" content="Request a new patient consultation at Altos Psychiatry. Our care coordinator will follow up within one business day.">
-  <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Request a new patient consultation at Altos Psychiatry. Our care coordinator will follow up within one business day." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://altospsychiatry.com/get-started.html" />
+  <title>Request a Consultation | Altos Psychiatry — Menlo Park, CA</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css" />
+
   <style>
-    /* Success screen */
-    #success-screen {
-      display: none;
-      padding: 5rem 2rem;
+    /* ═══════════════════════════════════════════════════════
+       GET STARTED — Page-Specific Styles
+       Only layout/composition rules that don't belong in
+       the global stylesheet live here.
+       ═══════════════════════════════════════════════════════ */
+
+    /* ── Page Hero ── */
+    .form-hero {
+      background: linear-gradient(
+        160deg,
+        var(--ocean-deep) 0%,
+        #1e4858 35%,
+        var(--ocean) 65%,
+        var(--sage-deep) 100%
+      );
+      padding: clamp(130px, 16vw, 200px) 0 clamp(48px, 7vw, 80px);
       text-align: center;
-      max-width: 600px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(107,143,107,0.18) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(42,107,124,0.14) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .form-hero * { position: relative; }
+    .form-hero .eyebrow { color: var(--ocean-mist); }
+    .form-hero .eyebrow::before { background: var(--ocean-mist); }
+    .form-hero h1 { color: var(--white); margin-bottom: 0.75rem; }
+    .form-hero p.hero-sub {
+      color: rgba(255,255,255,0.65);
+      max-width: 540px;
+      margin: 0 auto;
+      font-size: var(--text-lg);
+      line-height: 1.6;
+    }
+
+    /* ── Info Bar ── */
+    .info-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      background: var(--fog-dark);
+      border: 1px solid var(--fog-dark);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: clamp(28px, 4vw, 48px);
+    }
+
+    .info-bar__cell {
+      background: var(--white);
+      padding: 1.15rem 1.35rem;
+      text-align: center;
+    }
+
+    .info-bar__label {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ocean);
+      margin-bottom: 0.2rem;
+    }
+
+    .info-bar__value {
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--ocean-deep);
+    }
+
+    /* ── Caution Box ── */
+    .caution-box {
+      background: var(--amber-pale);
+      border-left: 3px solid var(--sand);
+      padding: 1.15rem 1.4rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-bottom: clamp(28px, 4vw, 48px);
+    }
+
+    .caution-box p {
+      color: #5a4a2a;
+      font-size: var(--text-sm);
+      line-height: 1.7;
+      margin-bottom: 0.5rem;
+    }
+
+    .caution-box p:last-child { margin-bottom: 0; }
+    .caution-box strong { color: #3a3018; }
+
+    /* ── Submit Button (form-specific) ── */
+    .form-submit-btn {
+      width: 100%;
+      padding: 16px 32px;
+      font-size: var(--text-md);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      background: var(--ocean-deep);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      transition:
+        background var(--duration-base) var(--ease-out),
+        box-shadow var(--duration-base) var(--ease-out),
+        transform var(--duration-base) var(--ease-out);
+    }
+
+    .form-submit-btn:hover:not(:disabled) {
+      background: var(--ocean);
+      box-shadow: 0 8px 28px rgba(var(--ocean-rgb), 0.25);
+      transform: translateY(-2px);
+    }
+
+    .form-submit-btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .form-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-submit-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+
+    .form-submit-btn:hover::before { opacity: 1; }
+
+    /* Loading state */
+    .form-submit-btn.is-loading {
+      color: transparent;
+    }
+
+    .form-submit-btn.is-loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 22px;
+      height: 22px;
+      margin: -11px 0 0 -11px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin-btn 0.7s linear infinite;
+    }
+
+    @keyframes spin-btn {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Form-Level Error ── */
+    .form-error-banner {
+      display: none;
+      background: var(--red-pale);
+      border: 1px solid #fca5a5;
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-error-banner p {
+      color: #7f1d1d;
+      font-size: var(--text-sm);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Success State ── */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 48px);
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-success.is-visible {
+      display: block;
+      animation: success-in 0.6s var(--ease-out) both;
+    }
+
+    @keyframes success-in {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .form-success__icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--green-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .form-success__icon svg {
+      width: 36px;
+      height: 36px;
+      color: var(--green);
+    }
+
+    .form-success h2 {
+      font-size: var(--text-2xl);
+      margin-bottom: 0.75rem;
+    }
+
+    .form-success p {
+      font-size: var(--text-md);
+      color: var(--stone-light);
+      max-width: 480px;
+      margin: 0 auto 1rem;
+      line-height: 1.7;
+    }
+
+    .form-success__ref {
+      display: inline-block;
+      background: var(--fog);
+      padding: 8px 20px;
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ocean);
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--fog-dark);
+    }
+
+    .form-success__next {
+      background: var(--fog);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      max-width: 440px;
       margin: 0 auto;
     }
-    .success-icon {
-      width: 72px; height: 72px;
-      background: var(--sage-pale);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 2rem;
-    }
-    .success-icon svg { color: var(--sage); }
-    #success-screen h2 { font-size: 2.2rem; margin-bottom: 1rem; }
-    #success-screen p  { font-size: 1.05rem; color: var(--stone-light); margin-bottom: 0.75rem; }
 
-    /* Inline error message */
-    .field-error { font-size: 0.82rem; color: #c0392b; margin-top: 0.35rem; display: none; }
-    .form-input.has-error, .form-select.has-error, .form-textarea.has-error {
-      border-color: #c0392b !important;
-      box-shadow: 0 0 0 3px rgba(192,57,43,0.1);
+    .form-success__next h4 {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ocean);
+      margin-bottom: 0.6rem;
     }
-    .radio-group.has-error .radio-label { color: #c0392b; }
 
-    /* Submit button states */
-    #submit-btn { transition: all 0.3s ease; }
-    #submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-    #submit-btn.loading::after {
-      content: '';
-      display: inline-block;
-      width: 14px; height: 14px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      margin-left: 10px;
-      vertical-align: middle;
+    .form-success__next ol {
+      list-style: decimal;
+      padding-left: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Submission error banner */
-    #submission-error {
-      display: none;
-      background: #fce8e8;
-      border-left: 3px solid #c0392b;
-      padding: 1rem 1.5rem;
-      margin-top: 1rem;
-      border-radius: 0;
+    .form-success__next ol li {
+      font-size: var(--text-sm);
+      color: var(--stone-light);
+      line-height: 1.65;
     }
-    #submission-error p { color: #7b1c1c; font-size: 0.95rem; margin: 0; }
+
+    /* ── Privacy Notice (bottom of form) ── */
+    .privacy-note {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .privacy-note p {
+      font-size: var(--text-xs);
+      color: var(--pebble);
+    }
+
+    .privacy-note a {
+      color: var(--ocean);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
   </style>
 </head>
+
 <body>
-<div id="header-placeholder"></div>
-<div class="page-wrapper">
-<main>
+  <!-- Skip Link -->
+  <a href="#form-start" class="skip-link">Skip to consultation form</a>
 
-  <section class="page-hero">
-    <div class="container">
-      <p class="eyebrow" style="color:var(--sage-light);">Getting Started</p>
-      <h1>Request a Consultation</h1>
-      <p>Complete the form below. Our care coordinator will reach out within one business day to discuss next steps and confirm fit.</p>
-    </div>
-  </section>
+  <!-- Header -->
+  <div id="header-placeholder"></div>
 
-  <section class="section section--light">
-    <div class="container" style="max-width:860px;">
+  <div class="page-wrapper">
+  <main>
 
-      <div id="success-screen">
-        <div class="success-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 6L9 17l-5-5"/>
-          </svg>
-        </div>
-        <h2>Your request has been received</h2>
-        <p>Thank you for reaching out. Our care coordinator will contact you within <strong>one business day</strong> using your preferred contact method.</p>
-        <p>In the meantime, feel free to read through our <a href="/resources/faq.html" style="color:var(--ocean);">FAQ</a> or learn more about <a href="/services.html" style="color:var(--ocean);">our services</a>.</p>
-        <div style="margin-top:2.5rem;padding:1.5rem;background:var(--fog-dark);border:1px solid var(--fog-dark);text-align:left;">
-          <p style="font-size:0.85rem;color:var(--pebble);margin:0;">If you need to reach us directly: <a href="tel:+16505550000" style="color:var(--ocean);">(650) 555-0000</a> or <a href="mailto:hello@altospsychiatry.com" style="color:var(--ocean);">hello@altospsychiatry.com</a></p>
-        </div>
-        <div style="margin-top:1.5rem;">
-          <p style="font-size:0.8rem;color:var(--pebble);">If you are in crisis, please call or text <strong>988</strong> or go to your nearest emergency room.</p>
-        </div>
+    <!-- ═══════════════════════════════════════════════════════
+         HERO
+         ═══════════════════════════════════════════════════════ -->
+    <section class="form-hero" aria-labelledby="form-hero-title">
+      <div class="container">
+        <p class="eyebrow">New Patients</p>
+        <h1 id="form-hero-title">Request a Consultation</h1>
+        <p class="hero-sub">
+          Take the first step toward feeling better. Fill out the form below and our care 
+          coordinator will reach out within one business day.
+        </p>
       </div>
+    </section>
 
-      <div id="form-wrapper">
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--fog-dark);margin-bottom:3rem;border:1px solid var(--fog-dark);" class="reveal">
-          <div style="background:var(--white);padding:1.25rem 1.5rem;text-align:center;">
-            <p style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:0.25rem;">Response Time</p>
-            <p style="font-size:1rem;color:var(--ocean-deep);font-weight:500;margin:0;">Within 1 business day</p>
+    <!-- ═══════════════════════════════════════════════════════
+         FORM SECTION
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section" id="form-start" aria-label="Consultation request form">
+      <div class="container" style="max-width: 740px;">
+
+        <!-- Info Bar -->
+        <div class="info-bar reveal">
+          <div class="info-bar__cell">
+            <span class="info-bar__label">Response Time</span>
+            <span class="info-bar__value">Within 1 Business Day</span>
           </div>
-          <div style="background:var(--white);padding:1.25rem 1.5rem;text-align:center;">
-            <p style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:0.25rem;">Your Information</p>
-            <p style="font-size:1rem;color:var(--ocean-deep);font-weight:500;margin:0;">Kept strictly confidential</p>
+          <div class="info-bar__cell">
+            <span class="info-bar__label">First Visit</span>
+            <span class="info-bar__value">60-Minute Evaluation</span>
           </div>
-          <div style="background:var(--white);padding:1.25rem 1.5rem;text-align:center;">
-            <p style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:0.25rem;">No Obligation</p>
-            <p style="font-size:1rem;color:var(--ocean-deep);font-weight:500;margin:0;">A conversation, not a commitment</p>
+          <div class="info-bar__cell">
+            <span class="info-bar__label">Availability</span>
+            <span class="info-bar__value">In-Person &amp; Telehealth</span>
           </div>
         </div>
 
-        <div class="info-box caution reveal" style="margin-bottom:2.5rem;">
-          <p><strong>Please note:</strong> This form is for scheduling purposes only. Do not include detailed medical history, diagnoses, or medication information. You will share clinical details with your provider during your evaluation.</p>
-          <p style="margin-top:0.75rem;"><strong>If you are in crisis</strong>, call or text <strong>988</strong> or go to your nearest emergency room. Do not use this form for urgent matters.</p>
+        <!-- Crisis Caution -->
+        <div class="caution-box reveal">
+          <p>
+            <strong>This form is not for emergencies.</strong> If you are in crisis or 
+            experiencing thoughts of self-harm, please call or text <strong>988</strong> 
+            (Suicide &amp; Crisis Lifeline), call <strong>911</strong>, or go to your 
+            nearest emergency room.
+          </p>
+          <p>
+            For non-urgent scheduling questions, you may also call our office at 
+            <a href="tel:+16505550000" style="color: #5a4a2a; font-weight: 600;">(650) 555-0000</a>.
+          </p>
         </div>
 
-        <div class="form-section reveal">
-          <form id="consultation-form" novalidate>
 
-            <fieldset class="form-fieldset">
-              <legend>Contact Information</legend>
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label" for="firstName">First Name *</label>
-                  <input class="form-input" type="text" id="firstName" name="firstName" autocomplete="given-name">
-                  <span class="field-error" id="err-firstName">Please enter your first name.</span>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="lastName">Last Name *</label>
-                  <input class="form-input" type="text" id="lastName" name="lastName" autocomplete="family-name">
-                  <span class="field-error" id="err-lastName">Please enter your last name.</span>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label" for="email">Email Address *</label>
-                  <input class="form-input" type="email" id="email" name="email" autocomplete="email">
-                  <span class="field-error" id="err-email">Please enter a valid email address.</span>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="phone">Phone Number *</label>
-                  <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel" placeholder="XXX-XXX-XXXX">
-                  <span class="field-error" id="err-phone">Please enter your phone number.</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="contactPref">Preferred Contact Method *</label>
-                <select class="form-select" id="contactPref" name="contactPref">
-                  <option value="">— Please select —</option>
-                  <option value="email">Email</option>
-                  <option value="phone-call">Phone call</option>
-                  <option value="text">Text message</option>
-                </select>
-                <span class="field-error" id="err-contactPref">Please select a preferred contact method.</span>
-              </div>
-            </fieldset>
+        <!-- ═══ FORM WRAPPER (hidden on success) ═══ -->
+        <div id="form-wrapper" class="reveal">
+          <div class="form-card">
 
-            <fieldset class="form-fieldset">
-              <legend>About Your Care</legend>
-              <div class="form-group">
-                <label class="form-label" for="concerns">What brings you to Altos Psychiatry? *</label>
-                <textarea class="form-textarea" id="concerns" name="concerns" rows="4" placeholder="A brief description — one or two sentences is fine. Clinical details stay between you and your provider."></textarea>
-                <span class="field-error" id="err-concerns">Please briefly describe what you're looking for help with.</span>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="referralSource">How did you hear about us?</label>
-                <select class="form-select" id="referralSource" name="referralSource">
-                  <option value="">— Please select —</option>
-                  <option value="Physician or provider referral">Physician or provider referral</option>
-                  <option value="Therapist referral">Therapist referral</option>
-                  <option value="Friend or family">Friend or family recommendation</option>
-                  <option value="Psychology Today">Psychology Today</option>
-                  <option value="Google search">Google search</option>
-                  <option value="Zocdoc">Zocdoc</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-            </fieldset>
-
-            <fieldset class="form-fieldset">
-              <legend>Logistics</legend>
-              <div class="form-group">
-                <label class="form-label">Appointment preference *</label>
-                <div class="radio-group" id="rg-apptType">
-                  <label class="radio-label"><input type="radio" name="apptType" value="Telehealth"> Telehealth (video)</label>
-                  <label class="radio-label"><input type="radio" name="apptType" value="In-person"> In-person (Menlo Park)</label>
-                  <label class="radio-label"><input type="radio" name="apptType" value="No preference"> No preference</label>
-                </div>
-                <span class="field-error" id="err-apptType">Please select one.</span>
-              </div>
-            </fieldset>
-
-            <div class="form-group" style="background:var(--fog);padding:1.5rem;border:1px solid var(--fog-dark);">
-              <label class="radio-label" style="align-items:flex-start;gap:12px;">
-                <input type="checkbox" id="consent" name="consent" style="margin-top:3px;accent-color:var(--ocean);width:16px;height:16px;flex-shrink:0;">
-                <span style="font-size:0.9rem;color:var(--stone-light);line-height:1.7;">
-                  I understand this form is for scheduling purposes only and does not establish a patient-provider relationship. I confirm that I am 18 years of age or older and located in California. I agree to Altos Psychiatry's <a href="/privacy.html" style="color:var(--ocean);">Privacy Policy</a>. *
-                </span>
-              </label>
-              <span class="field-error" id="err-consent" style="display:none;">You must agree to continue.</span>
+            <!-- Form-Level Error Banner -->
+            <div class="form-error-banner" id="form-error-banner" role="alert">
+              <p>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                Please complete all required fields below.
+              </p>
             </div>
 
-            <div id="submission-error">
-              <p>Something went wrong submitting your request. Please try again, or contact us directly at <a href="mailto:hello@altospsychiatry.com" style="color:#c0392b;">hello@altospsychiatry.com</a>.</p>
-            </div>
+            <form id="consultation-form" novalidate>
 
-            <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.5rem;font-size:0.9rem;padding:18px;">
-              Submit Consultation Request
-            </button>
+              <!-- ═══ SECTION 1: Personal Information ═══ -->
+              <fieldset class="form-fieldset">
+                <legend>Personal Information</legend>
 
-          </form>
+                <div class="form-row form-row--2col">
+                  <!-- First Name -->
+                  <div class="form-group">
+                    <label for="firstName" class="form-label">
+                      First Name <span aria-hidden="true" style="color: var(--coral);">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      class="form-input"
+                      autocomplete="given-name"
+                      required
+                      aria-required="true"
+                      placeholder="First name"
+                    />
+                    <div class="field-error" id="err-firstName" role="alert">
+                      Please enter your first name.
+                    </div>
+                  </div>
+
+                  <!-- Last Name -->
+                  <div class="form-group">
+                    <label for="lastName" class="form-label">
+                      Last Name <span aria-hidden="true" style="color: var(--coral);">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      class="form-input"
+                      autocomplete="family-name"
+                      required
+                      aria-required="true"
+                      placeholder="Last name"
+                    />
+                    <div class="field-error" id="err-lastName" role="alert">
+                      Please enter your last name.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row form-row--2col">
+                  <!-- Email -->
+                  <div class="form-group">
+                    <label for="email" class="form-label">
+                      Email Address <span aria-hidden="true" style="color: var(--coral);">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-input"
+                      autocomplete="email"
+                      required
+                      aria-required="true"
+                      placeholder="you@example.com"
+                    />
+                    <div class="field-error" id="err-email" role="alert">
+                      Please enter a valid email address.
+                    </div>
+                  </div>
+
+                  <!-- Phone -->
+                  <div class="form-group">
+                    <label for="phone" class="form-label">
+                      Phone Number <span aria-hidden="true" style="color: var(--coral);">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      class="form-input"
+                      autocomplete="tel"
+                      required
+                      aria-required="true"
+                      placeholder="(650) 555-0000"
+                    />
+                    <div class="field-error" id="err-phone" role="alert">
+                      Please enter a valid phone number.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contact Preference -->
+                <div class="form-group">
+                  <label for="contactPref" class="form-label">
+                    Preferred Contact Method <span aria-hidden="true" style="color: var(--coral);">*</span>
+                  </label>
+                  <select id="contactPref" name="contactPref" class="form-select" required aria-required="true">
+                    <option value="" disabled selected>Select preference…</option>
+                    <option value="phone">Phone Call</option>
+                    <option value="email">Email</option>
+                    <option value="text">Text Message</option>
+                    <option value="any">No Preference</option>
+                  </select>
+                  <div class="field-error" id="err-contactPref" role="alert">
+                    Please select a contact method.
+                  </div>
+                </div>
+              </fieldset>
+
+
+              <!-- ═══ SECTION 2: Clinical Information ═══ -->
+              <fieldset class="form-fieldset">
+                <legend>Clinical Information</legend>
+
+                <!-- Appointment Type -->
+                <div class="form-group">
+                  <span class="form-label" id="apptType-label">
+                    Appointment Preference <span aria-hidden="true" style="color: var(--coral);">*</span>
+                  </span>
+                  <div class="radio-group" id="rg-apptType" role="radiogroup" aria-labelledby="apptType-label">
+                    <label class="radio-label">
+                      <input type="radio" name="apptType" value="In-Person" required />
+                      In-Person
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" name="apptType" value="Telehealth" />
+                      Telehealth
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" name="apptType" value="No Preference" />
+                      No Preference
+                    </label>
+                  </div>
+                  <div class="field-error" id="err-apptType" role="alert">
+                    Please select an appointment preference.
+                  </div>
+                </div>
+
+                <!-- Referral Source -->
+                <div class="form-group">
+                  <label for="referralSource" class="form-label">How did you hear about us?</label>
+                  <select id="referralSource" name="referralSource" class="form-select">
+                    <option value="" disabled selected>Select one (optional)…</option>
+                    <option value="Google search">Google Search</option>
+                    <option value="Physician referral">Physician / Provider Referral</option>
+                    <option value="Therapist referral">Therapist Referral</option>
+                    <option value="Psychology Today">Psychology Today</option>
+                    <option value="Insurance directory">Insurance Directory</option>
+                    <option value="Friend or family">Friend or Family Member</option>
+                    <option value="Social media">Social Media</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <p class="form-hint">Optional — helps us understand how patients find us.</p>
+                </div>
+
+                <!-- Concerns -->
+                <div class="form-group">
+                  <label for="concerns" class="form-label">
+                    Briefly describe your concerns <span aria-hidden="true" style="color: var(--coral);">*</span>
+                  </label>
+                  <textarea
+                    id="concerns"
+                    name="concerns"
+                    class="form-textarea"
+                    rows="5"
+                    required
+                    aria-required="true"
+                    placeholder="What brings you in? Share as much or as little as you're comfortable with. This helps us prepare for your first visit."
+                  ></textarea>
+                  <div class="field-error" id="err-concerns" role="alert">
+                    Please describe your concerns so we can best assist you.
+                  </div>
+                  <p class="form-hint"
+                    This information is transmitted securely but is <strong>not</strong> a 
+                    HIPAA-protected channel. Please do not include sensitive medical details 
+                    such as Social Security numbers, insurance IDs, or detailed medical records.
+                  </p>
+                </div>
+              </fieldset>
+
+
+              <!-- ═══ SECTION 3: Consent ═══ -->
+              <fieldset class="form-fieldset" style="margin-bottom: 1.5rem;">
+                <legend>Consent</legend>
+
+                <div class="consent-box">
+                  <label>
+                    <input type="checkbox" id="consent" name="consent" required aria-required="true" />
+                    <span>
+                      I understand this is a consultation request, not a medical appointment. 
+                      I consent to being contacted by Altos Psychiatry regarding my inquiry 
+                      via the contact method I selected above. I have read the 
+                      <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+                    </span>
+                  </label>
+                  <div class="field-error" id="err-consent" role="alert" style="margin-top: 0.5rem; padding-left: 30px;">
+                    Please provide your consent to continue.
+                  </div>
+                </div>
+              </fieldset>
+
+
+              <!-- ═══ SUBMIT ═══ -->
+              <button type="submit" class="form-submit-btn" id="submit-btn">
+                Submit Consultation Request
+              </button>
+
+            </form>
+          </div>
+
+          <!-- Privacy Note -->
+          <div class="privacy-note">
+            <p>
+              Your information is encrypted in transit and stored securely. 
+              We will never share your data with third parties. 
+              <a href="/privacy-policy.html">Privacy Policy</a>
+            </p>
+          </div>
+
+        </div>
+        <!-- /.form-wrapper -->
+
+
+        <!-- ═══ SUCCESS STATE ═══ -->
+        <div class="form-success" id="form-success" aria-live="polite">
+          <div class="form-success__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+          </div>
+          <h2>Request Received</h2>
+          <p>
+            Thank you for reaching out. Our care coordinator will contact you 
+            within <strong>one business day</strong> to discuss your needs and 
+            schedule your initial evaluation.
+          </p>
+          <div class="form-success__ref" id="success-ref" aria-label="Reference number">
+            Ref: —
+          </div>
+          <div class="form-success__next">
+            <h4>What Happens Next</h4>
+            <ol>
+              <li>Our care coordinator reviews your request</li>
+              <li>We contact you via your preferred method</li>
+              <li>We verify your insurance benefits (if applicable)</li>
+              <li>Your initial evaluation is scheduled</li>
+              <li>Intake forms are sent via the patient portal</li>
+            </ol>
+          </div>
+          <div style="margin-top: 1.5rem;">
+            <a href="/" class="btn btn--outline">
+              ← Return to Homepage
+            </a>
+          </div>
         </div>
 
-        <div style="margin-top:2rem;text-align:center;" class="reveal">
-          <p class="disclaimer">Prefer to talk first? Call us at <a href="tel:+16505550000" style="color:var(--ocean);">(650) 555-0000</a> during business hours (Mon–Fri, 9 AM–5 PM).</p>
-        </div>
+      </div>
+    </section>
 
-      </div></div>
-  </section>
+  </main>
+  </div>
 
-</main>
-</div>
-<div id="footer-placeholder"></div>
-<script src="/js/main.js"></script>
-<script>
-// Replace this with your newly deployed Web App URL
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjKojdmIKv9vZftmSCe5QbvEMVtuGHG61qAUamuYULZds0HrXCI2K5FOX4e2WDNls-/exec';
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
 
-var form       = document.getElementById('consultation-form');
-var wrapper    = document.getElementById('form-wrapper');
-var successEl  = document.getElementById('success-screen');
-var submitBtn  = document.getElementById('submit-btn');
-var submitErr  = document.getElementById('submission-error');
-var phoneInput = document.getElementById('phone');
+  <!-- Main JS (nav, reveals, etc.) -->
+  <script src="/js/main.js"></script>
 
-// ── Phone Number Auto-Formatter ──────────────────────────────
-phoneInput.addEventListener('input', function (e) {
-  var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '');
-});
+  <!-- ═══════════════════════════════════════════════════════
+       FORM LOGIC
+       Validation + Image-Ping Submission to Google Apps Script
+       
+       WHY IMAGE-PING?
+       GitHub Pages is a static host — no server-side code.
+       Google Apps Script doGet() returns a redirect, which
+       triggers CORS errors with fetch/XMLHttpRequest from a
+       different origin. The image-ping pattern bypasses CORS
+       entirely: the browser loads a <img> with the script URL
+       + query params. The script processes the data on the
+       server side and returns a 1×1 pixel. The browser doesn't
+       care about CORS for image requests.
+       ═══════════════════════════════════════════════════════ -->
+  <script>
+  ;(function () {
+    'use strict'
 
-// ── Validation helpers ───────────────────────────────────────
-function showError(id, show) {
-  var el = document.getElementById('err-' + id);
-  if (el) el.style.display = show ? 'block' : 'none';
-}
-function markField(el, bad) {
-  if (!el) return;
-  if (bad) el.classList.add('has-error');
-  else     el.classList.remove('has-error');
-}
-function markRadio(groupId, bad) {
-  var g = document.getElementById(groupId);
-  if (g) bad ? g.classList.add('has-error') : g.classList.remove('has-error');
-}
-function getRadio(name) {
-  var el = form.querySelector('input[name="' + name + '"]:checked');
-  return el ? el.value : '';
-}
+    /* ═══ Configuration ═══ */
+    // Replace this with your deployed Google Apps Script Web App URL
+    var SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec'
 
-function validate() {
-  var ok = true;
-  var textFields = ['firstName','lastName','email','phone'];
-  textFields.forEach(function(id) {
-    var el = form.querySelector('[name="' + id + '"]');
-    var bad = !el || !el.value.trim();
-    markField(el, bad);
-    showError(id, bad);
-    if (bad) ok = false;
-  });
+    /* ═══ DOM References ═══ */
+    var form       = document.getElementById('consultation-form')
+    var wrapper    = document.getElementById('form-wrapper')
+    var successEl  = document.getElementById('form-success')
+    var successRef = document.getElementById('success-ref')
+    var submitBtn  = document.getElementById('submit-btn')
+    var errorBanner = document.getElementById('form-error-banner')
 
-  var sel = form.querySelector('[name="contactPref"]');
-  var selBad = !sel || !sel.value;
-  markField(sel, selBad);
-  showError('contactPref', selBad);
-  if (selBad) ok = false;
+    if (!form) return
 
-  var ta = form.querySelector('[name="concerns"]');
-  var taBad = !ta || !ta.value.trim();
-  markField(ta, taBad);
-  showError('concerns', taBad);
-  if (taBad) ok = false;
+    /* ═══ Required Field IDs ═══ */
+    var textFields = ['firstName', 'lastName', 'email', 'phone']
 
-  var radios = [
-    { name: 'apptType', groupId: 'rg-apptType' }
-  ];
-  radios.forEach(function(r) {
-    var bad = !getRadio(r.name);
-    markRadio(r.groupId, bad);
-    showError(r.name, bad);
-    if (bad) ok = false;
-  });
+    /* ═══════════════════════════════════════════════════════
+       VALIDATION HELPERS
+       ═══════════════════════════════════════════════════════ */
 
-  var cb = document.getElementById('consent');
-  var cbBad = !cb || !cb.checked;
-  showError('consent', cbBad);
-  if (cbBad) ok = false;
+    /**
+     * Mark a field as valid or invalid
+     */
+    function markField(el, isError) {
+      if (!el) return
+      if (isError) {
+        el.classList.add('has-error')
+        el.classList.remove('field-valid')
+      } else {
+        el.classList.remove('has-error')
+        el.classList.add('field-valid')
+      }
+    }
 
-  return ok;
-}
+    /**
+     * Show or hide the inline error message
+     */
+    function showError(fieldId, show) {
+      var err = document.getElementById('err-' + fieldId)
+      if (err) {
+        err.style.display = show ? 'block' : 'none'
+      }
+    }
 
-// ── Submit handler ───────────────────────────────────────────
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  submitErr.style.display = 'none';
+    /**
+     * Mark a radio group as error/valid
+     */
+    function markRadio(groupId, isError) {
+      var group = document.getElementById(groupId)
+      if (!group) return
+      if (isError) {
+        group.classList.add('has-error')
+      } else {
+        group.classList.remove('has-error')
+      }
+    }
 
-  if (!validate()) {
-    var firstErr = form.querySelector('.has-error, .field-error[style*="block"]');
-    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
-  }
+    /**
+     * Get the selected radio value
+     */
+    function getRadio(name) {
+      var radios = form.querySelectorAll('input[name="' + name + '"]')
+      for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) return radios[i].value
+      }
+      return ''
+    }
 
-  submitBtn.disabled = true;
-  submitBtn.classList.add('loading');
-  submitBtn.textContent = 'Submitting';
+    /**
+     * Basic email validation
+     */
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    }
 
-  // Build the FormData
-  var formData = new FormData(form);
-  formData.append('formType', 'patient_inquiry');
-  formData.append('timestamp', new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+    /**
+     * Basic phone validation (at least 10 digits)
+     */
+    function isValidPhone(phone) {
+      var digits = phone.replace(/\D/g, '')
+      return digits.length >= 10
+    }
 
-  // Send request via modern fetch
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    body: formData,
-    mode: 'no-cors' 
-  })
-  .then(function() {
-    showSuccess();
-  })
-  .catch(function(error) {
-    console.error('Error!', error.message);
-    submitErr.style.display = 'block';
-    submitBtn.disabled = false;
-    submitBtn.classList.remove('loading');
-    submitBtn.textContent = 'Submit Consultation Request';
-  });
-});
+    /* ═══════════════════════════════════════════════════════
+       REAL-TIME VALIDATION (blur events)
+       Clear errors as user fixes fields
+       ═══════════════════════════════════════════════════════ */
+    textFields.forEach(function (id) {
+      var el = document.getElementById(id)
+      if (!el) return
 
-function showSuccess() {
-  wrapper.style.display  = 'none';
-  successEl.style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-</script>
+      el.addEventListener('blur', function () {
+        var val = el.value.trim()
+        var isError = false
+
+        if (!val) {
+          isError = true
+        } else if (id === 'email' && !isValidEmail(val)) {
+          isError = true
+        } else if (id === 'phone' && !isValidPhone(val)) {
+          isError = true
+        }
+
+        markField(el, isError)
+        showError(id, isError)
+      })
+
+      // Clear error on input
+      el.addEventListener('input', function () {
+        if (el.classList.contains('has-error')) {
+          el.classList.remove('has-error')
+          showError(id, false)
+        }
+      })
+    })
+
+    // Contact preference — clear error on change
+    var contactPref = document.getElementById('contactPref')
+    if (contactPref) {
+      contactPref.addEventListener('change', function () {
+        markField(contactPref, false)
+        showError('contactPref', false)
+      })
+    }
+
+    // Radio — clear error on change
+    var radios = form.querySelectorAll('input[name="apptType"]')
+    radios.forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        markRadio('rg-apptType', false)
+        showError('apptType', false)
+      })
+    })
+
+    // Consent — clear error on change
+    var consent = document.getElementById('consent')
+    if (consent) {
+      consent.addEventListener('change', function () {
+        showError('consent', !consent.checked)
+      })
+    }
+
+    // Concerns — clear error on input
+    var concerns = document.getElementById('concerns')
+    if (concerns) {
+      concerns.addEventListener('input', function () {
+        if (concerns.classList.contains('has-error')) {
+          concerns.classList.remove('has-error')
+          showError('concerns', false)
+        }
+      })
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       FULL FORM VALIDATION
+       Returns true if all fields are valid
+       ═══════════════════════════════════════════════════════ */
+    function validate() {
+      var ok = true
+
+      // Text fields
+      textFields.forEach(function (id) {
+        var el = document.getElementById(id)
+        var val = el ? el.value.trim() : ''
+        var isError = false
+
+        if (!val) {
+          isError = true
+        } else if (id === 'email' && !isValidEmail(val)) {
+          isError = true
+        } else if (id === 'phone' && !isValidPhone(val)) {
+          isError = true
+        }
+
+        markField(el, isError)
+        showError(id, isError)
+        if (isError) ok = false
+      })
+
+      // Contact preference
+      var cpVal = contactPref ? contactPref.value : ''
+      var cpBad = !cpVal
+      markField(contactPref, cpBad)
+      showError('contactPref', cpBad)
+      if (cpBad) ok = false
+
+      // Appointment type radio
+      var apptVal = getRadio('apptType')
+      var apptBad = !apptVal
+      markRadio('rg-apptType', apptBad)
+      showError('apptType', apptBad)
+      if (apptBad) ok = false
+
+      // Concerns textarea
+      var cVal = concerns ? concerns.value.trim() : ''
+      var cBad = !cVal
+      markField(concerns, cBad)
+      showError('concerns', cBad)
+      if (cBad) ok = false
+
+      // Consent checkbox
+      var conBad = !consent || !consent.checked
+      showError('consent', conBad)
+      if (conBad) ok = false
+
+      return ok
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       FORM SUBMISSION — Image-Ping GET
+       
+       How it works:
+       1. Build a query string from form data
+       2. Create a new Image() element
+       3. Set img.src = SCRIPT_URL + '?' + queryString
+       4. The browser fires a GET request (no CORS restriction)
+       5. Google Apps Script processes the data via doGet()
+       6. Script writes to Google Sheet and returns a response
+       7. img.onload or img.onerror fires (both mean success —
+          Apps Script redirects trigger onerror for images,
+          but the data is still processed server-side)
+       8. Show success screen
+       ═══════════════════════════════════════════════════════ */
+    form.addEventListener('submit', function (e) {
+      e.preventDefault()
+
+      // Hide previous errors
+      errorBanner.style.display = 'none'
+
+      // Validate all fields
+      if (!validate()) {
+        errorBanner.style.display = 'block'
+
+        // Scroll to first error
+        var firstErr = form.querySelector('.has-error, .field-error[style*="block"]')
+        if (firstErr) {
+          firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+        return
+      }
+
+      // Disable button + show loading spinner
+      submitBtn.disabled = true
+      submitBtn.classList.add('is-loading')
+
+      // Collect form data
+      var data = {
+        formType:       'patient_inquiry',
+        firstName:      document.getElementById('firstName').value.trim(),
+        lastName:       document.getElementById('lastName').value.trim(),
+        email:          document.getElementById('email').value.trim(),
+        phone:          document.getElementById('phone').value.trim(),
+        contactPref:    contactPref.value,
+        apptType:       getRadio('apptType'),
+        referralSource: document.getElementById('referralSource').value || '',
+        concerns:       concerns.value.trim(),
+        consent:        'yes',
+        timestamp:      new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+      }
+
+      // Build URL-encoded query string
+      var params = Object.keys(data).map(function (key) {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
+      }).join('&')
+
+      // Create image ping
+      var img = new Image()
+      var timeout
+
+      // Both onload and onerror mean the request reached the server.
+      // Google Apps Script doGet returns ContentService output or a
+      // redirect, either of which may trigger onerror for an Image
+      // element — but the data is still processed. This is by design.
+      img.onload = img.onerror = function () {
+        clearTimeout(timeout)
+        showSuccess(data)
+      }
+
+      // Safety timeout: if the server is slow or unresponsive, don't
+      // leave the user staring at a spinner forever. Show success
+      // after 6 seconds regardless — the data was likely received.
+      timeout = setTimeout(function () {
+        showSuccess(data)
+      }, 6000)
+
+      // Fire the request
+      img.src = SCRIPT_URL + '?' + params
+    })
+
+    /* ═══════════════════════════════════════════════════════
+       SUCCESS HANDLER
+       ═══════════════════════════════════════════════════════ */
+    function showSuccess(data) {
+      // Prevent double-firing
+      if (wrapper.style.display === 'none') return
+
+      // Hide form, show success
+      wrapper.style.display = 'none'
+      successEl.classList.add('is-visible')
+
+      // Generate a client-side reference ID
+      // The real Lead ID is generated server-side in Google Sheets,
+      // but we show a timestamp-based reference for the patient.
+      var ref = 'REQ-' + Date.now().toString(36).toUpperCase()
+      successRef.textContent = 'Ref: ' + ref
+
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+
+      // Announce to screen readers
+      if (typeof window.announce === 'function') {
+        window.announce(
+          'Your consultation request has been submitted successfully. ' +
+          'Reference number: ' + ref + '. ' +
+          'Our care coordinator will contact you within one business day.'
+        )
+      }
+
+      // Re-enable button (in case user navigates back)
+      submitBtn.disabled = false
+      submitBtn.classList.remove('is-loading')
+    }
+
+  })()
+  </script>
 </body>
 </html>

@@ -1,65 +1,536 @@
-<footer class="main-footer">
+<!-- ═══════════════════════════════════════════════════════════
+     SITE FOOTER
+     4-column layout → stacks on mobile
+     Brand · Quick Links · Services · Contact
+     Bottom bar with legal links
+     Crisis notice
+     ═══════════════════════════════════════════════════════════ -->
+
+<style>
+  /* ────────────────────────────────────────────────────────
+     FOOTER — Scoped Enhancements
+     Base .site-footer styles live in style.css (Section 18)
+     These are component-specific additions.
+     ──────────────────────────────────────────────────────── */
+
+  /* ── Social Icons ── */
+  .footer-social {
+    display: flex;
+    gap: 10px;
+    margin-top: var(--space-md);
+  }
+
+  .footer-social__link {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-full);
+    background: rgba(168, 212, 220, 0.08);
+    border: 1px solid rgba(168, 212, 220, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(168, 212, 220, 0.5);
+    text-decoration: none;
+    transition:
+      background var(--duration-fast) var(--ease-smooth),
+      border-color var(--duration-fast) var(--ease-smooth),
+      color var(--duration-fast) var(--ease-smooth),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  .footer-social__link:hover {
+    background: rgba(168, 212, 220, 0.15);
+    border-color: rgba(168, 212, 220, 0.3);
+    color: var(--white);
+    transform: translateY(-2px);
+  }
+
+  .footer-social__link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ── Hours List ── */
+  .footer-hours {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: var(--space-sm);
+  }
+
+  .footer-hours__row {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-xs);
+    color: rgba(168, 212, 220, 0.5);
+    gap: 12px;
+  }
+
+  .footer-hours__row span:first-child {
+    color: rgba(168, 212, 220, 0.65);
+    font-weight: 500;
+  }
+
+  /* ── Newsletter CTA ── */
+  .footer-newsletter {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(168, 212, 220, 0.1);
+  }
+
+  .footer-newsletter p {
+    font-size: var(--text-xs);
+    color: rgba(168, 212, 220, 0.45);
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+  }
+
+  .footer-newsletter__form {
+    display: flex;
+    gap: 8px;
+  }
+
+  .footer-newsletter__input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 14px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(168, 212, 220, 0.15);
+    border-radius: var(--radius-full);
+    outline: none;
+    transition:
+      border-color var(--duration-fast) var(--ease-smooth),
+      background var(--duration-fast) var(--ease-smooth);
+  }
+
+  .footer-newsletter__input::placeholder {
+    color: rgba(168, 212, 220, 0.35);
+  }
+
+  .footer-newsletter__input:focus {
+    border-color: rgba(168, 212, 220, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-newsletter__btn {
+    padding: 10px 20px;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ocean-deep);
+    background: var(--ocean-mist);
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      background var(--duration-fast) var(--ease-smooth),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  .footer-newsletter__btn:hover {
+    background: var(--white);
+    transform: translateY(-1px);
+  }
+
+  .footer-newsletter__btn:active {
+    transform: scale(0.97);
+  }
+
+  /* ── Certification Badges ── */
+  .footer-badges {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: var(--space-md);
+  }
+
+  .footer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+    background: rgba(168, 212, 220, 0.06);
+    border: 1px solid rgba(168, 212, 220, 0.1);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(168, 212, 220, 0.55);
+    white-space: nowrap;
+  }
+
+  .footer-badge svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  /* ── Back to Top ── */
+  .footer-back-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: rgba(168, 212, 220, 0.4);
+    text-decoration: none;
+    transition:
+      color var(--duration-fast) var(--ease-smooth),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  .footer-back-top:hover {
+    color: var(--ocean-mist);
+    transform: translateY(-2px);
+  }
+
+  .footer-back-top svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ── Decorative Wave ── */
+  .footer-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateY(-99%);
+  }
+
+  .footer-wave svg {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+  }
+
+  /* ── Responsive Tweaks ── */
+  @media (max-width: 639px) {
+    .footer-newsletter__form {
+      flex-direction: column;
+    }
+
+    .footer-bottom__legal {
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
+</style>
+
+
+<!-- ═══ FOOTER MARKUP ═══ -->
+<footer class="site-footer" role="contentinfo">
+
+  <!-- Decorative Wave Transition -->
+  <div class="footer-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path
+        d="M0 40C240 10 480 70 720 40C960 10 1200 70 1440 40V80H0V40Z"
+        fill="var(--ocean-deep)"
+        opacity="0.5"
+      />
+      <path
+        d="M0 50C360 20 720 80 1080 40C1260 20 1380 30 1440 50V80H0V50Z"
+        fill="var(--ocean-deep)"
+      />
+    </svg>
+  </div>
+
+  <!-- ═══ FOOTER TOP — 4-Column Grid ═══ -->
   <div class="container">
+    <div class="footer-top">
 
-    <div class="footer-grid">
-
-      <div>
-        <a href="/" class="footer-logo">Altos Psychiatry</a>
-        <p class="footer-tagline">Precision psychiatric care for adults in Silicon Valley. Medication management, psychotherapy, and integrative treatment — available when you need it.</p>
-        <p class="footer-address">
-          401 Quarry Road, Suite 120<br>
-          Menlo Park, CA 94025<br>
-          <a href="tel:+16505550000">(650) 555-0000</a>
+      <!-- ── Column 1: Brand ── -->
+      <div class="footer-brand">
+        <a href="/" aria-label="Altos Psychiatry — Home" style="text-decoration: none;">
+          <span class="logo-text" style="font-family: var(--font-display); font-size: 1.35rem;">
+            Altos Psychiatry
+          </span>
+        </a>
+        <p>
+          Expert psychiatric care rooted in evidence and guided by compassion.
+          Serving adults across the San Francisco Peninsula from our
+          Menlo Park office and via telehealth statewide.
         </p>
-      </div>
 
-      <div class="footer-col">
-        <h5>Our Care</h5>
-        <ul>
-          <li><a href="/conditions/what-we-treat.html">What We Treat</a></li>
-          <li><a href="/services.html">Services Overview</a></li>
-          <li><a href="/services/medication-management.html">Medication Management</a></li>
-          <li><a href="/services/psychotherapy.html">Psychotherapy</a></li>
-          <li><a href="/services/tms.html">TMS Therapy</a></li>
-          <li><a href="/services/psychedelics.html">Psychedelic Therapy</a></li>
-        </ul>
-      </div>
+        <address class="footer-brand__address">
+          123 University Avenue, Suite 200<br />
+          Menlo Park, CA 94025
+        </address>
 
-      <div class="footer-col">
-        <h5>Practice</h5>
-        <ul>
-          <li><a href="/why-altos/about-us.html">About Us</a></li>
-          <li><a href="/why-altos/our-team.html">Our Team</a></li>
-          <li><a href="/why-altos/concierge-psychiatry.html">Concierge Psychiatry</a></li>
-          <li><a href="/why-altos/for-patients.html">For Patients</a></li>
-          <li><a href="/why-altos/for-providers.html">For Providers</a></li>
-          <li><a href="/resources/careers.html">Careers</a></li>
-        </ul>
-      </div>
+        <!-- Social Links -->
+        <div class="footer-social">
+          <!-- LinkedIn -->
+          <a href="#" class="footer-social__link" aria-label="LinkedIn" rel="noopener noreferrer" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
 
-      <div class="footer-col">
-        <h5>Quick Access</h5>
-        <ul>
-          <li><a href="/get-started.html">Request Consultation</a></li>
-          <li><a href="/patient-portal.html">Current Patients</a></li>
-          <li><a href="/resources/faq.html">FAQ</a></li>
-          <li><a href="/resources/contact.html">Contact Us</a></li>
-        </ul>
-        <div style="margin-top:1.5rem;padding:1rem;background:rgba(255,255,255,0.05);border-left:2px solid rgba(255,255,255,0.15);">
-          <p style="font-size:0.8rem;color:rgba(255,255,255,0.5);line-height:1.7;margin:0;">In crisis? Call or text <strong style="color:rgba(255,255,255,0.8);">988</strong> or go to your nearest emergency room.</p>
+          <!-- Psychology Today -->
+          <a href="#" class="footer-social__link" aria-label="Psychology Today profile" rel="noopener noreferrer" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M5.8 2.4h3.6c2.6 0 4.2 1.5 4.2 3.8 0 2.4-1.7 3.9-4.3 3.9H8.1v5.3H5.8V2.4zm3.4 5.8c1.2 0 2-0.7 2-1.9s-0.7-1.9-2-1.9H8.1v3.8h1.1zM16.2 7.1v1.6h0c0.6-1.1 1.6-1.8 2.8-1.8v2.4c-1.8 0-2.7 0.9-2.7 2.8v3.3h-2.2V7.1h2.1z"/>
+            </svg>
+          </a>
+
+          <!-- Google Business -->
+          <a href="#" class="footer-social__link" aria-label="Google Business Profile" rel="noopener noreferrer" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Certification Badges -->
+        <div class="footer-badges">
+          <span class="footer-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            HIPAA Compliant
+          </span>
+          <span class="footer-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342"/></svg>
+            Board Certified
+          </span>
+          <span class="footer-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+            REMS Certified
+          </span>
         </div>
       </div>
 
-    </div>
 
+      <!-- ── Column 2: Quick Links ── -->
+      <div>
+        <h3 class="footer-col__title">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="/#about">About Us</a></li>
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#conditions">Conditions We Treat</a></li>
+          <li><a href="/#outcomes">Evidence &amp; Outcomes</a></li>
+          <li><a href="/#insurance">Insurance &amp; Payment</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/get-started.html">Request a Consultation</a></li>
+          <li><a href="/scheduling.html">Schedule an Appointment</a></li>
+        </ul>
+      </div>
+
+
+      <!-- ── Column 3: Services ── -->
+      <div>
+        <h3 class="footer-col__title">Services</h3>
+        <ul class="footer-links">
+          <li><a href="/#services">Medication Management</a></li>
+          <li><a href="/#services">TMS Therapy</a></li>
+          <li><a href="/#services">Ketamine Infusions</a></li>
+          <li><a href="/#services">Spravato® (Esketamine)</a></li>
+          <li><a href="/#services">Psychotherapy</a></li>
+          <li><a href="/#services">Telehealth</a></li>
+        </ul>
+
+        <!-- Newsletter Signup -->
+        <div class="footer-newsletter">
+          <p>Stay informed — occasional updates on mental health insights and practice news.</p>
+          <form class="footer-newsletter__form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed ✓'; this.querySelector('input').disabled=true;">
+            <input
+              type="email"
+              class="footer-newsletter__input"
+              placeholder="Your email"
+              aria-label="Email address for newsletter"
+              required
+            />
+            <button type="submit" class="footer-newsletter__btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+
+      <!-- ── Column 4: Contact ── -->
+      <div>
+        <h3 class="footer-col__title">Contact</h3>
+        <div class="footer-contact">
+          <a href="tel:+16505550000">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+            (650) 555-0000
+          </a>
+          <a href="mailto:hello@altospsychiatry.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+            hello@altospsychiatry.com
+          </a>
+          <a href="https://maps.google.com/?q=123+University+Ave+Suite+200+Menlo+Park+CA" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            123 University Ave, Ste 200<br />
+            <span style="padding-left: 26px;">Menlo Park, CA 94025</span>
+          </a>
+        </div>
+
+        <!-- Office Hours -->
+        <h3 class="footer-col__title" style="margin-top: var(--space-lg);">Office Hours</h3>
+        <div class="footer-hours">
+          <div class="footer-hours__row">
+            <span>Monday – Friday</span>
+            <span>8:00 AM – 5:00 PM</span>
+          </div>
+          <div class="footer-hours__row">
+            <span>Saturday</span>
+            <span>By Appointment</span>
+          </div>
+          <div class="footer-hours__row">
+            <span>Sunday</span>
+            <span>Closed</span>
+          </div>
+        </div>
+
+        <!-- Emergency Note -->
+        <p style="font-size: 0.7rem; color: rgba(168,212,220,0.35); margin-top: var(--space-sm); line-height: 1.6;">
+          For after-hours emergencies, call <strong style="color: rgba(168,212,220,0.55);">988</strong> 
+          (Suicide &amp; Crisis Lifeline) or <strong style="color: rgba(168,212,220,0.55);">911</strong>.
+        </p>
+      </div>
+
+    </div>
+    <!-- /.footer-top -->
+  </div>
+
+
+  <!-- ═══ FOOTER BOTTOM ═══ -->
+  <div class="container">
     <div class="footer-bottom">
-      <p>&copy; 2025 Altos Psychiatry, Inc. All rights reserved. Altos Psychiatry serves adults 18+ in California.</p>
+
       <p>
-        <a href="/privacy.html">Privacy Policy</a>&ensp;&middot;&ensp;
-        <a href="/privacy.html#terms">Terms of Use</a>&ensp;&middot;&ensp;
-        <a href="/privacy.html#hipaa">HIPAA Notice</a>
+        © <span id="footer-year">2024</span> Altos Psychiatry · Menlo Park Psychiatry Group, Inc.
+        All rights reserved.
+      </p>
+
+      <div class="footer-bottom__legal" style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <span style="color: rgba(168,212,220,0.2);" aria-hidden="true">·</span>
+        <a href="/terms.html">Terms of Use</a>
+        <span style="color: rgba(168,212,220,0.2);" aria-hidden="true">·</span>
+        <a href="/accessibility.html">Accessibility</a>
+        <span style="color: rgba(168,212,220,0.2);" aria-hidden="true">·</span>
+        <a href="/notice-of-privacy-practices.html">Notice of Privacy Practices</a>
+      </div>
+
+      <a href="#" class="footer-back-top" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 15l-6-6-6 6"/>
+        </svg>
+        Top
+      </a>
+
+    </div>
+  </div>
+
+
+  <!-- ═══ CRISIS NOTICE BAR ═══ -->
+  <div class="footer-crisis">
+    <div class="container">
+      <p>
+        <strong>If you are in crisis:</strong> Call or text <strong>988</strong> 
+        (Suicide &amp; Crisis Lifeline) · Call <strong>911</strong> · 
+        Go to your nearest emergency room · 
+        <a href="https://988lifeline.org/chat/" target="_blank" rel="noopener noreferrer" 
+           style="color: rgba(255,200,200,0.8); text-decoration: underline; text-underline-offset: 2px;">
+          Chat at 988lifeline.org
+        </a>
       </p>
     </div>
-
   </div>
+
 </footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER JAVASCRIPT
+     Auto-update copyright year · Back-to-top smooth scroll
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+;(function () {
+  'use strict'
+
+  /* ── Auto-update copyright year ── */
+  var yearEl = document.getElementById('footer-year')
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear()
+  }
+
+  /* ── Back to Top — Smooth Scroll ── */
+  var backTop = document.querySelector('.footer-back-top')
+  if (backTop) {
+    backTop.addEventListener('click', function (e) {
+      e.preventDefault()
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth'
+      })
+
+      // Move focus to top of page for accessibility
+      var firstHeading = document.querySelector('h1, [role="banner"]')
+      if (firstHeading) {
+        firstHeading.setAttribute('tabindex', '-1')
+        firstHeading.focus({ preventScroll: true })
+        firstHeading.addEventListener('blur', function () {
+          firstHeading.removeAttribute('tabindex')
+        }, { once: true })
+      }
+    })
+  }
+
+  /* ── Newsletter — Simple inline success ── */
+  var nlForm = document.querySelector('.footer-newsletter__form')
+  if (nlForm) {
+    nlForm.addEventListener('submit', function (e) {
+      e.preventDefault()
+      var input = nlForm.querySelector('input')
+      var btn = nlForm.querySelector('button')
+      var email = input ? input.value.trim() : ''
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (input) {
+          input.style.borderColor = 'rgba(224,122,95,0.6)'
+          input.focus()
+          setTimeout(function () {
+            input.style.borderColor = ''
+          }, 2000)
+        }
+        return
+      }
+
+      // Disable form
+      if (input) input.disabled = true
+      if (btn) {
+        btn.textContent = 'Subscribed ✓'
+        btn.disabled = true
+        btn.style.background = 'rgba(168,212,220,0.3)'
+        btn.style.color = 'var(--white)'
+      }
+
+      // Announce to screen readers
+      if (typeof window.announce === 'function') {
+        window.announce('Successfully subscribed to the newsletter.')
+      }
+
+      // Optional: send to a Google Apps Script or other endpoint
+      // var img = new Image()
+      // img.src = 'YOUR_NEWSLETTER_ENDPOINT?email=' + encodeURIComponent(email)
+    })
+  }
+
+})()
+</script>
