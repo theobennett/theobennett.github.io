@@ -1,0 +1,4669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Patient Intake — Altos Psychiatry</title>
+  <meta name="description" content="Complete your intake forms and schedule your first consultation. Takes 15-20 minutes. All online, no paperwork at your visit." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════
+       INTAKE WIZARD — COMPONENT STYLES
+       ═══════════════════════════════════════════════════════ */
+
+    :root {
+      --wizard-max-w: 720px;
+      --step-accent: var(--ocean);
+      --step-complete: var(--sage);
+      --step-inactive: var(--fog-dark);
+    }
+
+    /* ── Page Layout ── */
+    .intake-page {
+      min-height: 100vh;
+      background: linear-gradient(180deg, var(--ocean-wash) 0%, var(--white) 30%);
+    }
+
+    .intake-container {
+      max-width: var(--wizard-max-w);
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-md) var(--space-3xl);
+    }
+
+    /* ── Progress Bar ── */
+    .progress-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--fog);
+      padding: 16px var(--space-md);
+    }
+
+    .progress-bar__inner {
+      max-width: var(--wizard-max-w);
+      margin: 0 auto;
+    }
+
+    .progress-steps {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0;
+      margin-bottom: 8px;
+    }
+
+    .progress-step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--pebble-light);
+      white-space: nowrap;
+      transition: color 0.3s ease;
+    }
+
+    .progress-step--active {
+      color: var(--ocean-deep);
+    }
+
+    .progress-step--complete {
+      color: var(--sage);
+    }
+
+    .progress-step__num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      border: 2px solid var(--fog-dark);
+      background: var(--white);
+      color: var(--pebble-light);
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .progress-step--active .progress-step__num {
+      border-color: var(--ocean);
+      background: var(--ocean);
+      color: var(--white);
+    }
+
+    .progress-step--complete .progress-step__num {
+      border-color: var(--sage);
+      background: var(--sage);
+      color: var(--white);
+    }
+
+    .progress-step__connector {
+      flex: 1;
+      height: 2px;
+      background: var(--fog-dark);
+      margin: 0 4px;
+      min-width: 12px;
+      transition: background 0.3s ease;
+    }
+
+    .progress-step__connector--complete {
+      background: var(--sage);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: var(--fog);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-track__fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--ocean), var(--sage));
+      border-radius: 2px;
+      transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      font-size: 0.68rem;
+      color: var(--pebble);
+    }
+
+    /* ── Step Labels (mobile: hide text) ── */
+    @media (max-width: 640px) {
+      .progress-step__label { display: none; }
+      .progress-step__num { width: 20px; height: 20px; font-size: 0.58rem; }
+    }
+
+    /* ── Wizard Step Panels ── */
+    .wizard-step {
+      display: none;
+      animation: fadeSlideIn 0.4s ease both;
+    }
+
+    .wizard-step--active {
+      display: block;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .step-header__eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ocean);
+      margin-bottom: 8px;
+    }
+
+    .step-header__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 500;
+      color: var(--ocean-deep);
+      margin-bottom: 8px;
+    }
+
+    .step-header__desc {
+      font-size: var(--text-sm);
+      color: var(--stone-light);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Form Sections ── */
+    .form-section {
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.06);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-section__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 500;
+      color: var(--ocean-deep);
+      margin-bottom: var(--space-sm);
+      padding-bottom: var(--space-xs);
+      border-bottom: 1px solid var(--fog);
+    }
+
+    .form-section__desc {
+      font-size: var(--text-xs);
+      color: var(--pebble);
+      margin-bottom: var(--space-md);
+      line-height: 1.5;
+    }
+
+    /* ── Form Fields ── */
+    .field-group {
+      margin-bottom: var(--space-md);
+    }
+
+    .field-label {
+      display: block;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--stone);
+      margin-bottom: 6px;
+    }
+
+    .field-label--required::after {
+      content: ' *';
+      color: #dc2626;
+    }
+
+    .field-hint {
+      font-size: var(--text-xs);
+      color: var(--pebble);
+      margin-top: 4px;
+    }
+
+    .field-input,
+    .field-select,
+    .field-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--stone);
+      background: var(--white);
+      border: 1.5px solid rgba(var(--ocean-deep-rgb), 0.12);
+      border-radius: var(--radius-md);
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .field-input:focus,
+    .field-select:focus,
+    .field-textarea:focus {
+      outline: none;
+      border-color: var(--ocean);
+      box-shadow: 0 0 0 3px rgba(var(--ocean-rgb), 0.1);
+    }
+
+    .field-input::placeholder,
+    .field-textarea::placeholder {
+      color: var(--pebble-light);
+    }
+
+    .field-input--error {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+    }
+
+    .field-error-msg {
+      font-size: var(--text-xs);
+      color: #dc2626;
+      font-weight: 600;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .field-input--error + .field-error-msg,
+    .field-select--error + .field-error-msg {
+      display: block;
+    }
+
+    .field-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+
+    @media (max-width: 480px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+
+    .field-row--3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 640px) {
+      .field-row--3 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── Checkbox / Radio Groups ── */
+    .check-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .check-group--grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+      .check-group--grid { grid-template-columns: 1fr; }
+    }
+
+    .check-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1.5px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .check-option:hover {
+      border-color: rgba(var(--ocean-rgb), 0.2);
+      background: rgba(var(--ocean-rgb), 0.02);
+    }
+
+    .check-option input[type="checkbox"],
+    .check-option input[type="radio"] {
+      margin-top: 2px;
+      accent-color: var(--ocean);
+      flex-shrink: 0;
+    }
+
+    .check-option--selected {
+      border-color: var(--ocean);
+      background: rgba(var(--ocean-rgb), 0.04);
+    }
+
+    .check-option__label {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--stone);
+    }
+
+    .check-option__desc {
+      font-size: var(--text-xs);
+      color: var(--pebble);
+      margin-top: 2px;
+    }
+
+    /* ── Likert / Scale Questions (PHQ-9, GAD-7) ── */
+    .scale-question {
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.06);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+
+    .scale-question__text {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--stone);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .scale-question__num {
+      font-weight: 700;
+      color: var(--ocean);
+      margin-right: 4px;
+    }
+
+    .scale-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    @media (max-width: 480px) {
+      .scale-options {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .scale-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      border: 1.5px solid rgba(var(--ocean-deep-rgb), 0.06);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--stone-light);
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .scale-option:hover {
+      border-color: rgba(var(--ocean-rgb), 0.2);
+    }
+
+    .scale-option input[type="radio"] {
+      accent-color: var(--ocean);
+      flex-shrink: 0;
+    }
+
+    .scale-option--selected {
+      border-color: var(--ocean);
+      background: rgba(var(--ocean-rgb), 0.05);
+      color: var(--ocean-deep);
+      font-weight: 600;
+    }
+
+    /* ── Assessment Score Display ── */
+    .score-display {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      margin-top: var(--space-md);
+    }
+
+    .score-display--minimal { background: rgba(var(--sage-rgb, 107,143,107), 0.08); border-left: 3px solid var(--sage); }
+    .score-display--mild { background: rgba(196,168,130,0.1); border-left: 3px solid var(--sand); }
+    .score-display--moderate { background: rgba(217,119,6,0.08); border-left: 3px solid #d97706; }
+    .score-display--modsevere { background: rgba(217,119,6,0.12); border-left: 3px solid #b45309; }
+    .score-display--severe { background: rgba(220,38,38,0.08); border-left: 3px solid #dc2626; }
+
+    .score-display__number {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      font-family: var(--font-display);
+      min-width: 48px;
+      text-align: center;
+    }
+
+    .score-display__info {
+      flex: 1;
+    }
+
+    .score-display__label {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--stone);
+    }
+
+    .score-display__severity {
+      font-size: var(--text-xs);
+      color: var(--stone-light);
+      margin-top: 2px;
+    }
+
+    /* ── Safety Alert (triggered by C-SSRS / PHQ-9 Q9) ── */
+    .safety-alert {
+      background: rgba(220, 38, 38, 0.06);
+      border: 1.5px solid rgba(220, 38, 38, 0.2);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+      display: none;
+    }
+
+    .safety-alert--visible {
+      display: block;
+      animation: fadeSlideIn 0.4s ease both;
+    }
+
+    .safety-alert__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .safety-alert__icon {
+      width: 32px;
+      height: 32px;
+      color: #dc2626;
+      flex-shrink: 0;
+    }
+
+    .safety-alert__title {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: #991b1b;
+    }
+
+    .safety-alert__body {
+      font-size: var(--text-sm);
+      color: #7f1d1d;
+      line-height: 1.6;
+    }
+
+    .safety-alert__resources {
+      margin-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .safety-alert__resource {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: #991b1b;
+      text-decoration: none;
+    }
+
+    .safety-alert__resource:hover {
+      background: rgba(220, 38, 38, 0.04);
+    }
+
+    /* ── E-Signature Canvas ── */
+    .sig-pad-wrap {
+      border: 2px dashed rgba(var(--ocean-deep-rgb), 0.15);
+      border-radius: var(--radius-md);
+      background: var(--fog);
+      padding: 4px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .sig-pad-wrap--active {
+      border-color: var(--ocean);
+      border-style: solid;
+    }
+
+    .sig-pad-wrap--signed {
+      border-color: var(--sage);
+      border-style: solid;
+      background: rgba(107, 143, 107, 0.04);
+    }
+
+    .sig-canvas {
+      width: 100%;
+      height: 120px;
+      display: block;
+      cursor: crosshair;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      touch-action: none;
+    }
+
+    .sig-placeholder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: var(--text-sm);
+      color: var(--pebble-light);
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .sig-pad-wrap--active .sig-placeholder,
+    .sig-pad-wrap--signed .sig-placeholder {
+      opacity: 0;
+    }
+
+    .sig-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sig-clear-btn {
+      font-size: var(--text-xs);
+      color: var(--ocean);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      padding: 4px 8px;
+    }
+
+    .sig-timestamp {
+      font-size: 0.62rem;
+      color: var(--pebble-light);
+      font-family: monospace;
+    }
+
+    /* ── Consent Accordion ── */
+    .consent-item {
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .consent-item__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      cursor: pointer;
+      background: var(--white);
+      transition: background 0.15s ease;
+    }
+
+    .consent-item__header:hover {
+      background: var(--fog);
+    }
+
+    .consent-item__title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--stone);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .consent-item__status {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+    }
+
+    .consent-item__status--pending {
+      background: rgba(217, 119, 6, 0.1);
+      color: #b45309;
+    }
+
+    .consent-item__status--signed {
+      background: rgba(107, 143, 107, 0.12);
+      color: #3d6b3d;
+    }
+
+    .consent-item__chevron {
+      width: 18px;
+      height: 18px;
+      color: var(--pebble);
+      transition: transform 0.2s ease;
+    }
+
+    .consent-item--open .consent-item__chevron {
+      transform: rotate(180deg);
+    }
+
+    .consent-item__body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .consent-item--open .consent-item__body {
+      max-height: 2000px;
+    }
+
+    .consent-item__content {
+      padding: 0 16px 16px;
+      font-size: var(--text-xs);
+      color: var(--stone-light);
+      line-height: 1.7;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .consent-item__content h4 {
+      font-size: var(--text-sm);
+      color: var(--ocean-deep);
+      margin: var(--space-md) 0 var(--space-xs);
+    }
+
+    .consent-item__content ul {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+
+    .consent-item__sig-area {
+      padding: 16px;
+      background: var(--fog);
+      border-top: 1px solid rgba(var(--ocean-deep-rgb), 0.06);
+    }
+
+    /* ── Scheduling Embed (Step 5) ── */
+    .sched-embed {
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .sched-embed__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--fog);
+    }
+
+    .sched-embed__provider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sched-embed__avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--ocean-wash);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--ocean);
+    }
+
+    .sched-embed__name {
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--ocean-deep);
+    }
+
+    .sched-embed__title {
+      font-size: var(--text-xs);
+      color: var(--pebble);
+    }
+
+    .sched-embed__format-toggle {
+      display: flex;
+      background: var(--fog);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .sched-embed__format-btn {
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      color: var(--pebble);
+      background: transparent;
+      transition: all 0.15s ease;
+    }
+
+    .sched-embed__format-btn--active {
+      background: var(--white);
+      color: var(--ocean-deep);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .sched-embed__calendar {
+      padding: 16px;
+    }
+
+    .sched-embed__week-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .sched-embed__week-label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ocean-deep);
+    }
+
+    .sched-embed__days {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .sched-embed__day {
+      text-align: center;
+    }
+
+    .sched-embed__day-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--pebble);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .sched-embed__day-num {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--ocean-deep);
+      margin-bottom: 8px;
+    }
+
+    .sched-embed__slots {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sched-embed__slot {
+      padding: 8px 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ocean);
+      background: rgba(var(--ocean-rgb), 0.05);
+      border: 1.5px solid rgba(var(--ocean-rgb), 0.12);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+
+    .sched-embed__slot:hover {
+      background: rgba(var(--ocean-rgb), 0.1);
+      border-color: var(--ocean);
+    }
+
+    .sched-embed__slot--selected {
+      background: var(--ocean);
+      color: var(--white);
+      border-color: var(--ocean);
+    }
+
+    .sched-embed__slot--unavail {
+      color: var(--pebble-light);
+      background: var(--fog);
+      border-color: transparent;
+      cursor: default;
+      text-decoration: line-through;
+    }
+
+    .sched-embed__no-slots {
+      padding: 20px;
+      text-align: center;
+      font-size: var(--text-xs);
+      color: var(--pebble);
+    }
+
+    /* ── Confirmation Panel ── */
+    .confirm-panel {
+      text-align: center;
+      padding: var(--space-2xl) var(--space-lg);
+    }
+
+    .confirm-panel__icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(107, 143, 107, 0.1);
+      color: var(--sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .confirm-panel__icon svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .confirm-panel__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 500;
+      color: var(--ocean-deep);
+      margin-bottom: var(--space-sm);
+    }
+
+    .confirm-panel__msg {
+      font-size: var(--text-sm);
+      color: var(--stone-light);
+      max-width: 440px;
+      margin: 0 auto var(--space-xl);
+      line-height: 1.6;
+    }
+
+    /* ── Navigation Buttons ── */
+    .wizard-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--fog);
+      gap: 12px;
+    }
+
+    .wizard-nav__back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--stone-light);
+      background: none;
+      border: 1.5px solid rgba(var(--ocean-deep-rgb), 0.12);
+      border-radius: var(--radius-full);
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .wizard-nav__back:hover {
+      border-color: var(--ocean);
+      color: var(--ocean);
+    }
+
+    .wizard-nav__back svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .wizard-nav__next {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--white);
+      background: var(--ocean);
+      border: none;
+      border-radius: var(--radius-full);
+      padding: 12px 28px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-left: auto;
+    }
+
+    .wizard-nav__next:hover {
+      background: var(--ocean-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(var(--ocean-deep-rgb), 0.2);
+    }
+
+    .wizard-nav__next:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .wizard-nav__next svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── Auto-save indicator ── */
+    .autosave-indicator {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--fog);
+      border-radius: var(--radius-full);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--pebble);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.3s ease;
+      z-index: 50;
+    }
+
+    .autosave-indicator--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .autosave-indicator--saving {
+      color: var(--ocean);
+    }
+
+    .autosave-indicator--saved {
+      color: var(--sage);
+    }
+
+    .autosave-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .autosave-indicator--saving .autosave-dot {
+      animation: pulse 1s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── Estimated Time Remaining ── */
+    .time-estimate {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      color: var(--pebble);
+    }
+
+    .time-estimate svg {
+      width: 14px;
+      height: 14px;
+    }
+  </style>
+</head>
+<body class="intake-page">
+  <a href="#wizard-main" class="skip-link">Skip to intake form</a>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PROGRESS BAR (sticky)
+       ═══════════════════════════════════════════════════════ -->
+  <div class="progress-bar" role="navigation" aria-label="Intake progress">
+    <div class="progress-bar__inner">
+      <div class="progress-steps">
+        <div class="progress-step progress-step--active" data-step="1">
+          <span class="progress-step__num">1</span>
+          <span class="progress-step__label">Screening</span>
+        </div>
+        <div class="progress-step__connector"></div>
+        <div class="progress-step" data-step="2">
+          <span class="progress-step__num">2</span>
+          <span class="progress-step__label">Registration</span>
+        </div>
+        <div class="progress-step__connector"></div>
+        <div class="progress-step" data-step="3">
+          <span class="progress-step__num">3</span>
+          <span class="progress-step__label">Assessments</span>
+        </div>
+        <div class="progress-step__connector"></div>
+        <div class="progress-step" data-step="4">
+          <span class="progress-step__num">4</span>
+          <span class="progress-step__label">Consents</span>
+        </div>
+        <div class="progress-step__connector"></div>
+        <div class="progress-step" data-step="5">
+          <span class="progress-step__num">5</span>
+          <span class="progress-step__label">Schedule</span>
+        </div>
+        <div class="progress-step__connector"></div>
+        <div class="progress-step" data-step="6">
+          <span class="progress-step__num">6</span>
+          <span class="progress-step__label">Confirmed</span>
+        </div>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-track__fill" id="progress-fill" style="width: 8%;"></div>
+      </div>
+
+      <div class="progress-meta">
+        <span id="progress-label">Step 1 of 6</span>
+        <span class="time-estimate" id="time-estimate">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          ~15 minutes remaining
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       WIZARD CONTAINER
+       ═══════════════════════════════════════════════════════ -->
+  <div class="intake-container" id="wizard-main">
+
+    <!-- ═══════════════════════════════════════════════════
+         STEP 1: ELIGIBILITY SCREENING
+         Quick questions that route the patient to the
+         correct provider and determine required forms.
+         ═══════════════════════════════════════════════════ -->
+    <div class="wizard-step wizard-step--active" id="step-1" data-step="1" role="region" aria-label="Eligibility screening">
+
+      <div class="step-header">
+        <p class="step-header__eyebrow">Step 1 of 6</p>
+        <h1 class="step-header__title">Let's Get Started</h1>
+        <p class="step-header__desc">
+          A few quick questions to match you with the right provider and prepare your visit. This takes about 2 minutes.
+        </p>
+      </div>
+
+      <!-- Reason for visit -->
+      <div class="form-section">
+        <h2 class="form-section__title">What brings you in?</h2>
+        <p class="form-section__desc">Select all that apply. This helps us prepare for your consultation.</p>
+
+        <div class="field-group">
+          <div class="check-group check-group--grid" id="reasons">
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="depression" />
+              <span>
+                <span class="check-option__label">Depression</span>
+                <span class="check-option__desc">Low mood, loss of interest, fatigue</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="anxiety" />
+              <span>
+                <span class="check-option__label">Anxiety</span>
+                <span class="check-option__desc">Excessive worry, panic, nervousness</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="bipolar" />
+              <span>
+                <span class="check-option__label">Bipolar Disorder</span>
+                <span class="check-option__desc">Mood swings, manic episodes</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="ptsd" />
+              <span>
+                <span class="check-option__label">PTSD / Trauma</span>
+                <span class="check-option__desc">Flashbacks, hypervigilance, avoidance</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="adhd" />
+              <span>
+                <span class="check-option__label">ADHD</span>
+                <span class="check-option__desc">Inattention, impulsivity, hyperactivity</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="ocd" />
+              <span>
+                <span class="check-option__label">OCD</span>
+                <span class="check-option__desc">Obsessive thoughts, compulsive behaviors</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="insomnia" />
+              <span>
+                <span class="check-option__label">Insomnia / Sleep Issues</span>
+                <span class="check-option__desc">Difficulty falling or staying asleep</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="tms" />
+              <span>
+                <span class="check-option__label">TMS Therapy</span>
+                <span class="check-option__desc">Interested in transcranial magnetic stimulation</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="ketamine" />
+              <span>
+                <span class="check-option__label">Ketamine / Spravato</span>
+                <span class="check-option__desc">Interested in ketamine infusions or Spravato</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="medication" />
+              <span>
+                <span class="check-option__label">Medication Management</span>
+                <span class="check-option__desc">Start, adjust, or review psychiatric medications</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="therapy" />
+              <span>
+                <span class="check-option__label">Therapy / Counseling</span>
+                <span class="check-option__desc">Talk therapy, CBT, psychotherapy</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="reason" value="other" />
+              <span>
+                <span class="check-option__label">Other / Not Sure</span>
+                <span class="check-option__desc">I'd like to discuss my options</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Conditional: other reason text -->
+        <div class="field-group" id="reason-other-wrap" style="display:none;">
+          <label class="field-label" for="reason-other">Please describe:</label>
+          <textarea class="field-textarea" id="reason-other" name="reasonOther" rows="3" placeholder="Tell us more about what you're experiencing..."></textarea>
+        </div>
+      </div>
+
+      <!-- Treatment history (for routing) -->
+      <div class="form-section">
+        <h2 class="form-section__title">Treatment History</h2>
+        <p class="form-section__desc">This helps us determine the best path for your care.</p>
+
+        <div class="field-group">
+          <label class="field-label field-label--required">Have you previously tried psychiatric medication?</label>
+          <div class="check-group">
+            <label class="check-option">
+              <input type="radio" name="priorMeds" value="none" />
+              <span class="check-option__label">No, this would be my first time</span>
+            </label>
+            <label class="check-option">
+              <input type="radio" name="priorMeds" value="1-2" />
+              <span class="check-option__label">Yes, 1-2 medications</span>
+            </label>
+            <label class="check-option">
+              <input type="radio" name="priorMeds" value="3+" />
+              <span>
+                <span class="check-option__label">Yes, 3 or more medications</span>
+                <span class="check-option__desc">You may qualify for advanced treatments like TMS or ketamine</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label field-label--required">Are you currently seeing a psychiatrist or therapist?</label>
+          <div class="check-group">
+            <label class="check-option">
+              <input type="radio" name="currentProvider" value="none" />
+              <span class="check-option__label">No</span>
+            </label>
+            <label class="check-option">
+              <input type="radio" name="currentProvider" value="therapist" />
+              <span class="check-option__label">Yes, a therapist only</span>
+            </label>
+            <label class="check-option">
+              <input type="radio" name="currentProvider" value="psychiatrist" />
+              <span class="check-option__label">Yes, a psychiatrist (switching providers)</span>
+            </label>
+            <label class="check-option">
+              <input type="radio" name="currentProvider" value="both" />
+              <span class="check-option__label">Yes, both a therapist and psychiatrist</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insurance / Payment -->
+      <div class="form-section">
+        <h2 class="form-section__title">Insurance & Payment</h2>
+
+        <div class="field-group">
+          <label class="field-label field-label--required">How would you like to pay?</label>
+          <div class="check-group">
+            <label class="check-option">
+              <input type="radio" name="paymentType" value="insurance" />
+              <span>
+                <span class="check-option__label">Insurance</span>
+                <span class="check-option__desc">We accept most major plans</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="radio" name="paymentType" value="self-pay" />
+              <span>
+                <span class="check-option__label">Self-Pay</span>
+                <span class="check-option__desc">Transparent pricing, superbill provided for reimbursement</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="radio" name="paymentType" value="unsure" />
+              <span class="check-option__label">I'm not sure yet</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Conditional: Insurance details -->
+        <div id="insurance-details" style="display:none;">
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label field-label--required" for="insurance-carrier">Insurance Carrier</label>
+              <select class="field-select" id="insurance-carrier" name="insuranceCarrier">
+                <option value="">Select your plan...</option>
+                <option value="aetna">Aetna</option>
+                <option value="anthem">Anthem Blue Cross</option>
+                <option value="blueshield">Blue Shield of CA</option>
+                <option value="cigna">Cigna</option>
+                <option value="healthnet">Health Net</option>
+                <option value="kaiser">Kaiser (out-of-network only)</option>
+                <option value="medicare">Medicare</option>
+                <option value="tricare">TRICARE</option>
+                <option value="uhc">UnitedHealthcare</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="insurance-id">Member ID</label>
+              <input type="text" class="field-input" id="insurance-id" name="insuranceId" placeholder="Found on your insurance card" />
+            </div>
+          </div>
+
+          <div id="kaiser-notice" style="display:none;" class="field-hint" role="alert">
+            <strong style="color:#b45309;">Note:</strong> Kaiser members are typically seen out-of-network. We can provide superbills for potential reimbursement. Self-pay rates apply at time of service.
+          </div>
+        </div>
+      </div>
+
+      <!-- Location verification -->
+      <div class="form-section">
+        <h2 class="form-section__title">Location</h2>
+
+        <div class="field-group">
+          <label class="field-label field-label--required">Are you currently located in California?</label>
+          <div class="check-group">
+            <label class="check-option">
+              <input type="radio" name="inCalifornia" value="yes" />
+              <span class="check-option__label">Yes, I'm in California</span>
+            </label>
+            <label class="check-option">
+              <input type="radio" name="inCalifornia" value="no" />
+              <span class="check-option__label">No, I'm in another state</span>
+            </label>
+          </div>
+
+          <!-- Out-of-state notice -->
+          <div id="out-of-state-notice" style="display:none;" class="safety-alert safety-alert--visible" role="alert">
+            <div class="safety-alert__header">
+              <svg class="safety-alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              <span class="safety-alert__title" style="color:#b45309;">Out-of-State Notice</span>
+            </div>
+            <div class="safety-alert__body" style="color:#78350f;">
+              Our providers are licensed in California and can only treat patients physically located in California at the time of their appointment. If you plan to be in California for your visit, you may proceed. Otherwise, we can help you find a provider in your state.
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label field-label--required">Visit preference:</label>
+          <div class="check-group">
+            <label class="check-option">
+              <input type="radio" name="visitFormat" value="telehealth" />
+              <span>
+                <span class="check-option__label">Telehealth (Video)</span>
+                <span class="check-option__desc">Convenient video appointment from home</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="radio" name="visitFormat" value="in-person" />
+              <span>
+                <span class="check-option__label">In-Person</span>
+                <span class="check-option__desc">Visit our Menlo Park office</span>
+              </span>
+            </label>
+            <label class="check-option">
+              <input type="radio" name="visitFormat" value="either" />
+              <span class="check-option__label">No preference</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label field-label--required">Age</label>
+            <select class="field-select" id="age-range" name="ageRange">
+              <option value="">Select...</option>
+              <option value="under18">Under 18</option>
+              <option value="18-25">18–25</option>
+              <option value="26-39">26–39</option>
+              <option value="40-54">40–54</option>
+              <option value="55-64">55–64</option>
+              <option value="65+">65+</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">How did you hear about us?</label>
+            <select class="field-select" id="referral-source" name="referralSource">
+              <option value="">Select...</option>
+              <option value="google">Google Search</option>
+              <option value="psychology-today">Psychology Today</option>
+              <option value="instagram">Instagram</option>
+              <option value="doctor-referral">Doctor Referral</option>
+              <option value="therapist-referral">Therapist Referral</option>
+              <option value="friend-family">Friend or Family</option>
+              <option value="insurance-directory">Insurance Directory</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Under 18 notice -->
+        <div id="minor-notice" style="display:none;" class="safety-alert safety-alert--visible" role="alert">
+          <div class="safety-alert__header">
+            <svg class="safety-alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#b45309;">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span class="safety-alert__title" style="color:#b45309;">Patients Under 18</span>
+          </div>
+          <div class="safety-alert__body" style="color:#78350f;">
+            We welcome adolescent patients ages 15–17 with parental consent. A parent or legal guardian must complete this intake and be present at the initial evaluation. Please call us at <strong>(650) 555-0000</strong> so we can guide you through the process.
+          </div>
+        </div>
+      </div>
+
+      <!-- Provider match preview (populated by JS) -->
+      <div class="form-section" id="provider-match" style="display:none;">
+        <h2 class="form-section__title">Your Recommended Provider</h2>
+        <div id="provider-match-content"></div>
+      </div>
+
+      <!-- Step 1 Navigation -->
+      <div class="wizard-nav">
+        <span></span>
+        <button type="button" class="wizard-nav__next" id="step1-next" disabled>
+          Continue to Registration
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+         STEP 2: REGISTRATION + HISTORY
+         Full demographics, psychiatric history, medications,
+         substance use, medical history.
+         ═══════════════════════════════════════════════════ -->
+    <div class="wizard-step" id="step-2" data-step="2" role="region" aria-label="Registration and history">
+
+      <div class="step-header">
+        <p class="step-header__eyebrow">Step 2 of 6</p>
+        <h1 class="step-header__title">About You</h1>
+        <p class="step-header__desc">
+          Complete your registration and provide your clinical history. This information will be available to your provider before your first visit. Takes about 8–12 minutes.
+        </p>
+      </div>
+
+      <!-- Demographics -->
+      <div class="form-section">
+        <h2 class="form-section__title">Personal Information</h2>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label field-label--required" for="reg-first">First Name</label>
+            <input type="text" class="field-input" id="reg-first" name="firstName" autocomplete="given-name" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label field-label--required" for="reg-last">Last Name</label>
+            <input type="text" class="field-input" id="reg-last" name="lastName" autocomplete="family-name" required />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="reg-preferred">Preferred Name</label>
+            <input type="text" class="field-input" id="reg-preferred" name="preferredName" placeholder="If different from legal name" />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="reg-pronouns">Pronouns</label>
+            <select class="field-select" id="reg-pronouns" name="pronouns">
+              <option value="">Select...</option>
+              <option value="he/him">He/Him</option>
+              <option value="she/her">She/Her</option>
+              <option value="they/them">They/Them</option>
+              <option value="other">Other / Prefer to discuss</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row--3">
+          <div class="field-group">
+            <label class="field-label field-label--required" for="reg-dob">Date of Birth</label>
+            <input type="date" class="field-input" id="reg-dob" name="dateOfBirth" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="reg-sex">Sex Assigned at Birth</label>
+            <select class="field-select" id="reg-sex" name="sexAssigned">
+              <option value="">Select...</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="intersex">Intersex</option>
+              <option value="decline">Prefer not to say</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="reg-gender">Gender Identity</label>
+            <select class="field-select" id="reg-gender" name="genderIdentity">
+              <option value="">Select...</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="nonbinary">Non-binary</option>
+              <option value="genderfluid">Genderfluid</option>
+              <option value="other">Other</option>
+              <option value="decline">Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label field-label--required" for="reg-email">Email</label>
+            <input type="email" class="field-input" id="reg-email" name="email" autocomplete="email" required />
+            <p class="field-hint">Used for appointment confirmations and secure communications</p>
+          </div>
+          <div class="field-group">
+            <label class="field-label field-label--required" for="reg-phone">Phone</label>
+            <input type="tel" class="field-input" id="reg-phone" name="phone" autocomplete="tel" placeholder="(555) 555-0000" required />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label field-label--required" for="reg-address">Address</label>
+          <input type="text" class="field-input" id="reg-address" name="address" autocomplete="street-address" placeholder="Street address" />
+        </div>
+
+        <div class="field-row--3">
+          <div class="field-group">
+            <label class="field-label field-label--required" for="reg-city">City</label>
+            <input type="text" class="field-input" id="reg-city" name="city" autocomplete="address-level2" />
+          </div>
+          <div class="field-group">
+            <label class="field-label field-label--required" for="reg-state">State</label>
+            <input type="text" class="field-input" id="reg-state" name="state" value="CA" autocomplete="address-level1" />
+          </div>
+          <div class="field-group">
+            <label class="field-label field-label--required" for="reg-zip">ZIP</label>
+            <input type="text" class="field-input" id="reg-zip" name="zip" autocomplete="postal-code" maxlength="10" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="reg-language">Primary Language</label>
+          <div class="field-row">
+            <select class="field-select" id="reg-language" name="language">
+              <option value="english">English</option>
+              <option value="spanish">Spanish</option>
+              <option value="mandarin">Mandarin</option>
+              <option value="cantonese">Cantonese</option>
+              <option value="hindi">Hindi</option>
+              <option value="tagalog">Tagalog</option>
+              <option value="vietnamese">Vietnamese</option>
+              <option value="korean">Korean</option>
+              <option value="other">Other</option>
+            </select>
+            <div>
+              <label class="field-label" for="reg-interpreter">
+                <input type="checkbox" id="reg-interpreter" name="interpreterNeeded" style="accent-color:var(--ocean);margin-right:4px;" />
+                Interpreter needed
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency Contacts -->
+      <div class="form-section">
+        <h2 class="form-section__title">Emergency Contact</h2>
+        <p class="form-section__desc">Required for safety. This person may be contacted only in an emergency.</p>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label field-label--required" for="ec1-name">Contact Name</label>
+            <input type="text" class="field-input" id="ec1-name" name="emergencyName" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label field-label--required" for="ec1-relation">Relationship</label>
+            <select class="field-select" id="ec1-relation" name="emergencyRelation">
+              <option value="">Select...</option>
+              <option value="spouse">Spouse / Partner</option>
+              <option value="parent">Parent</option>
+              <option value="sibling">Sibling</option>
+              <option value="child">Adult Child</option>
+              <option value="friend">Friend</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label field-label--required" for="ec1-phone">Phone</label>
+            <input type="tel" class="field-input" id="ec1-phone" name="emergencyPhone" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="ec1-email">Email (optional)</label>
+            <input type="email" class="field-input" id="ec1-email" name="emergencyEmail" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Pharmacy -->
+      <div class="form-section">
+        <h2 class="form-section__title">Preferred Pharmacy</h2>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label field-label--required" for="pharm-name">Pharmacy Name</label>
+            <input type="text" class="field-input" id="pharm-name" name="pharmacyName" placeholder="e.g., CVS, Walgreens" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="pharm-phone">Pharmacy Phone</label>
+            <input type="tel" class="field-input" id="pharm-phone" name="pharmacyPhone" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="pharm-address">Pharmacy Address / Cross Streets</label>
+          <input type="text" class="field-input" id="pharm-address" name="pharmacyAddress" placeholder="Street or intersection to identify location" />
+        </div>
+      </div>
+
+      <!-- Primary Care Provider -->
+      <div class="form-section">
+        <h2 class="form-section__title">Primary Care Provider</h2>
+        <p class="form-section__desc">Optional. Helps us coordinate your medical care.</p>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="pcp-name">PCP Name</label>
+            <input type="text" class="field-input" id="pcp-name" name="pcpName" />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="pcp-practice">Practice / Clinic Name</label>
+            <input type="text" class="field-input" id="pcp-practice" name="pcpPractice" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="pcp-phone">Phone / Fax</label>
+          <input type="tel" class="field-input" id="pcp-phone" name="pcpPhone" />
+        </div>
+      </div>
+
+      <!-- Psychiatric History -->
+      <div class="form-section">
+        <h2 class="form-section__title">Psychiatric History</h2>
+
+        <div class="field-group">
+          <label class="field-label field-label--required">Current symptoms — what are you experiencing now?</label>
+          <textarea class="field-textarea" name="chiefComplaint" rows="4" placeholder="In your own words, describe what you've been going through recently..." required></textarea>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Have you been diagnosed with any of the following?</label>
+          <div class="check-group check-group--grid">
+            <label class="check-option"><input type="checkbox" name="dx" value="mdd" /><span class="check-option__label">Major Depression</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="gad" /><span class="check-option__label">Generalized Anxiety</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="panic" /><span class="check-option__label">Panic Disorder</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="bipolar" /><span class="check-option__label">Bipolar Disorder</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="ptsd" /><span class="check-option__label">PTSD</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="ocd" /><span class="check-option__label">OCD</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="adhd" /><span class="check-option__label">ADHD</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="eating" /><span class="check-option__label">Eating Disorder</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="sud" /><span class="check-option__label">Substance Use Disorder</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="personality" /><span class="check-option__label">Personality Disorder</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="psychotic" /><span class="check-option__label">Psychotic Disorder</span></label>
+            <label class="check-option"><input type="checkbox" name="dx" value="none" /><span class="check-option__label">No prior diagnoses</span></label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Have you ever been hospitalized for a psychiatric reason?</label>
+          <div class="check-group">
+            <label class="check-option"><input type="radio" name="priorHospital" value="no" /><span class="check-option__label">No</span></label>
+            <label class="check-option"><input type="radio" name="priorHospital" value="yes" /><span class="check-option__label">Yes</span></label>
+          </div>
+        </div>
+
+        <div class="field-group" id="hospital-detail-wrap" style="display:none;">
+          <label class="field-label">Please describe (when, where, reason):</label>
+          <textarea class="field-textarea" name="hospitalDetail" rows="3" placeholder="Include approximate dates and facility names if you remember"></textarea>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Have you ever attempted suicide?</label>
+          <div class="check-group">
+            <label class="check-option"><input type="radio" name="priorAttempt" value="no" /><span class="check-option__label">No</span></label>
+            <label class="check-option"><input type="radio" name="priorAttempt" value="yes" /><span class="check-option__label">Yes</span></label>
+            <label class="check-option"><input type="radio" name="priorAttempt" value="decline" /><span class="check-option__label">Prefer to discuss in person</span></label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Have you ever engaged in self-harm (cutting, burning, etc.)?</label>
+          <div class="check-group">
+            <label class="check-option"><input type="radio" name="selfHarm" value="no" /><span class="check-option__label">No</span></label>
+            <label class="check-option"><input type="radio" name="selfHarm" value="past" /><span class="check-option__label">In the past, not currently</span></label>
+            <label class="check-option"><input type="radio" name="selfHarm" value="current" /><span class="check-option__label">Currently</span></label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Family psychiatric history — has anyone in your immediate family been diagnosed with:</label>
+          <div class="check-group check-group--grid">
+            <label class="check-option"><input type="checkbox" name="familyDx" value="depression" /><span class="check-option__label">Depression</span></label>
+            <label class="check-option"><input type="checkbox" name="familyDx" value="anxiety" /><span class="check-option__label">Anxiety</span></label>
+            <label class="check-option"><input type="checkbox" name="familyDx" value="bipolar" /><span class="check-option__label">Bipolar Disorder</span></label>
+            <label class="check-option"><input type="checkbox" name="familyDx" value="schizophrenia" /><span class="check-option__label">Schizophrenia</span></label>
+            <label class="check-option"><input type="checkbox" name="familyDx" value="suicide" /><span class="check-option__label">Suicide</span></label>
+            <label class="check-option"><input type="checkbox" name="familyDx" value="substance" /><span class="check-option__label">Substance Abuse</span></label>
+            <label class="check-option"><input type="checkbox" name="familyDx" value="adhd" /><span class="check-option__label">ADHD</span></label>
+            <label class="check-option"><input type="checkbox" name="familyDx" value="unknown" /><span class="check-option__label">Unknown / Not sure</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Current Medications -->
+      <div class="form-section">
+        <h2 class="form-section__title">Current Medications</h2>
+        <p class="form-section__desc">List all medications you're currently taking, including psychiatric, medical, supplements, and OTC.</p>
+
+        <div id="med-list">
+          <!-- Dynamically generated medication rows -->
+        </div>
+        <button type="button" class="wizard-nav__back" id="add-med-btn" style="margin-top:8px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Medication
+        </button>
+
+        <div class="field-group" style="margin-top:var(--space-md);">
+          <label class="field-label">Allergies to medications:</label>
+          <textarea class="field-textarea" name="allergies" rows="2" placeholder="List any medication allergies and reactions (e.g., 'Penicillin — hives')"></textarea>
+        </div>
+      </div>
+
+      <!-- Past Psychiatric Medications -->
+      <div class="form-section">
+        <h2 class="form-section__title">Past Psychiatric Medications</h2>
+        <p class="form-section__desc">Medications you've tried in the past for mental health. This is important for treatment planning.</p>
+
+        <div id="past-med-list">
+          <!-- Dynamically generated past medication rows -->
+        </div>
+        <button type="button" class="wizard-nav__back" id="add-past-med-btn" style="margin-top:8px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Past Medication
+        </button>
+      </div>
+
+      <!-- Substance Use -->
+      <div class="form-section">
+        <h2 class="form-section__title">Substance Use</h2>
+        <p class="form-section__desc">This information is confidential and helps ensure safe treatment.</p>
+
+        <div class="field-group">
+          <label class="field-label">Alcohol — how often do you have a drink containing alcohol?</label>
+          <div class="check-group">
+            <label class="check-option"><input type="radio" name="alcoholFreq" value="never" /><span class="check-option__label">Never</span></label>
+            <label class="check-option"><input type="radio" name="alcoholFreq" value="monthly" /><span class="check-option__label">Monthly or less</span></label>
+            <label class="check-option"><input type="radio" name="alcoholFreq" value="weekly" /><span class="check-option__label">2-4 times per week</span></label>
+            <label class="check-option"><input type="radio" name="alcoholFreq" value="daily" /><span class="check-option__label">Daily or almost daily</span></label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Cannabis use:</label>
+          <div class="check-group">
+            <label class="check-option"><input type="radio" name="cannabis" value="never" /><span class="check-option__label">Never</span></label>
+            <label class="check-option"><input type="radio" name="cannabis" value="past" /><span class="check-option__label">In the past, not currently</span></label>
+            <label class="check-option"><input type="radio" name="cannabis" value="occasional" /><span class="check-option__label">Occasionally</span></label>
+            <label class="check-option"><input type="radio" name="cannabis" value="regular" /><span class="check-option__label">Regularly</span></label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Other substances (select all that apply):</label>
+          <div class="check-group check-group--grid">
+            <label class="check-option"><input type="checkbox" name="substance" value="none" /><span class="check-option__label">None</span></label>
+            <label class="check-option"><input type="checkbox" name="substance" value="tobacco" /><span class="check-option__label">Tobacco / Nicotine</span></label>
+            <label class="check-option"><input type="checkbox" name="substance" value="stimulants" /><span class="check-option__label">Stimulants (cocaine, meth)</span></label>
+            <label class="check-option"><input type="checkbox" name="substance" value="opioids" /><span class="check-option__label">Opioids</span></label>
+            <label class="check-option"><input type="checkbox" name="substance" value="benzos" /><span class="check-option__label">Benzodiazepines (non-Rx)</span></label>
+            <label class="check-option"><input type="checkbox" name="substance" value="psychedelics" /><span class="check-option__label">Psychedelics</span></label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Have you ever received treatment for substance use?</label>
+          <div class="check-group">
+            <label class="check-option"><input type="radio" name="sudTreatment" value="no" /><span class="check-option__label">No</span></label>
+            <label class="check-option"><input type="radio" name="sudTreatment" value="yes" /><span class="check-option__label">Yes</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medical History -->
+      <div class="form-section">
+        <h2 class="form-section__title">Medical History</h2>
+        <p class="form-section__desc">Important for medication safety and treatment eligibility (especially TMS and ketamine).</p>
+
+        <div class="field-group">
+          <label class="field-label">Current medical conditions (select all that apply):</label>
+          <div class="check-group check-group--grid">
+            <label class="check-option"><input type="checkbox" name="medical" value="none" /><span class="check-option__label">None</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="hypertension" /><span class="check-option__label">High Blood Pressure</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="diabetes" /><span class="check-option__label">Diabetes</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="thyroid" /><span class="check-option__label">Thyroid Disorder</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="cardiac" /><span class="check-option__label">Heart Disease</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="seizure" /><span class="check-option__label">Seizure Disorder / Epilepsy</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="tbi" /><span class="check-option__label">Head Injury / TBI</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="migraine" /><span class="check-option__label">Migraines</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="chronic-pain" /><span class="check-option__label">Chronic Pain</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="autoimmune" /><span class="check-option__label">Autoimmune Disorder</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="liver" /><span class="check-option__label">Liver Disease</span></label>
+            <label class="check-option"><input type="checkbox" name="medical" value="kidney" /><span class="check-option__label">Kidney Disease</span></label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Other medical conditions or surgical history:</label>
+          <textarea class="field-textarea" name="medicalOther" rows="3" placeholder="List any other conditions, surgeries, or hospitalizations"></textarea>
+        </div>
+
+        <!-- TMS-critical questions -->
+        <div class="field-group" id="tms-safety-qs" style="display:none;">
+          <label class="field-label" style="color:#b45309;font-weight:700;">⚡ TMS Safety Questions</label>
+          <p class="form-section__desc">Required for TMS evaluation. These conditions may affect eligibility.</p>
+          <div class="check-group">
+            <label class="check-option"><input type="radio" name="tmsMetalImplant" value="no" /><span class="check-option__label">No metallic implants in or near my head</span></label>
+            <label class="check-option"><input type="radio" name="tmsMetalImplant" value="yes" /><span><span class="check-option__label">I have metallic implants near my head</span><span class="check-option__desc">Includes cochlear implants, deep brain stimulators, aneurysm clips (dental work is OK)</span></span></label>
+          </div>
+          <div class="check-group" style="margin-top:10px;">
+            <label class="check-option"><input type="radio" name="tmsSeizureHx" value="no" /><span class="check-option__label">No history of seizures</span></label>
+            <label class="check-option"><input type="radio" name="tmsSeizureHx" value="yes" /><span class="check-option__label">I have a history of seizures or epilepsy</span></label>
+          </div>
+        </div>
+
+        <!-- Ketamine-critical questions -->
+        <div class="field-group" id="ket-safety-qs" style="display:none;">
+          <label class="field-label" style="color:#2a8a9e;font-weight:700;">💧 Ketamine Safety Questions</label>
+          <p class="form-section__desc">Required for ketamine/Spravato evaluation.</p>
+          <div class="check-group">
+            <label class="check-option"><input type="radio" name="ketBP" value="controlled" /><span class="check-option__label">My blood pressure is normal or controlled with medication</span></label>
+            <label class="check-option"><input type="radio" name="ketBP" value="uncontrolled" /><span class="check-option__label">I have uncontrolled high blood pressure</span></label>
+          </div>
+          <div class="check-group" style="margin-top:10px;">
+            <label class="check-option"><input type="radio" name="ketPsychosis" value="no" /><span class="check-option__label">No history of psychotic symptoms</span></label>
+            <label class="check-option"><input type="radio" name="ketPsychosis" value="yes" /><span class="check-option__label">I have experienced psychotic symptoms (hallucinations, delusions)</span></label>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">Are you currently pregnant or planning pregnancy?</label>
+            <select class="field-select" name="pregnancy">
+              <option value="">Select...</option>
+              <option value="no">No</option>
+              <option value="yes">Yes, currently pregnant</option>
+              <option value="planning">Planning pregnancy</option>
+              <option value="breastfeeding">Currently breastfeeding</option>
+              <option value="na">Not applicable</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Do you have a history of head injury or concussion?</label>
+            <select class="field-select" name="headInjury">
+              <option value="">Select...</option>
+              <option value="no">No</option>
+              <option value="mild">Yes, mild (no loss of consciousness)</option>
+              <option value="moderate">Yes, moderate (brief loss of consciousness)</option>
+              <option value="severe">Yes, severe (extended LOC or multiple TBIs)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social History -->
+      <div class="form-section">
+        <h2 class="form-section__title">Social History</h2>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">Marital / Relationship Status</label>
+            <select class="field-select" name="maritalStatus">
+              <option value="">Select...</option>
+              <option value="single">Single</option>
+              <option value="partnered">In a relationship</option>
+              <option value="married">Married / Domestic partner</option>
+              <option value="separated">Separated</option>
+              <option value="divorced">Divorced</option>
+              <option value="widowed">Widowed</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Living Situation</label>
+            <select class="field-select" name="livingSituation">
+              <option value="">Select...</option>
+              <option value="alone">Live alone</option>
+              <option value="partner">With spouse/partner</option>
+              <option value="family">With family</option>
+              <option value="roommates">With roommates</option>
+              <option value="group-home">Group home / Assisted living</option>
+              <option value="unstable">Unstable housing</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">Employment Status</label>
+            <select class="field-select" name="employment">
+              <option value="">Select...</option>
+              <option value="full-time">Full-time employed</option>
+              <option value="part-time">Part-time employed</option>
+              <option value="self-employed">Self-employed</option>
+              <option value="student">Student</option>
+              <option value="unemployed">Unemployed</option>
+              <option value="disabled">On disability</option>
+              <option value="retired">Retired</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="reg-occupation">Occupation</label>
+            <input type="text" class="field-input" id="reg-occupation" name="occupation" placeholder="Current or most recent" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">How would you rate your current sleep?</label>
+          <div class="check-group">
+            <label class="check-option"><input type="radio" name="sleep" value="good" /><span class="check-option__label">Good (6-8 hours, restful)</span></label>
+            <label class="check-option"><input type="radio" name="sleep" value="fair" /><span class="check-option__label">Fair (some difficulty, 5-6 hours)</span></label>
+            <label class="check-option"><input type="radio" name="sleep" value="poor" /><span class="check-option__label">Poor (significant difficulty, &lt;5 hours)</span></label>
+            <label class="check-option"><input type="radio" name="sleep" value="variable" /><span class="check-option__label">Highly variable</span></label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Anything else you'd like your provider to know before your first visit?</label>
+          <textarea class="field-textarea" name="additionalNotes" rows="4" placeholder="Goals for treatment, specific concerns, questions you'd like addressed..."></textarea>
+        </div>
+      </div>
+
+      <!-- Step 2 Navigation -->
+      <div class="wizard-nav">
+        <button type="button" class="wizard-nav__back" data-goto="1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back
+        </button>
+        <button type="button" class="wizard-nav__next" id="step2-next">
+          Continue to Assessments
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+         STEP 3: CLINICAL ASSESSMENTS
+         Auto-scored PHQ-9, GAD-7, C-SSRS screener,
+         plus conditional instruments based on Step 1 responses.
+         ═══════════════════════════════════════════════════ -->
+    <div class="wizard-step" id="step-3" data-step="3" role="region" aria-label="Clinical assessments">
+
+      <div class="step-header">
+        <p class="step-header__eyebrow">Step 3 of 6</p>
+        <h1 class="step-header__title">How You've Been Feeling</h1>
+        <p class="step-header__desc">
+          These standardized questionnaires help your provider understand your symptoms before your visit. Answer based on the <strong>past two weeks</strong>. Takes about 5–8 minutes.
+        </p>
+      </div>
+
+      <!-- PHQ-9 (Depression) -->
+      <div class="form-section" id="phq9-section">
+        <h2 class="form-section__title">PHQ-9 — Depression Screening</h2>
+        <p class="form-section__desc">Over the <strong>last 2 weeks</strong>, how often have you been bothered by the following problems?</p>
+
+        <div id="phq9-questions">
+          <!-- Generated by JavaScript — 9 questions × 4 options each -->
+        </div>
+
+        <div id="phq9-score" class="score-display" style="display:none;">
+          <div class="score-display__number" id="phq9-score-num">0</div>
+          <div class="score-display__info">
+            <div class="score-display__label">PHQ-9 Score</div>
+            <div class="score-display__severity" id="phq9-severity">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAD-7 (Anxiety) -->
+      <div class="form-section" id="gad7-section">
+        <h2 class="form-section__title">GAD-7 — Anxiety Screening</h2>
+        <p class="form-section__desc">Over the <strong>last 2 weeks</strong>, how often have you been bothered by the following problems?</p>
+
+        <div id="gad7-questions">
+          <!-- Generated by JavaScript — 7 questions × 4 options each -->
+        </div>
+
+        <div id="gad7-score" class="score-display" style="display:none;">
+          <div class="score-display__number" id="gad7-score-num">0</div>
+          <div class="score-display__info">
+            <div class="score-display__label">GAD-7 Score</div>
+            <div class="score-display__severity" id="gad7-severity">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C-SSRS Screener (Suicide) -->
+      <div class="form-section" id="cssrs-section">
+        <h2 class="form-section__title">Safety Screening</h2>
+        <p class="form-section__desc">These questions help us ensure your safety. Please answer honestly — your responses are confidential and help us provide the best care.</p>
+
+        <div id="cssrs-questions">
+          <!-- Generated by JavaScript — 6 yes/no questions -->
+        </div>
+      </div>
+
+      <!-- Safety Alert (shown if C-SSRS or PHQ-9 Q9 triggers) -->
+      <div class="safety-alert" id="safety-alert" role="alert">
+        <div class="safety-alert__header">
+          <svg class="safety-alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 9v4m0 4h.01M3.262 17.036L10.607 3.573c.63-1.22 2.156-1.22 2.786 0l7.345 13.463C21.357 18.28 20.59 19.5 19.345 19.5H4.655c-1.245 0-2.012-1.22-1.393-2.464z"/>
+          </svg>
+          <span class="safety-alert__title">You're Not Alone</span>
+        </div>
+        <div class="safety-alert__body">
+          <p>Based on your responses, we want to make sure you have access to support right now. Your safety is our top priority.</p>
+          <p style="margin-top:8px;">You can still continue with your intake — we'll ensure your provider reviews this information before your visit. If you're in immediate danger, please use the resources below.</p>
+        </div>
+        <div class="safety-alert__resources">
+          <a href="tel:988" class="safety-alert__resource">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <strong>988 Suicide &amp; Crisis Lifeline</strong> — Call or text 988
+          </a>
+          <a href="sms:741741?body=HOME" class="safety-alert__resource">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <strong>Crisis Text Line</strong> — Text HOME to 741741
+          </a>
+          <a href="tel:911" class="safety-alert__resource">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <strong>Emergency</strong> — Call 911
+          </a>
+        </div>
+      </div>
+
+      <!-- Conditional: MDQ (Bipolar Screen) -->
+      <div class="form-section" id="mdq-section" style="display:none;">
+        <h2 class="form-section__title">MDQ — Mood Disorder Questionnaire</h2>
+        <p class="form-section__desc">Has there ever been a period of time when you were not your usual self and you...</p>
+        <div id="mdq-questions"><!-- JS generated --></div>
+      </div>
+
+      <!-- Conditional: PCL-5 (PTSD Screen — abbreviated 4-item) -->
+      <div class="form-section" id="pcl5-section" style="display:none;">
+        <h2 class="form-section__title">PC-PTSD-5 — Trauma Screening</h2>
+        <p class="form-section__desc">Sometimes things happen to people that are unusually or especially frightening, horrible, or traumatic.</p>
+        <div id="pcl5-questions"><!-- JS generated --></div>
+      </div>
+
+      <!-- Conditional: ASRS (ADHD Screen) -->
+      <div class="form-section" id="asrs-section" style="display:none;">
+        <h2 class="form-section__title">ASRS — ADHD Screening</h2>
+        <p class="form-section__desc">Please answer based on your experience over the <strong>past 6 months</strong>.</p>
+        <div id="asrs-questions"><!-- JS generated --></div>
+      </div>
+
+      <!-- Functional Impact Question -->
+      <div class="form-section">
+        <h2 class="form-section__title">Impact on Daily Life</h2>
+        <div class="field-group">
+          <label class="field-label field-label--required">How difficult have these problems made it for you to do your work, take care of things at home, or get along with other people?</label>
+          <div class="check-group">
+            <label class="check-option"><input type="radio" name="functionalImpact" value="not-difficult" /><span class="check-option__label">Not difficult at all</span></label>
+            <label class="check-option"><input type="radio" name="functionalImpact" value="somewhat" /><span class="check-option__label">Somewhat difficult</span></label>
+            <label class="check-option"><input type="radio" name="functionalImpact" value="very" /><span class="check-option__label">Very difficult</span></label>
+            <label class="check-option"><input type="radio" name="functionalImpact" value="extremely" /><span class="check-option__label">Extremely difficult</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 Navigation -->
+      <div class="wizard-nav">
+        <button type="button" class="wizard-nav__back" data-goto="2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back
+        </button>
+        <button type="button" class="wizard-nav__next" id="step3-next">
+          Continue to Consents
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+         STEP 4: CONSENTS + E-SIGNATURES
+         Accordion-style consent documents with canvas
+         signature capture for each.
+         ═══════════════════════════════════════════════════ -->
+    <div class="wizard-step" id="step-4" data-step="4" role="region" aria-label="Consent forms">
+
+      <div class="step-header">
+        <p class="step-header__eyebrow">Step 4 of 6</p>
+        <h1 class="step-header__title">Review &amp; Sign Consent Forms</h1>
+        <p class="step-header__desc">
+          Please read each document carefully and sign electronically. Your signature has the same legal effect as a handwritten signature. Takes about 3–5 minutes.
+        </p>
+      </div>
+
+      <div id="consent-list">
+        <!-- Consent items generated by JavaScript based on routing -->
+        <!-- Each consent follows this structure: -->
+        <!--
+        <div class="consent-item" data-consent="general">
+          <div class="consent-item__header">
+            <span class="consent-item__title">
+              <svg>...</svg>
+              General Consent to Treatment
+            </span>
+            <span class="consent-item__status consent-item__status--pending">REVIEW & SIGN</span>
+            <svg class="consent-item__chevron">...</svg>
+          </div>
+          <div class="consent-item__body">
+            <div class="consent-item__content">
+              [Full consent text]
+            </div>
+            <div class="consent-item__sig-area">
+              <div class="field-group">
+                <label class="field-label">I have read and understand this document:</label>
+                <label class="check-option">
+                  <input type="checkbox" class="consent-acknowledge" />
+                  <span class="check-option__label">I acknowledge I have read and understood this consent form</span>
+                </label>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Signature:</label>
+                <div class="sig-pad-wrap">
+                  <canvas class="sig-canvas"></canvas>
+                  <span class="sig-placeholder">Sign here with mouse or finger</span>
+                </div>
+                <div class="sig-actions">
+                  <button type="button" class="sig-clear-btn">Clear signature</button>
+                  <span class="sig-timestamp"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        -->
+      </div>
+
+      <!-- Consent completion summary -->
+      <div id="consent-summary" style="display:none;">
+        <div class="form-section" style="background:rgba(107,143,107,0.04);border-color:rgba(107,143,107,0.15);">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3d6b3d" stroke-width="2" width="24" height="24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div>
+              <div style="font-weight:700;color:#3d6b3d;">All Consents Signed</div>
+              <div style="font-size:0.75rem;color:#4d7a4d;" id="consent-count-label">0 of 0 documents completed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 Navigation -->
+      <div class="wizard-nav">
+        <button type="button" class="wizard-nav__back" data-goto="3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back
+        </button>
+        <button type="button" class="wizard-nav__next" id="step4-next" disabled>
+          Continue to Scheduling
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+         STEP 5: SELF-SCHEDULE
+         Shows available consultation slots for the
+         auto-matched provider. Reads real-time
+         availability from Google Calendar.
+         ═══════════════════════════════════════════════════ -->
+    <div class="wizard-step" id="step-5" data-step="5" role="region" aria-label="Schedule your consultation">
+
+      <div class="step-header">
+        <p class="step-header__eyebrow">Step 5 of 6</p>
+        <h1 class="step-header__title">Pick Your Appointment</h1>
+        <p class="step-header__desc">
+          Choose a time that works for you. Your initial consultation is <strong>60 minutes</strong>. All times shown are Pacific Time (PT).
+        </p>
+      </div>
+
+      <div class="sched-embed" id="sched-embed">
+        <!-- Provider Info Header -->
+        <div class="sched-embed__header">
+          <div class="sched-embed__provider">
+            <div class="sched-embed__avatar" id="embed-avatar">DB</div>
+            <div>
+              <div class="sched-embed__name" id="embed-provider-name">Dr. Bennett</div>
+              <div class="sched-embed__title" id="embed-provider-title">MD, Psychiatrist · Initial Consultation (60 min)</div>
+            </div>
+          </div>
+          <div class="sched-embed__format-toggle" id="embed-format-toggle">
+            <button type="button" class="sched-embed__format-btn sched-embed__format-btn--active" data-format="telehealth">
+              📹 Video
+            </button>
+            <button type="button" class="sched-embed__format-btn" data-format="in-person">
+              🏥 In-Person
+            </button>
+          </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="sched-embed__calendar">
+          <div class="sched-embed__week-nav">
+            <button type="button" class="wizard-nav__back" id="embed-prev-week" style="padding:6px 12px;font-size:0.72rem;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Prev
+            </button>
+            <span class="sched-embed__week-label" id="embed-week-label">January 20 – 24, 2025</span>
+            <button type="button" class="wizard-nav__back" id="embed-next-week" style="padding:6px 12px;font-size:0.72rem;">
+              Next
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <div class="sched-embed__days" id="embed-days">
+            <!-- Generated by JS: 5 day columns (Mon–Fri) each with time slots -->
+          </div>
+
+          <div class="sched-embed__no-slots" id="embed-no-slots" style="display:none;">
+            No available slots this week. Try the next week →
+          </div>
+        </div>
+
+        <!-- Selected slot confirmation bar -->
+        <div id="embed-selected" style="display:none;padding:16px 20px;background:rgba(var(--ocean-rgb),0.04);border-top:1px solid var(--fog);">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <div>
+              <div style="font-size:var(--text-xs);color:var(--pebble);font-weight:600;">Selected Appointment</div>
+              <div style="font-size:var(--text-base);font-weight:700;color:var(--ocean-deep);" id="embed-selected-text">—</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button type="button" class="wizard-nav__back" id="embed-change-btn" style="padding:6px 14px;font-size:0.72rem;">Change</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 Navigation -->
+      <div class="wizard-nav">
+        <button type="button" class="wizard-nav__back" data-goto="4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back
+        </button>
+        <button type="button" class="wizard-nav__next" id="step5-next" disabled>
+          Confirm &amp; Book Appointment
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+         STEP 6: CONFIRMATION
+         All done — shows appointment details, calendar
+         add links, and what to expect next.
+         ═══════════════════════════════════════════════════ -->
+    <div class="wizard-step" id="step-6" data-step="6" role="region" aria-label="Appointment confirmed">
+
+      <div class="confirm-panel">
+        <div class="confirm-panel__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h1 class="confirm-panel__title">You're All Set!</h1>
+        <p class="confirm-panel__msg">
+          Your consultation has been scheduled. A confirmation email with all the details has been sent to <strong id="confirm-email">your email</strong>.
+        </p>
+      </div>
+
+      <!-- Appointment Details Card -->
+      <div class="form-section" style="max-width:480px;margin:0 auto var(--space-lg);">
+        <h2 class="form-section__title" style="text-align:center;">Appointment Details</h2>
+        <table style="width:100%;border-collapse:collapse;">
+          <tbody id="confirm-details">
+            <!-- Generated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Zoom link (if telehealth) -->
+      <div id="confirm-zoom" style="display:none;max-width:480px;margin:0 auto var(--space-lg);">
+        <div class="form-section" style="background:rgba(45,140,255,0.04);border-color:rgba(45,140,255,0.15);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2D8CFF" stroke-width="2" width="20" height="20"><path d="M15.5 5h-7A2.5 2.5 0 006 7.5v5A2.5 2.5 0 008.5 15h7a2.5 2.5 0 002.5-2.5v-5A2.5 2.5 0 0015.5 5z"/><path d="M18 10l3.5-2v8L18 14"/></svg>
+            <strong style="color:#2D8CFF;">Zoom Meeting Link</strong>
+          </div>
+          <a href="#" id="confirm-zoom-url" target="_blank" style="color:#2D8CFF;word-break:break-all;font-size:var(--text-sm);"></a>
+          <p style="font-size:var(--text-xs);color:var(--pebble);margin-top:8px;">
+            Please join 5 minutes before your appointment. Ensure your camera and microphone are working.
+          </p>
+        </div>
+      </div>
+
+      <!-- Calendar Add Buttons -->
+      <div style="max-width:480px;margin:0 auto var(--space-lg);display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <a href="#" id="confirm-gcal-link" target="_blank" class="wizard-nav__back" style="text-decoration:none;padding:10px 18px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Add to Google Calendar
+        </a>
+        <a href="#" id="confirm-ics-link" download="appointment.ics" class="wizard-nav__back" style="text-decoration:none;padding:10px 18px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download .ics File
+        </a>
+      </div>
+
+      <!-- What to Expect -->
+      <div class="form-section" style="max-width:480px;margin:0 auto var(--space-lg);">
+        <h2 class="form-section__title">What to Expect</h2>
+        <div style="font-size:var(--text-sm);color:var(--stone-light);line-height:1.7;">
+          <p><strong>Before your visit:</strong></p>
+          <ul style="padding-left:20px;margin:8px 0 16px;">
+            <li>You'll receive a reminder email 24 hours before your appointment</li>
+            <li>All your intake forms have been submitted — no additional paperwork needed</li>
+            <li>Have your insurance card ready (if applicable)</li>
+            <li id="confirm-telehealth-tip" style="display:none;">Test your camera and microphone before the appointment</li>
+            <li id="confirm-inperson-tip">Please arrive 10 minutes early to our Menlo Park office</li>
+          </ul>
+          <p><strong>During your consultation (60 minutes):</strong></p>
+          <ul style="padding-left:20px;margin:8px 0 16px;">
+            <li>Your provider will review your history and current symptoms</li>
+            <li>Discuss diagnosis and treatment options</li>
+            <li>Create an initial treatment plan together</li>
+            <li>Answer any questions you have</li>
+          </ul>
+          <p><strong>Need to reschedule or cancel?</strong></p>
+          <p>Please call us at <a href="tel:6505550000" style="color:var(--ocean);font-weight:600;">(650) 555-0000</a> at least 24 hours in advance.</p>
+        </div>
+      </div>
+
+      <!-- Return to site -->
+      <div style="text-align:center;margin-top:var(--space-xl);">
+        <a href="/" class="wizard-nav__next" style="display:inline-flex;text-decoration:none;">
+          Return to Altos Psychiatry
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /intake-container -->
+
+
+  <!-- Auto-save indicator -->
+  <div class="autosave-indicator" id="autosave-indicator">
+    <span class="autosave-dot"></span>
+    <span id="autosave-text">Saving...</span>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       INTAKE ENGINE — JAVASCRIPT
+       Handles: step navigation, validation, auto-save,
+       provider routing, assessment scoring, e-signatures,
+       real-time availability fetching, and final submission.
+       ═══════════════════════════════════════════════════════ -->
+  <script>
+  ;(function () {
+    'use strict'
+
+    /* ═══════════════════════════════════════════════════════
+       CONFIGURATION
+       ═══════════════════════════════════════════════════════ */
+    var CONFIG = {
+      BACKEND_URL: 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec',
+      TIMEZONE: 'America/Los_Angeles',
+      CONSULT_DURATION: 60,
+      CONSULT_CPT: '99205',
+      HOURS: { start: 8, end: 17 },
+      SLOT_MINUTES: 30,
+      MAX_WEEKS_AHEAD: 8,
+
+      PROVIDERS: [
+        { id: 'bennett', name: 'Dr. Bennett', title: 'MD, Psychiatrist',
+          initials: 'DB', specialties: ['medication','tms','ketamine','spravato','therapy'],
+          insurance: ['aetna','anthem','blueshield','cigna','uhc','medicare','self-pay'] },
+        { id: 'chen', name: 'Dr. Chen', title: 'NP, Psychiatric NP',
+          initials: 'NC', specialties: ['medication','therapy','telehealth'],
+          insurance: ['aetna','anthem','blueshield','cigna','healthnet','uhc','tricare','self-pay'] }
+      ],
+
+      CONSENTS: {
+        general: {
+          title: 'General Consent to Treatment',
+          required: true,
+          content: '<h4>Purpose</h4><p>I voluntarily consent to receive psychiatric evaluation, diagnosis, and treatment services from Altos Psychiatry. I understand that treatment may include, but is not limited to: psychiatric evaluation, medication management, psychotherapy, laboratory testing, and referrals to other specialists.</p><h4>Risks &amp; Benefits</h4><p>I understand that while psychiatric treatment is designed to help me, there are potential risks including but not limited to: medication side effects, worsening of symptoms, emotional distress during therapy, and dependency on certain medications. Benefits may include reduction in symptoms, improved functioning, and better quality of life.</p><h4>Alternatives</h4><p>Alternatives to treatment include: no treatment, alternative medication regimens, psychotherapy alone, lifestyle modifications, or seeking care from another provider. I understand I may ask about alternatives at any time.</p><h4>Right to Refuse</h4><p>I understand I have the right to refuse any treatment or medication at any time, and that refusal will not affect my right to future care. I understand that refusing recommended treatment may have consequences that will be explained to me by my provider.</p><h4>Confidentiality</h4><p>I understand that my medical records and communications are confidential except as required or permitted by law, including: mandatory reporting of child/elder abuse, duty to warn of imminent danger, court orders, and coordination of care with other providers (with my authorization).</p>'
+        },
+        telehealth: {
+          title: 'Telehealth Informed Consent',
+          required: true,
+          condition: function (d) { return d.visitFormat === 'telehealth' || d.visitFormat === 'either' },
+          content: '<h4>Nature of Telehealth</h4><p>Telehealth involves the delivery of healthcare services using interactive audio/video technology where the patient and provider are not in the same physical location. I understand that telehealth is not the same as an in-person visit.</p><h4>Technology Requirements</h4><p>I understand I need a device with a camera, microphone, and stable internet connection. Sessions are conducted via Zoom for Healthcare, a HIPAA-compliant platform.</p><h4>Risks Specific to Telehealth</h4><ul><li>Technology may fail, interrupting the session</li><li>Despite encryption, electronic communications carry inherent privacy risks</li><li>Physical examination is limited</li><li>In emergencies, the provider may not be able to physically intervene</li></ul><h4>Emergency Protocols</h4><p>I agree to provide my physical location at the start of each telehealth session. I understand my provider needs this to contact emergency services on my behalf if necessary. I will keep my emergency contact information current.</p><h4>Consent &amp; Right to Withdraw</h4><p>I may withdraw my consent to telehealth at any time and request in-person services instead.</p>'
+        },
+        hipaa: {
+          title: 'HIPAA Notice of Privacy Practices',
+          required: true,
+          content: '<h4>Your Health Information Rights</h4><p>You have the right to: inspect and copy your health records, request amendments, receive an accounting of disclosures, request restrictions on certain uses, request confidential communications, and file a complaint if you believe your privacy rights have been violated.</p><h4>Our Responsibilities</h4><p>We are required by law to: maintain the privacy of your health information, provide you with this notice of our legal duties and privacy practices, follow the terms of this notice currently in effect, and notify you if we are unable to agree to a requested restriction.</p><h4>How We May Use Your Information</h4><p>We may use and disclose your health information for: <strong>Treatment</strong> — sharing information among your care team; <strong>Payment</strong> — billing your insurance or processing payments; <strong>Healthcare Operations</strong> — quality improvement, training, and administrative purposes.</p><h4>Special Protections</h4><p>Psychotherapy notes, substance use disorder records, and HIV/AIDS information receive additional protections and require your specific written authorization for most disclosures.</p>'
+        },
+        financial: {
+          title: 'Financial Policy &amp; Cancellation Agreement',
+          required: true,
+          content: '<h4>Payment Responsibility</h4><p>I understand I am ultimately responsible for all charges incurred, regardless of insurance coverage. Copays, coinsurance, and deductibles are due at the time of service. I authorize Altos Psychiatry to bill my insurance on my behalf.</p><h4>Self-Pay Rates</h4><p>If I am uninsured or choose to self-pay, I understand the following rates apply:<br>• Initial Evaluation (60 min): $350<br>• Follow-Up (30 min): $200<br>• Follow-Up (15 min): $125<br>• Psychotherapy (45 min): $250</p><h4>Cancellation &amp; No-Show Policy</h4><p>I understand that:<br>• 24-hour advance notice is required to cancel or reschedule<br>• Same-day cancellations may incur a $75 fee<br>• No-shows may incur a $100 fee<br>• These fees are not covered by insurance<br>• Three no-shows may result in discharge from the practice</p><h4>Good Faith Estimate</h4><p>Under the No Surprises Act, uninsured and self-pay patients are entitled to a Good Faith Estimate of expected charges. You may request one at any time.</p>'
+        },
+        tms: {
+          title: 'TMS Treatment Informed Consent',
+          required: false,
+          condition: function (d) { return hasReason(d, 'tms') || d.priorMeds === '3+' },
+          content: '<h4>What is TMS?</h4><p>Transcranial Magnetic Stimulation (TMS) is an FDA-cleared, non-invasive procedure that uses magnetic pulses to stimulate nerve cells in the brain to improve symptoms of depression.</p><h4>Risks</h4><ul><li><strong>Common:</strong> Scalp discomfort or pain at treatment site, headache, lightheadedness</li><li><strong>Less Common:</strong> Facial twitching during treatment, temporary hearing changes</li><li><strong>Rare:</strong> Seizure (estimated risk &lt;0.1%), treatment-emergent mania/hypomania</li></ul><h4>Contraindications</h4><p>TMS is contraindicated for patients with: metallic implants in or near the head (except dental fillings), implanted neurostimulators, history of seizures or epilepsy (relative). Pregnancy is a relative contraindication.</p><h4>Treatment Course</h4><p>Standard TMS consists of 36 sessions over 6-9 weeks (5 days/week initially). The SAINT protocol involves 50 sessions over 5 days. Your provider will recommend the appropriate protocol.</p>'
+        },
+        ketamine: {
+          title: 'Ketamine / Spravato Informed Consent',
+          required: false,
+          condition: function (d) { return hasReason(d, 'ketamine') || d.priorMeds === '3+' },
+          content: '<h4>About Ketamine Treatment</h4><p>Ketamine is an FDA-approved anesthetic being used off-label for treatment-resistant depression. Spravato® (esketamine) is an FDA-approved nasal spray for treatment-resistant depression administered under the REMS program.</p><h4>Risks — IV Ketamine</h4><ul><li>Dissociation, perceptual changes, dream-like state</li><li>Increased blood pressure and heart rate</li><li>Nausea and vomiting</li><li>Dizziness, drowsiness</li><li>Potential for psychological dependence</li><li>Bladder effects with repeated use</li><li>Rare: respiratory depression, laryngospasm</li></ul><h4>Important Requirements</h4><ul><li>You <strong>cannot drive for 24 hours</strong> after treatment</li><li>You must arrange a responsible adult for transportation</li><li>You must fast (no food 6 hours, clear liquids 2 hours before IV ketamine)</li><li>You will be monitored for a minimum of 60 minutes (IV) or 2 hours (Spravato) after treatment</li></ul><h4>Off-Label Use Acknowledgment</h4><p>I understand that IV ketamine for depression is an off-label use and is not FDA-approved for this purpose. I understand the evidence supporting this use and have had the opportunity to ask questions.</p>'
+        }
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       STATE
+       ═══════════════════════════════════════════════════════ */
+    var state = {
+      currentStep: 1,
+      data: {},           // All form data
+      scores: {},         // Assessment scores
+      signatures: {},     // { consentKey: { dataUrl, timestamp, ip } }
+      matchedProvider: null,
+      selectedSlot: null, // { date, hour, minute }
+      isTelehealth: true,
+      sessionId: 'INT-' + Date.now().toString(36),
+      weekOffset: 0,      // For calendar navigation
+      availableSlots: [], // Fetched from backend
+      submitting: false
+    }
+
+    // Restore from localStorage if partially completed
+    var saved = localStorage.getItem('altos_intake_' + location.hostname)
+    if (saved) {
+      try {
+        var parsed = JSON.parse(saved)
+        if (parsed.sessionId && Date.now() - (parsed._savedAt || 0) < 24 * 60 * 60 * 1000) {
+          state.data = parsed.data || {}
+          state.scores = parsed.scores || {}
+          state.currentStep = parsed.currentStep || 1
+          state.sessionId = parsed.sessionId
+          state.matchedProvider = parsed.matchedProvider || null
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       ASSESSMENT QUESTION BANKS
+       ═══════════════════════════════════════════════════════ */
+    var PHQ9_QUESTIONS = [
+      'Little interest or pleasure in doing things',
+      'Feeling down, depressed, or hopeless',
+      'Trouble falling or staying asleep, or sleeping too much',
+      'Feeling tired or having little energy',
+      'Poor appetite or overeating',
+      'Feeling bad about yourself — or that you are a failure or have let yourself or your family down',
+          'Trouble concentrating on things, such as reading the newspaper or watching television',
+          'Moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual',
+          'Thoughts that you would be better off dead, or of hurting yourself in some way'
+        ],
+        options: [
+          { label: 'Not at all', value: 0 },
+          { label: 'Several days', value: 1 },
+          { label: 'More than half the days', value: 2 },
+          { label: 'Nearly every day', value: 3 }
+        ],
+        severity: function (s) {
+          if (s <= 4) return { level: 'minimal', label: 'Minimal depression', cls: 'minimal' }
+          if (s <= 9) return { level: 'mild', label: 'Mild depression', cls: 'mild' }
+          if (s <= 14) return { level: 'moderate', label: 'Moderate depression', cls: 'moderate' }
+          if (s <= 19) return { level: 'modsevere', label: 'Moderately severe depression', cls: 'modsevere' }
+          return { level: 'severe', label: 'Severe depression', cls: 'severe' }
+        }
+      },
+
+      gad7: {
+        questions: [
+          'Feeling nervous, anxious, or on edge',
+          'Not being able to stop or control worrying',
+          'Worrying too much about different things',
+          'Trouble relaxing',
+          'Being so restless that it\'s hard to sit still',
+          'Becoming easily annoyed or irritable',
+          'Feeling afraid, as if something awful might happen'
+        ],
+        options: [
+          { label: 'Not at all', value: 0 },
+          { label: 'Several days', value: 1 },
+          { label: 'More than half the days', value: 2 },
+          { label: 'Nearly every day', value: 3 }
+        ],
+        severity: function (s) {
+          if (s <= 4) return { level: 'minimal', label: 'Minimal anxiety', cls: 'minimal' }
+          if (s <= 9) return { level: 'mild', label: 'Mild anxiety', cls: 'mild' }
+          if (s <= 14) return { level: 'moderate', label: 'Moderate anxiety', cls: 'moderate' }
+          return { level: 'severe', label: 'Severe anxiety', cls: 'severe' }
+        }
+      },
+
+      cssrs: {
+        questions: [
+          { text: 'Have you wished you were dead or wished you could go to sleep and not wake up?', key: 'q1' },
+          { text: 'Have you actually had any thoughts of killing yourself?', key: 'q2' },
+          { text: 'Have you been thinking about how you might do this?', key: 'q3', trigger: true },
+          { text: 'Have you had these thoughts and had some intention of acting on them?', key: 'q4', trigger: true },
+          { text: 'Have you started to work out or worked out the details of how to kill yourself? Do you intend to carry out this plan?', key: 'q5', trigger: true },
+          { text: 'Have you ever done anything, started to do anything, or prepared to do anything to end your life?', key: 'q6', trigger: true }
+        ]
+      },
+
+      mdq: {
+        questions: [
+          'You felt so good or so hyper that other people thought you were not your normal self, or you were so hyper that you got into trouble',
+          'You were so irritable that you shouted at people or started fights or arguments',
+          'You felt much more self-confident than usual',
+          'You got much less sleep than usual and found you didn\'t really miss it',
+          'You were much more talkative or spoke faster than usual',
+          'Thoughts raced through your head or you couldn\'t slow your mind down',
+          'You were so easily distracted by things around you that you had trouble concentrating',
+          'You had much more energy than usual',
+          'You were much more active or did many more things than usual',
+          'You were much more social or outgoing than usual',
+          'You were much more interested in sex than usual',
+          'You did things that were unusual for you or that other people might have thought were excessive, foolish, or risky',
+          'Spending money got you or your family into trouble'
+        ]
+      },
+
+      pcl5: {
+        questions: [
+          'Had nightmares about an event or thought about it when you did not want to?',
+          'Tried hard not to think about an event or went out of your way to avoid situations that reminded you of it?',
+          'Been constantly on guard, watchful, or easily startled?',
+          'Felt numb or detached from people, activities, or your surroundings?',
+          'Felt guilty or unable to stop blaming yourself or others for the event or any problems it may have caused?'
+        ]
+      },
+
+      asrs: {
+        questions: [
+          'How often do you have difficulty concentrating on what people say to you, even when they are speaking to you directly?',
+          'How often do you leave your seat in meetings or other situations in which you are expected to remain seated?',
+          'How often do you have difficulty unwinding and relaxing when you have time to yourself?',
+          'When you\'re in a conversation, how often do you find yourself finishing the sentences of the people you are talking to, before they can finish them themselves?',
+          'How often do you put things off until the last minute?',
+          'How often do you depend on others to keep your life in order and attend to details?'
+        ],
+        options: [
+          { label: 'Never', value: 0 },
+          { label: 'Rarely', value: 1 },
+          { label: 'Sometimes', value: 2 },
+          { label: 'Often', value: 3 },
+          { label: 'Very Often', value: 4 }
+        ]
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       DOM CACHE
+       ═══════════════════════════════════════════════════════ */
+    var dom = {}
+
+    function cacheDom() {
+      dom.steps = document.querySelectorAll('.wizard-step')
+      dom.progressSteps = document.querySelectorAll('.progress-step')
+      dom.connectors = document.querySelectorAll('.progress-step__connector')
+      dom.progressFill = document.getElementById('progress-fill')
+      dom.progressLabel = document.getElementById('progress-label')
+      dom.timeEstimate = document.getElementById('time-estimate')
+      dom.autosave = document.getElementById('autosave-indicator')
+      dom.autosaveText = document.getElementById('autosave-text')
+      dom.safetyAlert = document.getElementById('safety-alert')
+
+      // Step 1
+      dom.reasonOtherWrap = document.getElementById('reason-other-wrap')
+      dom.insuranceDetails = document.getElementById('insurance-details')
+      dom.kaiserNotice = document.getElementById('kaiser-notice')
+      dom.outOfStateNotice = document.getElementById('out-of-state-notice')
+      dom.minorNotice = document.getElementById('minor-notice')
+      dom.providerMatch = document.getElementById('provider-match')
+      dom.providerMatchContent = document.getElementById('provider-match-content')
+      dom.step1Next = document.getElementById('step1-next')
+
+      // Step 2
+      dom.medList = document.getElementById('med-list')
+      dom.pastMedList = document.getElementById('past-med-list')
+      dom.tmsSafetyQs = document.getElementById('tms-safety-qs')
+      dom.ketSafetyQs = document.getElementById('ket-safety-qs')
+      dom.hospitalDetailWrap = document.getElementById('hospital-detail-wrap')
+
+      // Step 3
+      dom.phq9Questions = document.getElementById('phq9-questions')
+      dom.phq9Score = document.getElementById('phq9-score')
+      dom.phq9ScoreNum = document.getElementById('phq9-score-num')
+      dom.phq9Severity = document.getElementById('phq9-severity')
+      dom.gad7Questions = document.getElementById('gad7-questions')
+      dom.gad7Score = document.getElementById('gad7-score')
+      dom.gad7ScoreNum = document.getElementById('gad7-score-num')
+      dom.gad7Severity = document.getElementById('gad7-severity')
+      dom.cssrsQuestions = document.getElementById('cssrs-questions')
+      dom.mdqSection = document.getElementById('mdq-section')
+      dom.mdqQuestions = document.getElementById('mdq-questions')
+      dom.pcl5Section = document.getElementById('pcl5-section')
+      dom.pcl5Questions = document.getElementById('pcl5-questions')
+      dom.asrsSection = document.getElementById('asrs-section')
+      dom.asrsQuestions = document.getElementById('asrs-questions')
+
+      // Step 4
+      dom.consentList = document.getElementById('consent-list')
+      dom.consentSummary = document.getElementById('consent-summary')
+      dom.consentCountLabel = document.getElementById('consent-count-label')
+      dom.step4Next = document.getElementById('step4-next')
+
+      // Step 5
+      dom.embedDays = document.getElementById('embed-days')
+      dom.embedWeekLabel = document.getElementById('embed-week-label')
+      dom.embedNoSlots = document.getElementById('embed-no-slots')
+      dom.embedSelected = document.getElementById('embed-selected')
+      dom.embedSelectedText = document.getElementById('embed-selected-text')
+      dom.embedAvatar = document.getElementById('embed-avatar')
+      dom.embedProviderName = document.getElementById('embed-provider-name')
+      dom.embedProviderTitle = document.getElementById('embed-provider-title')
+      dom.step5Next = document.getElementById('step5-next')
+
+      // Step 6
+      dom.confirmEmail = document.getElementById('confirm-email')
+      dom.confirmDetails = document.getElementById('confirm-details')
+      dom.confirmZoom = document.getElementById('confirm-zoom')
+      dom.confirmZoomUrl = document.getElementById('confirm-zoom-url')
+      dom.confirmGcalLink = document.getElementById('confirm-gcal-link')
+      dom.confirmIcsLink = document.getElementById('confirm-ics-link')
+      dom.confirmTelehealthTip = document.getElementById('confirm-telehealth-tip')
+      dom.confirmInpersonTip = document.getElementById('confirm-inperson-tip')
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       INITIALIZATION
+       ═══════════════════════════════════════════════════════ */
+    function init() {
+      cacheDom()
+      bindStep1Listeners()
+      buildAssessments()
+      bindNavigationButtons()
+      bindAutoSave()
+      restoreFromLocalStorage()
+      addMedicationRow(dom.medList, 'med')
+      addPastMedicationRow(dom.pastMedList, 'pastMed')
+
+      // Check for UTM params (acquisition tracking)
+      var params = new URLSearchParams(window.location.search)
+      if (params.get('utm_source')) {
+        state.formData._utmSource = params.get('utm_source')
+        state.formData._utmMedium = params.get('utm_medium') || ''
+        state.formData._utmCampaign = params.get('utm_campaign') || ''
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       STEP NAVIGATION
+       ═══════════════════════════════════════════════════════ */
+    function goToStep(stepNum) {
+      if (stepNum < 1 || stepNum > 6) return
+      if (stepNum > state.currentStep + 1) return // can't skip ahead
+
+      // Validate current step before advancing
+      if (stepNum > state.currentStep && !validateStep(state.currentStep)) {
+        return
+      }
+
+      // Hide current step
+      dom.steps.forEach(function (el) { el.classList.remove('wizard-step--active') })
+
+      // Show target step
+      var target = document.getElementById('step-' + stepNum)
+      if (target) target.classList.add('wizard-step--active')
+
+      // Update progress indicators
+      state.currentStep = stepNum
+      updateProgressBar()
+
+      // Step-specific initialization
+      if (stepNum === 3) initStep3()
+      if (stepNum === 4) initStep4()
+      if (stepNum === 5) initStep5()
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+
+      // Save progress
+      saveToLocalStorage()
+    }
+
+    function updateProgressBar() {
+      var step = state.currentStep
+      var pct = Math.round(((step - 0.5) / 6) * 100)
+
+      dom.progressFill.style.width = pct + '%'
+      dom.progressLabel.textContent = 'Step ' + step + ' of 6'
+
+      var minutes = [15, 12, 8, 5, 2, 0]
+      dom.timeEstimate.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ' +
+        (minutes[step - 1] > 0 ? '~' + minutes[step - 1] + ' minutes remaining' : 'Complete!')
+
+      dom.progressSteps.forEach(function (el, i) {
+        var s = i + 1
+        el.classList.remove('progress-step--active', 'progress-step--complete')
+        if (s === step) el.classList.add('progress-step--active')
+        else if (s < step) el.classList.add('progress-step--complete')
+      })
+
+      dom.connectors.forEach(function (el, i) {
+        el.classList.toggle('progress-step__connector--complete', i + 1 < step)
+      })
+    }
+
+    function bindNavigationButtons() {
+      // All "Back" buttons
+      document.querySelectorAll('[data-goto]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          goToStep(parseInt(this.getAttribute('data-goto'), 10))
+        })
+      })
+
+      // Step-specific next buttons
+      dom.step1Next.addEventListener('click', function () { goToStep(2) })
+      document.getElementById('step2-next').addEventListener('click', function () { goToStep(3) })
+      document.getElementById('step3-next').addEventListener('click', function () { goToStep(4) })
+      dom.step4Next.addEventListener('click', function () { goToStep(5) })
+      dom.step5Next.addEventListener('click', function () { submitEverything() })
+
+      // Add medication buttons
+      document.getElementById('add-med-btn').addEventListener('click', function () {
+        addMedicationRow(dom.medList, 'med')
+      })
+      document.getElementById('add-past-med-btn').addEventListener('click', function () {
+        addPastMedicationRow(dom.pastMedList, 'pastMed')
+      })
+
+      // Schedule embed navigation
+      document.getElementById('embed-prev-week').addEventListener('click', function () {
+        if (state.weekOffset > 0) { state.weekOffset--; renderEmbedCalendar() }
+      })
+      document.getElementById('embed-next-week').addEventListener('click', function () {
+        if (state.weekOffset < CONFIG.MAX_WEEKS_AHEAD) { state.weekOffset++; renderEmbedCalendar() }
+      })
+      document.getElementById('embed-change-btn').addEventListener('click', function () {
+        state.selectedSlot = null
+        dom.embedSelected.style.display = 'none'
+        dom.step5Next.disabled = true
+        renderEmbedCalendar()
+      })
+
+      // Format toggle
+      document.getElementById('embed-format-toggle').addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-format]')
+        if (!btn) return
+        state.selectedFormat = btn.getAttribute('data-format')
+        this.querySelectorAll('.sched-embed__format-btn').forEach(function (b) {
+          b.classList.toggle('sched-embed__format-btn--active', b === btn)
+        })
+      })
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       STEP 1: ELIGIBILITY + ROUTING
+       ═══════════════════════════════════════════════════════ */
+    function bindStep1Listeners() {
+      var step1 = document.getElementById('step-1')
+
+      // Reason checkboxes — show/hide "other" textarea
+      step1.querySelectorAll('[name="reason"]').forEach(function (cb) {
+        cb.addEventListener('change', function () {
+          var checked = getCheckedValues('reason')
+          dom.reasonOtherWrap.style.display = checked.indexOf('other') > -1 ? 'block' : 'none'
+          evaluateStep1()
+        })
+      })
+
+      // Insurance radio — show/hide insurance details
+      step1.querySelectorAll('[name="paymentType"]').forEach(function (r) {
+        r.addEventListener('change', function () {
+          dom.insuranceDetails.style.display = this.value === 'insurance' ? 'block' : 'none'
+          evaluateStep1()
+        })
+      })
+
+      // Insurance carrier — show kaiser notice
+      var carrierEl = document.getElementById('insurance-carrier')
+      if (carrierEl) {
+        carrierEl.addEventListener('change', function () {
+          dom.kaiserNotice.style.display = this.value === 'kaiser' ? 'block' : 'none'
+          evaluateStep1()
+        })
+      }
+
+      // California radio — show out-of-state notice
+      step1.querySelectorAll('[name="inCalifornia"]').forEach(function (r) {
+        r.addEventListener('change', function () {
+          dom.outOfStateNotice.style.display = this.value === 'no' ? 'block' : 'none'
+          evaluateStep1()
+        })
+      })
+
+      // Age — show minor notice
+      var ageEl = document.getElementById('age-range')
+      if (ageEl) {
+        ageEl.addEventListener('change', function () {
+          dom.minorNotice.style.display = this.value === 'under18' ? 'block' : 'none'
+          evaluateStep1()
+        })
+      }
+
+      // All other radios in step 1
+      step1.querySelectorAll('input[type="radio"]').forEach(function (r) {
+        r.addEventListener('change', function () { evaluateStep1() })
+      })
+
+      // Highlight selected check-options
+      step1.addEventListener('change', function (e) {
+        var opt = e.target.closest('.check-option')
+        if (!opt) return
+        if (e.target.type === 'checkbox') {
+          opt.classList.toggle('check-option--selected', e.target.checked)
+        } else if (e.target.type === 'radio') {
+          var group = step1.querySelectorAll('[name="' + e.target.name + '"]')
+          group.forEach(function (inp) {
+            var parent = inp.closest('.check-option')
+            if (parent) parent.classList.toggle('check-option--selected', inp.checked)
+          })
+        }
+      })
+    }
+
+    function evaluateStep1() {
+      collectStep1Data()
+      matchProvider()
+
+      // Enable/disable next button
+      var d = state.formData
+      var valid = true
+      if (getCheckedValues('reason').length === 0) valid = false
+      if (!getRadioValue('priorMeds')) valid = false
+      if (!getRadioValue('currentProvider')) valid = false
+      if (!getRadioValue('paymentType')) valid = false
+      if (!getRadioValue('inCalifornia')) valid = false
+      if (!document.getElementById('age-range').value) valid = false
+      if (getRadioValue('inCalifornia') === 'no') valid = false
+      if (document.getElementById('age-range').value === 'under18') valid = false
+
+      dom.step1Next.disabled = !valid
+    }
+
+    function collectStep1Data() {
+      var d = state.formData
+      d.reasons = getCheckedValues('reason')
+      d.reasonOther = val('reason-other')
+      d.priorMeds = getRadioValue('priorMeds')
+      d.currentProvider = getRadioValue('currentProvider')
+      d.paymentType = getRadioValue('paymentType')
+      d.insuranceCarrier = val('insurance-carrier')
+      d.insuranceId = val('insurance-id')
+      d.inCalifornia = getRadioValue('inCalifornia')
+      d.visitFormat = getRadioValue('visitFormat')
+      d.ageRange = val('age-range')
+      d.referralSource = val('referral-source')
+    }
+
+    function matchProvider() {
+      var d = state.formData
+      if (!d.reasons || d.reasons.length === 0) return
+
+      var scores = CONFIG.PROVIDERS.map(function (prov) {
+        var score = 0
+
+        // Specialty match
+        d.reasons.forEach(function (r) {
+          if (r === 'tms' && prov.specialties.indexOf('tms') > -1) score += 10
+          if (r === 'ketamine' && prov.specialties.indexOf('ketamine') > -1) score += 10
+          if (r === 'medication' && prov.specialties.indexOf('medication') > -1) score += 5
+          if (r === 'therapy' && prov.specialties.indexOf('therapy') > -1) score += 5
+        })
+
+        // Insurance match
+        if (d.paymentType === 'insurance' && d.insuranceCarrier) {
+          if (prov.insurance.indexOf(d.insuranceCarrier) > -1) score += 15
+          else score -= 20 // strong penalty for out-of-network mismatch
+        }
+        if (d.paymentType === 'self-pay') {
+          score += 2 // all providers accept self-pay
+        }
+
+        // Treatment resistance → advanced provider
+        if (d.priorMeds === '3+') {
+          if (prov.specialties.indexOf('tms') > -1 || prov.specialties.indexOf('ketamine') > -1) {
+            score += 8
+          }
+        }
+
+        // Telehealth preference
+        if (d.visitFormat === 'telehealth' && prov.specialties.indexOf('telehealth') > -1) {
+          score += 3
+        }
+
+        return { provider: prov, score: score }
+      })
+
+      // Sort descending by score
+      scores.sort(function (a, b) { return b.score - a.score })
+
+      state.matchedProvider = scores[0].provider
+
+      // Show match
+      dom.providerMatch.style.display = 'block'
+      dom.providerMatchContent.innerHTML =
+        '<div style="display:flex;align-items:center;gap:16px;padding:12px 0;">' +
+          '<div class="sched-embed__avatar">' + esc(state.matchedProvider.initials) + '</div>' +
+          '<div>' +
+            '<div style="font-size:var(--text-base);font-weight:700;color:var(--ocean-deep);">' + esc(state.matchedProvider.name) + '</div>' +
+            '<div style="font-size:var(--text-xs);color:var(--pebble);">' + esc(state.matchedProvider.title) + '</div>' +
+            '<div style="font-size:var(--text-xs);color:var(--sage);margin-top:4px;font-weight:600;">✓ Best match based on your needs and insurance</div>' +
+          '</div>' +
+        '</div>'
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       STEP 2: VALIDATION + MEDICATION ROWS
+       ═══════════════════════════════════════════════════════ */
+    function addMedicationRow(container, prefix) {
+      var idx = container.querySelectorAll('.med-row').length
+      var row = document.createElement('div')
+      row.className = 'med-row field-row'
+      row.style.marginBottom = '8px'
+      row.innerHTML =
+        '<div class="field-group" style="flex:2;">' +
+          '<input type="text" class="field-input" name="' + prefix + '_name_' + idx + '" placeholder="Medication name" />' +
+        '</div>' +
+        '<div class="field-group" style="flex:1;">' +
+          '<input type="text" class="field-input" name="' + prefix + '_dose_' + idx + '" placeholder="Dose" />' +
+        '</div>' +
+        '<div class="field-group" style="flex:1;">' +
+          '<input type="text" class="field-input" name="' + prefix + '_freq_' + idx + '" placeholder="Frequency" />' +
+        '</div>' +
+        '<button type="button" class="sig-clear-btn" style="align-self:flex-end;padding:10px 4px;color:#dc2626;" aria-label="Remove medication">&times;</button>'
+
+      row.querySelector('button').addEventListener('click', function () {
+        if (container.querySelectorAll('.med-row').length > 1) row.remove()
+      })
+
+      container.appendChild(row)
+    }
+
+    function addPastMedicationRow(container, prefix) {
+      var idx = container.querySelectorAll('.med-row').length
+      var row = document.createElement('div')
+      row.className = 'med-row'
+      row.style.cssText = 'margin-bottom:12px;padding:12px;background:var(--fog);border-radius:var(--radius-md);'
+      row.innerHTML =
+        '<div class="field-row" style="margin-bottom:8px;">' +
+          '<div class="field-group" style="flex:2;">' +
+            '<input type="text" class="field-input" name="' + prefix + '_name_' + idx + '" placeholder="Medication name" />' +
+          '</div>' +
+          '<div class="field-group" style="flex:1;">' +
+            '<input type="text" class="field-input" name="' + prefix + '_maxdose_' + idx + '" placeholder="Max dose tried" />' +
+          '</div>' +
+        '</div>' +
+        '<div class="field-row">' +
+          '<div class="field-group" style="flex:1;">' +
+            '<select class="field-select" name="' + prefix + '_response_' + idx + '">' +
+              '<option value="">Response...</option>' +
+              '<option value="none">No response</option>' +
+              '<option value="partial">Partial response</option>' +
+              '<option value="full">Full response</option>' +
+              '<option value="intolerable">Intolerable side effects</option>' +
+            '</select>' +
+          '</div>' +
+          '<div class="field-group" style="flex:1;">' +
+            '<input type="text" class="field-input" name="' + prefix + '_sideeffects_' + idx + '" placeholder="Side effects experienced" />' +
+          '</div>' +
+          '<button type="button" class="sig-clear-btn" style="align-self:flex-end;padding:10px 4px;color:#dc2626;" aria-label="Remove">&times;</button>' +
+        '</div>'
+
+      row.querySelector('button').addEventListener('click', function () {
+        if (container.querySelectorAll('.med-row').length > 1) row.remove()
+      })
+
+      container.appendChild(row)
+    }
+
+    function collectStep2Data() {
+      var d = state.formData
+      var fields = document.getElementById('step-2').querySelectorAll('input, select, textarea')
+      fields.forEach(function (el) {
+        if (!el.name) return
+        if (el.type === 'checkbox') {
+          if (!d[el.name]) d[el.name] = []
+          if (el.checked) d[el.name].push(el.value)
+        } else if (el.type === 'radio') {
+          if (el.checked) d[el.name] = el.value
+        } else {
+          d[el.name] = el.value
+        }
+      })
+
+      // Collect medication arrays
+      d.currentMeds = collectMedRows(dom.medList, 'med')
+      d.pastMeds = collectMedRows(dom.pastMedList, 'pastMed')
+    }
+
+    function collectMedRows(container, prefix) {
+      var meds = []
+      var rows = container.querySelectorAll('.med-row')
+      rows.forEach(function (row, i) {
+        var name = valIn(row, '[name="' + prefix + '_name_' + i + '"]')
+        if (name) {
+          var med = { name: name }
+          row.querySelectorAll('input, select').forEach(function (inp) {
+            if (inp.name && inp.value) {
+              var key = inp.name.replace(prefix + '_', '').replace('_' + i, '')
+              med[key] = inp.value
+            }
+          })
+          meds.push(med)
+        }
+      })
+      return meds
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       STEP 3: ASSESSMENTS — BUILD + SCORE
+       ═══════════════════════════════════════════════════════ */
+    function buildAssessments() {
+      buildLikertScale('phq9', dom.phq9Questions, ASSESSMENTS.phq9)
+      buildLikertScale('gad7', dom.gad7Questions, ASSESSMENTS.gad7)
+      buildCSSRS()
+      buildYesNoScale('mdq', dom.mdqQuestions, ASSESSMENTS.mdq.questions)
+      buildYesNoScale('pcl5', dom.pcl5Questions, ASSESSMENTS.pcl5.questions)
+      buildLikertScale('asrs', dom.asrsQuestions, ASSESSMENTS.asrs)
+    }
+
+    function buildLikertScale(id, container, assessment) {
+      var html = ''
+      assessment.questions.forEach(function (q, i) {
+        html += '<div class="scale-question">'
+        html += '<div class="scale-question__text"><span class="scale-question__num">' + (i + 1) + '.</span> ' + esc(q) + '</div>'
+        html += '<div class="scale-options">'
+        assessment.options.forEach(function (opt) {
+          html += '<label class="scale-option">'
+          html += '<input type="radio" name="' + id + '_q' + i + '" value="' + opt.value + '" />'
+          html += esc(opt.label)
+          html += '</label>'
+        })
+        html += '</div></div>'
+      })
+      container.innerHTML = html
+
+      // Bind scoring
+      container.addEventListener('change', function (e) {
+        if (e.target.type !== 'radio') return
+
+        // Highlight selected option
+        var question = e.target.closest('.scale-question')
+        question.querySelectorAll('.scale-option').forEach(function (opt) {
+          opt.classList.toggle('scale-option--selected', opt.querySelector('input').checked)
+        })
+
+        scoreAssessment(id, assessment)
+      })
+    }
+
+    function buildCSSRS() {
+      var html = ''
+      ASSESSMENTS.cssrs.questions.forEach(function (q, i) {
+        html += '<div class="scale-question">'
+        html += '<div class="scale-question__text"><span class="scale-question__num">' + (i + 1) + '.</span> ' + esc(q.text) + '</div>'
+        html += '<div class="scale-options" style="grid-template-columns:1fr 1fr;">'
+        html += '<label class="scale-option"><input type="radio" name="cssrs_' + q.key + '" value="no" /> No</label>'
+        html += '<label class="scale-option"><input type="radio" name="cssrs_' + q.key + '" value="yes" /> Yes</label>'
+        html += '</div></div>'
+      })
+      dom.cssrsQuestions.innerHTML = html
+
+      dom.cssrsQuestions.addEventListener('change', function (e) {
+        if (e.target.type !== 'radio') return
+        var question = e.target.closest('.scale-question')
+        question.querySelectorAll('.scale-option').forEach(function (opt) {
+          opt.classList.toggle('scale-option--selected', opt.querySelector('input').checked)
+        })
+        scoreCSSRS()
+      })
+    }
+
+    function buildYesNoScale(id, container, questions) {
+      var html = ''
+      questions.forEach(function (q, i) {
+        html += '<div class="scale-question">'
+        html += '<div class="scale-question__text"><span class="scale-question__num">' + (i + 1) + '.</span> ' + esc(q) + '</div>'
+        html += '<div class="scale-options" style="grid-template-columns:1fr 1fr;">'
+        html += '<label class="scale-option"><input type="radio" name="' + id + '_q' + i + '" value="no" /> No</label>'
+        html += '<label class="scale-option"><input type="radio" name="' + id + '_q' + i + '" value="yes" /> Yes</label>'
+        html += '</div></div>'
+      })
+      container.innerHTML = html
+
+      container.addEventListener('change', function (e) {
+        var question = e.target.closest('.scale-question')
+        if (question) {
+          question.querySelectorAll('.scale-option').forEach(function (opt) {
+            opt.classList.toggle('scale-option--selected', opt.querySelector('input').checked)
+          })
+        }
+      })
+    }
+
+    function scoreAssessment(id, assessment) {
+      var total = 0
+      var answered = 0
+      assessment.questions.forEach(function (q, i) {
+        var v = getRadioValue(id + '_q' + i)
+        if (v !== null && v !== '') {
+          total += parseInt(v, 10)
+          answered++
+        }
+      })
+
+      if (answered === assessment.questions.length) {
+        var sev = assessment.severity(total)
+        state.assessmentScores[id] = { score: total, severity: sev }
+
+        var scoreEl = document.getElementById(id + '-score')
+        var numEl = document.getElementById(id + '-score-num')
+        var sevEl = document.getElementById(id + '-severity')
+
+        scoreEl.style.display = 'flex'
+        scoreEl.className = 'score-display score-display--' + sev.cls
+        numEl.textContent = total
+        sevEl.textContent = sev.label
+
+        // PHQ-9 question 9 safety check
+        if (id === 'phq9') {
+          var q9 = getRadioValue('phq9_q8')
+          if (q9 && parseInt(q9, 10) > 0) {
+            showSafetyAlert()
+          }
+        }
+      }
+    }
+
+    function scoreCSSRS() {
+      var triggered = false
+      ASSESSMENTS.cssrs.questions.forEach(function (q) {
+        var v = getRadioValue('cssrs_' + q.key)
+        if (v === 'yes' && q.trigger) triggered = true
+      })
+
+      state.assessmentScores.cssrs = { triggered: triggered }
+
+      if (triggered) {
+        showSafetyAlert()
+      }
+    }
+
+    function showSafetyAlert() {
+      dom.safetyAlert.classList.add('safety-alert--visible')
+      dom.safetyAlert.style.display = 'block'
+    }
+
+    function initStep3() {
+      // Show conditional assessments based on step 1 answers
+      var reasons = state.formData.reasons || []
+
+      // MDQ: show if bipolar selected or provider suspects
+      dom.mdqSection.style.display =
+        (reasons.indexOf('bipolar') > -1) ? 'block' : 'none'
+
+      // PCL-5: show if PTSD/trauma selected
+      dom.pcl5Section.style.display =
+        (reasons.indexOf('ptsd') > -1) ? 'block' : 'none'
+
+      // ASRS: show if ADHD selected
+      dom.asrsSection.style.display =
+        (reasons.indexOf('adhd') > -1) ? 'block' : 'none'
+
+      // Show TMS/ketamine safety questions in step 2 if applicable
+      if (reasons.indexOf('tms') > -1 || state.formData.priorMeds === '3+') {
+        dom.tmsSafetyQs.style.display = 'block'
+      }
+      if (reasons.indexOf('ketamine') > -1 || state.formData.priorMeds === '3+') {
+        dom.ketSafetyQs.style.display = 'block'
+      }
+    }
+
+    function collectStep3Data() {
+      var d = state.formData
+      d.assessments = {}
+
+      // PHQ-9
+      if (state.assessmentScores.phq9) {
+        d.assessments.phq9 = state.assessmentScores.phq9.score
+        d.assessments.phq9Severity = state.assessmentScores.phq9.severity.label
+      }
+
+      // GAD-7
+      if (state.assessmentScores.gad7) {
+        d.assessments.gad7 = state.assessmentScores.gad7.score
+        d.assessments.gad7Severity = state.assessmentScores.gad7.severity.label
+      }
+
+      // C-SSRS
+      d.assessments.cssrsTriggered = state.assessmentScores.cssrs
+        ? state.assessmentScores.cssrs.triggered : false
+
+      // Individual C-SSRS answers
+      ASSESSMENTS.cssrs.questions.forEach(function (q) {
+        d['cssrs_' + q.key] = getRadioValue('cssrs_' + q.key)
+      })
+
+      // Functional impact
+      d.functionalImpact = getRadioValue('functionalImpact')
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       STEP 4: CONSENTS + E-SIGNATURES
+       ═══════════════════════════════════════════════════════ */
+    function initStep4() {
+      // Determine which consents are required
+      state.requiredConsents = []
+      var d = state.formData
+
+      Object.keys(CONFIG.CONSENTS).forEach(function (key) {
+        var consent = CONFIG.CONSENTS[key]
+        var show = consent.required
+        if (!show && consent.condition) {
+          show = consent.condition(d)
+        }
+        if (show) {
+          state.requiredConsents.push(key)
+        }
+      })
+
+      renderConsents()
+      updateConsentStatus()
+    }
+
+    function renderConsents() {
+      var html = ''
+
+      state.requiredConsents.forEach(function (key) {
+        var c = CONFIG.CONSENTS[key]
+        var signed = state.signedConsents[key]
+        var statusCls = signed ? 'consent-item__status--signed' : 'consent-item__status--pending'
+        var statusText = signed ? '✓ SIGNED' : 'REVIEW & SIGN'
+
+        html +=
+          '<div class="consent-item" data-consent="' + key + '" id="consent-' + key + '">' +
+            '<div class="consent-item__header" role="button" tabindex="0" aria-expanded="false">' +
+              '<span class="consent-item__title">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
+                esc(c.title) +
+              '</span>' +
+              '<span class="consent-item__status ' + statusCls + '">' + statusText + '</span>' +
+              '<svg class="consent-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
+            '</div>' +
+            '<div class="consent-item__body">' +
+              '<div class="consent-item__content">' + c.content + '</div>' +
+              '<div class="consent-item__sig-area">' +
+                '<div class="field-group" style="margin-bottom:12px;">' +
+                  '<label class="check-option">' +
+                    '<input type="checkbox" class="consent-acknowledge" data-consent="' + key + '" />' +
+                    '<span class="check-option__label">I have read and understand this document</span>' +
+                  '</label>' +
+                '</div>' +
+                '<div class="field-group">' +
+                  '<label class="field-label">Signature:</label>' +
+                  '<div class="sig-pad-wrap" id="sig-wrap-' + key + '">' +
+                    '<canvas class="sig-canvas" id="sig-canvas-' + key + '" width="600" height="120"></canvas>' +
+                    '<span class="sig-placeholder">Sign here with mouse or finger</span>' +
+                  '</div>' +
+                  '<div class="sig-actions">' +
+                    '<button type="button" class="sig-clear-btn" data-consent="' + key + '">Clear signature</button>' +
+                    '<span class="sig-timestamp" id="sig-time-' + key + '"></span>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>'
+      })
+
+      dom.consentList.innerHTML = html
+
+      // Bind accordion
+      dom.consentList.querySelectorAll('.consent-item__header').forEach(function (header) {
+        header.addEventListener('click', function () {
+          var item = this.closest('.consent-item')
+          var isOpen = item.classList.contains('consent-item--open')
+
+          // Close all
+          dom.consentList.querySelectorAll('.consent-item').forEach(function (ci) {
+            ci.classList.remove('consent-item--open')
+            ci.querySelector('.consent-item__header').setAttribute('aria-expanded', 'false')
+          })
+
+          // Toggle clicked
+          if (!isOpen) {
+            item.classList.add('consent-item--open')
+            this.setAttribute('aria-expanded', 'true')
+          }
+        })
+      })
+
+      // Bind signature pads
+      state.requiredConsents.forEach(function (key) {
+        initSignaturePad(key)
+      })
+
+      // Bind acknowledge checkboxes
+      dom.consentList.querySelectorAll('.consent-acknowledge').forEach(function (cb) {
+        cb.addEventListener('change', function () {
+          updateConsentStatus()
+        })
+      })
+
+      // Bind clear buttons
+      dom.consentList.querySelectorAll('.sig-clear-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var key = this.getAttribute('data-consent')
+          clearSignature(key)
+        })
+      })
+
+      // Auto-open first unsigned consent
+      var firstUnsigned = state.requiredConsents.find(function (k) { return !state.signedConsents[k] })
+      if (firstUnsigned) {
+        var item = document.getElementById('consent-' + firstUnsigned)
+        if (item) {
+          item.classList.add('consent-item--open')
+          item.querySelector('.consent-item__header').setAttribute('aria-expanded', 'true')
+        }
+      }
+    }
+
+    function initSignaturePad(key) {
+      var canvas = document.getElementById('sig-canvas-' + key)
+      var wrap = document.getElementById('sig-wrap-' + key)
+      if (!canvas || !wrap) return
+
+      var ctx = canvas.getContext('2d')
+      var drawing = false
+      var hasStrokes = false
+
+      // Scale canvas for retina
+      var rect = canvas.getBoundingClientRect()
+      var dpr = window.devicePixelRatio || 1
+      canvas.width = rect.width * dpr
+      canvas.height = rect.height * dpr
+      ctx.scale(dpr, dpr)
+      canvas.style.width = rect.width + 'px'
+      canvas.style.height = rect.height + 'px'
+
+      ctx.strokeStyle = '#1a3c4a'
+      ctx.lineWidth = 2
+      ctx.lineCap = 'round'
+      ctx.lineJoin = 'round'
+
+      function getPos(e) {
+        var r = canvas.getBoundingClientRect()
+        var touch = e.touches ? e.touches[0] : e
+        return { x: touch.clientX - r.left, y: touch.clientY - r.top }
+      }
+
+      function startDraw(e) {
+        e.preventDefault()
+        drawing = true
+        hasStrokes = true
+        wrap.classList.add('sig-pad-wrap--active')
+        var p = getPos(e)
+        ctx.beginPath()
+        ctx.moveTo(p.x, p.y)
+      }
+
+      function draw(e) {
+        if (!drawing) return
+        e.preventDefault()
+        var p = getPos(e)
+        ctx.lineTo(p.x, p.y)
+        ctx.stroke()
+      }
+
+      function endDraw(e) {
+        if (!drawing) return
+        drawing = false
+        ctx.closePath()
+
+        // Check if acknowledged
+        var ack = dom.consentList.querySelector('.consent-acknowledge[data-consent="' + key + '"]')
+        if (ack && ack.checked && hasStrokes) {
+          completeSignature(key, canvas)
+        }
+      }
+
+      // Mouse events
+      canvas.addEventListener('mousedown', startDraw)
+      canvas.addEventListener('mousemove', draw)
+      canvas.addEventListener('mouseup', endDraw)
+      canvas.addEventListener('mouseleave', endDraw)
+
+      // Touch events
+      canvas.addEventListener('touchstart', startDraw, { passive: false })
+      canvas.addEventListener('touchmove', draw, { passive: false })
+      canvas.addEventListener('touchend', endDraw)
+
+      // Store reference for clearing
+      state.sigPads[key] = {
+        canvas: canvas,
+        ctx: ctx,
+        wrap: wrap,
+        hasStrokes: function () { return hasStrokes },
+        reset: function () {
+          ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr)
+          hasStrokes = false
+          wrap.classList.remove('sig-pad-wrap--active', 'sig-pad-wrap--signed')
+        }
+      }
+    }
+
+    function completeSignature(key, canvas) {
+      var wrap = document.getElementById('sig-wrap-' + key)
+      var timeEl = document.getElementById('sig-time-' + key)
+
+      var now = new Date()
+      var timestamp = now.toISOString()
+      var displayTime = now.toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric',
+        hour: 'numeric', minute: '2-digit'
+      })
+
+      wrap.classList.add('sig-pad-wrap--signed')
+      timeEl.textContent = 'Signed: ' + displayTime
+
+      // Store signature data
+      state.signedConsents[key] = {
+        timestamp: timestamp,
+        ip: '', // collected server-side
+        userAgent: navigator.userAgent
+      }
+      state.signatureImages[key] = canvas.toDataURL('image/png')
+
+      updateConsentStatus()
+    }
+
+    function clearSignature(key) {
+      if (state.sigPads[key]) {
+        state.sigPads[key].reset()
+      }
+      delete state.signedConsents[key]
+      delete state.signatureImages[key]
+      var timeEl = document.getElementById('sig-time-' + key)
+      if (timeEl) timeEl.textContent = ''
+      updateConsentStatus()
+    }
+
+    function updateConsentStatus() {
+      var totalRequired = state.requiredConsents.length
+      var totalSigned = 0
+
+      state.requiredConsents.forEach(function (key) {
+        var ack = dom.consentList.querySelector('.consent-acknowledge[data-consent="' + key + '"]')
+        var acknowledged = ack && ack.checked
+        var signed = state.signedConsents[key]
+        var pad = state.sigPads[key]
+        var hasStrokes = pad && pad.hasStrokes()
+
+        // Auto-complete if both acknowledged and has strokes
+        if (acknowledged && hasStrokes && !signed) {
+          var canvas = document.getElementById('sig-canvas-' + key)
+          if (canvas) completeSignature(key, canvas)
+          signed = state.signedConsents[key]
+        }
+
+        // Update status badge
+        var statusEl = document.querySelector('#consent-' + key + ' .consent-item__status')
+        if (statusEl) {
+          if (signed) {
+            statusEl.className = 'consent-item__status consent-item__status--signed'
+            statusEl.textContent = '✓ SIGNED'
+          } else {
+            statusEl.className = 'consent-item__status consent-item__status--pending'
+            statusEl.textContent = 'REVIEW & SIGN'
+          }
+        }
+
+        if (signed) totalSigned++
+      })
+
+      // Update summary
+      var allSigned = totalSigned === totalRequired
+      dom.consentSummary.style.display = allSigned ? 'block' : 'none'
+      dom.consentCountLabel.textContent = totalSigned + ' of ' + totalRequired + ' documents completed'
+      dom.step4Next.disabled = !allSigned
+
+      // Auto-open next unsigned consent
+      if (!allSigned) {
+        var nextUnsigned = state.requiredConsents.find(function (k) { return !state.signedConsents[k] })
+        if (nextUnsigned) {
+          var currentOpen = dom.consentList.querySelector('.consent-item--open')
+          var currentOpenKey = currentOpen ? currentOpen.getAttribute('data-consent') : null
+          if (currentOpenKey && state.signedConsents[currentOpenKey]) {
+            // Current one was just signed — auto-advance
+            dom.consentList.querySelectorAll('.consent-item').forEach(function (ci) {
+              ci.classList.remove('consent-item--open')
+            })
+            var nextItem = document.getElementById('consent-' + nextUnsigned)
+            if (nextItem) {
+              nextItem.classList.add('consent-item--open')
+              nextItem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }
+          }
+        }
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       STEP 5: EMBEDDED SCHEDULING CALENDAR
+       Fetches real-time availability from backend and
+       renders selectable time slots.
+       ═══════════════════════════════════════════════════════ */
+    function initStep5() {
+      if (!state.matchedProvider) {
+        matchProvider()
+      }
+
+      // Update provider display
+      var prov = state.matchedProvider
+      if (prov) {
+        dom.embedAvatar.textContent = prov.initials
+        dom.embedProviderName.textContent = prov.name
+        dom.embedProviderTitle.textContent = prov.title + ' · Initial Consultation (60 min)'
+      }
+
+      // Set format based on step 1 preference
+      if (state.formData.visitFormat === 'in-person') {
+        state.selectedFormat = 'in-person'
+      } else {
+        state.selectedFormat = 'telehealth'
+      }
+
+      var btns = document.querySelectorAll('#embed-format-toggle [data-format]')
+      btns.forEach(function (b) {
+        b.classList.toggle('sched-embed__format-btn--active',
+          b.getAttribute('data-format') === state.selectedFormat)
+      })
+
+      state.weekOffset = 0
+      fetchAvailability()
+    }
+
+    function fetchAvailability() {
+      var prov = state.matchedProvider
+      if (!prov) return
+
+      var monday = getWeekMonday(state.weekOffset)
+      var friday = new Date(monday)
+      friday.setDate(friday.getDate() + 4)
+
+      var params = {
+        action: 'getAvailability',
+        providerId: prov.id,
+        startDate: dateToISO(monday),
+        endDate: dateToISO(friday),
+        duration: CONFIG.CONSULT_DURATION
+      }
+
+      showEmbedLoading()
+
+      callBackend(params, function (result) {
+        if (result && result.slots) {
+          state.availableSlots = result.slots
+        } else {
+          // Fallback: generate mock availability for demo
+          state.availableSlots = generateMockSlots(monday, friday, prov.id)
+        }
+        renderEmbedCalendar()
+      })
+    }
+
+    function generateMockSlots(monday, friday, providerId) {
+      // Generates realistic-looking available slots for development/demo
+      var slots = []
+      var d = new Date(monday)
+
+      while (d <= friday) {
+        var dayOfWeek = d.getDay()
+        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+          var dateStr = dateToISO(d)
+          // Random availability — some slots open, some taken
+          for (var h = CONFIG.HOURS.start; h < CONFIG.HOURS.end; h++) {
+            for (var m = 0; m < 60; m += CONFIG.SLOT_MINUTES) {
+              // Skip if this would extend past business hours
+              if (h * 60 + m + CONFIG.CONSULT_DURATION > CONFIG.HOURS.end * 60) continue
+              // Random ~40% availability
+              if (Math.random() > 0.6) {
+                // Check not in the past
+                var slotDate = new Date(dateStr + 'T' + pad(h) + ':' + pad(m) + ':00')
+                if (slotDate > new Date()) {
+                  slots.push({
+                    date: dateStr,
+                    hour: h,
+                    minute: m,
+                    providerId: providerId,
+                    available: true
+                  })
+                }
+              }
+            }
+          }
+        }
+        d.setDate(d.getDate() + 1)
+      }
+      return slots
+    }
+
+    function renderEmbedCalendar() {
+      var monday = getWeekMonday(state.weekOffset)
+
+      // Update week label
+      var friday = new Date(monday)
+      friday.setDate(friday.getDate() + 4)
+      dom.embedWeekLabel.textContent = formatDateRange(monday, friday)
+
+      var html = ''
+      var hasAnySlots = false
+
+      for (var dayOffset = 0; dayOffset < 5; dayOffset++) {
+        var d = new Date(monday)
+        d.setDate(d.getDate() + dayOffset)
+        var dateStr = dateToISO(d)
+        var dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+        var isToday = dateStr === dateToISO(new Date())
+
+        // Get slots for this day
+        var daySlots = state.availableSlots.filter(function (s) {
+          return s.date === dateStr && s.available
+        })
+
+        html += '<div class="sched-embed__day">'
+        html += '<div class="sched-embed__day-label">' + dayNames[dayOffset] + '</div>'
+        html += '<div class="sched-embed__day-num' + (isToday ? '" style="color:var(--ocean);font-weight:800;"' : '"') + '>' + d.getDate() + '</div>'
+        html += '<div class="sched-embed__slots">'
+
+        if (daySlots.length === 0) {
+          html += '<div style="font-size:0.65rem;color:var(--pebble-light);padding:8px 0;">—</div>'
+        } else {
+          hasAnySlots = true
+          daySlots.sort(function (a, b) { return (a.hour * 60 + a.minute) - (b.hour * 60 + b.minute) })
+
+          daySlots.forEach(function (slot) {
+            var timeStr = formatTime12(slot.hour, slot.minute)
+            var isSelected = state.selectedSlot &&
+              state.selectedSlot.date === slot.date &&
+              state.selectedSlot.hour === slot.hour &&
+              state.selectedSlot.minute === slot.minute
+
+            html += '<button type="button" class="sched-embed__slot' +
+              (isSelected ? ' sched-embed__slot--selected' : '') + '"' +
+              ' data-date="' + slot.date + '"' +
+              ' data-hour="' + slot.hour + '"' +
+              ' data-min="' + slot.minute + '"' +
+              '>' + timeStr + '</button>'
+          })
+        }
+
+        html += '</div></div>'
+      }
+
+      dom.embedDays.innerHTML = html
+      dom.embedNoSlots.style.display = hasAnySlots ? 'none' : 'block'
+
+      // Bind slot clicks
+      dom.embedDays.querySelectorAll('.sched-embed__slot:not(.sched-embed__slot--unavail)').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          selectSlot({
+            date: this.getAttribute('data-date'),
+            hour: parseInt(this.getAttribute('data-hour'), 10),
+            minute: parseInt(this.getAttribute('data-min'), 10),
+            providerId: state.matchedProvider.id
+          })
+        })
+      })
+    }
+
+    function selectSlot(slot) {
+      state.selectedSlot = slot
+
+      // Update UI
+      dom.embedDays.querySelectorAll('.sched-embed__slot').forEach(function (btn) {
+        btn.classList.remove('sched-embed__slot--selected')
+      })
+
+      var match = dom.embedDays.querySelector(
+        '[data-date="' + slot.date + '"][data-hour="' + slot.hour + '"][data-min="' + slot.minute + '"]'
+      )
+      if (match) match.classList.add('sched-embed__slot--selected')
+
+      // Show selected bar
+      var d = new Date(slot.date + 'T12:00:00')
+      var dayName = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })
+      var timeStr = formatTime12(slot.hour, slot.minute)
+      var endMin = slot.hour * 60 + slot.minute + CONFIG.CONSULT_DURATION
+      var endStr = formatTime12(Math.floor(endMin / 60), endMin % 60)
+
+      dom.embedSelectedText.textContent = dayName + ' at ' + timeStr + ' – ' + endStr + ' PT'
+      dom.embedSelected.style.display = 'block'
+      dom.step5Next.disabled = false
+    }
+
+    function showEmbedLoading() {
+      dom.embedDays.innerHTML =
+        '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--pebble);">' +
+          '<div style="font-size:var(--text-sm);font-weight:600;">Loading availability...</div>' +
+        '</div>'
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       VALIDATION
+       ═══════════════════════════════════════════════════════ */
+    function validateStep(stepNum) {
+      switch (stepNum) {
+        case 1:
+          collectStep1Data()
+          var d = state.formData
+          if (!d.reasons || d.reasons.length === 0) return showStepError(1, 'Please select at least one reason for your visit.')
+          if (!d.priorMeds) return showStepError(1, 'Please indicate your medication history.')
+          if (!d.paymentType) return showStepError(1, 'Please select a payment method.')
+          if (d.inCalifornia === 'no') return showStepError(1, 'We can only treat patients in California.')
+          return true
+
+        case 2:
+          collectStep2Data()
+          var d2 = state.formData
+          if (!d2.firstName || !d2.lastName) return showStepError(2, 'First and last name are required.')
+          if (!d2.email) return showStepError(2, 'Email is required.')
+          if (!isValidEmail(d2.email)) return showStepError(2, 'Please enter a valid email address.')
+          if (!d2.phone) return showStepError(2, 'Phone number is required.')
+          if (!d2.dateOfBirth) return showStepError(2, 'Date of birth is required.')
+          if (!d2.emergencyName) return showStepError(2, 'Emergency contact name is required.')
+          if (!d2.emergencyPhone) return showStepError(2, 'Emergency contact phone is required.')
+          if (!d2.pharmacyName) return showStepError(2, 'Pharmacy name is required.')
+          return true
+
+        case 3:
+          collectStep3Data()
+          // PHQ-9 must be fully completed
+          if (!state.assessmentScores.phq9) return showStepError(3, 'Please complete all PHQ-9 questions.')
+          if (!state.assessmentScores.gad7) return showStepError(3, 'Please complete all GAD-7 questions.')
+          // C-SSRS — check all answered
+          var cssrsComplete = ASSESSMENTS.cssrs.questions.every(function (q) {
+            return getRadioValue('cssrs_' + q.key) !== null
+          })
+          if (!cssrsComplete) return showStepError(3, 'Please answer all safety screening questions.')
+          if (!getRadioValue('functionalImpact')) return showStepError(3, 'Please rate the impact on your daily life.')
+          return true
+
+        case 4:
+          var allSigned = state.requiredConsents.every(function (k) { return state.signedConsents[k] })
+          if (!allSigned) return showStepError(4, 'Please sign all consent forms before continuing.')
+          return true
+
+        case 5:
+          if (!state.selectedSlot) return showStepError(5, 'Please select an appointment time.')
+          return true
+      }
+      return true
+    }
+
+    function showStepError(stepNum, msg) {
+      // Scroll to top of step and show error
+      var step = document.getElementById('step-' + stepNum)
+      if (!step) return false
+
+      var existing = step.querySelector('.step-error-banner')
+      if (existing) existing.remove()
+
+      var banner = document.createElement('div')
+      banner.className = 'step-error-banner'
+      banner.setAttribute('role', 'alert')
+      banner.style.cssText =
+        'background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.2);' +
+        'border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:8px;'
+      banner.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" width="18" height="18">' +
+          '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>' +
+          '<line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+        '<span style="font-size:0.82rem;font-weight:600;color:#991b1b;">' + esc(msg) + '</span>'
+
+      var header = step.querySelector('.step-header')
+      if (header) {
+        header.parentNode.insertBefore(banner, header.nextSibling)
+      } else {
+        step.prepend(banner)
+      }
+
+      banner.scrollIntoView({ behavior: 'smooth', block: 'center' })
+
+      setTimeout(function () {
+        banner.style.transition = 'opacity 0.3s ease'
+        banner.style.opacity = '0'
+        setTimeout(function () { banner.remove() }, 300)
+      }, 5000)
+
+      return false
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       AUTO-SAVE (LocalStorage)
+       ═══════════════════════════════════════════════════════ */
+    function bindAutoSave() {
+      // Save on every input change with debounce
+      document.addEventListener('input', function () {
+        clearTimeout(state.autosaveTimer)
+        state.autosaveTimer = setTimeout(function () {
+          saveToLocalStorage()
+        }, 1500)
+      })
+
+      document.addEventListener('change', function () {
+        clearTimeout(state.autosaveTimer)
+        state.autosaveTimer = setTimeout(function () {
+          saveToLocalStorage()
+        }, 500)
+      })
+    }
+
+    function saveToLocalStorage() {
+      showAutosave('saving')
+
+      try {
+        // Collect all form data from all visible steps
+        collectAllFormData()
+
+        var saveData = {
+          sessionId: state.sessionId,
+          currentStep: state.currentStep,
+          formData: state.formData,
+          assessmentScores: state.assessmentScores,
+          signedConsents: state.signedConsents,
+          signatureImages: state.signatureImages,
+          matchedProvider: state.matchedProvider ? state.matchedProvider.id : null,
+          selectedFormat: state.selectedFormat,
+          savedAt: new Date().toISOString()
+        }
+
+        localStorage.setItem('altos_intake', JSON.stringify(saveData))
+
+        setTimeout(function () { showAutosave('saved') }, 300)
+      } catch (e) {
+        // localStorage might be full or unavailable
+        console.warn('Auto-save failed:', e)
+      }
+    }
+
+    function restoreFromLocalStorage() {
+      try {
+        var saved = localStorage.getItem('altos_intake')
+        if (!saved) return
+
+        var data = JSON.parse(saved)
+
+        // Check if save is recent (< 7 days)
+        var savedAt = new Date(data.savedAt)
+        var age = Date.now() - savedAt.getTime()
+        if (age > 7 * 24 * 60 * 60 * 1000) {
+          localStorage.removeItem('altos_intake')
+          return
+        }
+
+        // Ask user if they want to resume
+        if (!confirm('We found a saved intake form from ' +
+          savedAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
+          '. Would you like to continue where you left off?')) {
+          localStorage.removeItem('altos_intake')
+          return
+        }
+
+        // Restore state
+        state.sessionId = data.sessionId || state.sessionId
+        state.formData = data.formData || {}
+        state.assessmentScores = data.assessmentScores || { phq9: null, gad7: null, cssrs: null }
+        state.signedConsents = data.signedConsents || {}
+        state.signatureImages = data.signatureImages || {}
+        state.selectedFormat = data.selectedFormat || 'telehealth'
+
+        if (data.matchedProvider) {
+          state.matchedProvider = CONFIG.PROVIDERS.find(function (p) {
+            return p.id === data.matchedProvider
+          }) || null
+        }
+
+        // Repopulate form fields from saved data
+        repopulateFormFields(state.formData)
+
+        // Navigate to saved step
+        if (data.currentStep && data.currentStep > 1) {
+          // Must go through steps sequentially so init functions fire
+          for (var s = 2; s <= data.currentStep; s++) {
+            state.currentStep = s
+          }
+          goToStep(data.currentStep)
+        }
+
+      } catch (e) {
+        console.warn('Restore failed:', e)
+        localStorage.removeItem('altos_intake')
+      }
+    }
+
+    function repopulateFormFields(data) {
+      Object.keys(data).forEach(function (key) {
+        var val = data[key]
+        if (val === null || val === undefined) return
+        if (typeof val === 'object' && !Array.isArray(val)) return // skip nested objects
+
+        // Radio buttons
+        if (typeof val === 'string') {
+          var radios = document.querySelectorAll('[name="' + key + '"]')
+          if (radios.length > 0 && radios[0].type === 'radio') {
+            radios.forEach(function (r) {
+              r.checked = r.value === val
+              var opt = r.closest('.check-option')
+              if (opt) opt.classList.toggle('check-option--selected', r.checked)
+            })
+            return
+          }
+        }
+
+        // Checkbox groups (arrays)
+        if (Array.isArray(val)) {
+          var checkboxes = document.querySelectorAll('[name="' + key + '"]')
+          if (checkboxes.length > 0 && checkboxes[0].type === 'checkbox') {
+            checkboxes.forEach(function (cb) {
+              cb.checked = val.indexOf(cb.value) > -1
+              var opt = cb.closest('.check-option')
+              if (opt) opt.classList.toggle('check-option--selected', cb.checked)
+            })
+            return
+          }
+        }
+
+        // Text inputs, selects, textareas
+        var el = document.querySelector('[name="' + key + '"]') ||
+                 document.getElementById(key) ||
+                 document.getElementById('reg-' + key.replace(/([A-Z])/g, '-$1').toLowerCase())
+        if (el && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA')) {
+          el.value = val
+        }
+      })
+
+      // Trigger conditional visibility
+      var payType = data.paymentType
+      if (payType === 'insurance' && dom.insuranceDetails) {
+        dom.insuranceDetails.style.display = 'block'
+      }
+      if (data.insuranceCarrier === 'kaiser' && dom.kaiserNotice) {
+        dom.kaiserNotice.style.display = 'block'
+      }
+      if (data.inCalifornia === 'no' && dom.outOfStateNotice) {
+        dom.outOfStateNotice.style.display = 'block'
+      }
+      if (data.reasons && data.reasons.indexOf('other') > -1 && dom.reasonOtherWrap) {
+        dom.reasonOtherWrap.style.display = 'block'
+      }
+
+      // Re-evaluate step 1
+      evaluateStep1()
+    }
+
+    function collectAllFormData() {
+      // Collect from whichever steps have been reached
+      if (state.currentStep >= 1) collectStep1Data()
+      if (state.currentStep >= 2) collectStep2Data()
+      if (state.currentStep >= 3) collectStep3Data()
+    }
+
+    function showAutosave(status) {
+      dom.autosave.classList.add('autosave-indicator--visible')
+      dom.autosave.classList.remove('autosave-indicator--saving', 'autosave-indicator--saved')
+
+      if (status === 'saving') {
+        dom.autosave.classList.add('autosave-indicator--saving')
+        dom.autosaveText.textContent = 'Saving...'
+      } else if (status === 'saved') {
+        dom.autosave.classList.add('autosave-indicator--saved')
+        dom.autosaveText.textContent = 'Saved'
+        setTimeout(function () {
+          dom.autosave.classList.remove('autosave-indicator--visible')
+        }, 2000)
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       FINAL SUBMISSION
+       Sends all data to backend, creates appointment,
+       generates Zoom link, sends confirmation email,
+       and displays step 6.
+       ═══════════════════════════════════════════════════════ */
+    function submitEverything() {
+      if (state.submitting) return
+      if (!validateStep(5)) return
+
+      state.submitting = true
+      dom.step5Next.disabled = true
+      dom.step5Next.innerHTML =
+        '<span class="autosave-dot" style="animation:pulse 0.8s ease infinite;"></span> ' +
+        'Booking your appointment...'
+
+      collectAllFormData()
+
+      var slot = state.selectedSlot
+      var prov = state.matchedProvider
+      var d = state.formData
+
+      // Build comprehensive payload
+      var payload = {
+        action: 'submitIntake',
+        sessionId: state.sessionId,
+
+        // Patient demographics
+        firstName: d.firstName || '',
+        lastName: d.lastName || '',
+        preferredName: d.preferredName || '',
+        pronouns: d.pronouns || '',
+        dateOfBirth: d.dateOfBirth || '',
+        sexAssigned: d.sexAssigned || '',
+        genderIdentity: d.genderIdentity || '',
+        email: d.email || '',
+        phone: d.phone || '',
+        address: d.address || '',
+        city: d.city || '',
+        state: d.state || 'CA',
+        zip: d.zip || '',
+        language: d.language || 'english',
+        interpreterNeeded: d.interpreterNeeded ? 'true' : 'false',
+
+        // Emergency contact
+        emergencyName: d.emergencyName || '',
+        emergencyRelation: d.emergencyRelation || '',
+        emergencyPhone: d.emergencyPhone || '',
+        emergencyEmail: d.emergencyEmail || '',
+
+        // Pharmacy
+        pharmacyName: d.pharmacyName || '',
+        pharmacyPhone: d.pharmacyPhone || '',
+        pharmacyAddress: d.pharmacyAddress || '',
+
+        // PCP
+        pcpName: d.pcpName || '',
+        pcpPractice: d.pcpPractice || '',
+        pcpPhone: d.pcpPhone || '',
+
+        // Insurance
+        paymentType: d.paymentType || '',
+        insuranceCarrier: d.insuranceCarrier || '',
+        insuranceId: d.insuranceId || '',
+
+        // Clinical
+        reasons: JSON.stringify(d.reasons || []),
+        reasonOther: d.reasonOther || '',
+        chiefComplaint: d.chiefComplaint || '',
+        priorMeds: d.priorMeds || '',
+        currentProvider: d.currentProvider || '',
+        diagnoses: JSON.stringify(getCheckedValues('dx')),
+        priorHospital: d.priorHospital || '',
+        hospitalDetail: d.hospitalDetail || '',
+        priorAttempt: d.priorAttempt || '',
+        selfHarm: d.selfHarm || '',
+        familyDx: JSON.stringify(getCheckedValues('familyDx')),
+        currentMeds: JSON.stringify(d.currentMeds || []),
+        pastMeds: JSON.stringify(d.pastMeds || []),
+        allergies: d.allergies || '',
+
+        // Substance use
+        alcoholFreq: d.alcoholFreq || '',
+        cannabis: d.cannabis || '',
+        substances: JSON.stringify(getCheckedValues('substance')),
+        sudTreatment: d.sudTreatment || '',
+
+        // Medical
+        medicalConditions: JSON.stringify(getCheckedValues('medical')),
+        medicalOther: d.medicalOther || '',
+        pregnancy: d.pregnancy || '',
+        headInjury: d.headInjury || '',
+
+        // TMS / Ketamine safety
+        tmsMetalImplant: getRadioValue('tmsMetalImplant') || '',
+        tmsSeizureHx: getRadioValue('tmsSeizureHx') || '',
+        ketBP: getRadioValue('ketBP') || '',
+        ketPsychosis: getRadioValue('ketPsychosis') || '',
+
+        // Social
+        maritalStatus: d.maritalStatus || '',
+        livingSituation: d.livingSituation || '',
+        employment: d.employment || '',
+        occupation: d.occupation || '',
+        sleep: d.sleep || '',
+        additionalNotes: d.additionalNotes || '',
+
+        // Assessments
+        phq9Score: d.assessments ? (d.assessments.phq9 || '') : '',
+        phq9Severity: d.assessments ? (d.assessments.phq9Severity || '') : '',
+        gad7Score: d.assessments ? (d.assessments.gad7 || '') : '',
+        gad7Severity: d.assessments ? (d.assessments.gad7Severity || '') : '',
+        cssrsTriggered: d.assessments ? (d.assessments.cssrsTriggered ? 'true' : 'false') : 'false',
+        cssrs_q1: d.cssrs_q1 || '',
+        cssrs_q2: d.cssrs_q2 || '',
+        cssrs_q3: d.cssrs_q3 || '',
+        cssrs_q4: d.cssrs_q4 || '',
+        cssrs_q5: d.cssrs_q5 || '',
+        cssrs_q6: d.cssrs_q6 || '',
+        functionalImpact: d.functionalImpact || '',
+
+        // Consents
+        consentsJson: JSON.stringify(state.signedConsents),
+        signatureCount: Object.keys(state.signedConsents).length,
+
+        // Appointment
+        providerId: prov.id,
+        providerName: prov.name,
+        appointmentDate: slot.date,
+        appointmentHour: slot.hour,
+        appointmentMinute: slot.minute,
+        appointmentDuration: CONFIG.CONSULT_DURATION,
+        appointmentCPT: CONFIG.CONSULT_CPT,
+        appointmentType: 'Initial Psychiatric Evaluation',
+        isTelehealth: state.selectedFormat === 'telehealth' ? 'true' : 'false',
+        calendarType: 'general',
+
+        // Tracking
+        referralSource: d.referralSource || '',
+        utmSource: d._utmSource || '',
+        utmMedium: d._utmMedium || '',
+        utmCampaign: d._utmCampaign || '',
+
+        // Signatures (base64 images)
+        signatureImages: JSON.stringify(state.signatureImages)
+      }
+
+      callBackend(payload, function (result) {
+        state.submitting = false
+
+        if (result && result.success) {
+          state.patientId = result.patientId
+          state.appointmentId = result.appointmentId
+
+          // Clear saved data — intake is complete
+          localStorage.removeItem('altos_intake')
+
+          showConfirmation(result)
+          goToStep(6)
+        } else {
+          dom.step5Next.disabled = false
+          dom.step5Next.innerHTML =
+            'Confirm &amp; Book Appointment ' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">' +
+            '<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
+
+          var errorMsg = (result && result.error) ? result.error : 'Something went wrong. Please try again.'
+          showStepError(5, errorMsg)
+        }
+      })
+    }
+
+    function showConfirmation(result) {
+      var d = state.formData
+      var slot = state.selectedSlot
+      var prov = state.matchedProvider
+
+      // Email
+      dom.confirmEmail.textContent = d.email
+
+      // Appointment details table
+      var apptDate = new Date(slot.date + 'T12:00:00')
+      var dayStr = apptDate.toLocaleDateString('en-US', {
+        weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+      })
+      var timeStr = formatTime12(slot.hour, slot.minute)
+      var endMin = slot.hour * 60 + slot.minute + CONFIG.CONSULT_DURATION
+      var endStr = formatTime12(Math.floor(endMin / 60), endMin % 60)
+
+      var rows = [
+        ['Date', dayStr],
+        ['Time', timeStr + ' – ' + endStr + ' PT'],
+        ['Duration', CONFIG.CONSULT_DURATION + ' minutes'],
+        ['Provider', prov.name + ', ' + prov.title],
+        ['Type', 'Initial Psychiatric Evaluation'],
+        ['Format', state.selectedFormat === 'telehealth' ? '📹 Telehealth (Video)' : '🏥 In-Person'],
+        ['Confirmation #', result.appointmentId || '—']
+      ]
+
+      dom.confirmDetails.innerHTML = rows.map(function (r) {
+        return '<tr style="border-bottom:1px solid var(--fog);">' +
+          '<td style="padding:10px 0;font-size:var(--text-xs);color:var(--pebble);font-weight:600;width:40%;vertical-align:top;">' + r[0] + '</td>' +
+          '<td style="padding:10px 0;font-size:var(--text-sm);color:var(--stone);font-weight:500;">' + r[1] + '</td>' +
+          '</tr>'
+      }).join('')
+
+      // Zoom link
+      if (state.selectedFormat === 'telehealth' && result.zoomJoinUrl) {
+        dom.confirmZoom.style.display = 'block'
+        dom.confirmZoomUrl.href = result.zoomJoinUrl
+        dom.confirmZoomUrl.textContent = result.zoomJoinUrl
+        dom.confirmTelehealthTip.style.display = 'list-item'
+        dom.confirmInpersonTip.style.display = 'none'
+      } else {
+        dom.confirmZoom.style.display = 'none'
+        dom.confirmTelehealthTip.style.display = 'none'
+        dom.confirmInpersonTip.style.display = 'list-item'
+      }
+
+      // Google Calendar link
+      var startDt = new Date(slot.date + 'T' + pad(slot.hour) + ':' + pad(slot.minute) + ':00')
+      var endDt = new Date(startDt.getTime() + CONFIG.CONSULT_DURATION * 60000)
+
+      var gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+        '&text=' + encodeURIComponent('Psychiatry Consultation — Altos Psychiatry') +
+        '&dates=' + toGCalDate(startDt) + '/' + toGCalDate(endDt) +
+        '&details=' + encodeURIComponent(
+          'Provider: ' + prov.name + '\n' +
+          'Type: Initial Psychiatric Evaluation\n' +
+          (result.zoomJoinUrl ? 'Zoom: ' + result.zoomJoinUrl + '\n' : '') +
+          'Phone: (650) 555-0000\n' +
+          'Confirmation: ' + (result.appointmentId || '')
+        ) +
+        '&location=' + encodeURIComponent(
+          state.selectedFormat === 'telehealth'
+            ? (result.zoomJoinUrl || 'Telehealth — Zoom link in confirmation email')
+            : 'Altos Psychiatry, 123 Main St, Menlo Park, CA 94025'
+        )
+
+      dom.confirmGcalLink.href = gcalUrl
+
+      // ICS file
+      var icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Altos Psychiatry//Intake//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        'UID:' + (result.appointmentId || state.sessionId) + '@altospsychiatry.com',
+        'DTSTAMP:' + toICSDate(new Date()),
+        'DTSTART:' + toICSDate(startDt),
+        'DTEND:' + toICSDate(endDt),
+        'SUMMARY:Psychiatry Consultation — Altos Psychiatry',
+        'DESCRIPTION:Provider: ' + prov.name + '\\nType: Initial Psychiatric Evaluation' +
+          (result.zoomJoinUrl ? '\\nZoom: ' + result.zoomJoinUrl : '') +
+          '\\nPhone: (650) 555-0000',
+        'LOCATION:' + (state.selectedFormat === 'telehealth'
+          ? (result.zoomJoinUrl || 'Telehealth')
+          : 'Altos Psychiatry\\, 123 Main St\\, Menlo Park\\, CA 94025'),
+        'STATUS:CONFIRMED',
+        'BEGIN:VALARM',
+        'TRIGGER:-PT30M',
+        'ACTION:DISPLAY',
+        'DESCRIPTION:Appointment in 30 minutes',
+        'END:VALARM',
+        'BEGIN:VALARM',
+        'TRIGGER:-P1D',
+        'ACTION:DISPLAY',
+        'DESCRIPTION:Appointment tomorrow',
+        'END:VALARM',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n')
+
+      var icsBlob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' })
+      dom.confirmIcsLink.href = URL.createObjectURL(icsBlob)
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       BACKEND COMMUNICATION
+       ═══════════════════════════════════════════════════════ */
+    function callBackend(params, callback) {
+      // Try fetch first, fall back to JSONP
+      if (window.fetch) {
+        var url = CONFIG.BACKEND_URL
+        var body = new URLSearchParams()
+        Object.keys(params).forEach(function (k) {
+          body.append(k, params[k])
+        })
+
+        fetch(url, {
+          method: 'POST',
+          body: body,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+        .then(function (r) { return r.json() })
+        .then(function (data) { callback(data) })
+        .catch(function (err) {
+          console.warn('Fetch failed, trying JSONP:', err)
+          callBackendJSONP(params, callback)
+        })
+      } else {
+        callBackendJSONP(params, callback)
+      }
+    }
+
+    function callBackendJSONP(params, callback) {
+      var cbName = '_intake_cb_' + Date.now()
+      window[cbName] = function (data) {
+        delete window[cbName]
+        var script = document.getElementById(cbName)
+        if (script) script.remove()
+        callback(data)
+      }
+
+      params.callback = cbName
+
+      var qs = Object.keys(params).map(function (k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
+      }).join('&')
+
+      var script = document.createElement('script')
+      script.id = cbName
+      script.src = CONFIG.BACKEND_URL + '?' + qs
+
+      script.onerror = function () {
+        delete window[cbName]
+        script.remove()
+        callback({ success: false, error: 'Network error. Please check your connection.' })
+      }
+
+      document.body.appendChild(script)
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       HELPER FUNCTIONS
+       ═══════════════════════════════════════════════════════ */
+    function val(id) {
+      var el = document.getElementById(id)
+      return el ? el.value.trim() : ''
+    }
+
+    function valIn(container, selector) {
+      var el = container.querySelector(selector)
+      return el ? el.value.trim() : ''
+    }
+
+    function getRadioValue(name) {
+      var checked = document.querySelector('[name="' + name + '"]:checked')
+      return checked ? checked.value : null
+    }
+
+    function getCheckedValues(name) {
+      var checked = document.querySelectorAll('[name="' + name + '"]:checked')
+      return Array.prototype.slice.call(checked).map(function (cb) { return cb.value })
+    }
+
+    function hasReason(data, reason) {
+      return data.reasons && data.reasons.indexOf(reason) > -1
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    }
+
+    function esc(str) {
+      if (!str) return ''
+      var d = document.createElement('div')
+      d.textContent = str
+      return d.innerHTML
+    }
+
+    function pad(n) {
+      return n < 10 ? '0' + n : '' + n
+    }
+
+    function dateToISO(dt) {
+      return dt.getFullYear() + '-' + pad(dt.getMonth() + 1) + '-' + pad(dt.getDate())
+    }
+
+    function formatTime12(h, m) {
+      var ampm = h >= 12 ? 'PM' : 'AM'
+      var hr = h % 12 || 12
+      return hr + ':' + pad(m) + ' ' + ampm
+    }
+
+    function formatDateRange(start, end) {
+      var opts = { month: 'long', day: 'numeric', year: 'numeric' }
+      var s = start.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
+      var e = end.toLocaleDateString('en-US', opts)
+      return s + ' – ' + e
+    }
+
+    function getWeekMonday(weekOffset) {
+      var now = new Date()
+      var day = now.getDay()
+      var diff = day === 0 ? -6 : 1 - day // adjust to Monday
+      var monday = new Date(now)
+      monday.setDate(now.getDate() + diff + (weekOffset * 7))
+      monday.setHours(0, 0, 0, 0)
+
+      // If this week's Monday is in the past and offset is 0, use next Monday
+      var today = new Date()
+      today.setHours(0, 0, 0, 0)
+      if (weekOffset === 0 && monday < today) {
+        // Keep current week — slots in the past are filtered out in generateMockSlots
+      }
+
+      return monday
+    }
+
+    function toGCalDate(dt) {
+      return dt.getFullYear() +
+        pad(dt.getMonth() + 1) +
+        pad(dt.getDate()) + 'T' +
+        pad(dt.getHours()) +
+        pad(dt.getMinutes()) + '00'
+    }
+
+    function toICSDate(dt) {
+      return dt.getUTCFullYear() +
+        pad(dt.getUTCMonth() + 1) +
+        pad(dt.getUTCDate()) + 'T' +
+        pad(dt.getUTCHours()) +
+        pad(dt.getUTCMinutes()) +
+        pad(dt.getUTCSeconds()) + 'Z'
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       PHONE NUMBER FORMATTING
+       ═══════════════════════════════════════════════════════ */
+    function bindPhoneFormatting() {
+      document.querySelectorAll('input[type="tel"]').forEach(function (input) {
+        input.addEventListener('input', function () {
+          var digits = this.value.replace(/\D/g, '')
+          if (digits.length === 0) { this.value = ''; return }
+          if (digits.length <= 3) {
+            this.value = '(' + digits
+          } else if (digits.length <= 6) {
+            this.value = '(' + digits.substring(0, 3) + ') ' + digits.substring(3)
+          } else {
+            this.value = '(' + digits.substring(0, 3) + ') ' +
+              digits.substring(3, 6) + '-' + digits.substring(6, 10)
+          }
+        })
+      })
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       CONDITIONAL FIELD VISIBILITY (Step 2)
+       ═══════════════════════════════════════════════════════ */
+    function bindStep2Conditionals() {
+      // Hospital history detail
+      document.querySelectorAll('[name="priorHospital"]').forEach(function (r) {
+        r.addEventListener('change', function () {
+          dom.hospitalDetailWrap.style.display = this.value === 'yes' ? 'block' : 'none'
+        })
+      })
+
+      // Highlight selected check-options in step 2
+      var step2 = document.getElementById('step-2')
+      if (step2) {
+        step2.addEventListener('change', function (e) {
+          var opt = e.target.closest('.check-option')
+          if (!opt) return
+          if (e.target.type === 'checkbox') {
+            opt.classList.toggle('check-option--selected', e.target.checked)
+          } else if (e.target.type === 'radio') {
+            step2.querySelectorAll('[name="' + e.target.name + '"]').forEach(function (inp) {
+              var p = inp.closest('.check-option')
+              if (p) p.classList.toggle('check-option--selected', inp.checked)
+            })
+          }
+        })
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       INCOMPLETE FORM NUDGE EMAILS
+       Sends a "resume your intake" email if the user
+       abandons the form partway through.
+       ═══════════════════════════════════════════════════════ */
+    var _nudgeSent = false
+
+    function scheduleNudgeOnUnload() {
+      window.addEventListener('beforeunload', function () {
+        if (state.currentStep >= 6 || _nudgeSent) return
+        if (!state.formData.email) return
+
+        // Fire-and-forget beacon to trigger nudge email sequence
+        var payload = {
+          action: 'scheduleNudge',
+          email: state.formData.email,
+          firstName: state.formData.firstName || '',
+          stoppedAtStep: state.currentStep,
+          sessionId: state.sessionId
+        }
+
+        var body = new URLSearchParams()
+        Object.keys(payload).forEach(function (k) { body.append(k, payload[k]) })
+
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(CONFIG.BACKEND_URL, body)
+          _nudgeSent = true
+        }
+      })
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       ACCESSIBILITY
+       ═══════════════════════════════════════════════════════ */
+    function initAccessibility() {
+      // Announce step changes to screen readers
+      var liveRegion = document.createElement('div')
+      liveRegion.setAttribute('role', 'status')
+      liveRegion.setAttribute('aria-live', 'polite')
+      liveRegion.setAttribute('aria-atomic', 'true')
+      liveRegion.className = 'sr-only'
+      liveRegion.id = 'intake-live-region'
+      document.body.appendChild(liveRegion)
+
+      // Keyboard support for consent accordion headers
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          var header = e.target.closest('.consent-item__header')
+          if (header) {
+            e.preventDefault()
+            header.click()
+          }
+        }
+      })
+    }
+
+    function announce(msg) {
+      var region = document.getElementById('intake-live-region')
+      if (region) {
+        region.textContent = ''
+        setTimeout(function () { region.textContent = msg }, 100)
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       ANALYTICS / CONVERSION TRACKING
+       Fires events at each step for Google Analytics,
+       Meta Pixel, etc. without blocking the UI.
+       ═══════════════════════════════════════════════════════ */
+    function trackStep(stepNum, stepName) {
+      try {
+        // Google Analytics 4
+        if (typeof gtag === 'function') {
+          gtag('event', 'intake_step', {
+            step_number: stepNum,
+            step_name: stepName,
+            session_id: state.sessionId
+          })
+        }
+
+        // Meta Pixel
+        if (typeof fbq === 'function') {
+          if (stepNum === 6) {
+            fbq('track', 'Schedule', {
+              content_name: 'Initial Consultation',
+              content_category: 'Psychiatry'
+            })
+          } else {
+            fbq('trackCustom', 'IntakeStep', {
+              step: stepNum,
+              stepName: stepName
+            })
+          }
+        }
+      } catch (e) {
+        // Analytics should never break the form
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       ENHANCED goToStep — wire in tracking + announcements
+       (Override the base function with extras)
+       ═══════════════════════════════════════════════════════ */
+    var _baseGoToStep = goToStep
+    goToStep = function (stepNum) {
+      var prevStep = state.currentStep
+
+      _baseGoToStep(stepNum)
+
+      // Only fire extras if step actually changed
+      if (stepNum !== prevStep) {
+        var stepNames = ['', 'Screening', 'Registration', 'Assessments', 'Consents', 'Schedule', 'Confirmed']
+        announce('Step ' + stepNum + ': ' + stepNames[stepNum])
+        trackStep(stepNum, stepNames[stepNum])
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       BOOT
+       ═══════════════════════════════════════════════════════ */
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        init()
+        bindPhoneFormatting()
+        bindStep2Conditionals()
+        initAccessibility()
+        scheduleNudgeOnUnload()
+      })
+    } else {
+      init()
+      bindPhoneFormatting()
+      bindStep2Conditionals()
+      initAccessibility()
+      scheduleNudgeOnUnload()
+    }
+
+  })()
+  </script>
+</body>
+</html>
