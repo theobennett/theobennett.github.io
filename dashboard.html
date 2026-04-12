@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Practice Dashboard | Altos Psychiatry (Internal)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════
+       DASHBOARD — Internal Admin Styles
+       ═══════════════════════════════════════════════════════ */
+    :root {
+      --ocean-deep: #1a3a4a;
+      --ocean: #2a6b7c;
+      --ocean-light: #5baabb;
+      --ocean-mist: #a8d4dc;
+      --ocean-pale: #d4eef3;
+      --ocean-wash: #edf8fa;
+      --sage: #6b8f6b;
+      --sage-pale: #dce8dc;
+      --sand: #c4a882;
+      --sand-pale: #f0e8da;
+      --stone: #2c3e3e;
+      --stone-light: #4a6060;
+      --pebble: #7a8a8a;
+      --fog: #f7fafa;
+      --fog-dark: #edf1f1;
+      --white: #ffffff;
+      --red: #dc2626;
+      --red-pale: #fef2f2;
+      --green: #16a34a;
+      --green-pale: #dcfce7;
+      --amber: #d97706;
+      --amber-pale: #fef9ec;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 14px;
+      color: var(--stone);
+      background: var(--fog);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Top Bar ── */
+    .dash-topbar {
+      background: var(--ocean-deep);
+      color: var(--white);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .dash-topbar h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .dash-topbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dash-topbar__btn {
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .dash-topbar__btn:hover {
+      background: rgba(255,255,255,0.2);
+      color: var(--white);
+    }
+    .dash-topbar__status {
+      font-size: 0.78rem;
+      color: var(--ocean-mist);
+    }
+
+    /* ── Tab Navigation ── */
+    .dash-tabs {
+      display: flex;
+      gap: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--fog-dark);
+      padding: 0 32px;
+      overflow-x: auto;
+    }
+    .dash-tab {
+      padding: 14px 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--pebble);
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .dash-tab:hover {
+      color: var(--ocean);
+    }
+    .dash-tab.active {
+      color: var(--ocean-deep);
+      border-bottom-color: var(--ocean);
+    }
+
+    /* ── Dashboard Container ── */
+    .dash-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 32px;
+    }
+
+    /* ── Tab Panels ── */
+    .dash-panel {
+      display: none;
+    }
+    .dash-panel.active {
+      display: block;
+    }
+
+    /* ── KPI Row ── */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .kpi-card {
+      background: var(--white);
+      border: 1px solid var(--fog-dark);
+      border-radius: 12px;
+      padding: 20px 24px;
+      transition: box-shadow 0.2s ease;
+    }
+    .kpi-card:hover {
+      box-shadow: 0 4px 16px rgba(26,58,74,0.06);
+    }
+    .kpi-card__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pebble);
+      margin-bottom: 8px;
+    }
+    .kpi-card__value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ocean-deep);
+      line-height: 1.1;
+    }
+    .kpi-card__sub {
+      font-size: 0.78rem;
+      color: var(--pebble);
+      margin-top: 6px;
+    }
+    .kpi-card--alert .kpi-card__value {
+      color: var(--red);
+    }
+    .kpi-card--success .kpi-card__value {
+      color: var(--green);
+    }
+    .kpi-card--warn .kpi-card__value {
+      color: var(--amber);
+    }
+
+    /* ── Chart Cards ── */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    .chart-grid--2col {
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) {
+      .chart-grid--2col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (min-width: 1024px) {
+      .chart-grid--3col {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+    .chart-card {
+      background: var(--white);
+      border: 1px solid var(--fog-dark);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .chart-card__title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ocean-deep);
+      margin-bottom: 16px;
+    }
+    .chart-card canvas {
+      width: 100% !important;
+      max-height: 300px;
+    }
+
+    /* ── Data Table ── */
+    .data-table-wrap {
+      background: var(--white);
+      border: 1px solid var(--fog-dark);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .data-table-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--fog-dark);
+    }
+    .data-table-header h3 {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--ocean-deep);
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .data-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--pebble);
+      background: var(--fog);
+      border-bottom: 1px solid var(--fog-dark);
+    }
+    .data-table td {
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: var(--stone-light);
+      border-bottom: 1px solid var(--fog-dark);
+    }
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+    .data-table tr:hover td {
+      background: var(--ocean-wash);
+    }
+
+    /* ── Stage Badges ── */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .badge--new { background: var(--ocean-wash); color: var(--ocean); }
+    .badge--contacted { background: #e8f0fe; color: #1e40af; }
+    .badge--engaged { background: var(--sage-pale); color: #3d5a3e; }
+    .badge--scheduled { background: var(--amber-pale); color: #92400e; }
+    .badge--completed { background: var(--green-pale); color: #166534; }
+    .badge--lost { background: var(--red-pale); color: #991b1b; }
+
+    /* ── Loading State ── */
+    .dash-loading {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--pebble);
+    }
+    .dash-loading__spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--fog-dark);
+      border-top-color: var(--ocean);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Error State ── */
+    .dash-error {
+      background: var(--red-pale);
+      border-left: 3px solid var(--red);
+      padding: 16px 24px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+    .dash-error p { color: #7f1d1d; margin: 0; font-size: 0.88rem; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .dash-container { padding: 16px; }
+      .dash-topbar { padding: 12px 16px; }
+      .dash-tabs { padding: 0 16px; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ TOP BAR ═══ -->
+  <div class="dash-topbar">
+    <h1>Altos Psychiatry — Practice Dashboard</h1>
+    <div class="dash-topbar__actions">
+      <span class="dash-topbar__status" id="last-updated">Loading...</span>
+      <button class="dash-topbar__btn" id="refresh-btn" title="Refresh dashboard data">
+        ↻ Refresh
+      </button>
+      <a href="https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID_HERE/edit" 
+         target="_blank" rel="noopener" class="dash-topbar__btn">
+        Open Spreadsheet ↗
+      </a>
+      <a href="/" class="dash-topbar__btn">← Back to Site</a>
+    </div>
+  </div>
+
+  <!-- ═══ TAB NAVIGATION ═══ -->
+  <div class="dash-tabs" role="tablist">
+    <button class="dash-tab active" role="tab" data-panel="pipeline" aria-selected="true">Pipeline</button>
+    <button class="dash-tab" role="tab" data-panel="scheduling" aria-selected="false">Scheduling</button>
+    <button class="dash-tab" role="tab" data-panel="finances" aria-selected="false">Finances</button>
+    <button class="dash-tab" role="tab" data-panel="leads" aria-selected="false">All Leads</button>
+  </div>
+
+  <!-- ═══ DASHBOARD CONTENT ═══ -->
+  <div class="dash-container">
+
+    <!-- Loading State -->
+    <div class="dash-loading" id="loading-state">
+      <div class="dash-loading__spinner"></div>
+      <p>Loading dashboard data...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="dash-error" id="error-state" style="display:none;">
+      <p id="error-message">Failed to load dashboard data. Check your Google Sheets connection.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PANEL 1: PIPELINE
+         ═══════════════════════════════════════════════════ -->
+    <div class="dash-panel active" id="panel-pipeline" role="tabpanel" style="display:none;">
+
+      <!-- KPIs -->
+      <div class="kpi-row" id="pipeline-kpis"></div>
+
+      <!-- Charts -->
+      <div class="chart-grid chart-grid--2col">
+        <div class="chart-card">
+          <div class="chart-card__title">Pipeline Funnel</div>
+          <canvas id="chart-funnel"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card__title">Leads by Referral Source</div>
+          <canvas id="chart-referrals"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-grid chart-grid--2col">
+        <div class="chart-card">
+          <div class="chart-card__title">Weekly Lead Trend (12 Weeks)</div>
+          <canvas id="chart-weekly-trend"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card__title">Appointment Preferences</div>
+          <canvas id="chart-appt-pref"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PANEL 2: SCHEDULING
+         ═══════════════════════════════════════════════════ -->
+    <div class="dash-panel" id="panel-scheduling" role="tabpanel">
+
+      <div class="kpi-row" id="scheduling-kpis"></div>
+
+      <div class="chart-grid chart-grid--2col">
+        <div class="chart-card">
+          <div class="chart-card__title">Appointment Status Breakdown</div>
+          <canvas id="chart-appt-status"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card__title">Utilization by Day of Week</div>
+          <canvas id="chart-day-util"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-grid chart-grid--2col">
+        <div class="chart-card">
+          <div class="chart-card__title">Appointments by Time Slot</div>
+          <canvas id="chart-hour-dist"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card__title">Service Type Distribution</div>
+          <canvas id="chart-service-dist"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PANEL 3: FINANCES
+         ═══════════════════════════════════════════════════ -->
+    <div class="dash-panel" id="panel-finances" role="tabpanel">
+
+      <div class="kpi-row" id="finance-kpis"></div>
+
+      <div class="chart-grid chart-grid--2col">
+        <div class="chart-card">
+          <div class="chart-card__title">Monthly Revenue Trend (12 Months)</div>
+          <canvas id="chart-monthly-revenue"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card__title">Revenue by Service Type</div>
+          <canvas id="chart-revenue-service"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-grid chart-grid--2col">
+        <div class="chart-card">
+          <div class="chart-card__title">Revenue by Payer</div>
+          <canvas id="chart-revenue-payer"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card__title">Aging Receivables</div>
+          <canvas id="chart-aging"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PANEL 4: ALL LEADS TABLE
+         ═══════════════════════════════════════════════════ -->
+    <div class="dash-panel" id="panel-leads" role="tabpanel">
+
+      <div class="data-table-wrap">
+        <div class="data-table-header">
+          <h3>All Leads</h3>
+          <span style="font-size:0.78rem;color:#7a8a8a;" id="lead-count">—</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="leads-table">
+            <thead>
+              <tr>
+                <th>Lead ID</th>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Source</th>
+                <th>Preference</th>
+                <th>Stage</th>
+                <th>Score</th>
+                <th>Follow-up</th>
+              </tr>
+            </thead>
+            <tbody id="leads-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /.dash-container -->
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       DASHBOARD JAVASCRIPT
+       Reads from Google Sheets published as JSON
+       ═══════════════════════════════════════════════════════ -->
+  <script>
+  (function() {
+    'use strict';
+
+    /* ═══════════════════════════════════════════════════════
+       CONFIGURATION
+       
+       To make this work, you need to publish each dashboard
+       sheet as a web page:
+       
+       1. Open your Google Sheet
+       2. Go to File → Share → Publish to web
+       3. Select each tab individually:
+          - "Dashboard - Pipeline"
+          - "Dashboard - Scheduling"  
+          - "Dashboard - Finances"
+          - "CRM Pipeline"
+       4. Choose "CSV" as the format
+       5. Click Publish
+       6. Copy each URL and paste below
+       
+       OR use the Google Sheets API v4 with an API key
+       (recommended for production — instructions at bottom)
+       ═══════════════════════════════════════════════════════ */
+
+    var SHEET_ID = 'YOUR_SHEET_ID_HERE';
+    
+    // Google Sheets CSV export URLs (auto-generated from Sheet ID + tab GID)
+    // After publishing, your URLs look like:
+    // https://docs.google.com/spreadsheets/d/SHEET_ID/gviz/tq?tqx=out:csv&sheet=SHEET_NAME
+    
+    var ENDPOINTS = {
+      pipeline:   'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Dashboard%20-%20Pipeline',
+      scheduling: 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Dashboard%20-%20Scheduling',
+      finances:   'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Dashboard%20-%20Finances',
+      crm:        'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=CRM%20Pipeline'
+    };
+
+    /* ═══ State ═══ */
+    var dashData = {
+      pipeline: {},
+      scheduling: {},
+      finances: {},
+      crm: []
+    };
+
+    var charts = {};
+
+    /* ═══ Chart.js Global Defaults ═══ */
+    Chart.defaults.font.family = "'DM Sans', system-ui, sans-serif";
+    Chart.defaults.font.size = 12;
+    Chart.defaults.color = '#7a8a8a';
+    Chart.defaults.plugins.legend.labels.usePointStyle = true;
+    Chart.defaults.plugins.legend.labels.padding = 16;
+    Chart.defaults.plugins.tooltip.backgroundColor = '#1a3a4a';
+    Chart.defaults.plugins.tooltip.cornerRadius = 8;
+    Chart.defaults.plugins.tooltip.padding = 12;
+    Chart.defaults.plugins.tooltip.titleFont = { weight: '600', size: 13 };
+    Chart.defaults.plugins.tooltip.bodyFont = { size: 12 };
+
+    var COLORS = {
+      ocean:     '#2a6b7c',
+      oceanLight:'#5baabb',
+      oceanMist: '#a8d4dc',
+      oceanPale: '#d4eef3',
+      sage:      '#6b8f6b',
+      sagePale:  '#dce8dc',
+      sand:      '#c4a882',
+      sandPale:  '#f0e8da',
+      red:       '#dc2626',
+      green:     '#16a34a',
+      amber:     '#d97706',
+      slate:     '#64748b',
+      palette: [
+        '#2a6b7c', '#6b8f6b', '#c4a882', '#5baabb', '#d97706',
+        '#e07a5f', '#64748b', '#a8d4dc', '#dcc8a8', '#3d5a3e'
+      ]
+    };
+
+    /* ═══════════════════════════════════════════════════════
+       CSV PARSER
+       Handles quoted fields, commas inside quotes, newlines
+       ═══════════════════════════════════════════════════════ */
+    function parseCSV(text) {
+      var rows = [];
+      var current = '';
+      var inQuotes = false;
+      var row = [];
+
+      for (var i = 0; i < text.length; i++) {
+        var c = text[i];
+        var next = text[i + 1];
+
+        if (inQuotes) {
+          if (c === '"' && next === '"') {
+            current += '"';
+            i++;
+          } else if (c === '"') {
+            inQuotes = false;
+          } else {
+            current += c;
+          }
+        } else {
+          if (c === '"') {
+            inQuotes = true;
+          } else if (c === ',') {
+            row.push(current.trim());
+            current = '';
+          } else if (c === '\n' || (c === '\r' && next === '\n')) {
+            row.push(current.trim());
+            if (row.length > 1 || (row.length === 1 && row[0] !== '')) {
+              rows.push(row);
+            }
+            row = [];
+            current = '';
+            if (c === '\r') i++;
+          } else {
+            current += c;
+          }
+        }
+      }
+      // Last field
+      row.push(current.trim());
+      if (row.length > 1 || (row.length === 1 && row[0] !== '')) {
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    /**
+     * Convert parsed CSV into a key-value map for dashboard sheets
+     * Dashboard sheets have: Metric | Value | Period | Last Updated
+     */
+    function csvToMetricMap(csvRows) {
+      var map = {};
+      // Skip header row
+      for (var i = 1; i < csvRows.length; i++) {
+        var metric = csvRows[i][0] || '';
+        var value = csvRows[i][1] || '';
+        var period = csvRows[i][2] || '';
+        map[metric] = { value: value, period: period };
+      }
+      return map;
+    }
+
+    /**
+     * Convert CRM CSV into array of lead objects
+     */
+    function csvToLeads(csvRows) {
+      if (csvRows.length < 2) return [];
+      var headers = csvRows[0];
+      var leads = [];
+      for (var i = 1; i < csvRows.length; i++) {
+        var lead = {};
+        for (var j = 0; j < headers.length; j++) {
+          lead[headers[j]] = csvRows[i][j] || '';
+        }
+        leads.push(lead);
+      }
+      return leads;
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       DATA FETCHING
+       ═══════════════════════════════════════════════════════ */
+    async function fetchAllData() {
+      showLoading(true);
+      hideError();
+
+      try {
+        var results = await Promise.allSettled([
+          fetch(ENDPOINTS.pipeline).then(function(r) { return r.text(); }),
+          fetch(ENDPOINTS.scheduling).then(function(r) { return r.text(); }),
+          fetch(ENDPOINTS.finances).then(function(r) { return r.text(); }),
+          fetch(ENDPOINTS.crm).then(function(r) { return r.text(); })
+        ]);
+
+        // Pipeline
+        if (results[0].status === 'fulfilled') {
+          dashData.pipeline = csvToMetricMap(parseCSV(results[0].value));
+        }
+
+        // Scheduling
+        if (results[1].status === 'fulfilled') {
+          dashData.scheduling = csvToMetricMap(parseCSV(results[1].value));
+        }
+
+        // Finances
+        if (results[2].status === 'fulfilled') {
+          dashData.finances = csvToMetricMap(parseCSV(results[2].value));
+        }
+
+        // CRM Leads
+        if (results[3].status === 'fulfilled') {
+          dashData.crm = csvToLeads(parseCSV(results[3].value));
+        }
+
+        // Check if we got any data at all
+        var hasData = Object.keys(dashData.pipeline).length > 0 ||
+                      Object.keys(dashData.scheduling).length > 0 ||
+                      Object.keys(dashData.finances).length > 0 ||
+                      dashData.crm.length > 0;
+
+        if (!hasData) {
+          showError('No data found. Make sure your Google Sheet is published to the web and the dashboard tabs have been populated by running the Apps Script.');
+          showLoading(false);
+          return;
+        }
+
+        renderAll();
+        updateTimestamp();
+        showLoading(false);
+
+      } catch (err) {
+        showError('Failed to fetch data: ' + err.message + '. Make sure File → Share → Publish to web is enabled for all dashboard tabs.');
+        showLoading(false);
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       HELPER: Extract metric value
+       ═══════════════════════════════════════════════════════ */
+    function getMetric(source, key, fallback) {
+      if (source[key] && source[key].value !== undefined) {
+        return source[key].value;
+      }
+      return fallback !== undefined ? fallback : '—';
+    }
+
+    function getMetricNum(source, key, fallback) {
+      var raw = getMetric(source, key, '');
+      var num = parseFloat(raw.toString().replace(/[$,%]/g, ''));
+      return isNaN(num) ? (fallback || 0) : num;
+    }
+
+    /**
+     * Extract subset of metrics matching a prefix
+     * e.g., getMetricsByPrefix(data, 'Stage: ') returns {New Lead: 5, Contacted: 3, ...}
+     */
+    function getMetricsByPrefix(source, prefix) {
+      var result = {};
+      Object.keys(source).forEach(function(key) {
+        if (key.indexOf(prefix) === 0) {
+          var label = key.replace(prefix, '');
+          var val = parseFloat(source[key].value) || 0;
+          result[label] = val;
+        }
+      });
+      return result;
+    }
+
+    /**
+     * Parse pipe-delimited trend data
+     * "01/15:3|01/22:5|01/29:2" → { labels: [...], values: [...] }
+     */
+    function parseTrendData(raw, splitChar) {
+      splitChar = splitChar || ':';
+      var labels = [];
+      var values = [];
+      if (!raw) return { labels: labels, values: values };
+      
+      raw.split('|').forEach(function(chunk) {
+        var parts = chunk.split(splitChar);
+        labels.push(parts[0] || '');
+        values.push(parseFloat(parts[1]) || 0);
+      });
+      return { labels: labels, values: values };
+    }
+
+    /**
+     * Parse monthly revenue trend (label:billed:collected)
+     */
+    function parseRevenueTrend(raw) {
+      var labels = [], billed = [], collected = [];
+      if (!raw) return { labels: labels, billed: billed, collected: collected };
+      
+      raw.split('|').forEach(function(chunk) {
+        var parts = chunk.split(':');
+        labels.push(parts[0] || '');
+        billed.push(parseFloat(parts[1]) || 0);
+        collected.push(parseFloat(parts[2]) || 0);
+      });
+      return { labels: labels, billed: billed, collected: collected };
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER: Pipeline Panel
+       ═══════════════════════════════════════════════════════ */
+    function renderPipeline() {
+      var d = dashData.pipeline;
+
+      // KPIs
+      var kpiHtml = '';
+      kpiHtml += kpiCard('Total Leads', getMetric(d, 'Total Leads'), 'All time');
+      kpiHtml += kpiCard('This Week', getMetric(d, 'Leads This Week'), 'Last 7 days');
+      kpiHtml += kpiCard('This Month', getMetric(d, 'Leads This Month'), 'Current month');
+      kpiHtml += kpiCard('Conversion Rate', getMetric(d, 'Conversion Rate'), 'All time',
+        getMetricNum(d, 'Conversion Rate') >= 50 ? 'success' : '');
+      kpiHtml += kpiCard('Avg Days in Pipeline', getMetric(d, 'Average Days in Pipeline'), 'All time');
+      kpiHtml += kpiCard('Overdue Follow-ups', getMetric(d, 'Overdue Follow-ups'), 'Current',
+        getMetricNum(d, 'Overdue Follow-ups') > 0 ? 'alert' : 'success');
+      kpiHtml += kpiCard('Avg Time to Contact', getMetric(d, 'Avg Time to First Contact'), 'All time');
+      kpiHtml += kpiCard('Lost Rate', getMetric(d, 'Lost Lead Rate'), 'All time',
+        getMetricNum(d, 'Lost Lead Rate') > 20 ? 'warn' : '');
+
+      document.getElementById('pipeline-kpis').innerHTML = kpiHtml;
+
+      // Funnel Chart
+      var stages = getMetricsByPrefix(d, 'Stage: ');
+      var stageOrder = ['New Lead', 'Contacted', 'Engaged', 'Scheduled', 'Completed', 'Lost'];
+      var funnelLabels = [];
+      var funnelValues = [];
+      var funnelColors = [
+        COLORS.oceanPale, COLORS.oceanMist, COLORS.oceanLight,
+        COLORS.sand, COLORS.sage, COLORS.red
+      ];
+      stageOrder.forEach(function(s, i) {
+        if (stages[s] !== undefined) {
+          funnelLabels.push(s);
+          funnelValues.push(stages[s]);
+        }
+      });
+      renderBarChart('chart-funnel', funnelLabels, funnelValues, funnelColors, 'Leads');
+
+      // Referral Source Chart
+      var refs = getMetricsByPrefix(d, 'Referral: ');
+      var refLabels = Object.keys(refs);
+      var refValues = refLabels.map(function(k) { return refs[k]; });
+      renderDoughnutChart('chart-referrals', refLabels, refValues);
+
+      // Weekly Trend
+      var trend = parseTrendData(getMetric(d, 'Weekly Trend (12wk)', ''));
+      renderLineChart('chart-weekly-trend', trend.labels, trend.values, 'New Leads');
+
+      // Appointment Preferences
+      var appts = getMetricsByPrefix(d, 'Appt Pref: ');
+      var apptLabels = Object.keys(appts);
+      var apptValues = apptLabels.map(function(k) { return appts[k]; });
+      renderDoughnutChart('chart-appt-pref', apptLabels, apptValues);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER: Scheduling Panel
+       ═══════════════════════════════════════════════════════ */
+    function renderScheduling() {
+      var d = dashData.scheduling;
+
+      var kpiHtml = '';
+      kpiHtml += kpiCard('Total Appointments', getMetric(d, 'Total Appointments'), 'All time');
+      kpiHtml += kpiCard('Upcoming (7 Days)', getMetric(d, 'Upcoming (7 days)'), 'Next week');
+      kpiHtml += kpiCard('No-Show Rate', getMetric(d, 'No-Show Rate'), 'Past appointments',
+        getMetricNum(d, 'No-Show Rate') > 10 ? 'alert' : 'success');
+      kpiHtml += kpiCard('Cancel Rate', getMetric(d, 'Cancellation Rate'), 'All time',
+        getMetricNum(d, 'Cancellation Rate') > 15 ? 'warn' : '');
+      kpiHtml += kpiCard('Avg Lead Time', getMetric(d, 'Average Lead Time'), 'All time');
+      kpiHtml += kpiCard('Revenue (Completed)', getMetric(d, 'Completed Revenue'), 'All time', 'success');
+      kpiHtml += kpiCard('No-Show Loss', getMetric(d, 'No-Show Revenue Loss'), 'Estimated',
+        getMetricNum(d, 'No-Show Revenue Loss') > 0 ? 'alert' : '');
+
+      document.getElementById('scheduling-kpis').innerHTML = kpiHtml;
+
+      // Appointment Status
+      var statusData = {
+        'Completed': getMetricNum(d, 'Completed'),
+        'Scheduled': getMetricNum(d, 'Scheduled'),
+        'No-Shows': getMetricNum(d, 'No-Shows (Count)'),
+        'Cancellations': getMetricNum(d, 'Cancellations (Count)')
+      };
+      renderDoughnutChart('chart-appt-status',
+        Object.keys(statusData), Object.values(statusData),
+        [COLORS.sage, COLORS.ocean, COLORS.red, COLORS.sand]);
+
+      // Day Utilization
+      var days = getMetricsByPrefix(d, 'Utilization: ');
+      var dayLabels = Object.keys(days);
+      var dayValues = dayLabels.map(function(k) {
+        return parseFloat(days[k]) || 0;
+      });
+      renderBarChart('chart-day-util', dayLabels, dayValues,
+        dayValues.map(function(v) { return v > 80 ? COLORS.green : v > 50 ? COLORS.ocean : COLORS.sand; }),
+        'Utilization %');
+
+      // Hourly Distribution
+      var hours = getMetricsByPrefix(d, 'Hour: ');
+      var hourLabels = Object.keys(hours);
+      var hourValues = hourLabels.map(function(k) { return hours[k]; });
+      renderBarChart('chart-hour-dist', hourLabels, hourValues, COLORS.oceanMist, 'Appointments');
+
+      // Service Distribution
+      var services = getMetricsByPrefix(d, 'Service: ');
+      renderDoughnutChart('chart-service-dist', Object.keys(services), Object.values(services));
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER: Finances Panel
+       ═══════════════════════════════════════════════════════ */
+    function renderFinances() {
+      var d = dashData.finances;
+
+      var kpiHtml = '';
+      kpiHtml += kpiCard('Total Collected', getMetric(d, 'Total Collected'), 'All time', 'success');
+      kpiHtml += kpiCard('This Month', getMetric(d, 'Revenue This Month'), 'Current month');
+      kpiHtml += kpiCard('This Week', getMetric(d, 'Revenue This Week'), 'Last 7 days');
+      kpiHtml += kpiCard('Collection Rate', getMetric(d, 'Collection Rate'), 'All time',
+        getMetricNum(d, 'Collection Rate') >= 90 ? 'success' : 'warn');
+      kpiHtml += kpiCard('Outstanding', getMetric(d, 'Outstanding Balance'), 'Current',
+        getMetricNum(d, 'Outstanding Balance') > 5000 ? 'alert' : '');
+      kpiHtml += kpiCard('Avg per Appt', getMetric(d, 'Avg Revenue per Appointment'), 'All time');
+      kpiHtml += kpiCard('Annual Projection', getMetric(d, 'Projected Annual Revenue'), '90-day run rate', 'success');
+      kpiHtml += kpiCard('Write-Offs', getMetric(d, 'Total Write-Offs'), 'All time');
+
+      document.getElementById('finance-kpis').innerHTML = kpiHtml;
+
+      // Monthly Revenue Trend
+      var revTrend = parseRevenueTrend(getMetric(d, 'Monthly Trend (12mo)', ''));
+      renderMultiLineChart('chart-monthly-revenue', revTrend.labels,
+        [
+          { label: 'Billed', data: revTrend.billed, color: COLORS.ocean },
+          { label: 'Collected', data: revTrend.collected, color: COLORS.sage }
+        ]
+      );
+
+      // Revenue by Service
+      var svcRevenue = getMetricsByPrefix(d, 'Revenue: ');
+      renderDoughnutChart('chart-revenue-service', Object.keys(svcRevenue), Object.values(svcRevenue));
+
+      // Revenue by Payer
+      var payerRevenue = getMetricsByPrefix(d, 'Payer: ');
+      renderDoughnutChart('chart-revenue-payer', Object.keys(payerRevenue), Object.values(payerRevenue));
+
+      // Aging Receivables
+      var aging = {
+        '31-60 Days': getMetricNum(d, 'Aging 31-60 Days'),
+        '61-90 Days': getMetricNum(d, 'Aging 61-90 Days'),
+        '90+ Days':   getMetricNum(d, 'Aging 90+ Days')
+      };
+      renderBarChart('chart-aging',
+        Object.keys(aging), Object.values(aging),
+        [COLORS.sand, COLORS.amber, COLORS.red], 'Amount ($)');
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER: Leads Table
+       ═══════════════════════════════════════════════════════ */
+    function renderLeadsTable() {
+      var leads = dashData.crm;
+      var tbody = document.getElementById('leads-tbody');
+      var countEl = document.getElementById('lead-count');
+      
+      if (!tbody) return;
+
+      countEl.textContent = leads.length + ' total leads';
+
+      if (leads.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:40px;color:#7a8a8a;">No leads yet. Submit a test form to see data here.</td></tr>';
+        return;
+      }
+
+      // Sort by date descending (newest first)
+      leads.sort(function(a, b) {
+        var da = new Date(a['Date Added'] || 0);
+        var db = new Date(b['Date Added'] || 0);
+        return db - da;
+      });
+
+      var html = '';
+      leads.forEach(function(lead) {
+        var stage = lead['Stage'] || 'New Lead';
+        var badgeClass = 'badge--' + stage.toLowerCase().replace(/\s+/g, '');
+
+        // Map stages to badge classes
+        var badgeMap = {
+          'New Lead': 'badge--new',
+          'Contacted': 'badge--contacted',
+          'Engaged': 'badge--engaged',
+          'Scheduled': 'badge--scheduled',
+          'Completed': 'badge--completed',
+          'Lost': 'badge--lost'
+        };
+        badgeClass = badgeMap[stage] || 'badge--new';
+
+        html += '<tr>' +
+          '<td><strong>' + esc(lead['Lead ID'] || '') + '</strong></td>' +
+          '<td>' + esc(lead['Date Added'] || '') + '</td>' +
+          '<td>' + esc(lead['Patient Full Name'] || '') + '</td>' +
+          '<td>' + esc(lead['Patient Email'] || '') + '</td>' +
+          '<td>' + esc(lead['Patient Phone'] || '') + '</td>' +
+          '<td>' + esc(lead['Referral Source'] || '') + '</td>' +
+          '<td>' + esc(lead['Appt Preference'] || '') + '</td>' +
+          '<td><span class="badge ' + badgeClass + '">' + esc(stage) + '</span></td>' +
+          '<td>' + esc(lead['Lead Score'] || '') + '</td>' +
+          '<td>' + esc(lead['Follow-up Status'] || '') + '</td>' +
+          '</tr>';
+      });
+
+      tbody.innerHTML = html;
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       CHART RENDERING FUNCTIONS
+    ═══════════════════════════════════════════════════════ */
+
+    /**
+     * Horizontal / Vertical Bar Chart
+     */
+    function renderBarChart(canvasId, labels, data, colors, label) {
+      var ctx = document.getElementById(canvasId);
+      if (!ctx) return;
+
+      // Destroy existing chart if re-rendering
+      if (charts[canvasId]) charts[canvasId].destroy();
+
+      var bgColors = Array.isArray(colors) ? colors : labels.map(function() { return colors; });
+
+      charts[canvasId] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: label || 'Count',
+            data: data,
+            backgroundColor: bgColors,
+            borderColor: bgColors.map(function(c) { return c; }),
+            borderWidth: 0,
+            borderRadius: 6,
+            maxBarThickness: 48
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 1.6,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 11 } }
+            },
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(0,0,0,0.04)' },
+              ticks: {
+                font: { size: 11 },
+                precision: 0
+              }
+            }
+          }
+        }
+      });
+    }
+
+    /**
+     * Line Chart (single dataset)
+     */
+    function renderLineChart(canvasId, labels, data, label) {
+      var ctx = document.getElementById(canvasId);
+      if (!ctx) return;
+
+      if (charts[canvasId]) charts[canvasId].destroy();
+
+      charts[canvasId] = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: label || 'Value',
+            data: data,
+            borderColor: COLORS.ocean,
+            backgroundColor: 'rgba(42,107,124,0.08)',
+            borderWidth: 2.5,
+            pointBackgroundColor: COLORS.ocean,
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            fill: true,
+            tension: 0.35
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 1.8,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 10 }, maxRotation: 45 }
+            },
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(0,0,0,0.04)' },
+              ticks: { precision: 0, font: { size: 11 } }
+            }
+          }
+        }
+      });
+    }
+
+    /**
+     * Multi-Line Chart (billed vs collected, etc.)
+     */
+    function renderMultiLineChart(canvasId, labels, datasets) {
+      var ctx = document.getElementById(canvasId);
+      if (!ctx) return;
+
+      if (charts[canvasId]) charts[canvasId].destroy();
+
+      var chartDatasets = datasets.map(function(ds) {
+        return {
+          label: ds.label,
+          data: ds.data,
+          borderColor: ds.color,
+          backgroundColor: hexToRgba(ds.color, 0.08),
+          borderWidth: 2.5,
+          pointBackgroundColor: ds.color,
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          pointRadius: 3,
+          pointHoverRadius: 5,
+          fill: true,
+          tension: 0.35
+        };
+      });
+
+      charts[canvasId] = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: chartDatasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 1.8,
+          plugins: {
+            legend: {
+              position: 'top',
+              align: 'end',
+              labels: { font: { size: 11 }, boxWidth: 12, boxHeight: 12 }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false,
+              callbacks: {
+                label: function(ctx) {
+                  return ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString();
+                }
+              }
+            }
+          },
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 10 }, maxRotation: 45 }
+            },
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(0,0,0,0.04)' },
+              ticks: {
+                font: { size: 11 },
+                callback: function(val) { return '$' + val.toLocaleString(); }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    /**
+     * Doughnut Chart
+     */
+    function renderDoughnutChart(canvasId, labels, data, customColors) {
+      var ctx = document.getElementById(canvasId);
+      if (!ctx) return;
+
+      if (charts[canvasId]) charts[canvasId].destroy();
+
+      var bgColors = customColors || labels.map(function(_, i) {
+        return COLORS.palette[i % COLORS.palette.length];
+      });
+
+      charts[canvasId] = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: bgColors,
+            borderWidth: 2,
+            borderColor: '#ffffff',
+            hoverBorderWidth: 0,
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 1.3,
+          cutout: '62%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                font: { size: 11 },
+                padding: 12,
+                boxWidth: 12,
+                boxHeight: 12
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  var total = ctx.dataset.data.reduce(function(a, b) { return a + b; }, 0);
+                  var pct = total > 0 ? ((ctx.parsed / total) * 100).toFixed(1) : 0;
+                  return ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       KPI CARD GENERATOR
+       ═══════════════════════════════════════════════════════ */
+    function kpiCard(label, value, sub, variant) {
+      var cls = 'kpi-card';
+      if (variant === 'alert') cls += ' kpi-card--alert';
+      else if (variant === 'success') cls += ' kpi-card--success';
+      else if (variant === 'warn') cls += ' kpi-card--warn';
+
+      return '<div class="' + cls + '">' +
+        '<div class="kpi-card__label">' + esc(label) + '</div>' +
+        '<div class="kpi-card__value">' + esc(String(value)) + '</div>' +
+        (sub ? '<div class="kpi-card__sub">' + esc(sub) + '</div>' : '') +
+        '</div>';
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       UI HELPERS
+       ═══════════════════════════════════════════════════════ */
+    function showLoading(show) {
+      document.getElementById('loading-state').style.display = show ? 'block' : 'none';
+    }
+
+    function showError(msg) {
+      var el = document.getElementById('error-state');
+      document.getElementById('error-message').textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function hideError() {
+      document.getElementById('error-state').style.display = 'none';
+    }
+
+    function updateTimestamp() {
+      var now = new Date();
+      var str = now.toLocaleString('en-US', {
+        timeZone: 'America/Los_Angeles',
+        month: 'short', day: 'numeric',
+        hour: 'numeric', minute: '2-digit',
+        hour12: true
+      });
+      document.getElementById('last-updated').textContent = 'Updated: ' + str;
+    }
+
+    function esc(str) {
+      var div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    function hexToRgba(hex, alpha) {
+      var r = parseInt(hex.slice(1, 3), 16);
+      var g = parseInt(hex.slice(3, 5), 16);
+      var b = parseInt(hex.slice(5, 7), 16);
+      return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER ALL
+       ═══════════════════════════════════════════════════════ */
+    function renderAll() {
+      // Show the panels
+      document.querySelectorAll('.dash-panel').forEach(function(p) {
+        p.style.display = '';
+      });
+
+      try { renderPipeline(); } catch (e) { console.error('Pipeline render error:', e); }
+      try { renderScheduling(); } catch (e) { console.error('Scheduling render error:', e); }
+      try { renderFinances(); } catch (e) { console.error('Finance render error:', e); }
+      try { renderLeadsTable(); } catch (e) { console.error('Leads table render error:', e); }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       TAB SWITCHING
+       ═══════════════════════════════════════════════════════ */
+    function initTabs() {
+      var tabs = document.querySelectorAll('.dash-tab');
+      var panels = document.querySelectorAll('.dash-panel');
+
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var target = tab.getAttribute('data-panel');
+
+          // Update tab states
+          tabs.forEach(function(t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+
+          // Update panel visibility
+          panels.forEach(function(p) {
+            var isTarget = p.id === 'panel-' + target;
+            p.classList.toggle('active', isTarget);
+            p.style.display = isTarget ? 'block' : 'none';
+          });
+        });
+      });
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       REFRESH BUTTON
+       ═══════════════════════════════════════════════════════ */
+    function initRefresh() {
+      var btn = document.getElementById('refresh-btn');
+      if (!btn) return;
+
+      btn.addEventListener('click', function() {
+        btn.disabled = true;
+        btn.textContent = '↻ Refreshing...';
+
+        fetchAllData().then(function() {
+          btn.disabled = false;
+          btn.textContent = '↻ Refresh';
+        }).catch(function() {
+          btn.disabled = false;
+          btn.textContent = '↻ Refresh';
+        });
+      });
+    }
+
+
+    /* ═══════════════════════════════════════════════════════
+       INITIALIZATION
+       ═══════════════════════════════════════════════════════ */
+    function init() {
+      initTabs();
+      initRefresh();
+      fetchAllData();
+    }
+
+    // Run on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+  })();
+  </script>
+</body>
+</html>
