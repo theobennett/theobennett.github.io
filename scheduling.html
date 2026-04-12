@@ -1324,6 +1324,710 @@
         gap: 2px;
       }
     }
+/* ═══════════════════════════════════════════════════════
+       CALENDAR TABLE GRID
+       The core week/day view rendered by JS
+       ═══════════════════════════════════════════════════════ */
+
+    .sched-table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+      font-size: var(--text-sm);
+    }
+
+    .sched-table thead {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    /* ── Time Column ── */
+    .sched-table__time-col {
+      width: 72px;
+      min-width: 72px;
+      background: var(--white);
+      border-bottom: 2px solid var(--fog-dark);
+      padding: 8px 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--pebble);
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .sched-table__time {
+      width: 72px;
+      min-width: 72px;
+      padding: 0 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--pebble-light);
+      text-align: right;
+      vertical-align: top;
+      border-right: 1px solid var(--fog-dark);
+      user-select: none;
+      position: relative;
+    }
+
+    .sched-table__time::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -5px;
+      width: 8px;
+      height: 1px;
+      background: var(--fog-dark);
+    }
+
+    /* ── Day Header ── */
+    .sched-table__day-header {
+      background: var(--white);
+      border-bottom: 2px solid var(--fog-dark);
+      padding: 10px 8px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .sched-table__day-header--today {
+      background: var(--ocean-wash);
+      border-bottom-color: var(--ocean);
+    }
+
+    .sched-day-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .sched-day-name {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pebble);
+    }
+
+    .sched-table__day-header--today .sched-day-name {
+      color: var(--ocean);
+    }
+
+    .sched-day-num {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--ocean-deep);
+      line-height: 1;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .sched-table__day-header--today .sched-day-num {
+      background: var(--ocean);
+      color: var(--white);
+    }
+
+    /* ── Provider Sub-header (multi-provider view) ── */
+    .sched-table__provider-label {
+      background: var(--fog);
+      padding: 6px 8px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--stone-light);
+      text-align: center;
+      border-bottom: 1px solid var(--fog-dark);
+      white-space: nowrap;
+    }
+
+    /* ── Table Rows ── */
+    .sched-table__row {
+      height: 20px;
+    }
+
+    .sched-table__row--hour {
+      border-top: 1px solid var(--fog-dark);
+    }
+
+    .sched-table__row--hour td {
+      border-top: 1px solid var(--fog-dark);
+    }
+
+    /* ── Table Cells (slots) ── */
+    .sched-table__cell {
+      position: relative;
+      border-right: 1px solid rgba(var(--ocean-deep-rgb), 0.04);
+      border-bottom: 1px solid rgba(var(--ocean-deep-rgb), 0.025);
+      padding: 0;
+      vertical-align: top;
+      transition:
+        background var(--duration-fast) var(--ease-smooth);
+    }
+
+    /* Open (available) slot */
+    .sched-table__cell--open {
+      cursor: pointer;
+      background: var(--white);
+    }
+
+    .sched-table__cell--open:hover {
+      background: rgba(var(--ocean-rgb), 0.06);
+    }
+
+    .sched-table__cell--open:focus-visible {
+      outline: 2px solid var(--ocean);
+      outline-offset: -2px;
+      border-radius: 2px;
+      z-index: 1;
+    }
+
+    /* Subtle hover indicator dot */
+    .sched-table__cell--open:hover::after {
+      content: '+';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--ocean);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* Selected slot */
+    .sched-table__cell--selected {
+      background: rgba(var(--ocean-rgb), 0.12) !important;
+      box-shadow: inset 0 0 0 2px var(--ocean);
+      border-radius: 2px;
+      z-index: 1;
+    }
+
+    /* Past slot */
+    .sched-table__cell--past {
+      background: var(--fog);
+      cursor: default;
+    }
+
+    .sched-table__cell--past::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 4px,
+        rgba(var(--ocean-deep-rgb), 0.02) 4px,
+        rgba(var(--ocean-deep-rgb), 0.02) 5px
+      );
+      pointer-events: none;
+    }
+
+    /* Booked slot */
+    .sched-table__cell--booked {
+      padding: 2px;
+      cursor: pointer;
+    }
+
+    .sched-table__cell--booked:focus-visible {
+      outline: 2px solid var(--ocean-deep);
+      outline-offset: -2px;
+      z-index: 1;
+    }
+
+    /* ── Appointment Block (inside booked cell) ── */
+    .sched-block {
+      height: 100%;
+      min-height: 20px;
+      padding: 4px 8px;
+      border-radius: var(--radius-xs);
+      overflow: hidden;
+      font-size: 0.68rem;
+      line-height: 1.35;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1px;
+      transition:
+        box-shadow var(--duration-fast) var(--ease-smooth),
+        transform var(--duration-fast) var(--ease-out);
+    }
+
+    .sched-table__cell--booked:hover .sched-block {
+      box-shadow: 0 2px 8px rgba(var(--ocean-deep-rgb), 0.1);
+      transform: scale(1.01);
+    }
+
+    .sched-block__name {
+      font-weight: 700;
+      color: var(--ocean-deep);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sched-block__type {
+      font-weight: 500;
+      color: var(--stone-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sched-block__time {
+      font-weight: 600;
+      color: var(--pebble);
+      font-size: 0.62rem;
+    }
+
+    /* No-show blocks */
+    .sched-block--noshow {
+      opacity: 0.6;
+      position: relative;
+    }
+
+    .sched-block--noshow::after {
+      content: 'NO-SHOW';
+      position: absolute;
+      top: 3px;
+      right: 4px;
+      font-size: 0.5rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      background: var(--red-pale);
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+
+    /* Cancelled blocks */
+    .sched-block--cancelled {
+      opacity: 0.35;
+      text-decoration: line-through;
+    }
+
+    /* ── Current Time Indicator ── */
+    .sched-now-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--red);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .sched-now-line::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: -3px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       CALENDAR TYPE TABS (General / TMS / Ketamine)
+       ═══════════════════════════════════════════════════════ */
+    .cal-type-tabs {
+      display: flex;
+      background: var(--fog);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .cal-type-tab {
+      padding: 7px 16px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--pebble);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      white-space: nowrap;
+      position: relative;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth),
+        box-shadow var(--duration-fast) var(--ease-smooth);
+    }
+
+    .cal-type-tab:hover {
+      color: var(--ocean-deep);
+    }
+
+    .cal-type-tab--active {
+      background: var(--white);
+      color: var(--ocean-deep);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Calendar-specific accent colors on active tab */
+    .cal-type-tab--active[data-cal="tms"] {
+      color: var(--sand-deep);
+    }
+
+    .cal-type-tab--active[data-cal="tms"]::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 30%;
+      right: 30%;
+      height: 2px;
+      background: var(--sand);
+      border-radius: 1px;
+    }
+
+    .cal-type-tab--active[data-cal="ketamine"] {
+      color: #2a8a9e;
+    }
+
+    .cal-type-tab--active[data-cal="ketamine"]::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 30%;
+      right: 30%;
+      height: 2px;
+      background: #5baabb;
+      border-radius: 1px;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       DATE NAVIGATION
+       ═══════════════════════════════════════════════════════ */
+    .date-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .date-nav__btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.12);
+      background: var(--white);
+      color: var(--stone-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        border-color var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .date-nav__btn:hover {
+      background: var(--fog);
+      border-color: rgba(var(--ocean-rgb), 0.2);
+      color: var(--ocean-deep);
+    }
+
+    .date-nav__btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .date-nav__label {
+      min-width: 180px;
+      text-align: center;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ocean-deep);
+      padding: 0 8px;
+      white-space: nowrap;
+    }
+
+    .date-nav__today {
+      padding: 5px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ocean);
+      background: var(--ocean-wash);
+      border: 1px solid rgba(var(--ocean-rgb), 0.15);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      margin-left: 4px;
+      white-space: nowrap;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        border-color var(--duration-fast) var(--ease-smooth);
+    }
+
+    .date-nav__today:hover {
+      background: var(--ocean-pale);
+      border-color: var(--ocean);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       VIEW TOGGLE (Day / Week)
+       ═══════════════════════════════════════════════════════ */
+    .view-toggle {
+      display: flex;
+      background: var(--fog);
+      border-radius: var(--radius-full);
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .view-toggle__btn {
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--pebble);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition:
+        background var(--duration-fast) var(--ease-smooth),
+        color var(--duration-fast) var(--ease-smooth),
+        box-shadow var(--duration-fast) var(--ease-smooth);
+    }
+
+    .view-toggle__btn:hover {
+      color: var(--ocean-deep);
+    }
+
+    .view-toggle__btn--active {
+      background: var(--white);
+      color: var(--ocean-deep);
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       BOOKING PANEL — SIDEBAR COMPONENTS
+       ═══════════════════════════════════════════════════════ */
+    .booking-panel__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--ocean-deep);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--fog-dark);
+    }
+
+    .booking-panel__empty {
+      text-align: center;
+      padding: var(--space-xl) var(--space-md);
+      color: var(--pebble);
+    }
+
+    .booking-panel__empty svg {
+      width: 48px;
+      height: 48px;
+      color: var(--pebble-light);
+      margin-bottom: var(--space-sm);
+      opacity: 0.5;
+    }
+
+    .booking-panel__empty p {
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      max-width: 220px;
+      margin: 0 auto;
+    }
+
+    /* ── Slot Info Card ── */
+    .slot-info {
+      background: var(--ocean-wash);
+      border: 1px solid rgba(var(--ocean-rgb), 0.12);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: var(--space-md);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       FORM COMPONENTS (used in auth gate)
+       ═══════════════════════════════════════════════════════ */
+    .form-card {
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-input {
+      padding: 11px 14px;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--stone);
+      background: var(--white);
+      border: 1.5px solid rgba(var(--ocean-deep-rgb), 0.12);
+      border-radius: var(--radius-md);
+      transition:
+        border-color var(--duration-fast) var(--ease-smooth),
+        box-shadow var(--duration-fast) var(--ease-smooth);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--ocean);
+      box-shadow: 0 0 0 3px rgba(var(--ocean-rgb), 0.1);
+    }
+
+    .form-input::placeholder {
+      color: var(--pebble-light);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .field-error {
+      font-size: var(--text-xs);
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       COLOR VARIABLE FALLBACKS
+       (In case these aren't in the main style.css)
+       ═══════════════════════════════════════════════════════ */
+    :root {
+      --red:        #dc2626;
+      --red-pale:   rgba(220, 38, 38, 0.08);
+      --green:      #16a34a;
+      --green-pale: rgba(22, 163, 74, 0.08);
+      --amber:      #d97706;
+      --amber-pale: rgba(217, 119, 6, 0.08);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       PRINT STYLES — Schedule printout
+       ═══════════════════════════════════════════════════════ */
+    @media print {
+      .sched-hero,
+      .role-bar,
+      .auth-gate,
+      .sched-sidebar,
+      .sched-legend,
+      .nav-toggle,
+      .mobile-nav,
+      .site-header,
+      .site-footer,
+      .modal-overlay,
+      .footer-crisis,
+      .date-nav__today,
+      .view-toggle,
+      .cal-type-tabs,
+      .role-tabs,
+      .provider-filter,
+      .skip-link {
+        display: none !important;
+      }
+
+      body {
+        background: #fff;
+        color: #000;
+        font-size: 10pt;
+      }
+
+      .sched-layout {
+        display: block !important;
+      }
+
+      .sched-calendar {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      .sched-table {
+        min-width: unset !important;
+        font-size: 8pt;
+        border: 1px solid #ccc;
+      }
+
+      .sched-table__cell--open {
+        background: #fff;
+      }
+
+      .sched-table__cell--past {
+        background: #f5f5f5;
+      }
+
+      .sched-table__cell--past::after {
+        display: none;
+      }
+
+      .sched-block {
+        border-left-width: 2px !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .sched-block__name {
+        color: #000;
+      }
+
+      .sched-table__day-header--today {
+        background: #e8f4f8 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .sched-table__day-header--today .sched-day-num {
+        background: #2a6b7c !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .date-nav {
+        justify-content: center;
+        margin-bottom: 12px;
+      }
+
+      .date-nav__btn {
+        display: none;
+      }
+
+      .date-nav__label {
+        font-size: 14pt;
+        font-weight: bold;
+      }
+
+      /* Print header */
+      .sched-calendar::before {
+        content: 'Altos Psychiatry — Schedule';
+        display: block;
+        text-align: center;
+        font-size: 16pt;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #1a3c4a;
+      }
+
+      .noshow-actions,
+      .booking-confirm-btn,
+      .booking-cancel-btn,
+      .zoom-toggle,
+      .patient-search {
+        display: none !important;
+      }
+
+      @page {
+        size: landscape;
+        margin: 0.5in;
+      }
+    }
   </style>
 </head>
 
