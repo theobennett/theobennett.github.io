@@ -1,210 +1,802 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Altos Psychiatry | Precision Mental Healthcare · Menlo Park, CA</title>
-  <meta name="description" content="Concierge psychiatric care for adults in Silicon Valley. Medication management, psychotherapy, and integrative treatment — available when you need it.">
-  <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Altos Psychiatry in Menlo Park offers expert psychiatric care including medication management, TMS, ketamine therapy, and Spravato. Accepting new patients." />
+  <meta name="keywords" content="psychiatrist Menlo Park, TMS therapy, ketamine treatment, Spravato, medication management, anxiety, depression, PTSD, ADHD, bipolar" />
+  <meta property="og:title" content="Altos Psychiatry — Menlo Park, CA" />
+  <meta property="og:description" content="Expert psychiatric care rooted in evidence. Medication management, TMS, ketamine, and psychotherapy on the San Francisco Peninsula." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://altospsychiatry.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://altospsychiatry.com" />
+  <title>Altos Psychiatry | Menlo Park Psychiatrist — TMS, Ketamine, Medication Management</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
+
 <body>
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<div id="header-placeholder"></div>
+  <!-- Header (loaded by JS) -->
+  <div id="header-placeholder"></div>
 
-<!-- ── HERO ──────────────────────────────────────── -->
-<section class="hero">
-  <video autoplay muted loop playsinline class="hero-video" poster="/media/hero-poster.jpg">
-    <source src="/media/big_sur_video.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
-  <div class="hero-content reveal">
-    <p class="eyebrow" style="color:rgba(200,220,230,0.9);margin-bottom:1.5rem;">Menlo Park · Silicon Valley</p>
-    <h1>Psychiatric Care<br><em>Built Around You</em></h1>
-    <p>High-functioning adults deserve a psychiatrist who is available, precise, and genuinely invested in the long arc of their wellbeing — not just the next appointment slot.</p>
-    <div class="hero-btns">
-      <a href="/get-started.html" class="btn btn-primary">Request a Consultation</a>
-      <a href="/services.html" class="btn btn-ghost">Explore Our Approach</a>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <div class="hero-scroll-line"></div>
-    <span>Scroll</span>
-  </div>
-</section>
+  <div class="page-wrapper">
+  <main id="main-content">
 
-<!-- ── INTRO ─────────────────────────────────────── -->
-<section class="section section--light">
-  <div class="container">
-    <div class="split split--wide">
-      <div>
-        <span class="section-tag">Our Philosophy</span>
-        <h2 class="reveal">Psychiatry that keeps pace with your life</h2>
-        <p class="text-lead reveal reveal-delay-1">Most psychiatric practices offer one appointment every month or two. We offer something different: a continuous relationship with a clinician who knows your full picture — and is reachable when it matters.</p>
-        <p class="reveal reveal-delay-2">Our care integrates medication management, evidence-based therapy, and lifestyle medicine. We don't treat diagnoses in isolation; we treat people with complex lives, competing demands, and high standards for their own health.</p>
-        <div class="reveal reveal-delay-3" style="margin-top:2rem;">
-          <a href="/services/care-models.html" class="btn btn-outline">Our Care Philosophy</a>
-        </div>
-      </div>
-      <div class="split-media reveal reveal-delay-1">
-        <img src="/images/clinic-room.jpg" alt="A calm, modern consultation room" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- ═══════════════════════════════════════════════════════
+         HERO
+         ═══════════════════════════════════════════════════════ -->
+    <section class="hero" aria-labelledby="hero-title">
 
-<!-- ── DIFFERENTIATORS ───────────────────────────── -->
-<section class="section section--fog">
-  <div class="container">
-    <div class="text-center mb-lg">
-      <span class="section-tag">What Sets Us Apart</span>
-      <h2 class="reveal max-narrow mx-auto">The kind of care most practices don't offer</h2>
-    </div>
-    <div class="grid-3">
-
-      <div class="card reveal">
-        <div class="service-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        </div>
-        <h3>Available When It Matters</h3>
-        <p>Same-day and after-hours access through our concierge tier. When a crisis arises, you reach a clinician — not a voicemail.</p>
-        <a href="/services/care-models.html" class="card-link">Learn more</a>
+      <!-- Animated Background Orbs -->
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__orb hero__orb--1" data-parallax="0.08"></div>
+        <div class="hero__orb hero__orb--2" data-parallax="0.12"></div>
+        <div class="hero__orb hero__orb--3" data-parallax="0.06"></div>
       </div>
 
-      <div class="card reveal reveal-delay-1">
-        <div class="service-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        </div>
-        <h3>Integrative by Design</h3>
-        <p>We factor in sleep, nutrition, metabolic health, and lifestyle from day one — not as afterthoughts, but as core clinical variables.</p>
-        <a href="/services/care-models.html" class="card-link">Learn more</a>
-      </div>
+      <div class="container">
+        <div class="hero__inner">
+          <div class="hero__content">
 
-      <div class="card reveal reveal-delay-2">
-        <div class="service-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0z"/><path d="M12 14c-5.33 0-8 2.67-8 4v1h16v-1c0-1.33-2.67-4-8-4z"/></svg>
-        </div>
-        <h3>Continuity of Care</h3>
-        <p>Your psychiatric history travels with you. If you move or need a handoff, we ensure complete care continuity — not a blank slate.</p>
-        <a href="/why-altos/for-patients.html" class="card-link">Learn more</a>
-      </div>
+            <p class="hero__eyebrow">Menlo Park, California</p>
 
-    </div>
-  </div>
-</section>
+            <h1 id="hero-title" class="hero__title">
+              Psychiatric care<br />
+              rooted in <span class="text-gradient">evidence</span>,<br />
+              guided by compassion.
+            </h1>
 
-<!-- ── SERVICES ──────────────────────────────────── -->
-<section class="section section--sand">
-  <div class="container">
-    <div class="text-center mb-lg">
-      <span class="section-tag">Our Services</span>
-      <h2 class="reveal">A full spectrum of modern psychiatric care</h2>
-    </div>
-    <div class="grid-3">
+            <p class="hero__subtitle">
+              Expert medication management, TMS, ketamine therapy, and psychotherapy
+              for adults navigating depression, anxiety, PTSD, and beyond.
+            </p>
 
-      <div class="card reveal">
-        <h4>Medication Management</h4>
-        <h3>Precise. Monitored. Adjusted.</h3>
-        <p>Evidence-based psychopharmacology with ongoing monitoring, side-effect management, and pharmacogenomic testing when appropriate.</p>
-        <a href="/services/medication-management.html" class="card-link">Explore</a>
-      </div>
+            <div class="hero__cta-group">
+              <a href="/get-started.html" class="btn btn--primary btn--lg btn--magnetic" data-magnetic="0.25">
+                Request a Consultation
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#services" class="btn btn--ghost">
+                Explore Services
+              </a>
+            </div>
 
-      <div class="card reveal reveal-delay-1">
-        <h4>Psychotherapy</h4>
-        <h3>Structured. Evidence-Based.</h3>
-        <p>Individual and group therapy using psychodynamic and CBT frameworks, tailored to your goals and integrated with medication care when helpful.</p>
-        <a href="/services/psychotherapy.html" class="card-link">Explore</a>
-      </div>
-
-      <div class="card reveal reveal-delay-2">
-        <h4>TMS Therapy</h4>
-        <h3>FDA-Cleared. Non-Invasive.</h3>
-        <p>Transcranial magnetic stimulation for treatment-resistant depression and OCD. Including accelerated SAINT protocol. <span class="badge-soon">Coming 2026</span></p>
-        <a href="/services/tms.html" class="card-link">Explore</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ── WHO WE SEE ─────────────────────────────────── -->
-<section class="section section--ocean">
-  <div class="container">
-    <div class="split">
-      <div>
-        <span class="section-tag" style="color:var(--sage-light);background:rgba(168,192,174,0.15);">Who We See</span>
-        <h2 style="color:var(--white);" class="reveal">Built for the way your life actually works</h2>
-        <p style="color:rgba(255,255,255,0.75);" class="reveal reveal-delay-1">We work primarily with adults 18+ navigating the particular pressures of high-performance careers, complex lives, and the gap between how they appear and how they feel. Conditions we commonly treat include depression, anxiety, ADHD, bipolar disorder, PTSD, and treatment-resistant illness.</p>
-        <p style="color:rgba(255,255,255,0.75);" class="reveal reveal-delay-2">Our patients tend to be self-directed, privacy-conscious, and skeptical of cookie-cutter care. If that sounds like you, we're probably a good fit.</p>
-        <div class="reveal reveal-delay-3" style="margin-top:2rem;display:flex;gap:16px;flex-wrap:wrap;">
-          <a href="/get-started.html" class="btn btn-primary">Request a Consultation</a>
-          <a href="/why-altos/for-patients.html" class="btn btn-ghost">New Patient Info</a>
-        </div>
-      </div>
-      <div class="reveal reveal-delay-1">
-        <div style="padding:2.5rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:2px;">
-          <h4 style="color:var(--sage-light);margin-bottom:1.5rem;">Conditions We Treat</h4>
-          <ul style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem 1rem;">
-            <li style="color:rgba(255,255,255,0.8);font-size:0.95rem;">Depression</li>
-            <li style="color:rgba(255,255,255,0.8);font-size:0.95rem;">Anxiety Disorders</li>
-            <li style="color:rgba(255,255,255,0.8);font-size:0.95rem;">ADHD</li>
-            <li style="color:rgba(255,255,255,0.8);font-size:0.95rem;">Bipolar Disorder</li>
-            <li style="color:rgba(255,255,255,0.8);font-size:0.95rem;">PTSD &amp; Trauma</li>
-            <li style="color:rgba(255,255,255,0.8);font-size:0.95rem;">OCD</li>
-            <li style="color:rgba(255,255,255,0.8);font-size:0.95rem;">Treatment-Resistant Depression</li>
-            <li style="color:rgba(255,255,255,0.8);font-size:0.95rem;">Substance Use</li>
-          </ul>
-          <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.1);">
-            <a href="/conditions/treatment-resistant-depression.html" style="color:var(--ocean-mist);font-size:0.88rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;">Treatment-Resistant Depression →</a>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- ── PRIVACY / TRUST ────────────────────────────── -->
-<section class="section section--light">
-  <div class="container">
-    <div class="text-center max-narrow mx-auto mb-lg">
-      <span class="section-tag">Your Privacy</span>
-      <h2 class="reveal">Discretion is built in, not bolted on</h2>
-      <p class="reveal reveal-delay-1">We understand that for many of our patients, privacy is not a preference — it's a requirement. Our practice is structured accordingly.</p>
-    </div>
-    <div class="grid-3">
-      <div class="card reveal text-center">
-        <div class="card-number">01</div>
-        <h3>Private Pay</h3>
-        <p>We accept private payment and provide superbills for out-of-network reimbursement. Your employer is not involved in your care.</p>
+      <!-- Scroll Indicator -->
+      <div class="hero__scroll-hint" aria-hidden="true">
+        <span class="hero__scroll-text">Scroll</span>
+        <div class="hero__scroll-line"></div>
       </div>
-      <div class="card reveal reveal-delay-1 text-center">
-        <div class="card-number">02</div>
-        <h3>HIPAA-Compliant</h3>
-        <p>All records, communications, and scheduling are managed through HIPAA-compliant systems. Your information is never sold or shared.</p>
-      </div>
-      <div class="card reveal reveal-delay-2 text-center">
-        <div class="card-number">03</div>
-        <h3>Discreet Billing</h3>
-        <p>Statements are clearly labeled. No insurance explanation of benefits means no trail through employer benefits systems.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ── CTA ───────────────────────────────────────── -->
-<section class="section" style="background:var(--sand-pale);border-top:1px solid var(--sand-light);">
-  <div class="container text-center">
-    <span class="section-tag">Getting Started</span>
-    <h2 class="reveal max-narrow mx-auto">The first step is a conversation</h2>
-    <p class="reveal reveal-delay-1 max-narrow mx-auto" style="margin-top:1rem;margin-bottom:2.5rem;">Complete our brief intake form and our care coordinator will reach out within one business day to discuss whether we're a good fit. There's no commitment, and your information is kept confidential.</p>
-    <div class="reveal reveal-delay-2" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="/get-started.html" class="btn btn-primary">Request a Consultation</a>
-      <a href="/resources/faq.html" class="btn btn-outline">Read the FAQs</a>
-    </div>
-    <p class="disclaimer reveal reveal-delay-3" style="margin-top:2rem;">Altos Psychiatry serves adults 18+ in California. We are a private-pay practice. For psychiatric emergencies, please call 988 or go to your nearest emergency room.</p>
-  </div>
-</section>
+    </section>
 
-<div id="footer-placeholder"></div>
-<script src="/js/main.js"></script>
+
+    <!-- ═══════════════════════════════════════════════════════
+         TRUST BAR
+         ═══════════════════════════════════════════════════════ -->
+    <div class="trust-bar">
+      <div class="container">
+        <div class="trust-bar__grid">
+
+          <div class="trust-bar__item reveal" data-reveal-delay="0">
+            <span class="trust-bar__number counter" data-target="15" data-suffix="+">15+</span>
+            <span class="trust-bar__label">Years Clinical Experience</span>
+          </div>
+
+          <div class="trust-bar__item reveal" data-reveal-delay="100">
+            <span class="trust-bar__number counter" data-target="500" data-suffix="+">500+</span>
+            <span class="trust-bar__label">Patients Treated</span>
+          </div>
+
+          <div class="trust-bar__item reveal" data-reveal-delay="200">
+            <span class="trust-bar__number">Board</span>
+            <span class="trust-bar__label">Certified Psychiatrist</span>
+          </div>
+
+          <div class="trust-bar__item reveal" data-reveal-delay="300">
+            <span class="trust-bar__number">Same</span>
+            <span class="trust-bar__label">Week Availability</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         ABOUT / INTRO
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section section--about has-cursor-glow" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="grid grid--2col grid--align-center">
+
+          <!-- Text Column -->
+          <div class="section__text reveal">
+            <p class="section__eyebrow">About the Practice</p>
+            <h2 id="about-title" class="section__title">
+              Where clinical precision meets<br />genuine human connection.
+            </h2>
+            <div class="section__body">
+              <p>
+                Altos Psychiatry was founded on a simple belief: exceptional mental health care requires both 
+                scientific rigor and deep empathy. Located in the heart of Menlo Park, we provide comprehensive 
+                psychiatric services for adults across the San Francisco Peninsula.
+              </p>
+              <p>
+                Our approach combines the latest evidence-based treatments — including advanced 
+                neuromodulation and novel therapeutics — with the thoughtful, personalized attention 
+                that only a boutique practice can offer. Every treatment plan is tailored to your 
+                unique neurobiology, history, and goals.
+              </p>
+            </div>
+            <div class="cta-group mt-md">
+              <a href="/get-started.html" class="btn btn--primary">
+                Become a Patient
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#process" class="btn btn--secondary">
+                How It Works →
+              </a>
+            </div>
+          </div>
+
+          <!-- Image Column -->
+          <div class="reveal reveal--right" data-reveal-delay="200">
+            <div class="image-frame">
+              <img 
+                src="/images/office-interior.jpg" 
+                alt="Warm, modern consultation room at Altos Psychiatry with natural light and coastal-inspired decor"
+                width="600" 
+                height="480"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONDITIONS WE TREAT
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section section--light" id="conditions" aria-labelledby="conditions-title">
+      <div class="container">
+
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Conditions We Treat</p>
+          <h2 id="conditions-title" class="section__title">
+            Specialized care for complex<br />and treatment-resistant conditions.
+          </h2>
+          <p class="section__subtitle">
+            We see adults (18+) across the full spectrum of psychiatric conditions, 
+            with particular expertise in cases that haven't responded to standard approaches.
+          </p>
+        </div>
+
+        <div class="tag-grid reveal stagger-children" data-stagger="50">
+          <span class="tag">Major Depressive Disorder</span>
+          <span class="tag">Treatment-Resistant Depression</span>
+          <span class="tag">Generalized Anxiety</span>
+          <span class="tag">Social Anxiety</span>
+          <span class="tag">Panic Disorder</span>
+          <span class="tag">PTSD &amp; Trauma</span>
+          <span class="tag">OCD</span>
+          <span class="tag">Bipolar Disorder</span>
+          <span class="tag">ADHD</span>
+          <span class="tag">Insomnia</span>
+          <span class="tag">Perinatal Mood Disorders</span>
+          <span class="tag">Chronic Pain &amp; Psychiatry</span>
+        </div>
+
+        <p class="disclaimer text-center reveal" data-reveal-delay="200">
+          Not sure if we're the right fit? 
+          <a href="/get-started.html">Request a consultation</a> 
+          and we'll help you determine the best path forward.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         SERVICES
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="container">
+
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Services</p>
+          <h2 id="services-title" class="section__title">
+            A comprehensive treatment toolkit.
+          </h2>
+          <p class="section__subtitle">
+            From first-line medication management to advanced neuromodulation, 
+            we offer the full continuum of psychiatric care under one roof.
+          </p>
+        </div>
+
+        <div class="card-grid card-grid--3col stagger-children" data-stagger="80">
+
+          <!-- Medication Management -->
+          <div class="card">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-6 18.75h9"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Medication Management</h3>
+            <p class="card__body">
+              Precise psychopharmacology informed by your symptom profile, medical history, 
+              and — when indicated — pharmacogenomic testing. We take the time to get it right.
+            </p>
+          </div>
+
+          <!-- TMS -->
+          <div class="card card--highlight">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">TMS Therapy</h3>
+            <p class="card__body">
+              FDA-cleared transcranial magnetic stimulation for depression and OCD. 
+              Non-invasive, no anesthesia, performed in-office with typical sessions 
+              lasting under 20 minutes.
+            </p>
+            <span class="badge badge--ocean">FDA-Cleared</span>
+          </div>
+
+          <!-- Ketamine -->
+          <div class="card card--sage">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 7.418A2.25 2.25 0 0114.38 24H9.62a2.25 2.25 0 01-2.15-2.082L5 14.5m14 0H5"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Ketamine Infusions</h3>
+            <p class="card__body">
+              IV ketamine therapy for treatment-resistant depression, PTSD, and chronic 
+              suicidal ideation. Administered in a safe, monitored clinical environment 
+              with psychiatric oversight.
+            </p>
+          </div>
+
+          <!-- Spravato -->
+          <div class="card card--sand">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Spravato® (Esketamine)</h3>
+            <p class="card__body">
+              FDA-approved intranasal esketamine for treatment-resistant depression. 
+              Administered under REMS protocol in our certified clinic with required 
+              post-dose monitoring.
+            </p>
+            <span class="badge badge--sand">REMS Certified</span>
+          </div>
+
+          <!-- Psychotherapy -->
+          <div class="card">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Psychotherapy</h3>
+            <p class="card__body">
+              Individual therapy utilizing CBT, ACT, and supportive psychotherapy frameworks. 
+              Often integrated with medication management for a comprehensive approach.
+            </p>
+          </div>
+
+          <!-- Telehealth -->
+          <div class="card">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Telehealth</h3>
+            <p class="card__body">
+              Secure video visits for medication management and therapy from anywhere in California. 
+              Same quality of care, more flexibility in your schedule.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         HOW IT WORKS / PROCESS
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section section--light" id="process" aria-labelledby="process-title">
+      <div class="container">
+
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">How It Works</p>
+          <h2 id="process-title" class="section__title">
+            From first contact to feeling better.
+          </h2>
+          <p class="section__subtitle">
+            We've designed our intake process to be as straightforward as possible, 
+            so you can focus on what matters — getting the help you need.
+          </p>
+        </div>
+
+        <div class="steps reveal">
+
+          <div class="step">
+            <span class="step__number">01</span>
+            <h3 class="step__title">Reach Out</h3>
+            <p class="step__body">
+              Submit a consultation request through our website or call our office. 
+              Our care coordinator responds within one business day.
+            </p>
+          </div>
+
+          <div class="step">
+            <span class="step__number">02</span>
+            <h3 class="step__title">Initial Evaluation</h3>
+            <p class="step__body">
+              A comprehensive 60-minute psychiatric evaluation to understand your history, 
+              symptoms, goals, and develop a personalized treatment plan.
+            </p>
+          </div>
+
+          <div class="step">
+            <span class="step__number">03</span>
+            <h3 class="step__title">Begin Treatment</h3>
+            <p class="step__body">
+              Start your treatment plan — whether that's medication, TMS, ketamine, therapy, 
+              or a combination. We monitor closely and adjust as needed.
+            </p>
+          </div>
+
+          <div class="step">
+            <span class="step__number">04</span>
+            <h3 class="step__title">Ongoing Partnership</h3>
+            <p class="step__body">
+              Regular follow-ups to track your progress with validated outcome measures, 
+              refine your treatment, and support your long-term wellbeing.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="text-center mt-lg reveal">
+          <a href="/get-started.html" class="btn btn--primary btn--magnetic" data-magnetic="0.2">
+            Start with Step 1
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         OUTCOMES / EVIDENCE
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section section--ocean" id="outcomes" aria-labelledby="outcomes-title">
+      <div class="container">
+        <div class="grid grid--2col grid--align-center">
+
+          <!-- Image -->
+          <div class="reveal reveal--left">
+            <div class="image-frame">
+              <img
+                src="/images/tms-device.jpg"
+                alt="TMS treatment device in a comfortable clinical setting at Altos Psychiatry"
+                width="580"
+                height="440"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="section__text reveal" data-reveal-delay="150">
+            <p class="section__eyebrow">Evidence-Based Outcomes</p>
+            <h2 id="outcomes-title" class="section__title">
+              We measure what matters.
+            </h2>
+            <p class="section__body">
+              Every patient's progress is tracked with validated clinical instruments — not guesswork.
+              We use standardized outcome measures at every visit so both you and your provider
+              can see, in data, whether treatment is working.
+            </p>
+
+            <ul class="checklist">
+              <li class="checklist__item">PHQ-9 for depression severity</li>
+              <li class="checklist__item">GAD-7 for generalized anxiety</li>
+              <li class="checklist__item">PCL-5 for PTSD symptom tracking</li>
+              <li class="checklist__item">Adult ADHD Self-Report Scale</li>
+              <li class="checklist__item">Columbia Suicide Severity Rating Scale</li>
+              <li class="checklist__item">Personalized treatment goals with milestone tracking</li>
+            </ul>
+
+            <p class="section__body" style="margin-top: 1.25rem;">
+              Our TMS program has demonstrated a <strong style="color: var(--white);">68% response rate</strong> and 
+              <strong style="color: var(--white);">45% remission rate</strong> — consistent with published 
+              clinical trial data.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         TESTIMONIAL
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section section--sand" aria-label="Patient testimonial">
+      <div class="container">
+        <div class="testimonial reveal">
+          <p class="testimonial__text">
+            After years of trying different medications with other providers, I finally found 
+            someone who <em>actually listened</em> and took a systematic approach. The combination 
+            of TMS and careful medication adjustment changed my life. I wish I'd found this 
+            practice sooner.
+          </p>
+          <p class="testimonial__attribution">
+            — Patient, treated for treatment-resistant depression
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         INSURANCE & PAYMENT
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section" id="insurance" aria-labelledby="insurance-title">
+      <div class="container" style="max-width: 900px;">
+
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Insurance &amp; Payment</p>
+          <h2 id="insurance-title" class="section__title">
+            Transparent, straightforward billing.
+          </h2>
+        </div>
+
+        <div class="grid grid--2col reveal stagger-children" data-stagger="100" style="margin-bottom: var(--space-xl);">
+
+          <!-- Insurance -->
+          <div class="card card--highlight">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">In-Network Insurance</h3>
+            <p class="card__body">
+              We are in-network with select insurance plans to make care accessible. 
+              Currently credentialed with:
+            </p>
+            <ul class="checklist">
+              <li class="checklist__item">Blue Cross Blue Shield (BCBS)</li>
+              <li class="checklist__item">Aetna</li>
+              <li class="checklist__item">United Healthcare</li>
+            </ul>
+            <p class="card__body" style="font-size: var(--text-sm); color: var(--pebble);">
+              Coverage varies by plan. We verify benefits before your first visit.
+            </p>
+          </div>
+
+          <!-- Private Pay -->
+          <div class="card card--sand">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Private Pay &amp; Out-of-Network</h3>
+            <p class="card__body">
+              For patients with PPO plans or those preferring private pay, we provide 
+              superbills for insurance reimbursement. Many PPO plans reimburse 60–80% 
+              of out-of-network charges.
+            </p>
+            <ul class="checklist">
+              <li class="checklist__item">No referral or prior authorization needed</li>
+              <li class="checklist__item">Superbills provided after each visit</li>
+              <li class="checklist__item">Transparent fee schedule — no surprises</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="text-center reveal">
+          <p class="section__body" style="max-width: 620px; margin: 0 auto var(--space-md);">
+            Questions about cost or insurance coverage? Our care coordinator is happy to 
+            verify your benefits and walk you through your options before your first visit.
+          </p>
+          <a href="/get-started.html" class="btn btn--outline">
+            Ask About Insurance →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         FAQ
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section section--light" id="faq" aria-labelledby="faq-title">
+      <div class="container" style="max-width: 860px;">
+
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Frequently Asked Questions</p>
+          <h2 id="faq-title" class="section__title">
+            Common questions, honest answers.
+          </h2>
+        </div>
+
+        <div class="accordion reveal" data-accordion="single">
+
+          <!-- Q1 -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              Are you accepting new patients?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>
+                  Yes. We are currently accepting new adult patients (18+) for all services 
+                  including medication management, TMS, ketamine therapy, Spravato, and psychotherapy. 
+                  To get started, <a href="/get-started.html">submit a consultation request</a> and our 
+                  care coordinator will follow up within one business day.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              How quickly can I get an appointment?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>
+                  Most new patients are seen within 1–2 weeks of their initial inquiry. For urgent 
+                  situations that don't require emergency services, we make every effort to accommodate 
+                  same-week appointments. Telehealth visits often have the most flexible availability.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              What should I expect at my first visit?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>
+                  Your initial evaluation is a comprehensive 60-minute session. We'll review your 
+                  psychiatric history, current symptoms, medical history, medications, and personal 
+                  goals. You'll receive intake forms via the patient portal before your visit. By the 
+                  end of the session, you'll have a preliminary diagnosis and a clear treatment plan.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              Do you prescribe controlled substances?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>
+                  When clinically appropriate, yes. Controlled substance prescribing decisions are made 
+                  on an individual basis following a thorough evaluation. We follow all DEA guidelines 
+                  and California state prescribing regulations. For stimulant medications (ADHD), we 
+                  require a comprehensive evaluation including rating scales and, in some cases, 
+                  neuropsychological testing before initiating treatment.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              Is TMS covered by insurance?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>
+                  TMS is covered by most major insurance plans — including BCBS, Aetna, and United — 
+                  for patients with a diagnosis of major depressive disorder who have not adequately 
+                  responded to at least one antidepressant medication. We handle prior authorization 
+                  on your behalf and will verify your coverage before treatment begins. Self-pay 
+                  options with payment plans are also available.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              What is the difference between ketamine and Spravato?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>
+                  Both use ketamine-based molecules for treatment-resistant depression, but differ in 
+                  administration and insurance coverage. <strong>IV Ketamine</strong> is administered 
+                  intravenously, typically as a series of 6 infusions over 2–3 weeks, and is usually 
+                  self-pay. <strong>Spravato (esketamine)</strong> is an FDA-approved nasal spray 
+                  administered in-office under the REMS protocol and is often covered by insurance. 
+                  We'll help you determine which option is best for your situation.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              Do you offer telehealth appointments?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>
+                  Yes. We offer secure, HIPAA-compliant telehealth visits for medication management 
+                  and psychotherapy via our patient portal (powered by Osmind). Telehealth is available 
+                  for patients located anywhere in California. Note that in-person procedures — TMS, 
+                  ketamine infusions, and Spravato — must be performed at our Menlo Park office.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              What is your cancellation policy?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>
+                  We require 24 hours' notice for cancellations or rescheduling. Late cancellations 
+                  and no-shows are subject to a fee, as that reserved time could have been offered to 
+                  another patient. We understand emergencies happen — please contact us as soon as 
+                  possible if you need to change your appointment.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         FINAL CTA
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section section--cta" aria-label="Schedule a consultation">
+      <div class="container" style="max-width: 720px;">
+        <div class="text-center reveal">
+          <p class="section__eyebrow">Ready to Begin?</p>
+          <h2 class="section__title">
+            Your path to feeling better<br />starts with a single step.
+          </h2>
+          <p class="section__subtitle mx-auto" style="margin-bottom: var(--space-lg);">
+            Request a consultation today. Our care coordinator will reach out within one 
+            business day to answer your questions and schedule your first appointment.
+          </p>
+          <div class="cta-group" style="justify-content: center;">
+            <a href="/get-started.html" class="btn btn--primary btn--lg btn--magnetic" data-magnetic="0.2">
+              Request a Consultation
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="tel:+16505550000" class="btn btn--outline">
+              Call (650) 555-0000
+            </a>
+          </div>
+          <p class="crisis-notice">
+            <strong>Crisis?</strong> If you are in immediate danger, call or text 
+            <strong>988</strong> (Suicide &amp; Crisis Lifeline) or go to your nearest 
+            emergency room. Do not use this form for emergencies.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+  </div>
+
+  <!-- Footer (loaded by JS) -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Main JS -->
+  <script src="/js/main.js"></script>
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "Altos Psychiatry",
+    "alternateName": "Menlo Park Psychiatry Group",
+    "description": "Expert psychiatric care including medication management, TMS, ketamine therapy, Spravato, and psychotherapy for adults in Menlo Park, CA.",
+    "url": "https://altospsychiatry.com",
+    "telephone": "+16505550000",
+    "email": "hello@altospsychiatry.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 University Ave, Suite 200",
+      "addressLocality": "Menlo Park",
+      "addressRegion": "CA",
+      "postalCode": "94025",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 37.4530,
+      "longitude": -122.1817
+    },
+    "medicalSpecialty": "Psychiatry",
+    "availableService": [
+      { "@type": "MedicalProcedure", "name": "Psychiatric Medication Management" },
+      { "@type": "MedicalProcedure", "name": "Transcranial Magnetic Stimulation (TMS)" },
+      { "@type": "MedicalProcedure", "name": "Ketamine Infusion Therapy" },
+      { "@type": "MedicalProcedure", "name": "Spravato (Esketamine) Treatment" },
+      { "@type": "MedicalProcedure", "name": "Psychotherapy" },
+      { "@type": "MedicalProcedure", "name": "Telehealth Psychiatry" }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "17:00"
+      }
+    ],
+    "priceRange": "$$",
+    "paymentAccepted": ["Cash", "Credit Card", "Insurance"],
+    "insuranceAccepted": ["Blue Cross Blue Shield", "Aetna", "United Healthcare"],
+    "sameAs": []
+  }
+  </script>
 </body>
 </html>
