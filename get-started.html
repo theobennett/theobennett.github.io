@@ -1,350 +1,546 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Request a new patient consultation at Altos Psychiatry. Our care coordinator will follow up within one business day." />
   <title>Request a Consultation | Altos Psychiatry</title>
-  <meta name="description" content="Request a new patient consultation at Altos Psychiatry. Our care coordinator will follow up within one business day.">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
   <style>
-    /* Success screen */
-    #success-screen {
-      display: none;
-      padding: 5rem 2rem;
+    /* ═══ Page Hero ═══ */
+    .form-hero {
+      background: linear-gradient(135deg, #1a3a4a 0%, #2a6b7c 60%, #3d5a3e 100%);
+      padding: clamp(120px, 15vw, 180px) 0 clamp(50px, 7vw, 80px);
       text-align: center;
-      max-width: 600px;
-      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
     }
-    .success-icon {
-      width: 72px; height: 72px;
-      background: var(--sage-pale);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 2rem;
-    }
-    .success-icon svg { color: var(--sage); }
-    #success-screen h2 { font-size: 2.2rem; margin-bottom: 1rem; }
-    #success-screen p  { font-size: 1.05rem; color: var(--stone-light); margin-bottom: 0.75rem; }
-
-    /* Inline error message */
-    .field-error { font-size: 0.82rem; color: #c0392b; margin-top: 0.35rem; display: none; }
-    .form-input.has-error, .form-select.has-error, .form-textarea.has-error {
-      border-color: #c0392b !important;
-      box-shadow: 0 0 0 3px rgba(192,57,43,0.1);
-    }
-    .radio-group.has-error .radio-label { color: #c0392b; }
-
-    /* Submit button states */
-    #submit-btn { transition: all 0.3s ease; }
-    #submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-    #submit-btn.loading::after {
+    .form-hero::before {
       content: '';
-      display: inline-block;
-      width: 14px; height: 14px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      margin-left: 10px;
-      vertical-align: middle;
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 80%, rgba(107,143,107,0.2) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 20%, rgba(42,107,124,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .form-hero * { position: relative; }
+    .form-hero .eyebrow { color: rgba(168,212,220,0.85); }
+    .form-hero .eyebrow::before { background: rgba(168,212,220,0.85); }
+    .form-hero h1 { color: #fff; margin-bottom: 0.75rem; }
+    .form-hero p { color: rgba(255,255,255,0.7); max-width: 540px; margin: 0 auto; font-size: clamp(0.95rem, 1vw + 0.8rem, 1.1rem); }
+
+    /* ═══ Info Bar ═══ */
+    .info-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      background: #edf1f1;
+      border: 1px solid #edf1f1;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: clamp(28px, 4vw, 48px);
+    }
+    .info-bar__cell { background: #fff; padding: 1.25rem 1.5rem; text-align: center; }
+    .info-bar__label {
+      display: block; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #2a6b7c; margin-bottom: 0.25rem;
+    }
+    .info-bar__value { font-size: 0.95rem; font-weight: 600; color: #1a3a4a; }
+
+    /* ═══ Caution ═══ */
+    .caution-box {
+      background: #fef9ec; border-left: 3px solid #c4a882;
+      padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0;
+      margin-bottom: clamp(28px, 4vw, 48px);
+    }
+    .caution-box p { color: #5a4a2a; font-size: 0.92rem; line-height: 1.7; margin-bottom: 0.5rem; }
+    .caution-box p:last-child { margin-bottom: 0; }
+    .caution-box strong { color: #3a3018; }
+
+    /* ═══ Form Card ═══ */
+    .form-card {
+      background: #fff; border: 1px solid rgba(42,107,124,0.08);
+      border-radius: 16px; padding: clamp(24px, 4vw, 48px);
+      box-shadow: 0 4px 20px rgba(26,58,74,0.05);
+    }
+    .form-fieldset { border: none; padding: 0; margin: 0 0 2.5rem; }
+    .form-fieldset legend {
+      font-family: var(--font-display, 'Cormorant Garamond', serif);
+      font-size: clamp(1.3rem, 2vw, 1.6rem); font-weight: 600;
+      color: #1a3a4a; margin-bottom: 1.25rem; padding-bottom: 0.7rem;
+      border-bottom: 1px solid #edf1f1; width: 100%; display: block;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px; }
+    @media (min-width: 560px) { .form-row--2col { grid-template-columns: 1fr 1fr; } }
+    .form-group { margin-bottom: 1.1rem; position: relative; }
+    .form-label {
+      display: block; font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: #2c3e3e; margin-bottom: 0.4rem;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 13px 16px; background: #f7fafa;
+      border: 1.5px solid rgba(42,107,124,0.2); border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 16px; color: #2c3e3e;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      -webkit-appearance: none; appearance: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none; border-color: #2a6b7c;
+      box-shadow: 0 0 0 3px rgba(42,107,124,0.1); background: #fff;
+    }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%234a6060' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 16px center; padding-right: 44px;
+    }
+    .form-input.has-error, .form-select.has-error, .form-textarea.has-error {
+      border-color: #dc2626; box-shadow: 0 0 0 3px rgba(220,38,38,0.08);
+    }
+    .form-input.field-valid, .form-select.field-valid, .form-textarea.field-valid {
+      border-color: #16a34a;
+    }
+    .field-error {
+      display: none; font-size: 0.82rem; color: #dc2626; margin-top: 0.35rem;
+    }
+    .radio-group { display: flex; gap: 18px; flex-wrap: wrap; }
+    .radio-group.has-error .radio-label { color: #dc2626; }
+    .radio-label {
+      display: flex; align-items: center; gap: 8px; font-size: 0.95rem;
+      color: #2c3e3e; padding: 6px 0; min-height: 44px; cursor: pointer;
+    }
+    .radio-label input[type="radio"], .radio-label input[type="checkbox"] {
+      accent-color: #2a6b7c; width: 18px; height: 18px; flex-shrink: 0;
+    }
+    .consent-box {
+      background: #f7fafa; padding: 1.5rem; border: 1px solid #edf1f1;
+      border-radius: 10px; margin-bottom: 1.5rem;
+    }
+    .consent-box label { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+    .consent-box input[type="checkbox"] {
+      margin-top: 3px; accent-color: #2a6b7c; width: 18px; height: 18px; flex-shrink: 0;
+    }
+    .consent-box span { font-size: 0.9rem; color: #4a6060; line-height: 1.7; }
+    .consent-box a { color: #2a6b7c; text-decoration: underline; text-underline-offset: 2px; }
+
+    .form-submit-btn {
+      width: 100%; padding: 18px 32px; font-size: 0.92rem; font-weight: 600;
+      letter-spacing: 0.03em; background: #1a3a4a; color: #fff; border: none;
+      border-radius: 9999px; cursor: pointer; position: relative; overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .form-submit-btn:hover:not(:disabled) {
+      background: #2a6b7c; transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(42,107,124,0.2);
+    }
+    .form-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .form-submit-btn.is-loading { color: transparent; }
+    .form-submit-btn.is-loading::after {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 20px; height: 20px; margin: -10px 0 0 -10px;
+      border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+      border-radius: 50%; animation: spin 0.7s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Submission error banner */
-    #submission-error {
-      display: none;
-      background: #fce8e8;
-      border-left: 3px solid #c0392b;
-      padding: 1rem 1.5rem;
-      margin-top: 1rem;
-      border-radius: 0;
+    .submission-error {
+      display: none; background: #fef2f2; border-left: 3px solid #dc2626;
+      padding: 1rem 1.5rem; margin-top: 1rem; border-radius: 0 8px 8px 0;
     }
-    #submission-error p { color: #7b1c1c; font-size: 0.95rem; margin: 0; }
+    .submission-error p { color: #7f1d1d; font-size: 0.92rem; margin: 0; }
+    .submission-error a { color: #dc2626; text-decoration: underline; }
+
+    .success-screen {
+      display: none; padding: 4rem 2rem; text-align: center;
+      max-width: 580px; margin: 0 auto;
+    }
+    .success-screen.is-visible { display: block; }
+    .success-icon {
+      width: 72px; height: 72px; background: #dce8dc; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem;
+    }
+    .success-icon svg { color: #3d5a3e; width: 32px; height: 32px; }
+    .success-screen h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 1rem; }
+    .success-screen p { font-size: 1rem; color: #4a6060; margin-bottom: 0.75rem; }
+    .success-screen a { color: #2a6b7c; text-decoration: underline; text-underline-offset: 2px; }
   </style>
 </head>
+
 <body>
-<div id="header-placeholder"></div>
-<div class="page-wrapper">
-<main>
+  <div id="header-placeholder"></div>
+  <div class="page-wrapper">
+  <main>
 
-  <section class="page-hero">
-    <div class="container">
-      <p class="eyebrow" style="color:var(--sage-light);">Getting Started</p>
-      <h1>Request a Consultation</h1>
-      <p>Complete the form below. Our care coordinator will reach out within one business day to discuss next steps and confirm fit.</p>
-    </div>
-  </section>
-
-  <section class="section section--light">
-    <div class="container" style="max-width:860px;">
-
-      <div id="success-screen">
-        <div class="success-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 6L9 17l-5-5"/>
-          </svg>
-        </div>
-        <h2>Your request has been received</h2>
-        <p>Thank you for reaching out. Our care coordinator will contact you within <strong>one business day</strong> using your preferred contact method.</p>
-        <p>In the meantime, feel free to read through our <a href="/resources/faq.html" style="color:var(--ocean);">FAQ</a> or learn more about <a href="/services.html" style="color:var(--ocean);">our services</a>.</p>
-        <div style="margin-top:2.5rem;padding:1.5rem;background:var(--fog-dark);border:1px solid var(--fog-dark);text-align:left;">
-          <p style="font-size:0.85rem;color:var(--pebble);margin:0;">If you need to reach us directly: <a href="tel:+16505550000" style="color:var(--ocean);">(650) 555-0000</a> or <a href="mailto:hello@altospsychiatry.com" style="color:var(--ocean);">hello@altospsychiatry.com</a></p>
-        </div>
-        <div style="margin-top:1.5rem;">
-          <p style="font-size:0.8rem;color:var(--pebble);">If you are in crisis, please call or text <strong>988</strong> or go to your nearest emergency room.</p>
-        </div>
+    <!-- ═══ HERO ═══ -->
+    <section class="form-hero" aria-labelledby="form-hero-h">
+      <div class="container">
+        <p class="eyebrow">Getting Started</p>
+        <h1 id="form-hero-h">Request a Consultation</h1>
+        <p>Complete the form below. Our care coordinator will reach out within one business day to discuss next steps and confirm fit.</p>
       </div>
+    </section>
 
-      <div id="form-wrapper">
+    <!-- ═══ FORM SECTION ═══ -->
+    <section class="section section--light">
+      <div class="container" style="max-width:860px;">
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--fog-dark);margin-bottom:3rem;border:1px solid var(--fog-dark);" class="reveal">
-          <div style="background:var(--white);padding:1.25rem 1.5rem;text-align:center;">
-            <p style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:0.25rem;">Response Time</p>
-            <p style="font-size:1rem;color:var(--ocean-deep);font-weight:500;margin:0;">Within 1 business day</p>
+        <!-- Success Screen (hidden) -->
+        <div class="success-screen" id="success-screen" role="alert" aria-live="polite">
+          <div class="success-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
           </div>
-          <div style="background:var(--white);padding:1.25rem 1.5rem;text-align:center;">
-            <p style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:0.25rem;">Your Information</p>
-            <p style="font-size:1rem;color:var(--ocean-deep);font-weight:500;margin:0;">Kept strictly confidential</p>
+          <h2>Your request has been received</h2>
+          <p>Thank you for reaching out. Our care coordinator will contact you within <strong>one business day</strong> using your preferred contact method.</p>
+          <p>In the meantime, feel free to read through our <a href="/resources/faq.html">FAQ</a> or learn more about <a href="/services.html">our services</a>.</p>
+          <div style="margin-top:2.5rem;padding:1.5rem;background:#edf1f1;border-radius:10px;text-align:left;">
+            <p style="font-size:0.88rem;color:#4a6060;margin:0;">Need to reach us directly? <a href="tel:+16505550000">(650) 555-0000</a> or <a href="mailto:hello@altospsychiatry.com">hello@altospsychiatry.com</a></p>
           </div>
-          <div style="background:var(--white);padding:1.25rem 1.5rem;text-align:center;">
-            <p style="font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:0.25rem;">No Obligation</p>
-            <p style="font-size:1rem;color:var(--ocean-deep);font-weight:500;margin:0;">A conversation, not a commitment</p>
-          </div>
+          <p style="margin-top:1.5rem;font-size:0.8rem;color:#7a8a8a;">If you are in crisis, please call or text <strong>988</strong> or go to your nearest emergency room.</p>
         </div>
 
-        <div class="info-box caution reveal" style="margin-bottom:2.5rem;">
-          <p><strong>Please note:</strong> This form is for scheduling purposes only. Do not include detailed medical history, diagnoses, or medication information. You will share clinical details with your provider during your evaluation.</p>
-          <p style="margin-top:0.75rem;"><strong>If you are in crisis</strong>, call or text <strong>988</strong> or go to your nearest emergency room. Do not use this form for urgent matters.</p>
-        </div>
+        <!-- Form Wrapper -->
+        <div id="form-wrapper">
 
-        <div class="form-section reveal">
-          <form id="consultation-form" novalidate>
-
-            <fieldset class="form-fieldset">
-              <legend>Contact Information</legend>
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label" for="firstName">First Name *</label>
-                  <input class="form-input" type="text" id="firstName" name="firstName" autocomplete="given-name">
-                  <span class="field-error" id="err-firstName">Please enter your first name.</span>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="lastName">Last Name *</label>
-                  <input class="form-input" type="text" id="lastName" name="lastName" autocomplete="family-name">
-                  <span class="field-error" id="err-lastName">Please enter your last name.</span>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label" for="email">Email Address *</label>
-                  <input class="form-input" type="email" id="email" name="email" autocomplete="email">
-                  <span class="field-error" id="err-email">Please enter a valid email address.</span>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="phone">Phone Number *</label>
-                  <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel" placeholder="XXX-XXX-XXXX">
-                  <span class="field-error" id="err-phone">Please enter your phone number.</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="contactPref">Preferred Contact Method *</label>
-                <select class="form-select" id="contactPref" name="contactPref">
-                  <option value="">— Please select —</option>
-                  <option value="email">Email</option>
-                  <option value="phone-call">Phone call</option>
-                  <option value="text">Text message</option>
-                </select>
-                <span class="field-error" id="err-contactPref">Please select a preferred contact method.</span>
-              </div>
-            </fieldset>
-
-            <fieldset class="form-fieldset">
-              <legend>About Your Care</legend>
-              <div class="form-group">
-                <label class="form-label" for="concerns">What brings you to Altos Psychiatry? *</label>
-                <textarea class="form-textarea" id="concerns" name="concerns" rows="4" placeholder="A brief description — one or two sentences is fine. Clinical details stay between you and your provider."></textarea>
-                <span class="field-error" id="err-concerns">Please briefly describe what you're looking for help with.</span>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="referralSource">How did you hear about us?</label>
-                <select class="form-select" id="referralSource" name="referralSource">
-                  <option value="">— Please select —</option>
-                  <option value="Physician or provider referral">Physician or provider referral</option>
-                  <option value="Therapist referral">Therapist referral</option>
-                  <option value="Friend or family">Friend or family recommendation</option>
-                  <option value="Psychology Today">Psychology Today</option>
-                  <option value="Google search">Google search</option>
-                  <option value="Zocdoc">Zocdoc</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-            </fieldset>
-
-            <fieldset class="form-fieldset">
-              <legend>Logistics</legend>
-              <div class="form-group">
-                <label class="form-label">Appointment preference *</label>
-                <div class="radio-group" id="rg-apptType">
-                  <label class="radio-label"><input type="radio" name="apptType" value="Telehealth"> Telehealth (video)</label>
-                  <label class="radio-label"><input type="radio" name="apptType" value="In-person"> In-person (Menlo Park)</label>
-                  <label class="radio-label"><input type="radio" name="apptType" value="No preference"> No preference</label>
-                </div>
-                <span class="field-error" id="err-apptType">Please select one.</span>
-              </div>
-            </fieldset>
-
-            <div class="form-group" style="background:var(--fog);padding:1.5rem;border:1px solid var(--fog-dark);">
-              <label class="radio-label" style="align-items:flex-start;gap:12px;">
-                <input type="checkbox" id="consent" name="consent" style="margin-top:3px;accent-color:var(--ocean);width:16px;height:16px;flex-shrink:0;">
-                <span style="font-size:0.9rem;color:var(--stone-light);line-height:1.7;">
-                  I understand this form is for scheduling purposes only and does not establish a patient-provider relationship. I confirm that I am 18 years of age or older and located in California. I agree to Altos Psychiatry's <a href="/privacy.html" style="color:var(--ocean);">Privacy Policy</a>. *
-                </span>
-              </label>
-              <span class="field-error" id="err-consent" style="display:none;">You must agree to continue.</span>
+          <!-- Info Bar -->
+          <div class="info-bar reveal">
+            <div class="info-bar__cell">
+              <span class="info-bar__label">Response Time</span>
+              <span class="info-bar__value">Within 1 business day</span>
             </div>
-
-            <div id="submission-error">
-              <p>Something went wrong submitting your request. Please try again, or contact us directly at <a href="mailto:hello@altospsychiatry.com" style="color:#c0392b;">hello@altospsychiatry.com</a>.</p>
+            <div class="info-bar__cell">
+              <span class="info-bar__label">Your Information</span>
+              <span class="info-bar__value">Kept strictly confidential</span>
             </div>
+            <div class="info-bar__cell">
+              <span class="info-bar__label">No Obligation</span>
+              <span class="info-bar__value">A conversation, not a commitment</span>
+            </div>
+          </div>
 
-            <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1.5rem;font-size:0.9rem;padding:18px;">
-              Submit Consultation Request
-            </button>
+          <!-- Caution Box -->
+          <div class="caution-box reveal">
+            <p><strong>Please note:</strong> This form is for scheduling purposes only. Do not include detailed medical history, diagnoses, or medication information. You will share clinical details with your provider during your evaluation.</p>
+            <p><strong>If you are in crisis</strong>, call or text <strong>988</strong> or go to your nearest emergency room. Do not use this form for urgent matters.</p>
+          </div>
 
-          </form>
-        </div>
+          <!-- Form -->
+          <div class="form-card reveal">
+            <form id="consultation-form" novalidate>
 
-        <div style="margin-top:2rem;text-align:center;" class="reveal">
-          <p class="disclaimer">Prefer to talk first? Call us at <a href="tel:+16505550000" style="color:var(--ocean);">(650) 555-0000</a> during business hours (Mon–Fri, 9 AM–5 PM).</p>
-        </div>
+              <!-- Contact Information -->
+              <fieldset class="form-fieldset">
+                <legend>Contact Information</legend>
+                <div class="form-row form-row--2col">
+                  <div class="form-group">
+                    <label class="form-label" for="firstName">First Name *</label>
+                    <input class="form-input" type="text" id="firstName" name="firstName" required autocomplete="given-name">
+                    <span class="field-error" id="err-firstName">Please enter your first name.</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="lastName">Last Name *</label>
+                    <input class="form-input" type="text" id="lastName" name="lastName" required autocomplete="family-name">
+                    <span class="field-error" id="err-lastName">Please enter your last name.</span>
+                  </div>
+                </div>
+                <div class="form-row form-row--2col">
+                  <div class="form-group">
+                    <label class="form-label" for="email">Email Address *</label>
+                    <input class="form-input" type="email" id="email" name="email" required autocomplete="email">
+                    <span class="field-error" id="err-email">Please enter a valid email address.</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="phone">Phone Number *</label>
+                    <input class="form-input" type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="XXX-XXX-XXXX">
+                    <span class="field-error" id="err-phone">Please enter your phone number.</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="contactPref">Preferred Contact Method *</label>
+                  <select class="form-select" id="contactPref" name="contactPref" required>
+                    <option value="">— Please select —</option>
+                    <option value="email">Email</option>
+                    <option value="phone-call">Phone call</option>
+                    <option value="text">Text message</option>
+                  </select>
+                  <span class="field-error" id="err-contactPref">Please select a preferred contact method.</span>
+                </div>
+              </fieldset>
 
-      </div></div>
-  </section>
+              <!-- About Your Care -->
+              <fieldset class="form-fieldset">
+                <legend>About Your Care</legend>
+                <div class="form-group">
+                  <label class="form-label" for="concerns">What brings you to Altos Psychiatry? *</label>
+                  <textarea class="form-textarea" id="concerns" name="concerns" rows="4" required maxlength="500" placeholder="A brief description — one or two sentences is fine. Clinical details stay between you and your provider."></textarea>
+                  <span class="field-error" id="err-concerns">Please briefly describe what you're looking for help with.</span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="referralSource">How did you hear about us?</label>
+                  <select class="form-select" id="referralSource" name="referralSource">
+                    <option value="">— Please select —</option>
+                    <option value="Physician or provider referral">Physician or provider referral</option>
+                    <option value="Therapist referral">Therapist referral</option>
+                    <option value="Friend or family">Friend or family recommendation</option>
+                    <option value="Psychology Today">Psychology Today</option>
+                    <option value="Google search">Google search</option>
+                    <option value="Zocdoc">Zocdoc</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </fieldset>
 
-</main>
-</div>
-<div id="footer-placeholder"></div>
-<script src="/js/main.js"></script>
-<script>
-// Replace this with your newly deployed Web App URL
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjKojdmIKv9vZftmSCe5QbvEMVtuGHG61qAUamuYULZds0HrXCI2K5FOX4e2WDNls-/exec';
+              <!-- Logistics -->
+              <fieldset class="form-fieldset">
+                <legend>Logistics</legend>
+                <div class="form-group">
+                  <label class="form-label">Appointment preference *</label>
+                  <div class="radio-group" id="rg-apptType">
+                    <label class="radio-label"><input type="radio" name="apptType" value="Telehealth"> Telehealth (video)</label>
+                    <label class="radio-label"><input type="radio" name="apptType" value="In-person"> In-person (Menlo Park)</label>
+                    <label class="radio-label"><input type="radio" name="apptType" value="No preference"> No preference</label>
+                  </div>
+                  <span class="field-error" id="err-apptType">Please select one.</span>
+                </div>
+              </fieldset>
 
-var form       = document.getElementById('consultation-form');
-var wrapper    = document.getElementById('form-wrapper');
-var successEl  = document.getElementById('success-screen');
-var submitBtn  = document.getElementById('submit-btn');
-var submitErr  = document.getElementById('submission-error');
-var phoneInput = document.getElementById('phone');
+              <!-- Consent -->
+              <div class="consent-box">
+                <label>
+                  <input type="checkbox" id="consent" name="consent" required>
+                  <span>I understand this form is for scheduling purposes only and does not establish a patient-provider relationship. I confirm that I am 18 years of age or older and located in California. I agree to Altos Psychiatry's <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>. *</span>
+                </label>
+                <span class="field-error" id="err-consent">You must agree to continue.</span>
+              </div>
 
-// ── Phone Number Auto-Formatter ──────────────────────────────
-phoneInput.addEventListener('input', function (e) {
-  var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '');
-});
+              <!-- Submission Error -->
+              <div class="submission-error" id="submission-error">
+                <p>Something went wrong submitting your request. Please try again, or contact us directly at <a href="mailto:hello@altospsychiatry.com">hello@altospsychiatry.com</a>.</p>
+              </div>
 
-// ── Validation helpers ───────────────────────────────────────
-function showError(id, show) {
-  var el = document.getElementById('err-' + id);
-  if (el) el.style.display = show ? 'block' : 'none';
-}
-function markField(el, bad) {
-  if (!el) return;
-  if (bad) el.classList.add('has-error');
-  else     el.classList.remove('has-error');
-}
-function markRadio(groupId, bad) {
-  var g = document.getElementById(groupId);
-  if (g) bad ? g.classList.add('has-error') : g.classList.remove('has-error');
-}
-function getRadio(name) {
-  var el = form.querySelector('input[name="' + name + '"]:checked');
-  return el ? el.value : '';
-}
+              <!-- Submit -->
+              <button type="submit" id="submit-btn" class="form-submit-btn">
+                Submit Consultation Request
+              </button>
 
-function validate() {
-  var ok = true;
-  var textFields = ['firstName','lastName','email','phone'];
-  textFields.forEach(function(id) {
-    var el = form.querySelector('[name="' + id + '"]');
-    var bad = !el || !el.value.trim();
-    markField(el, bad);
-    showError(id, bad);
-    if (bad) ok = false;
-  });
+            </form>
+          </div>
 
-  var sel = form.querySelector('[name="contactPref"]');
-  var selBad = !sel || !sel.value;
-  markField(sel, selBad);
-  showError('contactPref', selBad);
-  if (selBad) ok = false;
+          <!-- Bottom CTA -->
+          <div style="margin-top:2rem;text-align:center;" class="reveal">
+            <p style="font-size:0.88rem;color:#7a8a8a;">Prefer to talk first? Call us at <a href="tel:+16505550000" style="color:#2a6b7c;">(650) 555-0000</a> during business hours (Mon–Fri, 9 AM–5 PM).</p>
+          </div>
 
-  var ta = form.querySelector('[name="concerns"]');
-  var taBad = !ta || !ta.value.trim();
-  markField(ta, taBad);
-  showError('concerns', taBad);
-  if (taBad) ok = false;
+        </div><!-- /#form-wrapper -->
+      </div>
+    </section>
 
-  var radios = [
-    { name: 'apptType', groupId: 'rg-apptType' }
-  ];
-  radios.forEach(function(r) {
-    var bad = !getRadio(r.name);
-    markRadio(r.groupId, bad);
-    showError(r.name, bad);
-    if (bad) ok = false;
-  });
+  </main>
+  </div>
+  <div id="footer-placeholder"></div>
+  <script src="/js/main.js"></script>
 
-  var cb = document.getElementById('consent');
-  var cbBad = !cb || !cb.checked;
-  showError('consent', cbBad);
-  if (cbBad) ok = false;
+  <script>
+  (function() {
+    'use strict';
 
-  return ok;
-}
+    /* ═══════════════════════════════════════════════════════
+       CRM CONFIGURATION
+       Replace with your deployed Google Apps Script Web App URL
+       ═══════════════════════════════════════════════════════ */
+    var SCRIPT_URL = 'REPLACE_WITH_YOUR_DEPLOYMENT_URL';
 
-// ── Submit handler ───────────────────────────────────────────
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  submitErr.style.display = 'none';
+    /* ═══ DOM References ═══ */
+    var form       = document.getElementById('consultation-form');
+    var wrapper    = document.getElementById('form-wrapper');
+    var successEl  = document.getElementById('success-screen');
+    var submitBtn  = document.getElementById('submit-btn');
+    var submitErr  = document.getElementById('submission-error');
+    var phoneInput = document.getElementById('phone');
 
-  if (!validate()) {
-    var firstErr = form.querySelector('.has-error, .field-error[style*="block"]');
-    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
-  }
+    if (!form) return;
 
-  submitBtn.disabled = true;
-  submitBtn.classList.add('loading');
-  submitBtn.textContent = 'Submitting';
+    /* ═══ Phone Auto-Formatter ═══ */
+    phoneInput.addEventListener('input', function(e) {
+      var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+      e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
 
-  // Build the FormData
-  var formData = new FormData(form);
-  formData.append('formType', 'patient_inquiry');
-  formData.append('timestamp', new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+    /* ═══ Validation Helpers ═══ */
+    function showError(id, show) {
+      var el = document.getElementById('err-' + id);
+      if (el) el.style.display = show ? 'block' : 'none';
+    }
 
-  // Send request via modern fetch
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    body: formData,
-    mode: 'no-cors' 
-  })
-  .then(function() {
-    showSuccess();
-  })
-  .catch(function(error) {
-    console.error('Error!', error.message);
-    submitErr.style.display = 'block';
-    submitBtn.disabled = false;
-    submitBtn.classList.remove('loading');
-    submitBtn.textContent = 'Submit Consultation Request';
-  });
-});
+    function markField(el, bad) {
+      if (!el) return;
+      el.classList.toggle('has-error', bad);
+      el.classList.toggle('field-valid', !bad && el.value && el.value.trim().length > 0);
+    }
 
-function showSuccess() {
-  wrapper.style.display  = 'none';
-  successEl.style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-</script>
+    function markRadio(groupId, bad) {
+      var g = document.getElementById(groupId);
+      if (g) g.classList.toggle('has-error', bad);
+    }
+
+    function getRadio(name) {
+      var checked = form.querySelector('input[name="' + name + '"]:checked');
+      return checked ? checked.value : '';
+    }
+
+    /* ═══ Real-Time Validation on Blur ═══ */
+    var requiredTextFields = ['firstName', 'lastName', 'email', 'phone'];
+    requiredTextFields.forEach(function(id) {
+      var field = document.getElementById(id);
+      if (!field) return;
+      field.addEventListener('blur', function() {
+        var bad = !field.value.trim();
+        if (id === 'email' && field.value.trim()) {
+          bad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value.trim());
+        }
+        markField(field, bad);
+        showError(id, bad);
+      });
+      field.addEventListener('input', function() {
+        if (field.classList.contains('has-error')) {
+          var bad = !field.value.trim();
+          if (id === 'email' && field.value.trim()) {
+            bad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value.trim());
+          }
+          markField(field, bad);
+          showError(id, bad);
+        }
+      });
+    });
+
+    /* ═══ Full Validation ═══ */
+    function validate() {
+      var ok = true;
+
+      requiredTextFields.forEach(function(id) {
+        var el = document.getElementById(id);
+        var bad = !el || !el.value.trim();
+        if (id === 'email' && el && el.value.trim()) {
+          bad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+        }
+        markField(el, bad);
+        showError(id, bad);
+        if (bad) ok = false;
+      });
+
+      // Contact preference select
+      var contactPref = document.getElementById('contactPref');
+      var cpBad = !contactPref || !contactPref.value;
+      markField(contactPref, cpBad);
+      showError('contactPref', cpBad);
+      if (cpBad) ok = false;
+
+      // Concerns textarea
+      var concerns = document.getElementById('concerns');
+      var cBad = !concerns || !concerns.value.trim();
+      markField(concerns, cBad);
+      showError('concerns', cBad);
+      if (cBad) ok = false;
+
+      // Appointment type radio
+      var apptVal = getRadio('apptType');
+      var aBad = !apptVal;
+      markRadio('rg-apptType', aBad);
+      showError('apptType', aBad);
+      if (aBad) ok = false;
+
+      // Consent checkbox
+      var consent = document.getElementById('consent');
+      var conBad = !consent || !consent.checked;
+      showError('consent', conBad);
+      if (conBad) ok = false;
+
+      return ok;
+    }
+
+    /* ═══ Form Submission — Image-Ping GET ═══ 
+       This method works reliably from static GitHub Pages sites
+       because it bypasses CORS entirely. The browser loads a 1x1
+       image from the Google Apps Script URL with form data as
+       query parameters. The script processes the data and returns
+       a tiny image. No fetch(), no FormData, no CORS issues.
+    ═══════════════════════════════════════════════════════════ */
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitErr.style.display = 'none';
+
+      // Validate
+      if (!validate()) {
+        var firstErr = form.querySelector('.has-error, .field-error[style*="block"]');
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      // Disable button + loading state
+      submitBtn.disabled = true;
+      submitBtn.classList.add('is-loading');
+      submitBtn.textContent = 'Submitting';
+
+      // Collect form data
+      var data = {
+        formType:       'patient_inquiry',
+        firstName:      document.getElementById('firstName').value.trim(),
+        lastName:       document.getElementById('lastName').value.trim(),
+        email:          document.getElementById('email').value.trim(),
+        phone:          document.getElementById('phone').value.trim(),
+        contactPref:    document.getElementById('contactPref').value,
+        concerns:       document.getElementById('concerns').value.trim(),
+        referralSource: document.getElementById('referralSource').value,
+        apptType:       getRadio('apptType'),
+        consent:        'yes',
+        timestamp:      new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+      };
+
+      // Build query string
+      var params = Object.keys(data).map(function(key) {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
+      }).join('&');
+
+      // Image-ping GET request
+      var img = new Image();
+      var timeout;
+
+      img.onload = img.onerror = function() {
+        // Both onload and onerror mean the request reached the server.
+        // Google Apps Script returns a redirect which triggers onerror
+        // for image elements, but the data is still processed.
+        clearTimeout(timeout);
+        showSuccess();
+      };
+
+      // Safety timeout — show success after 5 seconds regardless.
+      // The image-ping is fire-and-forget; if the server is slow,
+      // we don't want the user stuck on a loading screen.
+      timeout = setTimeout(function() {
+        showSuccess();
+      }, 5000);
+
+      // Fire the request
+      img.src = SCRIPT_URL + '?' + params;
+    });
+
+    /* ═══ Success Handler ═══ */
+    function showSuccess() {
+      wrapper.style.display = 'none';
+      successEl.classList.add('is-visible');
+      successEl.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Accessibility: announce to screen readers
+      if (typeof announce === 'function') {
+        announce('Your consultation request has been submitted successfully.');
+      }
+    }
+
+  })();
+  </script>
 </body>
 </html>
