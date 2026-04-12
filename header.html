@@ -1,8 +1,11 @@
 <!-- ═══════════════════════════════════════════════════════════
-     SITE HEADER
+     SITE HEADER — v2
      3 dropdown menus + 3 action buttons
      Desktop: horizontal nav with animated dropdowns
      Mobile: hamburger → fullscreen overlay
+     
+     Fixed: dropdown visibility, z-index, overflow clipping
+     Added: intake.html + scheduling.html links
      ═══════════════════════════════════════════════════════════ -->
 
 <style>
@@ -10,6 +13,15 @@
      HEADER DROPDOWNS — Scoped to header component
      Base .site-header styles live in style.css
      ──────────────────────────────────────────────────────── */
+
+  /* ── FIX: Ensure header + container don't clip dropdowns ── */
+  .site-header {
+    overflow: visible !important;
+  }
+
+  .site-header > .container {
+    overflow: visible !important;
+  }
 
   /* ── Nav Layout ── */
   .nav {
@@ -25,6 +37,7 @@
   /* ── Dropdown Wrapper ── */
   .nav__item {
     position: relative;
+    z-index: 100;
   }
 
   /* ── Dropdown Trigger ── */
@@ -82,7 +95,7 @@
     position: absolute;
     top: calc(100% + 8px);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(8px);
     min-width: 260px;
     background: var(--white);
     border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
@@ -91,14 +104,19 @@
       0 20px 48px rgba(var(--ocean-deep-rgb), 0.12),
       0 6px 16px rgba(var(--ocean-deep-rgb), 0.06);
     padding: 8px;
+
+    /* ── FIX: Explicit z-index instead of CSS variable ── */
+    z-index: 9999;
+
+    /* Hidden by default */
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-50%) translateY(8px);
+    pointer-events: none;
+
     transition:
       opacity var(--duration-base) var(--ease-out),
       transform var(--duration-base) var(--ease-out),
       visibility var(--duration-base);
-    z-index: var(--z-dropdown);
   }
 
   /* Bridge — invisible hover zone between trigger and dropdown */
@@ -111,9 +129,11 @@
     height: 12px;
   }
 
+  /* ── FIX: Open state — must re-enable pointer events ── */
   .nav__item--open .nav__dropdown {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     transform: translateX(-50%) translateY(0);
   }
 
@@ -330,7 +350,7 @@
     color: var(--white);
   }
 
-  /* CTA button — inherits from .btn--primary in style.css */
+  /* CTA button */
   .nav__cta-btn {
     padding: 9px 22px;
     font-size: 0.8rem;
@@ -525,14 +545,15 @@
     <a href="/" class="header-logo" aria-label="Altos Psychiatry — Home">
       <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.2" opacity="0.3"/>
-        <path d="M18 6C18 6 10 14 10 20C10 24.4 13.6 28 18 28C22.4 28 26 24.4 26 20C26 14 18 6 18 6Z" 
+        <path d="M18 6C18 6 10 14 10 20C10 24.4 13.6 28 18 28C22.4 28 26 24.4 26 20C26 14 18 6 18 6Z"
               fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M18 14V22M14 18H22" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
       </svg>
       <span class="logo-text">Altos Psychiatry</span>
     </a>
 
-    <!-- ═══ DESKTOP NAVIGATION ═══ -->
+     <!-- ═══ DESKTOP NAVIGATION ═══ -->
+          <!-- ═══ DESKTOP NAVIGATION ═══ -->
     <nav class="nav" role="navigation" aria-label="Main navigation">
 
       <!-- ── DROPDOWN 1: About ── -->
@@ -549,7 +570,7 @@
         </button>
 
         <div class="nav__dropdown" id="nav-about-panel" role="menu" aria-labelledby="nav-about-trigger">
-          <a href="/#about" class="nav__dropdown-link" role="menuitem">
+          <a href="/about.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0"/></svg>
             </span>
@@ -559,7 +580,7 @@
             </span>
           </a>
 
-          <a href="/#about" class="nav__dropdown-link" role="menuitem">
+          <a href="/about.html#practice" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--sage">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V9.75"/></svg>
             </span>
@@ -569,7 +590,7 @@
             </span>
           </a>
 
-          <a href="/#outcomes" class="nav__dropdown-link" role="menuitem">
+          <a href="/about.html#outcomes" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--neutral">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
             </span>
@@ -596,7 +617,7 @@
         </button>
 
         <div class="nav__dropdown" id="nav-services-panel" role="menu" aria-labelledby="nav-services-trigger" style="min-width: 300px;">
-          <a href="/#services" class="nav__dropdown-link" role="menuitem">
+          <a href="/services/medication.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-6 18.75h9"/></svg>
             </span>
@@ -606,7 +627,7 @@
             </span>
           </a>
 
-          <a href="/#services" class="nav__dropdown-link" role="menuitem">
+          <a href="/services/tms.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
             </span>
@@ -616,7 +637,7 @@
             </span>
           </a>
 
-          <a href="/#services" class="nav__dropdown-link" role="menuitem">
+          <a href="/services/ketamine.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--sage">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5m14 0l-4.091-4.091a2.25 2.25 0 01-.659-1.591V3.104M19 14.5l-2.47 7.418A2.25 2.25 0 0114.38 24H9.62a2.25 2.25 0 01-2.15-2.082L5 14.5m14 0H5"/></svg>
             </span>
@@ -626,7 +647,7 @@
             </span>
           </a>
 
-          <a href="/#services" class="nav__dropdown-link" role="menuitem">
+          <a href="/services/spravato.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--sand">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg>
             </span>
@@ -638,7 +659,7 @@
 
           <div class="nav__dropdown-divider"></div>
 
-          <a href="/#services" class="nav__dropdown-link" role="menuitem">
+          <a href="/services/therapy.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--neutral">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
             </span>
@@ -648,7 +669,7 @@
             </span>
           </a>
 
-          <a href="/#services" class="nav__dropdown-link" role="menuitem">
+          <a href="/services/telehealth.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--neutral">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12"/></svg>
             </span>
@@ -660,7 +681,7 @@
 
           <div class="nav__dropdown-divider"></div>
 
-          <a href="/#services" class="nav__dropdown-footer" role="menuitem">
+          <a href="/services.html" class="nav__dropdown-footer" role="menuitem">
             View All Services
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -681,9 +702,34 @@
           <svg class="nav__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
 
-        <div class="nav__dropdown" id="nav-resources-panel" role="menu" aria-labelledby="nav-resources-trigger">
-          <a href="/#faq" class="nav__dropdown-link" role="menuitem">
+        <div class="nav__dropdown" id="nav-resources-panel" role="menu" aria-labelledby="nav-resources-trigger" style="min-width: 290px;">
+
+          <!-- New Patient Intake — PRIMARY ACTION -->
+          <a href="/intake.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+            </span>
+            <span class="nav__dropdown-text">
+              <span class="nav__dropdown-title">New Patient Intake</span>
+              <span class="nav__dropdown-desc">Complete forms &amp; book your first appointment</span>
+            </span>
+          </a>
+
+          <!-- Schedule Appointment -->
+          <a href="/scheduling.html" class="nav__dropdown-link" role="menuitem">
+            <span class="nav__dropdown-icon nav__dropdown-icon--sage">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"/></svg>
+            </span>
+            <span class="nav__dropdown-text">
+              <span class="nav__dropdown-title">Schedule Appointment</span>
+              <span class="nav__dropdown-desc">Book or manage upcoming visits</span>
+            </span>
+          </a>
+
+          <div class="nav__dropdown-divider"></div>
+
+          <a href="/#faq" class="nav__dropdown-link" role="menuitem">
+            <span class="nav__dropdown-icon nav__dropdown-icon--sand">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg>
             </span>
             <span class="nav__dropdown-text">
@@ -693,7 +739,7 @@
           </a>
 
           <a href="/#insurance" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sage">
+            <span class="nav__dropdown-icon nav__dropdown-icon--neutral">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
             </span>
             <span class="nav__dropdown-text">
@@ -703,7 +749,7 @@
           </a>
 
           <a href="/#conditions" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sand">
+            <span class="nav__dropdown-icon nav__dropdown-icon--neutral">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
             </span>
             <span class="nav__dropdown-text">
@@ -723,20 +769,6 @@
               <span class="nav__dropdown-desc">Login for current patients</span>
             </span>
           </a>
-
-             <div class="nav__dropdown-divider"></div>
-
-             <a href="/scheduling.html" class="nav__dropdown-link" role="menuitem">
-                 <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
-                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                     <path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
-                   </svg>
-                 </span>
-                 <span class="nav__dropdown-text">
-                   <span class="nav__dropdown-title">Schedule Appointment</span>
-                   <span class="nav__dropdown-desc">Book or manage your appointments</span>
-                 </span>
-          </a>
         </div>
       </div>
 
@@ -746,14 +778,14 @@
 
     <!-- ═══ ACTION BUTTONS (Desktop) ═══ -->
     <div class="nav__actions">
-      <a href="tel:+16505550000" class="nav__phone" aria-label="Call us at (650) 555-0000">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+      <a href="tel:+16505550000" class="nav__phone" aria-label="Call us at (650) 555-0000"> 
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
         (650) 555-0000
       </a>
       <a href="/patient-portal.html" class="nav__portal-btn">
         Patient Portal
       </a>
-      <a href="/get-started.html" class="nav__cta-btn">
+      <a href="/intake.html" class="nav__cta-btn">
         Get Started
       </a>
     </div>
@@ -782,31 +814,36 @@
 
   <!-- About -->
   <div class="mobile-nav__section-label">About</div>
-  <a href="/#about" class="mobile-nav__sublink">Our Practice</a>
-  <a href="/#outcomes" class="mobile-nav__sublink">Evidence &amp; Outcomes</a>
+  <a href="/about.html" class="mobile-nav__sublink">Our Practice</a>
+  <a href="/about.html#outcomes" class="mobile-nav__sublink">Evidence &amp; Outcomes</a>
 
   <div class="mobile-nav__divider"></div>
 
   <!-- Services -->
   <div class="mobile-nav__section-label">Services</div>
-  <a href="/#services" class="mobile-nav__sublink">Medication Management</a>
-  <a href="/#services" class="mobile-nav__sublink">TMS Therapy</a>
-  <a href="/#services" class="mobile-nav__sublink">Ketamine &amp; Spravato</a>
-  <a href="/#services" class="mobile-nav__sublink">Psychotherapy &amp; Telehealth</a>
+  <a href="/services/medication.html" class="mobile-nav__sublink">Medication Management</a>
+  <a href="/services/tms.html" class="mobile-nav__sublink">TMS Therapy</a>
+  <a href="/services/ketamine.html" class="mobile-nav__sublink">Ketamine &amp; Spravato</a>
+  <a href="/services/therapy.html" class="mobile-nav__sublink">Psychotherapy</a>
+  <a href="/services/telehealth.html" class="mobile-nav__sublink">Telehealth</a>
 
   <div class="mobile-nav__divider"></div>
 
   <!-- Resources -->
   <div class="mobile-nav__section-label">Resources</div>
+  <a href="/intake.html" class="mobile-nav__sublink" style="color:rgba(255,255,255,0.7);font-weight:500;">✦ New Patient Intake</a>
+  <a href="/scheduling.html" class="mobile-nav__sublink">Schedule Appointment</a>
   <a href="/#faq" class="mobile-nav__sublink">FAQ</a>
   <a href="/#insurance" class="mobile-nav__sublink">Insurance &amp; Payment</a>
   <a href="/#conditions" class="mobile-nav__sublink">Conditions We Treat</a>
-  <a href="/scheduling.html" class="mobile-nav__sublink">Schedule Appointment</a>
 
   <!-- Action Buttons -->
   <div class="mobile-nav__actions">
-    <a href="/get-started.html" class="mobile-nav__btn mobile-nav__btn--primary">
-      Request a Consultation
+    <a href="/intake.html" class="mobile-nav__btn mobile-nav__btn--primary">
+      Get Started — New Patients
+    </a>
+    <a href="/scheduling.html" class="mobile-nav__btn mobile-nav__btn--outline">
+      Schedule Appointment
     </a>
     <a href="/patient-portal.html" class="mobile-nav__btn mobile-nav__btn--outline">
       Patient Portal
@@ -817,6 +854,8 @@
   </div>
 
 </nav>
+
+
 <!-- ═══════════════════════════════════════════════════════════
      HEADER JAVASCRIPT
      Desktop dropdown logic + mobile nav enhancements.
@@ -833,7 +872,7 @@
      ═══════════════════════════════════════════════════════ */
   var dropdownItems = document.querySelectorAll('[data-dropdown]')
   var closeTimer = null
-  var CLOSE_DELAY = 120 // ms delay before closing on mouseleave
+  var CLOSE_DELAY = 150 // ms delay before closing on mouseleave
 
   dropdownItems.forEach(function (item) {
     var trigger = item.querySelector('.nav__trigger')
@@ -856,6 +895,7 @@
     // ── Click Toggle (for touch devices that don't hover) ──
     trigger.addEventListener('click', function (e) {
       e.preventDefault()
+      e.stopPropagation()
       var isOpen = item.classList.contains('nav__item--open')
       closeAll()
       if (!isOpen) {
@@ -989,7 +1029,6 @@
             )
 
             setTimeout(function () {
-              // Determine which visibility class to add
               if (el.classList.contains('mobile-nav__link')) {
                 el.classList.add('mobile-nav__link--visible')
               } else if (el.classList.contains('mobile-nav__section-label')) {
@@ -1004,10 +1043,8 @@
             }, 60 + i * 40)
           })
 
-          // Update ARIA
           mobileNav.setAttribute('aria-hidden', 'false')
         } else {
-          // Remove all visibility classes immediately
           mobileElements.forEach(function (el) {
             el.classList.remove(
               'mobile-nav__link--visible',
@@ -1025,14 +1062,13 @@
 
     observer.observe(mobileNav, { attributes: true })
 
-    // Close mobile nav when sublinks are clicked
+    // Close mobile nav when links are clicked
     var allMobileLinks = mobileNav.querySelectorAll(
       '.mobile-nav__link, .mobile-nav__sublink, .mobile-nav__btn'
     )
 
     allMobileLinks.forEach(function (link) {
       link.addEventListener('click', function () {
-        // Trigger the close via the toggle (keeps state in sync with main.js MobileNav)
         if (mobileNav.classList.contains('mobile-nav--open') && navToggle) {
           navToggle.click()
         }
