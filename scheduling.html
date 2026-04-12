@@ -2004,6 +2004,87 @@
         font-weight: bold;
       }
 
+      /* ── Drag-and-Drop Target Highlight ── */
+    .sched-table__cell--drop-target {
+      background: rgba(var(--ocean-rgb), 0.18) !important;
+      box-shadow: inset 0 0 0 2px var(--ocean);
+      border-radius: 2px;
+      animation: pulse-drop 0.6s ease infinite alternate;
+    }
+
+    @keyframes pulse-drop {
+      from { background: rgba(var(--ocean-rgb), 0.12); }
+      to   { background: rgba(var(--ocean-rgb), 0.22); }
+    }
+
+    /* ── Session Timeout Warning (optional modal style) ── */
+    .session-warning {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: var(--z-toast);
+      background: var(--white);
+      border: 1px solid rgba(217, 119, 6, 0.3);
+      border-left: 4px solid var(--amber);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: 0 8px 32px rgba(var(--ocean-deep-rgb), 0.15);
+      max-width: 340px;
+      animation: slide-in-right 0.3s var(--ease-out) both;
+    }
+
+    @keyframes slide-in-right {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .session-warning__title {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--amber);
+      margin-bottom: 4px;
+    }
+
+    .session-warning__msg {
+      font-size: var(--text-xs);
+      color: var(--stone-light);
+      line-height: 1.5;
+    }
+
+    .session-warning__actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .session-warning__btn {
+      padding: 6px 14px;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      border: none;
+      transition: background var(--duration-fast) var(--ease-smooth);
+    }
+
+    .session-warning__btn--extend {
+      background: var(--ocean);
+      color: var(--white);
+    }
+
+    .session-warning__btn--extend:hover {
+      background: var(--ocean-deep);
+    }
+
+    .session-warning__btn--logout {
+      background: var(--fog);
+      color: var(--pebble);
+    }
+
+    .session-warning__btn--logout:hover {
+      background: var(--fog-dark);
+    }
+
       /* Print header */
       .sched-calendar::before {
         content: 'Altos Psychiatry — Schedule';
@@ -2745,6 +2826,77 @@
 
       // Fetch data and render
       fetchAndRender()
+      // ── Connect Scheduling Engine ──
+    if (window.SchedulingEngine) {
+      window.SchedulingEngine.boot({
+        role: state.role,
+        fetchFn: fetchAndRender,
+        hours: {
+          startHour: CONFIG.HOURS.start,
+          endHour: CONFIG.HOURS.end,
+          slotMinutes: CONFIG.HOURS.slotMinutes
+        },
+        onReschedule: function (apptId, newSlot) {
+          if (!confirm('Reschedule this appointment to ' +
+            newSlot.date + ' at ' + formatTime(newSlot.hour, newSlot.minute) + '?')) {
+            return
+          }
+          // Cancel old, book new
+          var oldAppt = state.appointments.find(function (a) { return a.id === apptId })
+          if (!oldAppt) return
+
+          updateAppointmentStatus(apptId, 'rescheduled')
+
+          // Set up new booking
+          state.selectedSlot = newSlot
+          var provider = CONFIG.PROVIDERS.find(function (p) { return p.id === newSlot.providerId })
+          state.selectedSlot.providerName = provider ? provider.name : ''
+          state.selectedPatient = {
+            id: oldAppt.patientId,
+            name: oldAppt.patientName,
+            email: oldAppt.patientEmail
+          }
+
+          // Find matching appointment type
+          var allTypes = CONFIG.APPOINTMENT_TYPES[state.currentCal] || []
+          state.selectedType = allTypes.find(function (t) { return t.id === oldAppt.typeId }) || null
+          state.zoomEnabled = oldAppt.isTelehealth === 'true'
+
+          if (state.selectedType && canConfirm()) {
+            submitBooking()
+          } else {
+            showBookingForm()
+          }
+        },
+        onSessionTimeout: function () {
+          // Clean up state
+          SchedulingEngine.destroy()
+          state.role = null
+          state.user = null
+          state.appointments = []
+          state.patients = []
+          state.selectedSlot = null
+          state.selectedType = null
+          state.selectedPatient = null
+
+          // Hide scheduler, show auth gate
+          dom.schedApp.style.display = 'none'
+          dom.authGate.style.display = 'block'
+          dom.authGate.classList.add('is-visible')
+
+          // Clear sensitive form fields
+          var staffCode = document.getElementById('auth-staff-code')
+          if (staffCode) staffCode.value = ''
+          var patientEmail = document.getElementById('auth-patient-email')
+          if (patientEmail) patientEmail.value = ''
+
+          // Notify user
+          alert('Your session has expired due to inactivity. Please log in again to continue.')
+
+          // Scroll to top
+          window.scrollTo({ top: 0, behavior: 'auto' })
+        }
+      })
     }
 
 
@@ -3992,6 +4144,59 @@
       if (!str) return ''
       return str.charAt(0).toUpperCase() + str.slice(1).replace(/-/g, ' ')
     }
+    /* ═══════════════════════════════════════════════════════
+       CRM INTEGRATION BRIDGE
+       Syncs scheduling data back to the main CRM sheet
+       (the one used by get-started.html form submissions).
+       
+       When a new patient books via scheduling, their data
+       is cross-referenced with the CRM. If they exist,
+       the CRM row is updated with appointment details.
+       If not, a note is logged for admin follow-up.
+       ═══════════════════════════════════════════════════════ */
+    function syncToCRM(appointmentData) {
+      var payload = {
+        action: 'syncCRM',
+        patientId:    appointmentData.patientId || '',
+        patientName:  appointmentData.patientName || '',
+        patientEmail: appointmentData.patientEmail || '',
+        appointmentId: appointmentData.appointmentId || '',
+        date:         appointmentData.date || '',
+        time:         formatTime(
+          parseInt(appointmentData.startHour, 10),
+          parseInt(appointmentData.startMinute, 10)
+        ),
+        typeName:     appointmentData.typeName || '',
+        cptCode:      appointmentData.cptCode || '',
+        providerId:   appointmentData.providerId || '',
+        providerName: appointmentData.providerName || '',
+        status:       'scheduled',
+        timestamp:    new Date().toISOString()
+      }
+
+      // Fire-and-forget — don't block the booking flow
+      pingBackend('syncCRM', payload, function (result) {
+        if (result && result.synced) {
+          console.log('[CRM] Synced appointment ' + payload.appointmentId + ' to CRM')
+        }
+      })
+    }
+And hook it into submitBooking() — add this line inside the success callback, right after showConfirmationModal(payload, result):
+          // Sync to CRM
+          syncToCRM({
+            patientId:     payload.patientId,
+            patientName:   payload.patientName,
+            patientEmail:  payload.patientEmail,
+            appointmentId: result.appointmentId,
+            date:          payload.date,
+            startHour:     payload.startHour,
+            startMinute:   payload.startMinute,
+            typeName:      payload.typeName,
+            cptCode:       payload.cptCode,
+            providerId:    payload.providerId,
+            providerName:  payload.providerName
+          })
+
 
 
   })()
