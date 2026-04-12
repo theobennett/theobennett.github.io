@@ -966,8 +966,10 @@ strong, b {
   height: 12px;
 }
 
-/* Open state */
-.nav__item--open .nav__dropdown {
+/* Open state — JS class OR pure CSS hover/focus */
+.nav__item:hover > .nav__dropdown,
+.nav__item:focus-within > .nav__dropdown,
+.nav__item--open > .nav__dropdown {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -1476,20 +1478,6 @@ strong, b {
 .mobile-nav__btn--outline:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.4);
-}
-
-/* ── Mobile Nav — Phone Link ── */
-.mobile-nav__phone {
-  font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.45);
-  text-align: center;
-  margin-top: 8px;
-  text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-smooth);
-}
-
-.mobile-nav__phone:hover {
-  color: rgba(255, 255, 255, 0.8);
 }
 
 
