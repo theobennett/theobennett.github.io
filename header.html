@@ -1,536 +1,531 @@
-<!-- ═══════════════════════════════════════════════════════════
-     SITE HEADER — Altos Psychiatry
-     3 dropdowns: Why Altos · Our Care · Resources
-     3 action buttons: Current Patients · Referrals · Request Consultation
-     Always ocean-deep background — no scroll color change
-     ═══════════════════════════════════════════════════════════ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Altos Psychiatry in Menlo Park — integrative, concierge-level psychiatric care for adults. Medication management, psychotherapy, and outcome-driven treatment across Silicon Valley and California." />
+  <meta property="og:title" content="Altos Psychiatry — Menlo Park, CA" />
+  <meta property="og:description" content="Integrative psychiatric care built around you. Medication management, psychotherapy, and data-driven treatment on the San Francisco Peninsula." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://altospsychiatry.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://altospsychiatry.com" />
+  <title>Altos Psychiatry — Menlo Park Psychiatrist · Integrative Psychiatric Care</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
 
-<header class="site-header" role="banner">
-  <div class="container">
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- ═══ LOGO ═══ -->
-    <a href="/" class="header-logo" aria-label="Altos Psychiatry — Home">
-      <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.2" opacity="0.3"/>
-        <path d="M18 6C18 6 10 14 10 20C10 24.4 13.6 28 18 28C22.4 28 26 24.4 26 20C26 14 18 6 18 6Z"
-              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M18 14V22M14 18H22" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
-      </svg>
-      <span class="logo-text">Altos Psychiatry</span>
-    </a>
+  <div class="page-wrapper">
+    <div id="header-placeholder"></div>
+
+    <main id="main-content">
+
+      <!-- ═══════════════════════════════════════════════════
+           HERO
+           ═══════════════════════════════════════════════════ -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__bg" aria-hidden="true">
+          <div class="hero__orb hero__orb--1" data-parallax="0.08"></div>
+          <div class="hero__orb hero__orb--2" data-parallax="0.12"></div>
+          <div class="hero__orb hero__orb--3" data-parallax="0.06"></div>
+        </div>
+        <div class="container">
+          <div class="hero__inner">
+            <div class="hero__content">
+              <p class="hero__eyebrow">Menlo Park, California</p>
+              <h1 id="hero-title" class="hero__title">
+                Psychiatric care<br />
+                rooted in <span class="text-gradient">evidence</span>,<br />
+                built around you.
+              </h1>
+              <p class="hero__subtitle">
+                Integrative medication management, psychotherapy, and outcome-driven treatment
+                for adults navigating depression, anxiety, PTSD, ADHD, and beyond.
+              </p>
+              <div class="hero__cta-group">
+                <a href="/get-started.html" class="btn btn--primary btn--lg btn--magnetic" data-magnetic="0.25">
+                  Request a Consultation
+                  <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#about" class="btn btn--ghost">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero__scroll-hint" aria-hidden="true">
+          <span class="hero__scroll-text">Scroll</span>
+          <div class="hero__scroll-line"></div>
+        </div>
+      </section>
 
 
-    <!-- ═══ DESKTOP NAVIGATION ═══ -->
-    <nav class="nav" role="navigation" aria-label="Main navigation">
-
-      <!-- ── DROPDOWN 1: Why Altos ── -->
-      <div class="nav__item" data-dropdown>
-        <button
-          class="nav__trigger"
-          aria-expanded="false"
-          aria-haspopup="true"
-          id="nav-why-trigger"
-          aria-controls="nav-why-panel"
-        >
-          Why Altos
-          <svg class="nav__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-
-        <div class="nav__dropdown" id="nav-why-panel" role="menu" aria-labelledby="nav-why-trigger">
-
-          <a href="/why-altos/about-us.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V9.75"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">About Us</span>
-              <span class="nav__dropdown-desc">Our mission, philosophy &amp; what makes us different</span>
-            </span>
-          </a>
-
-          <a href="/why-altos/our-team.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Our Team</span>
-              <span class="nav__dropdown-desc">Board-certified psychiatrists &amp; clinical staff</span>
-            </span>
-          </a>
-
-          <a href="/why-altos/concierge-psychiatry.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sage">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Concierge Psychiatry</span>
-              <span class="nav__dropdown-desc">Premium, personalized mental health care</span>
-            </span>
-          </a>
-
-          <div class="nav__dropdown-divider"></div>
-
-          <a href="/why-altos/for-patients.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sand">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">For Patients &amp; Families</span>
-              <span class="nav__dropdown-desc">What to expect, fees &amp; patient portal</span>
-            </span>
-          </a>
-
-          <a href="/why-altos/for-providers.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--neutral">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">For Providers</span>
-              <span class="nav__dropdown-desc">Refer a patient or collaborate on care</span>
-            </span>
-          </a>
-
+      <!-- ═══════════════════════════════════════════════════
+           TRUST BAR
+           ═══════════════════════════════════════════════════ -->
+      <div class="trust-bar">
+        <div class="container">
+          <div class="trust-bar__grid">
+            <div class="trust-bar__item reveal" data-reveal-delay="0">
+              <span class="trust-bar__number">Stanford</span>
+              <span class="trust-bar__label">Trained Psychiatrist</span>
+            </div>
+            <div class="trust-bar__item reveal" data-reveal-delay="100">
+              <span class="trust-bar__number">Same</span>
+              <span class="trust-bar__label">Week Availability</span>
+            </div>
+            <div class="trust-bar__item reveal" data-reveal-delay="200">
+              <span class="trust-bar__number">Smaller</span>
+              <span class="trust-bar__label">Patient Panels by Design</span>
+            </div>
+            <div class="trust-bar__item reveal" data-reveal-delay="300">
+              <span class="trust-bar__number">CA</span>
+              <span class="trust-bar__label">Statewide Telehealth</span>
+            </div>
+          </div>
         </div>
       </div>
 
 
-      <!-- ── DROPDOWN 2: Our Care ── -->
-      <div class="nav__item" data-dropdown>
-        <button
-          class="nav__trigger"
-          aria-expanded="false"
-          aria-haspopup="true"
-          id="nav-care-trigger"
-          aria-controls="nav-care-panel"
-        >
-          Our Care
-          <svg class="nav__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-
-        <div class="nav__dropdown" id="nav-care-panel" role="menu" aria-labelledby="nav-care-trigger">
-
-          <a href="/conditions/what-we-treat.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">What We Treat</span>
-              <span class="nav__dropdown-desc">Depression, anxiety, PTSD, ADHD, bipolar &amp; more</span>
-            </span>
-          </a>
-
-          <a href="/services.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Care Overview</span>
-              <span class="nav__dropdown-desc">Our full range of psychiatric services</span>
-            </span>
-          </a>
-
-          <div class="nav__dropdown-divider"></div>
-
-          <a href="/services/medication-management.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sage">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-6 18.75h9"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Medication Management</span>
-              <span class="nav__dropdown-desc">Precise psychopharmacology &amp; pharmacogenomics</span>
-            </span>
-          </a>
-
-          <a href="/services/psychotherapy.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sage">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Psychotherapy</span>
-              <span class="nav__dropdown-desc">CBT, ACT, and evidence-based talk therapy</span>
-            </span>
-          </a>
-
-          <a href="/services/tms.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sand">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">TMS Therapy</span>
-              <span class="nav__dropdown-desc">FDA-cleared transcranial magnetic stimulation</span>
-            </span>
-          </a>
-
-          <a href="/services/psychedelics.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sand">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5m14 0l-4.091-4.091a2.25 2.25 0 01-.659-1.591V3.104M19 14.5l-2.47 7.418A2.25 2.25 0 0114.38 24H9.62a2.25 2.25 0 01-2.15-2.082L5 14.5m14 0H5"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Psychedelic Therapies</span>
-              <span class="nav__dropdown-desc">Ketamine, Spravato® &amp; emerging treatments</span>
-            </span>
-          </a>
-
-          <div class="nav__dropdown-divider"></div>
-
-          <a href="/services.html" class="nav__dropdown-footer" role="menuitem">
-            View All Services
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-
+      <!-- ═══════════════════════════════════════════════════
+           ABOUT / INTRO
+           ═══════════════════════════════════════════════════ -->
+      <section class="section section--about has-cursor-glow" id="about" aria-labelledby="about-title">
+        <div class="container">
+          <div class="grid grid--2col grid--align-center">
+            <div class="section__text reveal">
+              <p class="section__eyebrow">About the Practice</p>
+              <h2 id="about-title" class="section__title">
+                Academic rigor, community warmth.
+              </h2>
+              <div class="section__body">
+                <p>
+                  Altos Psychiatry was founded on a conviction shaped by years of training at
+                  Stanford and leading academic medical centers — and by growing up in a state
+                  where mental health infrastructure barely existed. We saw what gaps in care
+                  can do. We built this practice to close them.
+                </p>
+                <p>
+                  We deliberately keep a smaller patient panel so every individual gets the time,
+                  attention, and thoughtful treatment planning that good psychiatric care demands.
+                  Our approach integrates medication management, psychotherapy, lifestyle medicine,
+                  and outcome tracking into one coordinated practice — not fragmented across
+                  disconnected providers.
+                </p>
+              </div>
+              <div class="cta-group" style="margin-top:var(--space-md);">
+                <a href="/why-altos/about-us.html" class="btn btn--secondary">
+                  Our Story
+                  <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="/why-altos/our-team.html" class="btn btn--secondary">
+                  Meet Our Team
+                  <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
+            <div class="reveal reveal--right" data-reveal-delay="200">
+              <div class="image-frame">
+                <img src="/images/office-interior.jpg" alt="Warm, modern consultation room at Altos Psychiatry with natural light" width="600" height="480" loading="lazy" />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
 
-      <!-- ── DROPDOWN 3: Resources ── -->
-      <div class="nav__item" data-dropdown>
-        <button
-          class="nav__trigger"
-          aria-expanded="false"
-          aria-haspopup="true"
-          id="nav-resources-trigger"
-          aria-controls="nav-resources-panel"
-        >
-          Resources
-          <svg class="nav__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-
-        <div class="nav__dropdown" id="nav-resources-panel" role="menu" aria-labelledby="nav-resources-trigger">
-
-          <a href="/resources/scheduling.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Scheduling</span>
-              <span class="nav__dropdown-desc">Book an appointment, telehealth &amp; in-person info</span>
-            </span>
-          </a>
-
-          <a href="/resources/intake.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">New Patient Intake</span>
-              <span class="nav__dropdown-desc">Forms, what to prepare &amp; first visit guide</span>
-            </span>
-          </a>
-
-          <div class="nav__dropdown-divider"></div>
-
-          <a href="/resources/faq.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sage">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">FAQ</span>
-              <span class="nav__dropdown-desc">Common questions about our practice</span>
-            </span>
-          </a>
-
-          <a href="/resources/contact.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sage">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Contact Us</span>
-              <span class="nav__dropdown-desc">Get in touch, office hours &amp; directions</span>
-            </span>
-          </a>
-
-          <a href="/resources/careers.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--sand">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Careers</span>
-              <span class="nav__dropdown-desc">Join our growing clinical team</span>
-            </span>
-          </a>
-
-          <div class="nav__dropdown-divider"></div>
-
-          <a href="/privacy.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--neutral">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Privacy &amp; HIPAA</span>
-              <span class="nav__dropdown-desc">Privacy policy &amp; notice of privacy practices</span>
-            </span>
-          </a>
-
+      <!-- ═══════════════════════════════════════════════════
+           CONDITIONS WE TREAT
+           ═══════════════════════════════════════════════════ -->
+      <section class="section section--light" id="conditions" aria-labelledby="conditions-title">
+        <div class="container">
+          <div class="section__header text-center reveal">
+            <p class="section__eyebrow">Conditions We Treat</p>
+            <h2 id="conditions-title" class="section__title">
+              Specialized care across the<br />spectrum of adult psychiatry.
+            </h2>
+            <p class="section__subtitle">
+              We see adults across a wide range of psychiatric conditions, with particular
+              depth in presentations that haven't responded to standard approaches.
+            </p>
+          </div>
+          <div class="tag-grid reveal stagger-children" data-stagger="50">
+            <span class="tag">Major Depressive Disorder</span>
+            <span class="tag">Treatment-Resistant Depression</span>
+            <span class="tag">Generalized Anxiety</span>
+            <span class="tag">Social Anxiety</span>
+            <span class="tag">Panic Disorder</span>
+            <span class="tag">PTSD &amp; Trauma</span>
+            <span class="tag">OCD</span>
+            <span class="tag">Bipolar Disorder</span>
+            <span class="tag">ADHD</span>
+            <span class="tag">Insomnia</span>
+            <span class="tag">Perinatal Mood Disorders</span>
+            <span class="tag">Chronic Pain &amp; Psychiatry</span>
+          </div>
+          <div class="text-center reveal" data-reveal-delay="200" style="margin-top:var(--space-lg);">
+            <a href="/conditions/what-we-treat.html" class="btn btn--secondary">
+              Learn More About What We Treat
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
         </div>
-      </div>
-
-    </nav>
-    <!-- /.nav -->
+      </section>
 
 
-    <!-- ═══ ACTION BUTTONS (Desktop) ═══ -->
-    <div class="nav__actions">
-      <a href="/patient-portal.html" class="nav__portal-btn">
-        Current Patients
-      </a>
-      <a href="/why-altos/for-providers.html" class="nav__referral-btn">
-        Referrals
-      </a>
-      <a href="/get-started.html" class="nav__cta-btn">
-        Request Consultation
-      </a>
-    </div>
+      <!-- ═══════════════════════════════════════════════════
+           SERVICES
+           ═══════════════════════════════════════════════════ -->
+      <section class="section" id="services" aria-labelledby="services-title">
+        <div class="container">
+          <div class="section__header text-center reveal">
+            <p class="section__eyebrow">Services</p>
+            <h2 id="services-title" class="section__title">Integrated, not fragmented.</h2>
+            <p class="section__subtitle">
+              Medication, therapy, and lifestyle — coordinated within one practice that
+              holds your full clinical picture. With advanced modalities on the horizon.
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--2col stagger-children" data-stagger="80">
+
+            <div class="card">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-6 18.75h9"/></svg>
+              </div>
+              <h3 class="card__title">Medication Management</h3>
+              <p class="card__body">
+                Precise psychopharmacology informed by your symptom profile, medical history,
+                and — when indicated — pharmacogenomic testing. Longer appointments so we
+                actually have time to get it right.
+              </p>
+              <a href="/services/medication-management.html" class="btn btn--secondary btn--sm" style="margin-top:auto;">
+                Learn More <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
+              </a>
+            </div>
+
+            <div class="card">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+              </div>
+              <h3 class="card__title">Psychotherapy</h3>
+              <p class="card__body">
+                Individual therapy utilizing CBT, ACT, and supportive frameworks — often
+                integrated with medication management for a more complete approach. One
+                practice, one team, one record.
+              </p>
+              <a href="/services/psychotherapy.html" class="btn btn--secondary btn--sm" style="margin-top:auto;">
+                Learn More <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
+              </a>
+            </div>
+
+            <div class="card card--highlight">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+              </div>
+              <h3 class="card__title">TMS Therapy</h3>
+              <p class="card__body">
+                FDA-cleared transcranial magnetic stimulation for depression and OCD.
+                Non-invasive, no anesthesia, performed in-office with sessions lasting
+                under 20 minutes.
+              </p>
+              <span class="badge badge--ocean" style="margin-top:auto;">Coming 2026</span>
+            </div>
+
+            <div class="card card--sage">
+              <div class="card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 7.418A2.25 2.25 0 0114.38 24H9.62a2.25 2.25 0 01-2.15-2.082L5 14.5m14 0H5"/></svg>
+              </div>
+              <h3 class="card__title">Psychedelic-Assisted Therapy</h3>
+              <p class="card__body">
+                Emerging evidence supports the use of ketamine and psilocybin-assisted
+                therapy for treatment-resistant conditions. We are building the infrastructure
+                to offer these modalities responsibly.
+              </p>
+              <span class="badge badge--sage" style="margin-top:auto;">Future</span>
+            </div>
+
+          </div>
+
+          <div class="text-center reveal" style="margin-top:var(--space-lg);">
+            <a href="/services.html" class="btn btn--outline">
+              View All Services <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
 
 
-    <!-- ═══ HAMBURGER TOGGLE (Mobile) ═══ -->
-    <button
-      class="nav-toggle"
-      aria-label="Open navigation menu"
-      aria-expanded="false"
-      aria-controls="mobile-nav"
-    >
-      <span class="nav-toggle__line"></span>
-      <span class="nav-toggle__line"></span>
-      <span class="nav-toggle__line"></span>
-    </button>
+      <!-- ═══════════════════════════════════════════════════
+           HOW IT WORKS
+           ═══════════════════════════════════════════════════ -->
+      <section class="section section--light" id="process" aria-labelledby="process-title">
+        <div class="container">
+          <div class="section__header text-center reveal">
+            <p class="section__eyebrow">How It Works</p>
+            <h2 id="process-title" class="section__title">From first contact to lasting progress.</h2>
+            <p class="section__subtitle">
+              We've designed our process to be straightforward and unhurried —
+              so you can focus on what matters.
+            </p>
+          </div>
 
+          <div class="steps stagger-children" data-stagger="100">
+            <div class="step">
+              <span class="step__number">01</span>
+              <h3 class="step__title">Reach Out</h3>
+              <p class="step__body">Complete a brief consultation request. Our care coordinator responds within one business day to discuss fit and answer your questions.</p>
+            </div>
+            <div class="step">
+              <span class="step__number">02</span>
+              <h3 class="step__title">Initial Evaluation</h3>
+              <p class="step__body">A comprehensive 60–90 minute conversation — your full history, current concerns, goals, and a proposed care plan built together.</p>
+            </div>
+            <div class="step">
+              <span class="step__number">03</span>
+              <h3 class="step__title">Begin Treatment</h3>
+              <p class="step__body">Start your personalized plan — medication, therapy, lifestyle adjustments, or a combination. We monitor closely and adjust as needed.</p>
+            </div>
+            <div class="step">
+              <span class="step__number">04</span>
+              <h3 class="step__title">Ongoing Partnership</h3>
+              <p class="step__body">Regular follow-ups with validated outcome measures. Treatment refined by data, not guesswork. Responsive access between visits.</p>
+            </div>
+          </div>
+
+          <div class="text-center reveal" style="margin-top:var(--space-lg);">
+            <a href="/get-started.html" class="btn btn--primary btn--magnetic" data-magnetic="0.2">
+              Start with Step 1
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════
+           OUTCOMES / CARE PHILOSOPHY
+           ═══════════════════════════════════════════════════ -->
+      <section class="section section--ocean" id="outcomes" aria-labelledby="outcomes-title">
+        <div class="container">
+          <div class="grid grid--2col grid--align-center">
+            <div class="reveal reveal--left">
+              <div class="image-frame">
+                <img src="/images/office-interior.jpg" alt="Clinical workspace at Altos Psychiatry with warm natural light" width="580" height="440" loading="lazy" />
+              </div>
+            </div>
+            <div class="section__text reveal" data-reveal-delay="150">
+              <p class="section__eyebrow">Evidence-Based Outcomes</p>
+              <h2 id="outcomes-title" class="section__title">We measure what matters.</h2>
+              <p class="section__body">
+                Every patient's progress is tracked with validated clinical instruments — not
+                guesswork. We use standardized outcome measures at every visit so both you
+                and your provider can see, in data, whether treatment is working.
+              </p>
+              <ul class="checklist">
+                <li class="checklist__item">PHQ-9 for depression severity</li>
+                <li class="checklist__item">GAD-7 for generalized anxiety</li>
+                <li class="checklist__item">PCL-5 for PTSD symptom tracking</li>
+                <li class="checklist__item">Adult ADHD Self-Report Scale</li>
+                <li class="checklist__item">Pharmacogenomic testing when indicated</li>
+                <li class="checklist__item">Personalized goals with milestone tracking</li>
+              </ul>
+              <div style="margin-top:var(--space-md);">
+                <a href="/services/care-models.html" class="btn btn--ghost">
+                  Our Care Philosophy
+                  <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════
+           TESTIMONIAL
+           ═══════════════════════════════════════════════════ -->
+      <section class="section section--sand" aria-label="Patient testimonial">
+        <div class="container">
+          <div class="testimonial reveal">
+            <p class="testimonial__text">
+              After years of trying different medications with other providers, I finally found
+              someone who <em>actually listened</em> and took a systematic approach. For the first
+              time, I felt like my psychiatrist understood the full picture — not just the symptoms,
+              but everything shaping them.
+            </p>
+            <p class="testimonial__attribution">— Patient, Altos Psychiatry</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════
+           FAQ (trimmed — links to full page)
+           ═══════════════════════════════════════════════════ -->
+      <section class="section section--light" id="faq" aria-labelledby="faq-title">
+        <div class="container container--narrow">
+          <div class="section__header text-center reveal">
+            <p class="section__eyebrow">Frequently Asked Questions</p>
+            <h2 id="faq-title" class="section__title">Common questions, honest answers.</h2>
+          </div>
+
+          <div class="accordion reveal" data-accordion="single">
+
+            <div class="accordion__item">
+              <button class="accordion__trigger" aria-expanded="false">
+                Are you accepting new patients?
+                <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__body">
+                  <p>Yes. We are currently accepting new adult patients (18+) for medication management and psychotherapy. To get started, <a href="/get-started.html" style="color:var(--ocean);text-decoration:underline;">submit a consultation request</a> and our care coordinator will follow up within one business day.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion__item">
+              <button class="accordion__trigger" aria-expanded="false">
+                How quickly can I get an appointment?
+                <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__body">
+                  <p>Most new patients are seen within 1–2 weeks. For urgent situations that don't require emergency services, we make every effort to accommodate same-week appointments. Telehealth visits often have the most flexible availability.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion__item">
+              <button class="accordion__trigger" aria-expanded="false">
+                What should I expect at my first visit?
+                <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__body">
+                  <p>A comprehensive 60–90 minute conversation. We'll review your history, current concerns, prior treatments, lifestyle factors, and goals. By the end, you'll have a clear assessment and a proposed care plan to refine together. It's collaborative, not interrogative.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion__item">
+              <button class="accordion__trigger" aria-expanded="false">
+                Will my employer know I'm in psychiatric treatment?
+                <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__body">
+                  <p>No. As a private-pay practice, we do not bill through employer-sponsored insurance, so no explanation of benefits is ever sent. All records are maintained under strict HIPAA protections and are never shared without your explicit written consent.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion__item">
+              <button class="accordion__trigger" aria-expanded="false">
+                I've tried multiple medications that haven't worked. Can you help?
+                <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div class="accordion__content">
+                <div class="accordion__body">
+                  <p>Treatment-resistant conditions are a clinical focus of ours. We approach these cases with a thorough re-evaluation of diagnosis, pharmacogenomic testing when appropriate, and consideration of advanced options including TMS (launching 2026). If prior treatments haven't worked, that history is data — and it guides the next step.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="text-center reveal" style="margin-top:var(--space-lg);">
+            <a href="/resources/faq.html" class="btn btn--secondary">
+              View All FAQs
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════
+           FINAL CTA
+           ═══════════════════════════════════════════════════ -->
+      <section class="section section--ocean" aria-label="Schedule a consultation">
+        <div class="container container--narrow text-center">
+          <div class="reveal">
+            <p class="section__eyebrow">Ready to Begin?</p>
+            <h2 class="section__title">
+              A consultation is a conversation,<br />not a commitment.
+            </h2>
+            <p class="section__subtitle" style="margin-bottom:var(--space-lg);">
+              We'll learn about your situation, share how we might help, and be honest
+              about whether Altos is the right fit. No pressure, no obligation.
+            </p>
+            <div class="cta-group" style="justify-content:center;">
+              <a href="/get-started.html" class="btn btn--ghost btn--lg btn--magnetic" data-magnetic="0.2">
+                Request a Consultation
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="tel:+16505550000" class="btn btn--ghost btn--lg">
+                <svg style="width:16px;height:16px;margin-right:6px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                Call (650) 555-0000
+              </a>
+            </div>
+          </div>
+          <p class="crisis-notice" style="border-top-color:rgba(255,255,255,0.12);color:var(--ocean-mist);">
+            <strong style="color:var(--white);">Crisis?</strong> If you are in immediate danger, call or text
+            <strong style="color:var(--white);">988</strong> (Suicide &amp; Crisis Lifeline) or go to your nearest emergency room.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
   </div>
-</header>
 
+  <script src="/js/main.js"></script>
 
-<!-- ═══ MOBILE NAVIGATION OVERLAY ═══ -->
-<nav class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile navigation" aria-hidden="true">
-
-  <a href="/" class="mobile-nav__link">Home</a>
-
-  <!-- Why Altos -->
-  <div class="mobile-nav__section-label">Why Altos</div>
-  <a href="/why-altos/about-us.html" class="mobile-nav__sublink">About Us</a>
-  <a href="/why-altos/our-team.html" class="mobile-nav__sublink">Our Team</a>
-  <a href="/why-altos/concierge-psychiatry.html" class="mobile-nav__sublink">Concierge Psychiatry</a>
-  <a href="/why-altos/for-patients.html" class="mobile-nav__sublink">For Patients &amp; Families</a>
-  <a href="/why-altos/for-providers.html" class="mobile-nav__sublink">For Providers</a>
-
-  <div class="mobile-nav__divider"></div>
-
-  <!-- Our Care -->
-  <div class="mobile-nav__section-label">Our Care</div>
-  <a href="/conditions/what-we-treat.html" class="mobile-nav__sublink">What We Treat</a>
-  <a href="/services.html" class="mobile-nav__sublink">Care Overview</a>
-  <a href="/services/medication-management.html" class="mobile-nav__sublink">Medication Management</a>
-  <a href="/services/psychotherapy.html" class="mobile-nav__sublink">Psychotherapy</a>
-  <a href="/services/tms.html" class="mobile-nav__sublink">TMS Therapy</a>
-  <a href="/services/psychedelics.html" class="mobile-nav__sublink">Psychedelic Therapies</a>
-
-  <div class="mobile-nav__divider"></div>
-
-  <!-- Resources -->
-  <div class="mobile-nav__section-label">Resources</div>
-  <a href="/resources/scheduling.html" class="mobile-nav__sublink mobile-nav__sublink--highlight">Scheduling</a>
-  <a href="/resources/intake.html" class="mobile-nav__sublink mobile-nav__sublink--highlight">New Patient Intake</a>
-  <a href="/resources/faq.html" class="mobile-nav__sublink">FAQ</a>
-  <a href="/resources/contact.html" class="mobile-nav__sublink">Contact Us</a>
-  <a href="/resources/careers.html" class="mobile-nav__sublink">Careers</a>
-  <a href="/privacy.html" class="mobile-nav__sublink">Privacy &amp; HIPAA</a>
-
-  <div class="mobile-nav__divider"></div>
-
-  <!-- Action Buttons -->
-  <div class="mobile-nav__actions">
-    <a href="/get-started.html" class="mobile-nav__btn mobile-nav__btn--primary">
-      Request Consultation
-    </a>
-    <a href="/patient-portal.html" class="mobile-nav__btn mobile-nav__btn--outline">
-      Current Patients
-    </a>
-    <a href="/why-altos/for-providers.html" class="mobile-nav__btn mobile-nav__btn--outline">
-      Referrals
-    </a>
-  </div>
-
-</nav>
-
-
-<!-- ═══════════════════════════════════════════════════════════
-     HEADER JAVASCRIPT
-     Desktop dropdown logic + mobile nav stagger reveals.
-     Core scroll behavior (solid class) handled by main.js.
-     ═══════════════════════════════════════════════════════════ -->
-<script>
-;(function () {
-  'use strict'
-
-  /* ═══════════════════════════════════════════════════════
-     DESKTOP DROPDOWNS
-     Hover + click + full keyboard accessibility
-     ═══════════════════════════════════════════════════════ */
-  var dropdownItems = document.querySelectorAll('[data-dropdown]')
-  var closeTimer = null
-  var CLOSE_DELAY = 150
-
-  dropdownItems.forEach(function (item) {
-    var trigger = item.querySelector('.nav__trigger')
-    var panel   = item.querySelector('.nav__dropdown')
-    if (!trigger || !panel) return
-
-    item.addEventListener('mouseenter', function () {
-      clearTimeout(closeTimer)
-      closeAll()
-      openDropdown(item)
-    })
-
-    item.addEventListener('mouseleave', function () {
-      closeTimer = setTimeout(function () {
-        closeDropdown(item)
-      }, CLOSE_DELAY)
-    })
-
-    trigger.addEventListener('click', function (e) {
-      e.preventDefault()
-      e.stopPropagation()
-      var isOpen = item.classList.contains('nav__item--open')
-      closeAll()
-      if (!isOpen) openDropdown(item)
-    })
-
-    trigger.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault()
-        var isOpen = item.classList.contains('nav__item--open')
-        closeAll()
-        if (!isOpen) {
-          openDropdown(item)
-          var firstLink = panel.querySelector('.nav__dropdown-link')
-          if (firstLink) setTimeout(function () { firstLink.focus() }, 50)
-        }
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "Altos Psychiatry",
+    "description": "Integrative, concierge-level psychiatric care for adults in Menlo Park, CA. Medication management, psychotherapy, and outcome-driven treatment.",
+    "url": "https://altospsychiatry.com",
+    "telephone": "+16505550000",
+    "email": "hello@altospsychiatry.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "401 Quarry Road, Suite 120",
+      "addressLocality": "Menlo Park",
+      "addressRegion": "CA",
+      "postalCode": "94025",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 37.4530,
+      "longitude": -122.1817
+    },
+    "medicalSpecialty": "Psychiatry",
+    "availableService": [
+      { "@type": "MedicalProcedure", "name": "Psychiatric Medication Management" },
+      { "@type": "MedicalProcedure", "name": "Psychotherapy" },
+      { "@type": "MedicalProcedure", "name": "Telehealth Psychiatry" },
+      { "@type": "MedicalProcedure", "name": "Pharmacogenomic Testing" }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "09:00",
+        "closes": "17:00"
       }
-      if (e.key === 'Escape') {
-        closeDropdown(item)
-        trigger.focus()
-      }
-    })
-
-    panel.addEventListener('keydown', function (e) {
-      var links = Array.prototype.slice.call(
-        panel.querySelectorAll('.nav__dropdown-link, .nav__dropdown-footer')
-      )
-      var idx = links.indexOf(document.activeElement)
-
-      if (e.key === 'ArrowDown') {
-        e.preventDefault()
-        var next = links[idx + 1] || links[0]
-        if (next) next.focus()
-      }
-      if (e.key === 'ArrowUp') {
-        e.preventDefault()
-        var prev = links[idx - 1] || links[links.length - 1]
-        if (prev) prev.focus()
-      }
-      if (e.key === 'Escape') {
-        closeDropdown(item)
-        trigger.focus()
-      }
-    })
-  })
-
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('[data-dropdown]')) closeAll()
-  })
-
-  function openDropdown(item) {
-    item.classList.add('nav__item--open')
-    var t = item.querySelector('.nav__trigger')
-    if (t) t.setAttribute('aria-expanded', 'true')
+    ],
+    "priceRange": "$$"
   }
-
-  function closeDropdown(item) {
-    item.classList.remove('nav__item--open')
-    var t = item.querySelector('.nav__trigger')
-    if (t) t.setAttribute('aria-expanded', 'false')
-  }
-
-  function closeAll() {
-    clearTimeout(closeTimer)
-    dropdownItems.forEach(function (item) { closeDropdown(item) })
-  }
-
-  /* Close dropdowns on scroll */
-  var scrollTimer = null
-  window.addEventListener('scroll', function () {
-    if (scrollTimer) return
-    scrollTimer = setTimeout(function () {
-      closeAll()
-      scrollTimer = null
-    }, 150)
-  }, { passive: true })
-
-
-  /* ═══════════════════════════════════════════════════════
-     MOBILE NAV — staggered reveals on open/close
-     ═══════════════════════════════════════════════════════ */
-  var mobileNav = document.getElementById('mobile-nav')
-  var navToggle = document.querySelector('.nav-toggle')
-
-  if (mobileNav && navToggle) {
-    var mobileEls = Array.prototype.slice.call(
-      mobileNav.querySelectorAll(
-        '.mobile-nav__link, .mobile-nav__section-label, ' +
-        '.mobile-nav__sublink, .mobile-nav__divider, .mobile-nav__actions'
-      )
-    )
-
-    var observer = new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
-        if (mutation.attributeName !== 'class') return
-        var isOpen = mobileNav.classList.contains('mobile-nav--open')
-
-        if (isOpen) {
-          mobileEls.forEach(function (el, i) {
-            el.classList.remove(
-              'mobile-nav__link--visible',
-              'mobile-nav__section-label--visible',
-              'mobile-nav__sublink--visible',
-              'mobile-nav__divider--visible',
-              'mobile-nav__actions--visible'
-            )
-            setTimeout(function () {
-              if      (el.classList.contains('mobile-nav__link'))          el.classList.add('mobile-nav__link--visible')
-              else if (el.classList.contains('mobile-nav__section-label')) el.classList.add('mobile-nav__section-label--visible')
-              else if (el.classList.contains('mobile-nav__sublink'))       el.classList.add('mobile-nav__sublink--visible')
-              else if (el.classList.contains('mobile-nav__divider'))       el.classList.add('mobile-nav__divider--visible')
-              else if (el.classList.contains('mobile-nav__actions'))       el.classList.add('mobile-nav__actions--visible')
-            }, 50 + i * 35)
-          })
-          mobileNav.setAttribute('aria-hidden', 'false')
-        } else {
-          mobileEls.forEach(function (el) {
-            el.classList.remove(
-              'mobile-nav__link--visible',
-              'mobile-nav__section-label--visible',
-              'mobile-nav__sublink--visible',
-              'mobile-nav__divider--visible',
-              'mobile-nav__actions--visible'
-            )
-          })
-          mobileNav.setAttribute('aria-hidden', 'true')
-        }
-      })
-    })
-
-    observer.observe(mobileNav, { attributes: true })
-
-    /* Close overlay when any link or button inside is tapped */
-    var allMobileLinks = mobileNav.querySelectorAll(
-      '.mobile-nav__link, .mobile-nav__sublink, .mobile-nav__btn'
-    )
-    allMobileLinks.forEach(function (link) {
-      link.addEventListener('click', function () {
-        if (mobileNav.classList.contains('mobile-nav--open') && navToggle) {
-          navToggle.click()
-        }
-      })
-    })
-  }
-
-})()
-</script>
+  </script>
+</body>
+</html>
