@@ -1,58 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- NEW: This script sets the correct base path for all links and resources. -->
-    <script>
-        // --- IMPORTANT ---
-        // This should match your GitHub repository name.
-        const repoName = 'theobennett.github.io'; 
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const basePath = isGitHubPages ? `/${repoName}/` : '/';
-        document.write(`<base href="${basePath}">`);
-    </script>
-
-    <title>Our Care Models | Altos Psychiatry</title>
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Care Models — Altos Psychiatry</title>
+  <meta name="description" content="Integrated, data-driven, and collaborative psychiatric care designed for lasting results. Learn how Altos Psychiatry's care philosophy shapes every treatment decision.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
-    <div class="page-wrapper">
-        <main>
-            <section class="page-hero">
-                <div class="container fade-in-element">
-                    <h1>Our Care Models</h1>
-                    <p>A foundation of integrated, personalized, and data-driven psychiatric care.</p>
-                </div>
-            </section>
-            
-            <section class="content-section">
-                <div class="container" style="max-width: 800px;">
-                    <div class="fade-in-element">
-                        <h2>The Integrated Care Model</h2>
-                        <p>We believe mental wellness is intrinsically linked to overall health. Our integrated model ensures that your psychiatric care is seamlessly coordinated with other aspects of your well-being. We collaborate with primary care physicians, therapists, and specialists to create a holistic view of your health, ensuring that all treatment decisions are made with a comprehensive understanding of you as an individual.</p>
-                    </div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-                    <div class="fade-in-element" style="margin-top: 60px;">
-                        <h2>Data-Driven Precision</h2>
-                        <p>Honed through clinical practice at Stanford and other world-class institutions, our approach leverages data to move beyond a one-size-fits-all model. Where appropriate, we utilize tools like genetic testing (pharmacogenomics) to predict medication response, quantitative EEG (qEEG) to identify neurological biomarkers, and outcomes tracking to objectively measure progress. This commitment to data allows for a more precise, predictable, and effective treatment journey.</p>
-                    </div>
-                    
-                    <div class="fade-in-element" style="margin-top: 60px;">
-                        <h2>The Collaborative Partnership</h2>
-                        <p>At Altos Psychiatry, you are an active partner in your care. We prioritize patient education, ensuring you understand the "why" behind every aspect of your treatment plan. Our model is built on a foundation of trust, transparency, and shared decision-making, empowering you with the knowledge and confidence to take control of your mental health.</p>
-                    </div>
+<div class="page-wrapper">
+  <div id="header-placeholder"></div>
 
-                    <div style="text-align: center; margin-top: 60px;">
-                        <a href="/get-started.html" class="btn btn-primary">Begin a Consultation</a>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <div id="footer-placeholder"></div>
-    </div>
-    <script src="/js/main.js"></script>
+  <main id="main-content">
+
+    <!-- ════════════════════════════════════════════════════
+         HERO
+         ════════════════════════════════════════════════════ -->
+    <section class="hero" style="min-height:60vh;min-height:60dvh;">
+      <div class="hero__bg">
+        <div class="hero__orb hero__orb--1"></div>
+        <div class="hero__orb hero__orb--2"></div>
+        <div class="hero__orb hero__orb--3"></div>
+      </div>
+      <div class="hero__inner container">
+        <div class="hero__content" style="max-width:660px;">
+          <p class="hero__eyebrow">Our Philosophy</p>
+          <h1 class="hero__title" style="font-size:var(--text-4xl);">A different architecture<br> for psychiatric care</h1>
+          <p class="hero__subtitle">Integrated across modalities. Measured by outcomes. Built around you.</p>
+          <div class="hero__cta-group">
+            <a href="/get-started.html" class="btn btn--primary btn--lg btn--magnetic">
+              Request a Consultation
+              <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════
+         OPENING STATEMENT
+         ════════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="container container--narrow text-center">
+        <p class="lead reveal" style="font-size:var(--text-xl);max-width:none;">Most psychiatric practices treat one dimension of a person at a time. We designed ours to do the opposite — to hold the full clinical picture, coordinate across domains, and adapt as your needs evolve.</p>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════
+         THREE PILLARS
+         ════════════════════════════════════════════════════ -->
+    <section class="section section--light has-cursor-glow">
+      <div class="container">
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Framework</p>
+          <h2 class="section__title">Three pillars of care</h2>
+          <p class="section__subtitle">Every clinical decision is shaped by these interconnected principles.</p>
+        </div>
+
+        <div class="grid grid--3col stagger-children" data-stagger="120">
+
+          <!-- Integrated -->
+          <div class="card card--highlight">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+            </div>
+            <h3 class="card__title">Integrated</h3>
+            <p class="card__body">Medication, therapy, and interventional treatments coordinated within a single practice — not siloed across disconnected providers.</p>
+          </div>
+
+          <!-- Data-Driven -->
+          <div class="card card--sage">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h3 class="card__title">Data-Driven</h3>
+            <p class="card__body">Pharmacogenomics, outcome tracking, and objective measurement replace guesswork with precision at every stage.</p>
+          </div>
+
+          <!-- Collaborative -->
+          <div class="card card--sand">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <h3 class="card__title">Collaborative</h3>
+            <p class="card__body">You are an active partner in every decision. We educate, explain, and build treatment plans together — never unilaterally.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════
+         DEEP DIVES — ACCORDION
+         ════════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">In Practice</p>
+          <h2 class="section__title">How each pillar shapes your care</h2>
+          <p class="section__subtitle">Concrete clinical processes — from the first visit forward.</p>
+        </div>
+
+        <div class="accordion reveal" data-accordion="single" data-reveal-delay="100">
+
+          <!-- Integrated -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              The Integrated Care Model
+              <svg class="accordion__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>Mental wellness is intrinsically linked to overall health. Our integrated model coordinates psychiatric care with every aspect of your well-being — not as an afterthought, but as foundational architecture.</p>
+                <ul class="checklist">
+                  <li class="checklist__item">Medication, therapy, and interventional services under one roof</li>
+                  <li class="checklist__item">Sleep, nutrition, and lifestyle treated as clinical variables</li>
+                  <li class="checklist__item">Direct coordination with your PCP and specialists</li>
+                  <li class="checklist__item">Unified treatment record — no information gaps between providers</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data-Driven -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              Data-Driven Precision
+              <svg class="accordion__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>Shaped by clinical training at Stanford and leading academic institutions, our approach uses objective data to move beyond one-size-fits-all psychiatry. Genetic testing predicts medication response, standardized scales quantify change, and structured tracking replaces guesswork with precision.</p>
+                <ul class="checklist">
+                  <li class="checklist__item">Pharmacogenomic testing to guide medication selection</li>
+                  <li class="checklist__item">Validated symptom scales at regular intervals</li>
+                  <li class="checklist__item">Quantitative outcome tracking — not subjective impressions alone</li>
+                  <li class="checklist__item">Adjustments driven by measurable trends</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Collaborative -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              The Collaborative Partnership
+              <svg class="accordion__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>You understand the rationale behind every recommendation. We prioritize patient education and shared decision-making — empowering you with the knowledge and confidence to take an active role in your care.</p>
+                <ul class="checklist">
+                  <li class="checklist__item">Clear explanations of diagnosis, rationale, and expected outcomes</li>
+                  <li class="checklist__item">Shared decision-making at every treatment juncture</li>
+                  <li class="checklist__item">Responsive between-visit access via the patient portal</li>
+                  <li class="checklist__item">Ongoing psychoeducation — we teach, not just treat</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Whole-Person -->
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              Whole-Person Context
+              <svg class="accordion__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>Psychiatric symptoms don't exist in isolation. Sleep disruption, metabolic shifts, hormonal changes, and life stressors all shape how conditions present and respond to treatment. We factor these variables into every clinical decision — as core evidence-based psychiatry, not wellness add-ons.</p>
+                <ul class="checklist">
+                  <li class="checklist__item">Sleep architecture assessed and addressed early</li>
+                  <li class="checklist__item">Nutrition and exercise patterns reviewed as clinical data</li>
+                  <li class="checklist__item">Occupational and relational context in treatment planning</li>
+                  <li class="checklist__item">Specialist referrals when warranted</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════
+         YOUR EXPERIENCE — STEPS
+         ════════════════════════════════════════════════════ -->
+    <section class="section section--sand has-cursor-glow">
+      <div class="container">
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Your Experience</p>
+          <h2 class="section__title">What this looks like for you</h2>
+        </div>
+
+        <div class="steps stagger-children" data-stagger="100">
+
+          <div class="step">
+            <span class="step__number">01</span>
+            <h3 class="step__title">First Visit</h3>
+            <p class="step__body">A 60–90 minute comprehensive evaluation — your full history, your goals, an initial treatment framework built together.</p>
+          </div>
+
+          <div class="step">
+            <span class="step__number">02</span>
+            <h3 class="step__title">Ongoing Care</h3>
+            <p class="step__body">Regular follow-ups calibrated to your needs. Outcome measures tracked visit-to-visit. Treatment adjusted based on data, not guesswork.</p>
+          </div>
+
+          <div class="step">
+            <span class="step__number">03</span>
+            <h3 class="step__title">Between Visits</h3>
+            <p class="step__body">Secure messaging through the patient portal. Responsive communication for medication questions, side effects, or emerging concerns.</p>
+          </div>
+
+          <div class="step">
+            <span class="step__number">04</span>
+            <h3 class="step__title">Coordination</h3>
+            <p class="step__body">With your permission, we communicate directly with your therapist, PCP, or specialists to ensure aligned, efficient care.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════
+         TESTIMONIAL
+         ════════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="testimonial reveal">
+          <p class="testimonial__text">For the first time, I felt like my psychiatrist actually understood the <em>full picture</em> — not just the symptoms, but everything shaping them.</p>
+          <p class="testimonial__attribution">— Patient, Altos Psychiatry</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════
+         CROSS-LINKS — SERVICES
+         ════════════════════════════════════════════════════ -->
+    <section class="section section--light">
+      <div class="container">
+        <div class="grid grid--2col grid--align-center">
+          <div class="reveal">
+            <p class="section__eyebrow">Services</p>
+            <h2 class="section__title">See our care model in action</h2>
+            <p class="section__body">Every service we offer — from medication management to TMS — is delivered within this integrated framework.</p>
+            <a href="/services/" class="btn btn--outline btn--magnetic">
+              View All Services
+              <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
+            </a>
+          </div>
+          <div class="reveal" data-reveal-delay="150">
+            <div class="tag-grid" style="justify-content:flex-start;">
+              <span class="tag">Medication Management</span>
+              <span class="tag">Psychotherapy</span>
+              <span class="tag">TMS Therapy</span>
+              <span class="tag">Pharmacogenomics</span>
+              <span class="tag">Psychedelic Therapy</span>
+              <span class="tag">Outcome Tracking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════
+         FINAL CTA
+         ════════════════════════════════════════════════════ -->
+    <section class="section section--ocean">
+      <div class="container container--narrow text-center">
+        <div class="reveal">
+          <p class="section__eyebrow">Get Started</p>
+          <h2 class="section__title" style="margin-bottom:var(--space-sm);">Experience a different standard of care</h2>
+          <p class="section__subtitle" style="margin-bottom:var(--space-lg);">Schedule a consultation and see how our integrated model applies to your specific situation.</p>
+          <div class="cta-group" style="justify-content:center;">
+            <a href="/get-started.html" class="btn btn--ghost btn--lg btn--magnetic">
+              Begin a Consultation
+              <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
+            </a>
+            <a href="/why-altos/for-patients.html" class="btn btn--ghost btn--lg">New Patient Guide</a>
+          </div>
+        </div>
+        <p class="crisis-notice" style="border-top-color:rgba(255,255,255,0.12);color:var(--ocean-mist);">If you are in crisis, call <strong style="color:var(--white);">911</strong> or the Suicide &amp; Crisis Lifeline at <strong style="color:var(--white);">988</strong>.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+</div>
+
+<script src="/js/main.js"></script>
 </body>
 </html>

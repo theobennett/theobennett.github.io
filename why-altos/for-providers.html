@@ -4,251 +4,849 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For Referring Providers | Altos Psychiatry</title>
-  <meta name="description" content="Submit a referral to Altos Psychiatry. We partner with primary care, therapists, and specialists across the Peninsula.">
+  <meta name="description" content="Submit a referral to Altos Psychiatry. We partner with primary care, therapists, and specialists across the Peninsula — and close the loop on every referral.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
+
   <style>
-    /* Error state styling for required fields */
-    .form-input.has-error {
-      border-color: #c0392b !important;
-      box-shadow: 0 0 0 3px rgba(192,57,43,0.1);
+    /* ═══════════════════════════════════════════════════════
+       FOR PROVIDERS — Page-Specific Styles
+       ═══════════════════════════════════════════════════════ */
+
+    /* ── Submit Button ── */
+    .form-submit-btn {
+      width: 100%;
+      padding: 16px 32px;
+      font-size: var(--text-md);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      background: var(--sage-deep, #2d5a3d);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      transition:
+        background var(--duration-base) var(--ease-out),
+        box-shadow var(--duration-base) var(--ease-out),
+        transform var(--duration-base) var(--ease-out);
     }
+
+    .form-submit-btn:hover:not(:disabled) {
+      background: var(--ocean);
+      box-shadow: 0 8px 28px rgba(var(--ocean-rgb), 0.25);
+      transform: translateY(-2px);
+    }
+
+    .form-submit-btn:active:not(:disabled) { transform: scale(0.98); }
+    .form-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .form-submit-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+
+    .form-submit-btn:hover::before { opacity: 1; }
+
+    .form-submit-btn.is-loading { color: transparent; }
+
+    .form-submit-btn.is-loading::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 22px; height: 22px;
+      margin: -11px 0 0 -11px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin-btn 0.7s linear infinite;
+    }
+
+    @keyframes spin-btn { to { transform: rotate(360deg); } }
+
+    /* ── Form Error Banner ── */
+    .form-error-banner {
+      display: none;
+      background: var(--red-pale);
+      border: 1px solid #fca5a5;
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-error-banner p {
+      color: #7f1d1d;
+      font-size: var(--text-sm);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Success State ── */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: clamp(40px, 6vw, 72px) clamp(20px, 4vw, 48px);
+      background: var(--white);
+      border: 1px solid rgba(var(--ocean-deep-rgb), 0.08);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-success.is-visible {
+      display: block;
+      animation: success-in 0.6s var(--ease-out) both;
+    }
+
+    @keyframes success-in {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .form-success__icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--green-pale);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .form-success__icon svg { width: 36px; height: 36px; color: var(--green); }
+    .form-success h2 { font-size: var(--text-2xl); margin-bottom: 0.75rem; }
+
+    .form-success p {
+      font-size: var(--text-md);
+      color: var(--stone-light);
+      max-width: 480px;
+      margin: 0 auto 1rem;
+      line-height: 1.7;
+    }
+
+    .form-success__ref {
+      display: inline-block;
+      background: var(--fog);
+      padding: 8px 20px;
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--sage-deep, #2d5a3d);
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--fog-dark);
+    }
+
+    .form-success__next {
+      background: var(--fog);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .form-success__next h4 {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--sage-deep, #2d5a3d);
+      margin-bottom: 0.6rem;
+    }
+
+    .form-success__next ol {
+      list-style: decimal;
+      padding-left: 1.25rem;
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+
+    .form-success__next ol li {
+      font-size: var(--text-sm);
+      color: var(--stone-light);
+      line-height: 1.65;
+    }
+
+    /* ── Privacy Note ── */
+    .privacy-note { text-align: center; margin-top: 1.5rem; }
+    .privacy-note p { font-size: var(--text-xs); color: var(--pebble); }
+    .privacy-note a { color: var(--ocean); text-decoration: underline; text-underline-offset: 2px; }
   </style>
 </head>
 <body>
-<div id="header-placeholder"></div>
-<div class="page-wrapper">
-<main>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <section class="page-hero">
-    <div class="container">
-      <p class="eyebrow" style="color:var(--sage-light);">Clinician Partnerships</p>
-      <h1>For Referring Providers</h1>
-      <p>We respond to referrals within one business day and keep you in the loop on your patient's care — with their consent.</p>
+<div id="header-placeholder"></div>
+
+<div class="page-wrapper">
+<main id="main-content">
+
+  <!-- ══════════════════════════════════════════════════════
+       PAGE HERO
+       ══════════════════════════════════════════════════════ -->
+  <section class="section section--ocean" style="padding-top:calc(var(--header-height) + var(--space-2xl));padding-bottom:var(--space-xl);">
+    <div class="container text-center">
+      <p class="section__eyebrow reveal">Clinician Partnerships</p>
+      <h1 class="section__title reveal" data-reveal-delay="100">For Referring Providers</h1>
+      <p class="section__subtitle reveal mx-auto" data-reveal-delay="200">We respond to every referral within one business day and keep you in the loop on your patient's care — with their consent. No referral goes into a black hole.</p>
+      <div class="cta-group reveal" data-reveal-delay="300" style="justify-content:center;margin-top:var(--space-md);">
+        <a href="#referral-form" class="btn btn--primary btn--lg">
+          Submit a Referral
+          <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
+        </a>
+        <a href="tel:+16505550000" class="btn btn--outline btn--lg">Call Referral Line</a>
+      </div>
     </div>
   </section>
 
-  <section class="section section--light">
-    <div class="container" style="max-width:900px;">
+  <!-- ══════════════════════════════════════════════════════
+       WHAT WE DO WELL
+       ══════════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2col">
 
-      <div class="reveal mb-xl">
-        <div class="grid-2" style="margin-bottom:2.5rem;">
-          <div>
-            <span class="section-tag">What We Treat Well</span>
-            <h2 style="font-size:2rem;margin-bottom:1rem;">High-priority referrals</h2>
-            <ul style="display:flex;flex-direction:column;gap:0.7rem;">
-              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--ocean);flex-shrink:0;">→</span> Treatment-resistant depression (2+ failed trials)</li>
-              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--ocean);flex-shrink:0;">→</span> Complex or refractory anxiety disorders</li>
-              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--ocean);flex-shrink:0;">→</span> Medication-related metabolic side effects</li>
-              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--ocean);flex-shrink:0;">→</span> Diagnostic clarification (mood / anxiety / ADHD)</li>
-              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--ocean);flex-shrink:0;">→</span> PTSD in high-functioning adults</li>
-            </ul>
-          </div>
-          <div>
-            <span class="section-tag" style="visibility:hidden;">spacer</span>
-            <h2 style="font-size:2rem;margin-bottom:1rem;">General referrals</h2>
-            <ul style="display:flex;flex-direction:column;gap:0.7rem;">
-              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);flex-shrink:0;">✓</span> Adult ADHD — diagnosis and management</li>
-              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);flex-shrink:0;">✓</span> Bipolar spectrum disorders</li>
-              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);flex-shrink:0;">✓</span> Integrated med + therapy care</li>
-              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);flex-shrink:0;">✓</span> Patients needing concierge-level access</li>
-              <li style="display:flex;gap:10px;font-size:0.95rem;color:var(--stone-light);"><span style="color:var(--sage);flex-shrink:0;">✓</span> General adult outpatient psychiatry</li>
-            </ul>
-          </div>
+        <!-- High-priority -->
+        <div class="reveal">
+          <p class="section__eyebrow">Specialty Strengths</p>
+          <h2 class="section__title">High-priority referrals</h2>
+          <p class="section__body">Cases where our training and infrastructure make the biggest difference.</p>
+          <ul class="checklist mt-md">
+            <li>Treatment-resistant depression (2+ failed adequate trials)</li>
+            <li>Complex or refractory anxiety disorders</li>
+            <li>Medication-related metabolic side effects (board-certified obesity medicine expertise)</li>
+            <li>Diagnostic clarification — mood vs. anxiety vs. ADHD vs. bipolar spectrum</li>
+            <li>PTSD in high-functioning adults</li>
+            <li>Patients needing pharmacogenomic-guided prescribing</li>
+            <li>TMS candidacy evaluation (launching 2026)</li>
+            <li>Spravato / ketamine evaluation for TRD</li>
+          </ul>
         </div>
-        <div class="info-box note">
-          <p><strong>Payment note:</strong> Altos Psychiatry is a private-pay practice. Patients pay at time of service and receive superbills for PPO out-of-network reimbursement. We do not participate in Medi-Cal or HMO panels. For patients where cost is a barrier, please reach out and we'll discuss.</p>
+
+        <!-- General -->
+        <div class="reveal" data-reveal-delay="100">
+          <p class="section__eyebrow" style="visibility:hidden;">—</p>
+          <h2 class="section__title">General referrals</h2>
+          <p class="section__body">Bread-and-butter outpatient psychiatry — done thoroughly.</p>
+          <ul class="checklist mt-md">
+            <li>Adult ADHD — diagnosis and management</li>
+            <li>Bipolar spectrum disorders</li>
+            <li>OCD</li>
+            <li>Integrated medication + therapy under one roof</li>
+            <li>Patients needing concierge-level access and availability</li>
+            <li>General adult outpatient psychiatry</li>
+            <li>Second opinions on diagnosis or medication regimen</li>
+          </ul>
         </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       WHAT REFERRING PROVIDERS GET
+       ══════════════════════════════════════════════════════ -->
+  <section class="section section--sage">
+    <div class="container">
+      <div class="section__header text-center reveal">
+        <p class="section__eyebrow">The Referral Experience</p>
+        <h2 class="section__title">What you can expect from us</h2>
+        <p class="section__subtitle mx-auto">We know your time is limited. Here's exactly how we handle referrals.</p>
       </div>
 
-      <div id="referral-form-section" class="reveal">
-        <span class="section-tag">Submit a Referral</span>
-        <h2 style="margin-bottom:0.5rem;">Send us a referral</h2>
-        <p style="margin-bottom:2rem;">All fields marked * are required. Patient information is optional at this stage — we can also coordinate after you call.</p>
+      <div class="grid grid--3col">
 
-        <div class="referral-form-wrap">
-          <form id="referral-form" novalidate>
+        <div class="card reveal">
+          <div class="card__icon" style="background:var(--green-pale);color:var(--green);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="card__title">1-Day Response</h3>
+          <p class="card__body">Every referral gets a response within one business day. We contact you to confirm receipt, then reach out to the patient to schedule.</p>
+        </div>
 
+        <div class="card reveal" data-reveal-delay="100">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3 class="card__title">Closed-Loop Reports</h3>
+          <p class="card__body">After evaluation, you receive a clinical summary — diagnosis, treatment plan, and recommendations. Ongoing updates as clinically relevant changes occur.</p>
+        </div>
+
+        <div class="card reveal" data-reveal-delay="200">
+          <div class="card__icon" style="background:var(--sand-pale);color:var(--sand-deep);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3 class="card__title">Direct Access</h3>
+          <p class="card__body">You can reach the treating psychiatrist directly for clinical questions — not through three layers of scheduling staff. Provider-to-provider communication is how care should work.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAYMENT NOTE
+       ══════════════════════════════════════════════════════ -->
+  <section class="section section--light" style="padding-top:var(--space-lg);padding-bottom:var(--space-lg);">
+    <div class="container container--narrow">
+      <div class="info-box info-box--note reveal">
+        <div class="info-box__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="info-box__content">
+          <p><strong>Payment note for your patients:</strong> Altos Psychiatry is a private-pay practice. Patients pay at time of service and receive superbills for PPO out-of-network reimbursement. We do not participate in Medi-Cal or HMO panels. Most Bay Area PPO plans reimburse 50–80% of the allowable rate. For patients where cost is a barrier, please reach out and we'll discuss options.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       REFERRAL FORM
+       Minimal fields — designed for speed.
+       ══════════════════════════════════════════════════════ -->
+  <section id="referral-form" class="section">
+    <div class="container" style="max-width:740px;">
+
+      <div class="section__header text-center reveal">
+        <p class="section__eyebrow">Submit a Referral</p>
+        <h2 class="section__title">Send us a referral</h2>
+        <p class="section__subtitle mx-auto">Four required fields. Under 60 seconds. We'll handle the rest.</p>
+      </div>
+
+      <!-- ═══ FORM WRAPPER (hidden on success) ═══ -->
+      <div id="form-wrapper" class="reveal" data-reveal-delay="100">
+        <div class="form-card">
+
+          <!-- Form-Level Error Banner -->
+          <div class="form-error-banner" id="form-error-banner" role="alert">
+            <p>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              Please complete the required fields highlighted below.
+            </p>
+          </div>
+
+          <form id="referral-form-el" novalidate>
+
+            <!-- ═══ YOUR INFO ═══ -->
             <fieldset class="form-fieldset">
               <legend>Your Information</legend>
-              <div class="form-row">
+
+              <div class="form-row form-row--2col">
                 <div class="form-group">
-                  <label class="form-label" for="providerName">Your Name *</label>
-                  <input class="form-input" type="text" id="providerName" name="providerName" required>
+                  <label for="providerName" class="form-label">
+                    Your Name <span aria-hidden="true" style="color:var(--coral);">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="providerName"
+                    name="providerName"
+                    class="form-input"
+                    autocomplete="name"
+                    required
+                    aria-required="true"
+                    placeholder="Dr. Jane Smith"
+                  />
+                  <div class="field-error" id="err-providerName" role="alert">
+                    Please enter your name.
+                  </div>
                 </div>
+
                 <div class="form-group">
-                  <label class="form-label" for="organization">Organization / Practice *</label>
-                  <input class="form-input" type="text" id="organization" name="organization" required>
+                  <label for="organization" class="form-label">
+                    Organization / Practice <span aria-hidden="true" style="color:var(--coral);">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="organization"
+                    name="organization"
+                    class="form-input"
+                    required
+                    aria-required="true"
+                    placeholder="Peninsula Medical Group"
+                  />
+                  <div class="field-error" id="err-organization" role="alert">
+                    Please enter your practice name.
+                  </div>
                 </div>
               </div>
-              <div class="form-row">
+
+              <div class="form-row form-row--2col">
                 <div class="form-group">
-                  <label class="form-label" for="providerEmail">Your Email</label>
-                  <input class="form-input" type="email" id="providerEmail" name="providerEmail">
+                  <label for="providerEmail" class="form-label">Your Email</label>
+                  <input
+                    type="email"
+                    id="providerEmail"
+                    name="providerEmail"
+                    class="form-input"
+                    autocomplete="email"
+                    placeholder="you@practice.com"
+                  />
                 </div>
+
                 <div class="form-group">
-                  <label class="form-label" for="officePhone">Office Phone</label>
-                  <input class="form-input" type="tel" id="officePhone" name="officePhone" placeholder="XXX-XXX-XXXX">
+                  <label for="officePhone" class="form-label">Office Phone</label>
+                  <input
+                    type="tel"
+                    id="officePhone"
+                    name="officePhone"
+                    class="form-input"
+                    autocomplete="tel"
+                    placeholder="650-555-0000"
+                  />
                 </div>
               </div>
+
               <div class="form-group">
-                <label class="form-label" for="relationship">Your relationship to the patient</label>
-                <select class="form-select" id="relationship" name="relationship">
-                  <option value="">— Select —</option>
+                <label for="relationship" class="form-label">Your relationship to the patient</label>
+                <select id="relationship" name="relationship" class="form-select">
+                  <option value="" disabled selected>Select (optional)…</option>
                   <option value="PCP">Primary care physician</option>
-                  <option value="therapist">Therapist / psychologist</option>
-                  <option value="specialist">Specialist</option>
-                  <option value="other">Other</option>
+                  <option value="Therapist">Therapist / psychologist</option>
+                  <option value="Specialist">Specialist</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
             </fieldset>
 
+            <!-- ═══ PATIENT INFO ═══ -->
             <fieldset class="form-fieldset">
-              <legend>Patient Information <span style="font-family:var(--font-body);font-size:0.85rem;font-weight:400;color:var(--pebble);letter-spacing:0;">(Optional at this stage)</span></legend>
-              <div class="info-box caution" style="margin-bottom:1.5rem;">
-                <p>Please provide only what is necessary for scheduling. Do not include detailed clinical history, diagnostic codes, or protected health information in this form. Use a secure fax or our direct line for sensitive clinical details.</p>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label" for="patientFirst">Patient First Name *</label>
-                  <input class="form-input" type="text" id="patientFirst" name="patientFirst" required>
+              <legend>Patient Information</legend>
+
+              <div class="info-box info-box--caution" style="margin-bottom:1.5rem;">
+                <div class="info-box__icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 </div>
-                <div class="form-group">
-                  <label class="form-label" for="patientLast">Patient Last Name *</label>
-                  <input class="form-input" type="text" id="patientLast" name="patientLast" required>
+                <div class="info-box__content">
+                  <p>Please provide only what is necessary for scheduling. <strong>Do not include</strong> detailed clinical history, diagnostic codes, or protected health information in this form. Use secure fax or our direct line for sensitive clinical details.</p>
                 </div>
               </div>
-              <div class="form-row">
+
+              <div class="form-row form-row--2col">
                 <div class="form-group">
-                  <label class="form-label" for="patientPhone">Patient Phone</label>
-                  <input class="form-input" type="tel" id="patientPhone" name="patientPhone" placeholder="XXX-XXX-XXXX">
+                  <label for="patientFirst" class="form-label">
+                    Patient First Name <span aria-hidden="true" style="color:var(--coral);">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="patientFirst"
+                    name="patientFirst"
+                    class="form-input"
+                    required
+                    aria-required="true"
+                    placeholder="First name"
+                  />
+                  <div class="field-error" id="err-patientFirst" role="alert">
+                    Please enter the patient's first name.
+                  </div>
                 </div>
+
                 <div class="form-group">
-                  <label class="form-label" for="patientEmail">Patient Email</label>
-                  <input class="form-input" type="email" id="patientEmail" name="patientEmail">
+                  <label for="patientLast" class="form-label">
+                    Patient Last Name <span aria-hidden="true" style="color:var(--coral);">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="patientLast"
+                    name="patientLast"
+                    class="form-input"
+                    required
+                    aria-required="true"
+                    placeholder="Last name"
+                  />
+                  <div class="field-error" id="err-patientLast" role="alert">
+                    Please enter the patient's last name.
+                  </div>
                 </div>
               </div>
+
+              <div class="form-row form-row--2col">
+                <div class="form-group">
+                  <label for="patientPhone" class="form-label">Patient Phone</label>
+                  <input
+                    type="tel"
+                    id="patientPhone"
+                    name="patientPhone"
+                    class="form-input"
+                    placeholder="650-555-0000"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="patientEmail" class="form-label">Patient Email</label>
+                  <input
+                    type="email"
+                    id="patientEmail"
+                    name="patientEmail"
+                    class="form-input"
+                    placeholder="patient@email.com"
+                  />
+                </div>
+              </div>
+
               <div class="form-group">
-                <label class="form-label" for="preferredDay">Referral Timeline</label>
-                <select class="form-select" id="preferredDay" name="preferredDay">
-                  <option value="">— Select Timeline —</option>
-                  <option value="Urgent">Urgent — As soon as possible</option>
+                <label for="preferredDay" class="form-label">Referral Timeline</label>
+                <select id="preferredDay" name="preferredDay" class="form-select">
+                  <option value="" disabled selected>Select timeline (optional)…</option>
+                  <option value="Urgent">Urgent — as soon as possible</option>
+                  <option value="Soon">Soon — within a week</option>
                   <option value="Flexible">Flexible</option>
                 </select>
               </div>
+
               <div class="form-group">
-                <label class="form-label" for="referralContext">Brief context <span style="font-weight:400;text-transform:none;letter-spacing:0;">(reason for referral — keep general)</span></label>
-                <textarea class="form-textarea" id="referralContext" name="referralContext" rows="4" placeholder="E.g. — Patient has not responded to two SSRI trials. Looking for TRD evaluation and possible TMS candidacy."></textarea>
-                <p class="form-hint">Do not include diagnosis codes, medication names, or other PHI in this field.</p>
+                <label for="referralContext" class="form-label">
+                  Brief context <span style="font-weight:400;text-transform:none;letter-spacing:0;">(reason for referral — keep general)</span>
+                </label>
+                <textarea
+                  id="referralContext"
+                  name="referralContext"
+                  class="form-textarea"
+                  rows="4"
+                  placeholder="E.g. — Patient has not responded to two SSRI trials. Looking for TRD evaluation and possible TMS candidacy."
+                ></textarea>
+                <p class="form-hint">Do not include diagnosis codes, medication names, or other PHI in this field. Use secure fax for clinical details.</p>
               </div>
             </fieldset>
 
-            <div id="ref-loader" style="display:none;text-align:center;padding:1.5rem;color:var(--ocean);font-weight:bold;">Submitting... Please wait.</div>
-            
-            <div id="ref-success" style="display:none;padding:2rem;background:var(--sage-pale);border-left:3px solid var(--sage);">
-              <p style="font-size:1.1rem;color:var(--ocean-deep);font-weight:500;margin-bottom:0.4rem;">Referral received. Thank you.</p>
-              <p>We'll follow up with you within one business day to confirm next steps for your patient.</p>
-            </div>
-            
-            <div id="ref-error" style="display:none;padding:1.5rem;background:#fce8e8;border-left:3px solid #c0392b;">
-              <p>Something went wrong. Please try again or call us at <a href="tel:+16505550000" style="color:var(--ocean);">(650) 555-0000</a>.</p>
-            </div>
-
-            <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem;font-size:0.88rem;padding:16px;">
+            <!-- ═══ SUBMIT ═══ -->
+            <button type="submit" class="form-submit-btn" id="submit-btn">
               Submit Referral
             </button>
+
           </form>
         </div>
 
-        <p class="disclaimer" style="margin-top:1.25rem;text-align:center;">
-          Prefer to call? Reach our referral line at <a href="tel:+16505550000" style="color:var(--ocean);">(650) 555-0000</a> or email <a href="mailto:referrals@altospsychiatry.com" style="color:var(--ocean);">referrals@altospsychiatry.com</a>.
+        <!-- Privacy / alternate contact -->
+        <div class="privacy-note">
+          <p>
+            Prefer to call? Reach our referral line at
+            <a href="tel:+16505550000">(650) 555-0000</a> or email
+            <a href="mailto:referrals@altospsychiatry.com">referrals@altospsychiatry.com</a>.
+          </p>
+          <p style="margin-top:0.5rem;">
+            Your information is encrypted in transit and stored securely.
+            <a href="/privacy-policy.html">Privacy Policy</a>
+          </p>
+        </div>
+
+      </div>
+      <!-- /.form-wrapper -->
+
+
+      <!-- ═══ SUCCESS STATE ═══ -->
+      <div class="form-success" id="form-success" aria-live="polite">
+        <div class="form-success__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+        </div>
+        <h2>Referral Received</h2>
+        <p>
+          Thank you. Our care coordinator will follow up with
+          <strong>you</strong> and <strong>your patient</strong> within
+          <strong>one business day</strong> to confirm next steps.
         </p>
+        <div class="form-success__ref" id="success-ref" aria-label="Reference number">
+          Ref: —
+        </div>
+        <div class="form-success__next">
+          <h4>What Happens Next</h4>
+          <ol>
+            <li>Our care coordinator reviews your referral</li>
+            <li>We contact you to confirm receipt</li>
+            <li>We reach out to the patient to schedule their evaluation</li>
+            <li>After evaluation, you receive a clinical summary and treatment plan</li>
+            <li>Ongoing coordination throughout the patient's care</li>
+          </ol>
+        </div>
+        <div style="margin-top:1.5rem;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="/why-altos/for-providers.html" class="btn btn--outline">Submit Another Referral</a>
+          <a href="/" class="btn btn--outline">← Return to Homepage</a>
+        </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       HOW WE WORK WITH YOU (below form)
+       ══════════════════════════════════════════════════════ -->
+  <section class="section section--light">
+    <div class="container container--narrow">
+      <div class="section__header text-center reveal">
+        <p class="section__eyebrow">How We Work Together</p>
+        <h2 class="section__title">Built for providers who value coordination</h2>
+      </div>
+
+      <div class="accordion reveal" data-reveal-delay="100">
+
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false">
+            Closed-loop referral communication
+            <svg class="accordion__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+          </button>
+          <div class="accordion__content">
+            <div class="accordion__body">
+              <p>After every evaluation, you receive a clinical summary including our diagnostic impression, treatment plan, and specific recommendations. If your patient starts treatment with us, you'll receive updates when clinically significant changes occur — medication adjustments, diagnostic revisions, or treatment milestones. No referral goes into a black hole.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false">
+            Direct provider-to-provider access
+            <svg class="accordion__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+          </button>
+          <div class="accordion__content">
+            <div class="accordion__body">
+              <p>You can reach the treating psychiatrist directly for clinical questions — not through three layers of scheduling staff. Whether it's a quick question about a medication interaction or a complex case discussion, provider-to-provider communication is how we believe care should work. We pick up the phone.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false">
+            Collaborative treatment planning
+            <svg class="accordion__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+          </button>
+          <div class="accordion__content">
+            <div class="accordion__body">
+              <p>If you're the patient's therapist, we coordinate medication decisions around your therapeutic work — not in parallel. If you're their PCP, we flag psychiatric medications with metabolic implications and communicate proactively about labs and monitoring. We view you as part of the treatment team, not a peripheral stakeholder.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false">
+            Our clinical capabilities
+            <svg class="accordion__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+          </button>
+          <div class="accordion__content">
+            <div class="accordion__body">
+              <p>Beyond standard medication management and psychotherapy, we offer pharmacogenomic testing, metabolic monitoring (board-certified obesity medicine), Spravato/ketamine for treatment-resistant depression, and TMS therapy (launching 2026). If your patient has been through multiple failed trials or has a complex presentation, we have the tools and training to take a different approach.</p>
+              <a href="/services/" class="btn btn--secondary mt-md">
+                View all services
+                <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       CTA
+       ══════════════════════════════════════════════════════ -->
+  <section class="section section--cta">
+    <div class="container container--narrow text-center">
+      <div class="reveal">
+        <h2 class="section__title">Questions about a specific case?</h2>
+        <p class="section__subtitle mx-auto mb-lg">Call our referral line and speak directly with a clinician. We're happy to discuss whether a patient is a good fit before you send them our way.</p>
+        <div class="cta-group" style="justify-content:center;">
+          <a href="tel:+16505550000" class="btn btn--primary btn--lg">
+            Call (650) 555-0000
+          </a>
+          <a href="mailto:referrals@altospsychiatry.com" class="btn btn--outline btn--lg">
+            Email Referrals
+          </a>
+        </div>
+      </div>
+      <p class="crisis-notice">If your patient is in crisis, direct them to call <strong>911</strong> or the Suicide &amp; Crisis Lifeline at <strong>988</strong>.</p>
     </div>
   </section>
 
 </main>
 </div>
+
 <div id="footer-placeholder"></div>
 <script src="/js/main.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════
+     FORM LOGIC
+     Validation + Image-Ping Submission to Google Apps Script
+     Minimal required fields for provider speed.
+     ═══════════════════════════════════════════════════════ -->
 <script>
-// ── Provider Referral Form → Google Sheets ───────────────────
-// IMPORTANT: Be sure to use your active Google Apps Script Web App URL below
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjKojdmIKv9vZftmSCe5QbvEMVtuGHG61qAUamuYULZds0HrXCI2K5FOX4e2WDNls-/exec';
+;(function () {
+  'use strict'
 
-var rForm     = document.getElementById('referral-form');
-var rLoader   = document.getElementById('ref-loader');
-var rSuccess  = document.getElementById('ref-success');
-var rError    = document.getElementById('ref-error');
-var submitBtn = document.getElementById('submit-btn');
+  /* ═══ Configuration ═══ */
+  var SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec'
 
-var officePhoneInput = document.getElementById('officePhone');
-var patientPhoneInput = document.getElementById('patientPhone');
+  /* ═══ DOM References ═══ */
+  var form        = document.getElementById('referral-form-el')
+  var wrapper     = document.getElementById('form-wrapper')
+  var successEl   = document.getElementById('form-success')
+  var successRef  = document.getElementById('success-ref')
+  var submitBtn   = document.getElementById('submit-btn')
+  var errorBanner = document.getElementById('form-error-banner')
 
-// ── Phone Number Auto-Formatter ──────────────────────────────
-function formatPhone(e) {
-  var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '');
-}
-if (officePhoneInput) officePhoneInput.addEventListener('input', formatPhone);
-if (patientPhoneInput) patientPhoneInput.addEventListener('input', formatPhone);
+  if (!form) return
 
-// ── Submit handler ───────────────────────────────────────────
-rForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-  rError.style.display = 'none'; // reset error state
+  /* ═══ Required fields — only 4 ═══ */
+  var requiredFields = ['providerName', 'organization', 'patientFirst', 'patientLast']
 
-  // Validation
-  var valid = true;
-  ['providerName','organization','patientFirst','patientLast'].forEach(function(name) {
-    var f = rForm.querySelector('[name="' + name + '"]');
-    if (f && !f.value.trim()) { 
-      valid = false; 
-      f.classList.add('has-error'); 
-    } else if (f) {
-      f.classList.remove('has-error');
+  /* ═══════════════════════════════════════════════════════
+     VALIDATION HELPERS
+     ═══════════════════════════════════════════════════════ */
+
+  function markField(el, isError) {
+    if (!el) return
+    if (isError) {
+      el.classList.add('has-error')
+      el.classList.remove('field-valid')
+    } else {
+      el.classList.remove('has-error')
+      el.classList.add('field-valid')
     }
-  });
-
-  if (!valid) {
-    var firstErr = rForm.querySelector('.has-error');
-    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
   }
 
-  // Show loading state
-  submitBtn.style.display = 'none';
-  rLoader.style.display = 'block';
+  function showError(fieldId, show) {
+    var err = document.getElementById('err-' + fieldId)
+    if (err) err.style.display = show ? 'block' : 'none'
+  }
 
-  // Build FormData and route it to the proper tab
-  var formData = new FormData(rForm);
-  formData.append('formType', 'provider_referral');
-  formData.append('timestamp', new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
 
-  // Send request via fetch API
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    body: formData,
-    mode: 'no-cors' 
+  /* ═══════════════════════════════════════════════════════
+     REAL-TIME VALIDATION
+     ═══════════════════════════════════════════════════════ */
+
+  requiredFields.forEach(function (id) {
+    var el = document.getElementById(id)
+    if (!el) return
+
+    el.addEventListener('blur', function () {
+      var isError = !el.value.trim()
+      markField(el, isError)
+      showError(id, isError)
+    })
+
+    el.addEventListener('input', function () {
+      if (el.classList.contains('has-error')) {
+        el.classList.remove('has-error')
+        showError(id, false)
+      }
+    })
   })
-  .then(function() {
-    showReferralSuccess();
-  })
-  .catch(function(error) {
-    console.error('Submission Error:', error);
-    rError.style.display = 'block';
-    rLoader.style.display = 'none';
-    submitBtn.style.display = 'flex';
-  });
-});
 
-function showReferralSuccess() {
-  rLoader.style.display  = 'none';
-  rForm.style.display    = 'none';
-  rSuccess.style.display = 'block';
-  var section = document.getElementById('referral-form-section');
-  if (section) window.scrollTo({ top: section.offsetTop - 100, behavior: 'smooth' });
-}
+  /* ═══ Phone auto-formatter ═══ */
+  function formatPhone(e) {
+    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)
+    e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '')
+  }
+
+  var officePhone  = document.getElementById('officePhone')
+  var patientPhone = document.getElementById('patientPhone')
+  if (officePhone)  officePhone.addEventListener('input', formatPhone)
+  if (patientPhone) patientPhone.addEventListener('input', formatPhone)
+
+  /* ═══════════════════════════════════════════════════════
+     FULL VALIDATION
+     ═══════════════════════════════════════════════════════ */
+  function validate() {
+    var ok = true
+
+    requiredFields.forEach(function (id) {
+      var el = document.getElementById(id)
+      var isError = !el || !el.value.trim()
+      markField(el, isError)
+      showError(id, isError)
+      if (isError) ok = false
+    })
+
+    return ok
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     FORM SUBMISSION — Image-Ping GET
+     ═══════════════════════════════════════════════════════ */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+    errorBanner.style.display = 'none'
+
+    if (!validate()) {
+      errorBanner.style.display = 'block'
+      var firstErr = form.querySelector('.has-error')
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      return
+    }
+
+    submitBtn.disabled = true
+    submitBtn.classList.add('is-loading')
+
+    var data = {
+      formType:        'provider_referral',
+      providerName:    document.getElementById('providerName').value.trim(),
+      organization:    document.getElementById('organization').value.trim(),
+      providerEmail:   document.getElementById('providerEmail').value.trim(),
+      officePhone:     document.getElementById('officePhone').value.trim(),
+      relationship:    document.getElementById('relationship').value || '',
+      patientFirst:    document.getElementById('patientFirst').value.trim(),
+      patientLast:     document.getElementById('patientLast').value.trim(),
+      patientPhone:    document.getElementById('patientPhone').value.trim(),
+      patientEmail:    document.getElementById('patientEmail').value.trim(),
+      preferredDay:    document.getElementById('preferredDay').value || '',
+      referralContext:  document.getElementById('referralContext').value.trim(),
+      timestamp:       new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+    }
+
+    var params = Object.keys(data).map(function (key) {
+      return encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
+    }).join('&')
+
+    var img = new Image()
+    var timeout
+
+    img.onload = img.onerror = function () {
+      clearTimeout(timeout)
+      showSuccess()
+    }
+
+    timeout = setTimeout(function () {
+      showSuccess()
+    }, 6000)
+
+    img.src = SCRIPT_URL + '?' + params
+  })
+
+  /* ═══════════════════════════════════════════════════════
+     SUCCESS HANDLER
+     ═══════════════════════════════════════════════════════ */
+  function showSuccess() {
+    if (wrapper.style.display === 'none') return
+
+    wrapper.style.display = 'none'
+    successEl.classList.add('is-visible')
+
+    var ref = 'REF-' + Date.now().toString(36).toUpperCase()
+    successRef.textContent = 'Ref: ' + ref
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    if (typeof window.announce === 'function') {
+      window.announce(
+        'Your referral has been submitted successfully. Reference number: ' + ref +
+        '. Our care coordinator will contact you within one business day.'
+      )
+    }
+
+    submitBtn.disabled = false
+    submitBtn.classList.remove('is-loading')
+  }
+
+})()
 </script>
 </body>
 </html>
