@@ -1,8 +1,8 @@
 <!-- ═══════════════════════════════════════════════════════════
-     SITE HEADER — v3
-     3 dropdown menus: Why Altos · Our Care · Resources
+     SITE HEADER — Altos Psychiatry
+     3 dropdowns: Why Altos · Our Care · Resources
      3 action buttons: Current Patients · Referrals · Request Consultation
-     All styles in style.css (Sections 5 & 6)
+     Always ocean-deep background — no scroll color change
      ═══════════════════════════════════════════════════════════ -->
 
 <header class="site-header" role="banner">
@@ -75,8 +75,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
             </span>
             <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">For Patients</span>
-              <span class="nav__dropdown-desc">What to expect, insurance &amp; getting started</span>
+              <span class="nav__dropdown-title">For Patients &amp; Families</span>
+              <span class="nav__dropdown-desc">What to expect, fees &amp; patient portal</span>
             </span>
           </a>
 
@@ -109,16 +109,6 @@
 
         <div class="nav__dropdown" id="nav-care-panel" role="menu" aria-labelledby="nav-care-trigger">
 
-          <a href="/services.html" class="nav__dropdown-link" role="menuitem">
-            <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/></svg>
-            </span>
-            <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Care Overview</span>
-              <span class="nav__dropdown-desc">Our full range of psychiatric services</span>
-            </span>
-          </a>
-
           <a href="/conditions/what-we-treat.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
@@ -129,12 +119,23 @@
             </span>
           </a>
 
+          <a href="/services.html" class="nav__dropdown-link" role="menuitem">
+            <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/></svg>
+            </span>
+            <span class="nav__dropdown-text">
+              <span class="nav__dropdown-title">Care Overview</span>
+              <span class="nav__dropdown-desc">Our full range of psychiatric services</span>
+            </span>
+          </a>
+
           <div class="nav__dropdown-divider"></div>
 
           <a href="/services/medication-management.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--sage">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-6 18.75h9"/></svg>
-              <span class="nav__dropdown-text">
+            </span>
+            <span class="nav__dropdown-text">
               <span class="nav__dropdown-title">Medication Management</span>
               <span class="nav__dropdown-desc">Precise psychopharmacology &amp; pharmacogenomics</span>
             </span>
@@ -196,8 +197,30 @@
 
         <div class="nav__dropdown" id="nav-resources-panel" role="menu" aria-labelledby="nav-resources-trigger">
 
-          <a href="/resources/faq.html" class="nav__dropdown-link" role="menuitem">
+          <a href="/resources/scheduling.html" class="nav__dropdown-link" role="menuitem">
             <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+            </span>
+            <span class="nav__dropdown-text">
+              <span class="nav__dropdown-title">Scheduling</span>
+              <span class="nav__dropdown-desc">Book an appointment, telehealth &amp; in-person info</span>
+            </span>
+          </a>
+
+          <a href="/resources/intake.html" class="nav__dropdown-link" role="menuitem">
+            <span class="nav__dropdown-icon nav__dropdown-icon--ocean">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
+            </span>
+            <span class="nav__dropdown-text">
+              <span class="nav__dropdown-title">New Patient Intake</span>
+              <span class="nav__dropdown-desc">Forms, what to prepare &amp; first visit guide</span>
+            </span>
+          </a>
+
+          <div class="nav__dropdown-divider"></div>
+
+          <a href="/resources/faq.html" class="nav__dropdown-link" role="menuitem">
+            <span class="nav__dropdown-icon nav__dropdown-icon--sage">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg>
             </span>
             <span class="nav__dropdown-text">
@@ -233,8 +256,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
             </span>
             <span class="nav__dropdown-text">
-              <span class="nav__dropdown-title">Privacy Policy</span>
-              <span class="nav__dropdown-desc">HIPAA compliance &amp; data privacy</span>
+              <span class="nav__dropdown-title">Privacy &amp; HIPAA</span>
+              <span class="nav__dropdown-desc">Privacy policy &amp; notice of privacy practices</span>
             </span>
           </a>
 
@@ -245,7 +268,7 @@
     <!-- /.nav -->
 
 
-   <!-- ═══ ACTION BUTTONS (Desktop) ═══ -->
+    <!-- ═══ ACTION BUTTONS (Desktop) ═══ -->
     <div class="nav__actions">
       <a href="/patient-portal.html" class="nav__portal-btn">
         Current Patients
@@ -285,15 +308,15 @@
   <a href="/why-altos/about-us.html" class="mobile-nav__sublink">About Us</a>
   <a href="/why-altos/our-team.html" class="mobile-nav__sublink">Our Team</a>
   <a href="/why-altos/concierge-psychiatry.html" class="mobile-nav__sublink">Concierge Psychiatry</a>
-  <a href="/why-altos/for-patients.html" class="mobile-nav__sublink">For Patients</a>
+  <a href="/why-altos/for-patients.html" class="mobile-nav__sublink">For Patients &amp; Families</a>
   <a href="/why-altos/for-providers.html" class="mobile-nav__sublink">For Providers</a>
 
   <div class="mobile-nav__divider"></div>
 
   <!-- Our Care -->
   <div class="mobile-nav__section-label">Our Care</div>
-  <a href="/services.html" class="mobile-nav__sublink">Care Overview</a>
   <a href="/conditions/what-we-treat.html" class="mobile-nav__sublink">What We Treat</a>
+  <a href="/services.html" class="mobile-nav__sublink">Care Overview</a>
   <a href="/services/medication-management.html" class="mobile-nav__sublink">Medication Management</a>
   <a href="/services/psychotherapy.html" class="mobile-nav__sublink">Psychotherapy</a>
   <a href="/services/tms.html" class="mobile-nav__sublink">TMS Therapy</a>
@@ -303,31 +326,35 @@
 
   <!-- Resources -->
   <div class="mobile-nav__section-label">Resources</div>
+  <a href="/resources/scheduling.html" class="mobile-nav__sublink mobile-nav__sublink--highlight">Scheduling</a>
+  <a href="/resources/intake.html" class="mobile-nav__sublink mobile-nav__sublink--highlight">New Patient Intake</a>
   <a href="/resources/faq.html" class="mobile-nav__sublink">FAQ</a>
   <a href="/resources/contact.html" class="mobile-nav__sublink">Contact Us</a>
   <a href="/resources/careers.html" class="mobile-nav__sublink">Careers</a>
-  <a href="/privacy.html" class="mobile-nav__sublink">Privacy Policy</a>
+  <a href="/privacy.html" class="mobile-nav__sublink">Privacy &amp; HIPAA</a>
+
+  <div class="mobile-nav__divider"></div>
 
   <!-- Action Buttons -->
-    <div class="mobile-nav__actions">
-      <a href="/get-started.html" class="mobile-nav__btn mobile-nav__btn--primary">
-        Request Consultation
-      </a>
-      <a href="/patient-portal.html" class="mobile-nav__btn mobile-nav__btn--outline">
-        Current Patients
-      </a>
-      <a href="/why-altos/for-providers.html" class="mobile-nav__btn mobile-nav__btn--outline">
-        Referrals
-      </a>
-    </div>
+  <div class="mobile-nav__actions">
+    <a href="/get-started.html" class="mobile-nav__btn mobile-nav__btn--primary">
+      Request Consultation
+    </a>
+    <a href="/patient-portal.html" class="mobile-nav__btn mobile-nav__btn--outline">
+      Current Patients
+    </a>
+    <a href="/why-altos/for-providers.html" class="mobile-nav__btn mobile-nav__btn--outline">
+      Referrals
+    </a>
+  </div>
 
 </nav>
 
 
 <!-- ═══════════════════════════════════════════════════════════
      HEADER JAVASCRIPT
-     Desktop dropdown logic + mobile nav enhancements.
-     Core header scroll behavior handled by main.js.
+     Desktop dropdown logic + mobile nav stagger reveals.
+     Core scroll behavior (solid class) handled by main.js.
      ═══════════════════════════════════════════════════════════ -->
 <script>
 ;(function () {
@@ -335,7 +362,7 @@
 
   /* ═══════════════════════════════════════════════════════
      DESKTOP DROPDOWNS
-     Hover + click + keyboard accessible
+     Hover + click + full keyboard accessibility
      ═══════════════════════════════════════════════════════ */
   var dropdownItems = document.querySelectorAll('[data-dropdown]')
   var closeTimer = null
@@ -343,7 +370,7 @@
 
   dropdownItems.forEach(function (item) {
     var trigger = item.querySelector('.nav__trigger')
-    var panel = item.querySelector('.nav__dropdown')
+    var panel   = item.querySelector('.nav__dropdown')
     if (!trigger || !panel) return
 
     item.addEventListener('mouseenter', function () {
@@ -363,9 +390,7 @@
       e.stopPropagation()
       var isOpen = item.classList.contains('nav__item--open')
       closeAll()
-      if (!isOpen) {
-        openDropdown(item)
-      }
+      if (!isOpen) openDropdown(item)
     })
 
     trigger.addEventListener('keydown', function (e) {
@@ -376,9 +401,7 @@
         if (!isOpen) {
           openDropdown(item)
           var firstLink = panel.querySelector('.nav__dropdown-link')
-          if (firstLink) {
-            setTimeout(function () { firstLink.focus() }, 50)
-          }
+          if (firstLink) setTimeout(function () { firstLink.focus() }, 50)
         }
       }
       if (e.key === 'Escape') {
@@ -391,28 +414,21 @@
       var links = Array.prototype.slice.call(
         panel.querySelectorAll('.nav__dropdown-link, .nav__dropdown-footer')
       )
-      var current = document.activeElement
-      var index = links.indexOf(current)
+      var idx = links.indexOf(document.activeElement)
 
       if (e.key === 'ArrowDown') {
         e.preventDefault()
-        var next = links[index + 1] || links[0]
+        var next = links[idx + 1] || links[0]
         if (next) next.focus()
       }
       if (e.key === 'ArrowUp') {
         e.preventDefault()
-        var prev = links[index - 1] || links[links.length - 1]
+        var prev = links[idx - 1] || links[links.length - 1]
         if (prev) prev.focus()
       }
       if (e.key === 'Escape') {
         closeDropdown(item)
         trigger.focus()
-      }
-      if (e.key === 'Tab' && !e.shiftKey && index === links.length - 1) {
-        closeDropdown(item)
-      }
-      if (e.key === 'Tab' && e.shiftKey && index === 0) {
-        closeDropdown(item)
       }
     })
   })
@@ -423,34 +439,40 @@
 
   function openDropdown(item) {
     item.classList.add('nav__item--open')
-    var trigger = item.querySelector('.nav__trigger')
-    if (trigger) trigger.setAttribute('aria-expanded', 'true')
+    var t = item.querySelector('.nav__trigger')
+    if (t) t.setAttribute('aria-expanded', 'true')
   }
 
   function closeDropdown(item) {
     item.classList.remove('nav__item--open')
-    var trigger = item.querySelector('.nav__trigger')
-    if (trigger) trigger.setAttribute('aria-expanded', 'false')
+    var t = item.querySelector('.nav__trigger')
+    if (t) t.setAttribute('aria-expanded', 'false')
   }
 
   function closeAll() {
     clearTimeout(closeTimer)
-    dropdownItems.forEach(function (item) {
-      closeDropdown(item)
-    })
+    dropdownItems.forEach(function (item) { closeDropdown(item) })
   }
+
+  /* Close dropdowns on scroll */
+  var scrollTimer = null
+  window.addEventListener('scroll', function () {
+    if (scrollTimer) return
+    scrollTimer = setTimeout(function () {
+      closeAll()
+      scrollTimer = null
+    }, 150)
+  }, { passive: true })
 
 
   /* ═══════════════════════════════════════════════════════
-     MOBILE NAV ENHANCEMENTS
-     Staggered reveals for sublinks, labels, dividers,
-     and action buttons.
+     MOBILE NAV — staggered reveals on open/close
      ═══════════════════════════════════════════════════════ */
   var mobileNav = document.getElementById('mobile-nav')
   var navToggle = document.querySelector('.nav-toggle')
 
   if (mobileNav && navToggle) {
-    var mobileElements = Array.prototype.slice.call(
+    var mobileEls = Array.prototype.slice.call(
       mobileNav.querySelectorAll(
         '.mobile-nav__link, .mobile-nav__section-label, ' +
         '.mobile-nav__sublink, .mobile-nav__divider, .mobile-nav__actions'
@@ -460,11 +482,10 @@
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
         if (mutation.attributeName !== 'class') return
-
         var isOpen = mobileNav.classList.contains('mobile-nav--open')
 
         if (isOpen) {
-          mobileElements.forEach(function (el, i) {
+          mobileEls.forEach(function (el, i) {
             el.classList.remove(
               'mobile-nav__link--visible',
               'mobile-nav__section-label--visible',
@@ -473,22 +494,16 @@
               'mobile-nav__actions--visible'
             )
             setTimeout(function () {
-              if (el.classList.contains('mobile-nav__link')) {
-                el.classList.add('mobile-nav__link--visible')
-              } else if (el.classList.contains('mobile-nav__section-label')) {
-                el.classList.add('mobile-nav__section-label--visible')
-              } else if (el.classList.contains('mobile-nav__sublink')) {
-                el.classList.add('mobile-nav__sublink--visible')
-              } else if (el.classList.contains('mobile-nav__divider')) {
-                el.classList.add('mobile-nav__divider--visible')
-              } else if (el.classList.contains('mobile-nav__actions')) {
-                el.classList.add('mobile-nav__actions--visible')
-              }
-            }, 60 + i * 40)
+              if      (el.classList.contains('mobile-nav__link'))          el.classList.add('mobile-nav__link--visible')
+              else if (el.classList.contains('mobile-nav__section-label')) el.classList.add('mobile-nav__section-label--visible')
+              else if (el.classList.contains('mobile-nav__sublink'))       el.classList.add('mobile-nav__sublink--visible')
+              else if (el.classList.contains('mobile-nav__divider'))       el.classList.add('mobile-nav__divider--visible')
+              else if (el.classList.contains('mobile-nav__actions'))       el.classList.add('mobile-nav__actions--visible')
+            }, 50 + i * 35)
           })
           mobileNav.setAttribute('aria-hidden', 'false')
         } else {
-          mobileElements.forEach(function (el) {
+          mobileEls.forEach(function (el) {
             el.classList.remove(
               'mobile-nav__link--visible',
               'mobile-nav__section-label--visible',
@@ -504,6 +519,7 @@
 
     observer.observe(mobileNav, { attributes: true })
 
+    /* Close overlay when any link or button inside is tapped */
     var allMobileLinks = mobileNav.querySelectorAll(
       '.mobile-nav__link, .mobile-nav__sublink, .mobile-nav__btn'
     )
@@ -515,19 +531,6 @@
       })
     })
   }
-
-
-  /* ═══════════════════════════════════════════════════════
-     CLOSE DROPDOWNS ON SCROLL
-     ═══════════════════════════════════════════════════════ */
-  var scrollCloseTimer = null
-  window.addEventListener('scroll', function () {
-    if (scrollCloseTimer) return
-    scrollCloseTimer = setTimeout(function () {
-      closeAll()
-      scrollCloseTimer = null
-    }, 150)
-  }, { passive: true })
 
 })()
 </script>
