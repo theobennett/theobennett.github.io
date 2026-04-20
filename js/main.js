@@ -302,24 +302,6 @@
         this.isSolid = shouldBeSolid
       }
 
-      // Hide/show on scroll direction
-      if (y > this.hideThreshold && direction === 'down' && delta > 8) {
-        if (!this.isHidden && !MobileNav.isOpen) {
-          this.el.classList.add('site-header--hidden')
-          this.isHidden = true
-        }
-      } else if (direction === 'up' && delta > 4) {
-        if (this.isHidden) {
-          this.el.classList.remove('site-header--hidden')
-          this.isHidden = false
-        }
-      }
-
-      // Always show at top
-      if (y <= 10) {
-        this.el.classList.remove('site-header--hidden')
-        this.isHidden = false
-      }
 
       this.lastY = y
     },
@@ -1456,7 +1438,7 @@
     Accordion.init()
     Parallax.init()
     LazyImages.init()
-    VideoHero.init()
+     VideoHero.init() 
 
     // Phase 4: Premium effects (non-essential, progressive enhancement)
     MagneticButtons.init()
@@ -1470,3 +1452,105 @@
     init()
   }
 })()
+
+
+ /* ══════════════════════════════════════════════════════════
+     18. VIDEO HERO
+     Manages hero background video: play/pause based on
+     viewport visibility, poster fallback if video fails,
+     and performance-conscious behavior.
+     ══════════════════════════════════════════════════════════ */
+
+  var VideoHero = {
+    video: null,
+    hero: null,
+    observer: null,
+
+    init: function () {
+      this.hero = $('.hero--video')
+      if (!this.hero) return
+
+      this.video = $('.hero__video', this.hero)
+      if (!this.video) return
+
+      this._bindEvents()
+      this._initVisibilityObserver()
+    },
+
+    _bindEvents: function () {
+      var self = this
+      var video = this.video
+      var hero = this.hero
+
+      // If video fails to load, fall back to poster image
+      video.addEventListener('error', function () {
+        hero.classList.add('hero--no-video')
+        console.warn('Hero video could not load — falling back to poster image.')
+      })
+
+      // If video source fails
+      var source = $('source', video)
+      if (source) {
+        source.addEventListener('error', function () {
+          hero.classList.add('hero--no-video')
+        })
+      }
+
+      // Attempt to play — handle autoplay restrictions
+      var playPromise = video.play()
+      if (playPromise !== undefined) {
+        playPromise.catch(function () {
+          // Autoplay blocked — show poster
+          hero.classList.add('hero--no-video')
+        })
+      }
+
+      // Pause video when tab is hidden (save resources)
+      document.addEventListener('visibilitychange', function () {
+        if (!self.video) return
+        if (document.hidden) {
+          self._pause()
+        } else {
+          self._play()
+        }
+      })
+    },
+
+    _initVisibilityObserver: function () {
+      // Pause video when hero scrolls out of viewport
+      if (!('IntersectionObserver' in window)) return
+
+      var self = this
+      this.observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              self._play()
+            } else {
+              self._pause()
+            }
+          })
+        },
+        { threshold: 0.1 }
+      )
+
+      this.observer.observe(this.hero)
+    },
+
+    _play: function () {
+      if (!this.video || this.hero.classList.contains('hero--no-video')) return
+      try {
+        var p = this.video.play()
+        if (p) p.catch(function () {})
+        this.video.classList.remove('is-paused')
+      } catch (e) {}
+    },
+
+    _pause: function () {
+      if (!this.video) return
+      try {
+        this.video.pause()
+        this.video.classList.add('is-paused')
+      } catch (e) {}
+    },
+  }
