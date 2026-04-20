@@ -672,341 +672,244 @@
        server side and returns a 1×1 pixel. The browser doesn't
        care about CORS for image requests.
        ═══════════════════════════════════════════════════════ -->
-  <script>
-  ;(function () {
-    'use strict'
+ <script>
+;(function () {
+  'use strict'
 
-    /* ═══ Configuration ═══ */
-    // Replace this with your deployed Google Apps Script Web App URL
-    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyK3HYjwRq4lw-pmTqSqGdhOJUlOOXUDDhtob3Ybc27YPTAAXtktiZuV72YdOimn36F/exec'
+  /* ═══ Configuration ═══ */
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyK3HYjwRq4lw-pmTqSqGdhOJUlOOXUDDhtob3Ybc27YPTAAXtktiZuV72YdOimn36F/exec'
 
-    /* ═══ DOM References ═══ */
-    var form       = document.getElementById('consultation-form')
-    var wrapper    = document.getElementById('form-wrapper')
-    var successEl  = document.getElementById('form-success')
-    var successRef = document.getElementById('success-ref')
-    var submitBtn  = document.getElementById('submit-btn')
-    var errorBanner = document.getElementById('form-error-banner')
+  /* ═══ DOM References ═══ */
+  var form        = document.getElementById('consultation-form')
+  var wrapper     = document.getElementById('form-wrapper')
+  var successEl   = document.getElementById('form-success')
+  var successRef  = document.getElementById('success-ref')
+  var submitBtn   = document.getElementById('submit-btn')
+  var errorBanner = document.getElementById('form-error-banner')
 
-    if (!form) return
+  if (!form) return
 
-    /* ═══ Required Field IDs ═══ */
-    var textFields = ['firstName', 'lastName', 'email', 'phone']
+  /* ═══ Required Field IDs ═══ */
+  var textFields = ['firstName', 'lastName', 'email', 'phone']
 
-    /* ═══════════════════════════════════════════════════════
-       VALIDATION HELPERS
-       ═══════════════════════════════════════════════════════ */
+  /* ═══ VALIDATION HELPERS ═══ */
 
-    /**
-     * Mark a field as valid or invalid
-     */
-    function markField(el, isError) {
-      if (!el) return
-      if (isError) {
-        el.classList.add('has-error')
-        el.classList.remove('field-valid')
-      } else {
+  function markField(el, isError) {
+    if (!el) return
+    if (isError) {
+      el.classList.add('has-error')
+      el.classList.remove('field-valid')
+    } else {
+      el.classList.remove('has-error')
+      el.classList.add('field-valid')
+    }
+  }
+
+  function showError(fieldId, show) {
+    var err = document.getElementById('err-' + fieldId)
+    if (err) {
+      err.style.display = show ? 'block' : 'none'
+    }
+  }
+
+  function markRadio(groupId, isError) {
+    var group = document.getElementById(groupId)
+    if (!group) return
+    if (isError) {
+      group.classList.add('has-error')
+    } else {
+      group.classList.remove('has-error')
+    }
+  }
+
+  function getRadio(name) {
+    var radios = form.querySelectorAll('input[name="' + name + '"]')
+    for (var i = 0; i < radios.length; i++) {
+      if (radios[i].checked) return radios[i].value
+    }
+    return ''
+  }
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
+
+  function isValidPhone(phone) {
+    var digits = phone.replace(/\D/g, '')
+    return digits.length >= 10
+  }
+
+  /* ═══ REAL-TIME VALIDATION ═══ */
+  textFields.forEach(function (id) {
+    var el = document.getElementById(id)
+    if (!el) return
+
+    el.addEventListener('blur', function () {
+      var val = el.value.trim()
+      var isError = false
+      if (!val) {
+        isError = true
+      } else if (id === 'email' && !isValidEmail(val)) {
+        isError = true
+      } else if (id === 'phone' && !isValidPhone(val)) {
+        isError = true
+      }
+      markField(el, isError)
+      showError(id, isError)
+    })
+
+    el.addEventListener('input', function () {
+      if (el.classList.contains('has-error')) {
         el.classList.remove('has-error')
-        el.classList.add('field-valid')
+        showError(id, false)
       }
-    }
+    })
+  })
 
-    /**
-     * Show or hide the inline error message
-     */
-    function showError(fieldId, show) {
-      var err = document.getElementById('err-' + fieldId)
-      if (err) {
-        err.style.display = show ? 'block' : 'none'
+  var contactPref = document.getElementById('contactPref')
+  if (contactPref) {
+    contactPref.addEventListener('change', function () {
+      markField(contactPref, false)
+      showError('contactPref', false)
+    })
+  }
+
+  var radios = form.querySelectorAll('input[name="apptType"]')
+  radios.forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      markRadio('rg-apptType', false)
+      showError('apptType', false)
+    })
+  })
+
+  var consent = document.getElementById('consent')
+  if (consent) {
+    consent.addEventListener('change', function () {
+      showError('consent', !consent.checked)
+    })
+  }
+
+  var concerns = document.getElementById('concerns')
+  if (concerns) {
+    concerns.addEventListener('input', function () {
+      if (concerns.classList.contains('has-error')) {
+        concerns.classList.remove('has-error')
+        showError('concerns', false)
       }
-    }
+    })
+  }
 
-    /**
-     * Mark a radio group as error/valid
-     */
-    function markRadio(groupId, isError) {
-      var group = document.getElementById(groupId)
-      if (!group) return
-      if (isError) {
-        group.classList.add('has-error')
-      } else {
-        group.classList.remove('has-error')
-      }
-    }
+  /* ═══ FULL FORM VALIDATION ═══ */
+  function validate() {
+    var ok = true
 
-    /**
-     * Get the selected radio value
-     */
-    function getRadio(name) {
-      var radios = form.querySelectorAll('input[name="' + name + '"]')
-      for (var i = 0; i < radios.length; i++) {
-        if (radios[i].checked) return radios[i].value
-      }
-      return ''
-    }
-
-    /**
-     * Basic email validation
-     */
-    function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    }
-
-    /**
-     * Basic phone validation (at least 10 digits)
-     */
-    function isValidPhone(phone) {
-      var digits = phone.replace(/\D/g, '')
-      return digits.length >= 10
-    }
-
-    /* ═══════════════════════════════════════════════════════
-       REAL-TIME VALIDATION (blur events)
-       Clear errors as user fixes fields
-       ═══════════════════════════════════════════════════════ */
     textFields.forEach(function (id) {
       var el = document.getElementById(id)
-      if (!el) return
-
-      el.addEventListener('blur', function () {
-        var val = el.value.trim()
-        var isError = false
-
-        if (!val) {
-          isError = true
-        } else if (id === 'email' && !isValidEmail(val)) {
-          isError = true
-        } else if (id === 'phone' && !isValidPhone(val)) {
-          isError = true
-        }
-
-        markField(el, isError)
-        showError(id, isError)
-      })
-
-      // Clear error on input
-      el.addEventListener('input', function () {
-        if (el.classList.contains('has-error')) {
-          el.classList.remove('has-error')
-          showError(id, false)
-        }
-      })
+      var val = el ? el.value.trim() : ''
+      var isError = false
+      if (!val) {
+        isError = true
+      } else if (id === 'email' && !isValidEmail(val)) {
+        isError = true
+      } else if (id === 'phone' && !isValidPhone(val)) {
+        isError = true
+      }
+      markField(el, isError)
+      showError(id, isError)
+      if (isError) ok = false
     })
 
-    // Contact preference — clear error on change
-    var contactPref = document.getElementById('contactPref')
-    if (contactPref) {
-      contactPref.addEventListener('change', function () {
-        markField(contactPref, false)
-        showError('contactPref', false)
-      })
+    var cpVal = contactPref ? contactPref.value : ''
+    var cpBad = !cpVal
+    markField(contactPref, cpBad)
+    showError('contactPref', cpBad)
+    if (cpBad) ok = false
+
+    var apptVal = getRadio('apptType')
+    var apptBad = !apptVal
+    markRadio('rg-apptType', apptBad)
+    showError('apptType', apptBad)
+    if (apptBad) ok = false
+
+    var cVal = concerns ? concerns.value.trim() : ''
+    var cBad = !cVal
+    markField(concerns, cBad)
+    showError('concerns', cBad)
+    if (cBad) ok = false
+
+    var conBad = !consent || !consent.checked
+    showError('consent', conBad)
+    if (conBad) ok = false
+
+    return ok
+  }
+
+  /* ═══ SUCCESS HANDLER ═══ */
+  function showSuccess(data) {
+    if (wrapper.style.display === 'none') return
+
+    wrapper.style.display = 'none'
+    successEl.classList.add('is-visible')
+
+    var ref = 'REQ-' + Date.now().toString(36).toUpperCase()
+    successRef.textContent = 'Ref: ' + ref
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    submitBtn.disabled = false
+    submitBtn.classList.remove('is-loading')
+  }
+
+  /* ═══ FORM SUBMISSION ═══ */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+
+    errorBanner.style.display = 'none'
+
+    if (!validate()) {
+      errorBanner.style.display = 'block'
+      var firstErr = form.querySelector('.has-error, .field-error[style*="block"]')
+      if (firstErr) {
+        firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+      return
     }
 
-    // Radio — clear error on change
-    var radios = form.querySelectorAll('input[name="apptType"]')
-    radios.forEach(function (radio) {
-      radio.addEventListener('change', function () {
-        markRadio('rg-apptType', false)
-        showError('apptType', false)
-      })
+    submitBtn.disabled = true
+    submitBtn.classList.add('is-loading')
+
+    var data = {
+      formType:       'patient_inquiry',
+      firstName:      document.getElementById('firstName').value.trim(),
+      lastName:       document.getElementById('lastName').value.trim(),
+      email:          document.getElementById('email').value.trim(),
+      phone:          document.getElementById('phone').value.trim(),
+      contactPref:    contactPref.value,
+      apptType:       getRadio('apptType'),
+      referralSource: document.getElementById('referralSource').value || '',
+      concerns:       concerns.value.trim(),
+      consent:        'yes',
+      timestamp:      new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+    }
+
+    // POST to Google Apps Script via fetch no-cors
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(data),
+      redirect: 'follow'
+    })
+    .then(function () {
+      showSuccess(data)
+    })
+    .catch(function () {
+      showSuccess(data)
     })
 
-    // Consent — clear error on change
-    var consent = document.getElementById('consent')
-    if (consent) {
-      consent.addEventListener('change', function () {
-        showError('consent', !consent.checked)
-      })
-    }
+  }) // ← THIS was the missing closing for the submit handler
 
-    // Concerns — clear error on input
-    var concerns = document.getElementById('concerns')
-    if (concerns) {
-      concerns.addEventListener('input', function () {
-        if (concerns.classList.contains('has-error')) {
-          concerns.classList.remove('has-error')
-          showError('concerns', false)
-        }
-      })
-    }
-
-    /* ═══════════════════════════════════════════════════════
-       FULL FORM VALIDATION
-       Returns true if all fields are valid
-       ═══════════════════════════════════════════════════════ */
-    function validate() {
-      var ok = true
-
-      // Text fields
-      textFields.forEach(function (id) {
-        var el = document.getElementById(id)
-        var val = el ? el.value.trim() : ''
-        var isError = false
-
-        if (!val) {
-          isError = true
-        } else if (id === 'email' && !isValidEmail(val)) {
-          isError = true
-        } else if (id === 'phone' && !isValidPhone(val)) {
-          isError = true
-        }
-
-        markField(el, isError)
-        showError(id, isError)
-        if (isError) ok = false
-      })
-
-      // Contact preference
-      var cpVal = contactPref ? contactPref.value : ''
-      var cpBad = !cpVal
-      markField(contactPref, cpBad)
-      showError('contactPref', cpBad)
-      if (cpBad) ok = false
-
-      // Appointment type radio
-      var apptVal = getRadio('apptType')
-      var apptBad = !apptVal
-      markRadio('rg-apptType', apptBad)
-      showError('apptType', apptBad)
-      if (apptBad) ok = false
-
-      // Concerns textarea
-      var cVal = concerns ? concerns.value.trim() : ''
-      var cBad = !cVal
-      markField(concerns, cBad)
-      showError('concerns', cBad)
-      if (cBad) ok = false
-
-      // Consent checkbox
-      var conBad = !consent || !consent.checked
-      showError('consent', conBad)
-      if (conBad) ok = false
-
-      return ok
-    }
-
-    /* ═══════════════════════════════════════════════════════
-       FORM SUBMISSION — Image-Ping GET
-       
-       How it works:
-       1. Build a query string from form data
-       2. Create a new Image() element
-       3. Set img.src = SCRIPT_URL + '?' + queryString
-       4. The browser fires a GET request (no CORS restriction)
-       5. Google Apps Script processes the data via doGet()
-       6. Script writes to Google Sheet and returns a response
-       7. img.onload or img.onerror fires (both mean success —
-          Apps Script redirects trigger onerror for images,
-          but the data is still processed server-side)
-       8. Show success screen
-       ═══════════════════════════════════════════════════════ */
-    form.addEventListener('submit', function (e) {
-      e.preventDefault()
-
-      // Hide previous errors
-      errorBanner.style.display = 'none'
-
-      // Validate all fields
-      if (!validate()) {
-        errorBanner.style.display = 'block'
-
-        // Scroll to first error
-        var firstErr = form.querySelector('.has-error, .field-error[style*="block"]')
-        if (firstErr) {
-          firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        }
-        return
-      }
-
-      // Disable button + show loading spinner
-      submitBtn.disabled = true
-      submitBtn.classList.add('is-loading')
-
-      // Collect form data
-      var data = {
-        formType:       'patient_inquiry',
-        firstName:      document.getElementById('firstName').value.trim(),
-        lastName:       document.getElementById('lastName').value.trim(),
-        email:          document.getElementById('email').value.trim(),
-        phone:          document.getElementById('phone').value.trim(),
-        contactPref:    contactPref.value,
-        apptType:       getRadio('apptType'),
-        referralSource: document.getElementById('referralSource').value || '',
-        concerns:       concerns.value.trim(),
-        consent:        'yes',
-        timestamp:      new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
-      }
-
-
-     // Hidden iframe submission — bypasses CORS and referrer issues
-var iframeName = 'submit-frame-' + Date.now()
-var iframe = document.createElement('iframe')
-iframe.name = iframeName
-iframe.style.display = 'none'
-document.body.appendChild(iframe)
-
-var tempForm = document.createElement('form')
-tempForm.method = 'GET'
-tempForm.action = SCRIPT_URL
-tempForm.target = iframeName
-tempForm.style.display = 'none'
-
-Object.keys(data).forEach(function (key) {
-  var input = document.createElement('input')
-  input.type = 'hidden'
-  input.name = key
-  input.value = data[key]
-  tempForm.appendChild(input)
-})
-
-document.body.appendChild(tempForm)
-tempForm.submit()
-
-// Show success after delay (request is sent regardless)
-setTimeout(function () {
-  showSuccess(data)
-  // Cleanup
-  try {
-    document.body.removeChild(tempForm)
-    document.body.removeChild(iframe)
-  } catch (e) {}
-}, 2500)
-
-    /* ═══════════════════════════════════════════════════════
-       SUCCESS HANDLER
-       ═══════════════════════════════════════════════════════ */
-    function showSuccess(data) {
-      // Prevent double-firing
-      if (wrapper.style.display === 'none') return
-
-      // Hide form, show success
-      wrapper.style.display = 'none'
-      successEl.classList.add('is-visible')
-
-      // Generate a client-side reference ID
-      // The real Lead ID is generated server-side in Google Sheets,
-      // but we show a timestamp-based reference for the patient.
-      var ref = 'REQ-' + Date.now().toString(36).toUpperCase()
-      successRef.textContent = 'Ref: ' + ref
-
-      // Scroll to top smoothly
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-
-      // Announce to screen readers
-      if (typeof window.announce === 'function') {
-        window.announce(
-          'Your consultation request has been submitted successfully. ' +
-          'Reference number: ' + ref + '. ' +
-          'Our care coordinator will contact you within one business day.'
-        )
-      }
-
-      // Re-enable button (in case user navigates back)
-      submitBtn.disabled = false
-      submitBtn.classList.remove('is-loading')
-    }
-
-  })()
-  </script>
+})() // ← THIS closes the IIFE
+</script>
 </body>
 </html>
