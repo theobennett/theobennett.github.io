@@ -3089,3 +3089,204 @@ body::after {
     transform: none;
   }
 }
+
+
+/* ════════════════════════════════════════════════════════════
+   VIDEO HERO
+   Full-bleed video background contained within hero section.
+   Header sits on top transparently, goes solid on scroll.
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Video variant — replace gradient with video ── */
+.hero--video {
+  background: var(--ocean-deep);
+}
+
+/* ── Video Container ── */
+.hero__video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero__video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%) scale(1.05);
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* ── Cinematic Overlay — ensures white text is readable ── */
+.hero__video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    /* Bottom fade for wave transition */
+    linear-gradient(
+      to top,
+      rgba(26, 58, 74, 0.95) 0%,
+      rgba(26, 58, 74, 0.4) 15%,
+      transparent 35%
+    ),
+    /* Left side — text readability */
+    linear-gradient(
+      to right,
+      rgba(26, 58, 74, 0.65) 0%,
+      rgba(26, 58, 74, 0.3) 40%,
+      transparent 65%
+    ),
+    /* Top fade — blends into transparent header */
+    linear-gradient(
+      to bottom,
+      rgba(26, 58, 74, 0.45) 0%,
+      transparent 20%
+    ),
+    /* Base color tint for palette unity */
+    linear-gradient(
+      160deg,
+      rgba(26, 58, 74, 0.3) 0%,
+      rgba(42, 107, 124, 0.12) 50%,
+      rgba(61, 90, 62, 0.15) 100%
+    );
+  pointer-events: none;
+}
+
+/* ── Z-index layering ── */
+.hero--video .hero__bg        { z-index: 2; }
+.hero--video .hero__orb       { opacity: 0.15; }
+.hero--video .hero__inner     { z-index: 3; }
+.hero--video .hero__scroll-hint { z-index: 3; }
+
+/* ── Text shadow for extra contrast over video ── */
+.hero--video .hero__title {
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero--video .hero__subtitle {
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hero--video .hero__eyebrow {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Wave at bottom of hero ── */
+.hero__wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.hero__wave svg {
+  display: block;
+  width: 100%;
+  height: clamp(60px, 8vw, 120px);
+}
+
+/* ── White text gradient (for hero over video) ── */
+.text-gradient--white {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(168, 212, 220, 0.9) 40%,
+    rgba(255, 255, 255, 1) 70%,
+    rgba(212, 238, 243, 0.95) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: gradient-drift 8s ease infinite;
+}
+
+/* ── White Primary Button (high contrast over video) ── */
+.btn--white {
+  background: var(--white);
+  color: var(--ocean-deep);
+  border-color: var(--white);
+}
+
+.btn--white:hover {
+  background: var(--ocean-pale);
+  border-color: var(--ocean-pale);
+  color: var(--ocean-deep);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.btn--white::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(168,212,220,0.2) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.btn--white:hover::before {
+  opacity: 1;
+}
+
+/* ── Bright Ghost Button (white border, bright text) ── */
+.btn--ghost-bright {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.btn--ghost-bright:hover {
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ── Poster Fallback (when video can't play) ── */
+.hero--video.hero--no-video {
+  background-image: url('/images/big-sur-poster.jpg');
+  background-size: cover;
+  background-position: center 40%;
+}
+
+.hero--video.hero--no-video .hero__video-wrap {
+  display: none;
+}
+
+/* ── Video paused state ── */
+.hero__video.is-paused {
+  filter: blur(1px);
+}
+
+/* ── Reduced Motion — hide video ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero__video {
+    display: none;
+  }
+  .hero--video {
+    background-image: url('/images/big-sur-poster.jpg');
+    background-size: cover;
+    background-position: center 40%;
+  }
+}
+
+/* ── Print — hide video ── */
+@media print {
+  .hero__video-wrap,
+  .hero__wave {
+    display: none !important;
+  }
+}
