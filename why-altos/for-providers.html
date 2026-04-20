@@ -15,6 +15,23 @@
        FOR PROVIDERS — Page-Specific Styles
        ═══════════════════════════════════════════════════════ */
 
+    /* ── Card Icon Fix — proportional sizing ── */
+    .card__icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .card__icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
     /* ── Submit Button ── */
     .form-submit-btn {
       width: 100%;
@@ -54,7 +71,6 @@
     }
 
     .form-submit-btn:hover::before { opacity: 1; }
-
     .form-submit-btn.is-loading { color: transparent; }
 
     .form-submit-btn.is-loading::after {
@@ -206,50 +222,6 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════
-       WHAT WE DO WELL
-       ══════════════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="grid grid--2col">
-
-        <!-- High-priority -->
-        <div class="reveal">
-          <p class="section__eyebrow">Specialty Strengths</p>
-          <h2 class="section__title">High-priority referrals</h2>
-          <p class="section__body">Cases where our training and infrastructure make the biggest difference.</p>
-          <ul class="checklist mt-md">
-            <li>Treatment-resistant depression (2+ failed adequate trials)</li>
-            <li>Complex or refractory anxiety disorders</li>
-            <li>Medication-related metabolic side effects (board-certified obesity medicine expertise)</li>
-            <li>Diagnostic clarification — mood vs. anxiety vs. ADHD vs. bipolar spectrum</li>
-            <li>PTSD in high-functioning adults</li>
-            <li>Patients needing pharmacogenomic-guided prescribing</li>
-            <li>TMS candidacy evaluation (launching 2026)</li>
-            <li>Spravato / ketamine evaluation for TRD</li>
-          </ul>
-        </div>
-
-        <!-- General -->
-        <div class="reveal" data-reveal-delay="100">
-          <p class="section__eyebrow" style="visibility:hidden;">—</p>
-          <h2 class="section__title">General referrals</h2>
-          <p class="section__body">Bread-and-butter outpatient psychiatry — done thoroughly.</p>
-          <ul class="checklist mt-md">
-            <li>Adult ADHD — diagnosis and management</li>
-            <li>Bipolar spectrum disorders</li>
-            <li>OCD</li>
-            <li>Integrated medication + therapy under one roof</li>
-            <li>Patients needing concierge-level access and availability</li>
-            <li>General adult outpatient psychiatry</li>
-            <li>Second opinions on diagnosis or medication regimen</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════════
        WHAT REFERRING PROVIDERS GET
        ══════════════════════════════════════════════════════ -->
   <section class="section section--sage">
@@ -271,7 +243,7 @@
         </div>
 
         <div class="card reveal" data-reveal-delay="100">
-          <div class="card__icon">
+          <div class="card__icon" style="background:var(--fog);color:var(--ocean);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           </div>
           <h3 class="card__title">Closed-Loop Reports</h3>
@@ -283,7 +255,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
           </div>
           <h3 class="card__title">Direct Access</h3>
-          <p class="card__body">You can reach the treating psychiatrist directly for clinical questions — not through three layers of scheduling staff. Provider-to-provider communication is how care should work.</p>
+          <p class="card__body">Reach the treating psychiatrist directly for clinical questions — not through three layers of scheduling staff. Provider-to-provider communication is how care should work.</p>
         </div>
 
       </div>
@@ -308,7 +280,6 @@
 
   <!-- ══════════════════════════════════════════════════════
        REFERRAL FORM
-       Minimal fields — designed for speed.
        ══════════════════════════════════════════════════════ -->
   <section id="referral-form" class="section">
     <div class="container" style="max-width:740px;">
@@ -342,63 +313,28 @@
                   <label for="providerName" class="form-label">
                     Your Name <span aria-hidden="true" style="color:var(--coral);">*</span>
                   </label>
-                  <input
-                    type="text"
-                    id="providerName"
-                    name="providerName"
-                    class="form-input"
-                    autocomplete="name"
-                    required
-                    aria-required="true"
-                    placeholder="Dr. Jane Smith"
-                  />
-                  <div class="field-error" id="err-providerName" role="alert">
-                    Please enter your name.
-                  </div>
+                  <input type="text" id="providerName" name="providerName" class="form-input" autocomplete="name" required aria-required="true" placeholder="Dr. Jane Smith" />
+                  <div class="field-error" id="err-providerName" role="alert">Please enter your name.</div>
                 </div>
 
                 <div class="form-group">
                   <label for="organization" class="form-label">
                     Organization / Practice <span aria-hidden="true" style="color:var(--coral);">*</span>
                   </label>
-                  <input
-                    type="text"
-                    id="organization"
-                    name="organization"
-                    class="form-input"
-                    required
-                    aria-required="true"
-                    placeholder="Peninsula Medical Group"
-                  />
-                  <div class="field-error" id="err-organization" role="alert">
-                    Please enter your practice name.
-                  </div>
+                  <input type="text" id="organization" name="organization" class="form-input" required aria-required="true" placeholder="Peninsula Medical Group" />
+                  <div class="field-error" id="err-organization" role="alert">Please enter your practice name.</div>
                 </div>
               </div>
 
               <div class="form-row form-row--2col">
                 <div class="form-group">
                   <label for="providerEmail" class="form-label">Your Email</label>
-                  <input
-                    type="email"
-                    id="providerEmail"
-                    name="providerEmail"
-                    class="form-input"
-                    autocomplete="email"
-                    placeholder="you@practice.com"
-                  />
+                  <input type="email" id="providerEmail" name="providerEmail" class="form-input" autocomplete="email" placeholder="you@practice.com" />
                 </div>
 
                 <div class="form-group">
                   <label for="officePhone" class="form-label">Office Phone</label>
-                  <input
-                    type="tel"
-                    id="officePhone"
-                    name="officePhone"
-                    class="form-input"
-                    autocomplete="tel"
-                    placeholder="650-555-0000"
-                  />
+                  <input type="tel" id="officePhone" name="officePhone" class="form-input" autocomplete="tel" placeholder="650-555-0000" />
                 </div>
               </div>
 
@@ -432,60 +368,28 @@
                   <label for="patientFirst" class="form-label">
                     Patient First Name <span aria-hidden="true" style="color:var(--coral);">*</span>
                   </label>
-                  <input
-                    type="text"
-                    id="patientFirst"
-                    name="patientFirst"
-                    class="form-input"
-                    required
-                    aria-required="true"
-                    placeholder="First name"
-                  />
-                  <div class="field-error" id="err-patientFirst" role="alert">
-                    Please enter the patient's first name.
-                  </div>
+                  <input type="text" id="patientFirst" name="patientFirst" class="form-input" required aria-required="true" placeholder="First name" />
+                  <div class="field-error" id="err-patientFirst" role="alert">Please enter the patient's first name.</div>
                 </div>
 
                 <div class="form-group">
                   <label for="patientLast" class="form-label">
                     Patient Last Name <span aria-hidden="true" style="color:var(--coral);">*</span>
                   </label>
-                  <input
-                    type="text"
-                    id="patientLast"
-                    name="patientLast"
-                    class="form-input"
-                    required
-                    aria-required="true"
-                    placeholder="Last name"
-                  />
-                  <div class="field-error" id="err-patientLast" role="alert">
-                    Please enter the patient's last name.
-                  </div>
+                  <input type="text" id="patientLast" name="patientLast" class="form-input" required aria-required="true" placeholder="Last name" />
+                  <div class="field-error" id="err-patientLast" role="alert">Please enter the patient's last name.</div>
                 </div>
               </div>
 
               <div class="form-row form-row--2col">
                 <div class="form-group">
                   <label for="patientPhone" class="form-label">Patient Phone</label>
-                  <input
-                    type="tel"
-                    id="patientPhone"
-                    name="patientPhone"
-                    class="form-input"
-                    placeholder="650-555-0000"
-                  />
+                  <input type="tel" id="patientPhone" name="patientPhone" class="form-input" placeholder="650-555-0000" />
                 </div>
 
                 <div class="form-group">
                   <label for="patientEmail" class="form-label">Patient Email</label>
-                  <input
-                    type="email"
-                    id="patientEmail"
-                    name="patientEmail"
-                    class="form-input"
-                    placeholder="patient@email.com"
-                  />
+                  <input type="email" id="patientEmail" name="patientEmail" class="form-input" placeholder="patient@email.com" />
                 </div>
               </div>
 
@@ -503,13 +407,7 @@
                 <label for="referralContext" class="form-label">
                   Brief context <span style="font-weight:400;text-transform:none;letter-spacing:0;">(reason for referral — keep general)</span>
                 </label>
-                <textarea
-                  id="referralContext"
-                  name="referralContext"
-                  class="form-textarea"
-                  rows="4"
-                  placeholder="E.g. — Patient has not responded to two SSRI trials. Looking for TRD evaluation and possible TMS candidacy."
-                ></textarea>
+                <textarea id="referralContext" name="referralContext" class="form-textarea" rows="4" placeholder="E.g. — Patient has not responded to two SSRI trials. Looking for TRD evaluation and possible TMS candidacy."></textarea>
                 <p class="form-hint">Do not include diagnosis codes, medication names, or other PHI in this field. Use secure fax for clinical details.</p>
               </div>
             </fieldset>
@@ -671,16 +569,14 @@
 <script src="/js/main.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════
-     FORM LOGIC
-     Validation + Image-Ping Submission to Google Apps Script
-     Minimal required fields for provider speed.
+     FORM LOGIC — fetch POST (no-cors)
+     Same pattern as the working new patient form
      ═══════════════════════════════════════════════════════ -->
 <script>
 ;(function () {
   'use strict'
 
   /* ═══ Configuration ═══ */
-  // USE THE SAME URL THAT WORKS FOR YOUR NEW PATIENT FORM
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyK3HYjwRq4lw-pmTqSqGdhOJUlOOXUDDhtob3Ybc27YPTAAXtktiZuV72YdOimn36F/exec'
 
   /* ═══ DOM References ═══ */
@@ -807,7 +703,6 @@
       timestamp:       new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
     }
 
-    // POST to Google Apps Script via fetch no-cors
     fetch(SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
