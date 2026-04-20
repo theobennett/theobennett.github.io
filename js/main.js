@@ -1314,6 +1314,102 @@
     },
   }
 
+   /* ══════════════════════════════════════════════════════════
+     16b. VIDEO HERO
+     Play/pause based on visibility, poster fallback if
+     video fails, performance-conscious behavior.
+     ══════════════════════════════════════════════════════════ */
+
+  var VideoHero = {
+    video: null,
+    hero: null,
+    observer: null,
+
+    init: function () {
+      this.hero = $('.hero--video')
+      if (!this.hero) return
+
+      this.video = $('.hero__video', this.hero)
+      if (!this.video) return
+
+      this._bindEvents()
+      this._initVisibilityObserver()
+    },
+
+    _bindEvents: function () {
+      var self = this
+      var video = this.video
+      var hero = this.hero
+
+      // If video fails, fall back to poster
+      video.addEventListener('error', function () {
+        hero.classList.add('hero--no-video')
+      })
+
+      var source = $('source', video)
+      if (source) {
+        source.addEventListener('error', function () {
+          hero.classList.add('hero--no-video')
+        })
+      }
+
+      // Handle autoplay restrictions
+      var playPromise = video.play()
+      if (playPromise !== undefined) {
+        playPromise.catch(function () {
+          hero.classList.add('hero--no-video')
+        })
+      }
+
+      // Pause when tab is hidden
+      document.addEventListener('visibilitychange', function () {
+        if (!self.video) return
+        if (document.hidden) {
+          self._pause()
+        } else {
+          self._play()
+        }
+      })
+    },
+
+    _initVisibilityObserver: function () {
+      if (!('IntersectionObserver' in window)) return
+
+      var self = this
+      this.observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              self._play()
+            } else {
+              self._pause()
+            }
+          })
+        },
+        { threshold: 0.1 }
+      )
+      this.observer.observe(this.hero)
+    },
+
+    _play: function () {
+      if (!this.video || this.hero.classList.contains('hero--no-video')) return
+      try {
+        var p = this.video.play()
+        if (p) p.catch(function () {})
+        this.video.classList.remove('is-paused')
+      } catch (e) {}
+    },
+
+    _pause: function () {
+      if (!this.video) return
+      try {
+        this.video.pause()
+        this.video.classList.add('is-paused')
+      } catch (e) {}
+    },
+  }
+
+
   /* ══════════════════════════════════════════════════════════
      17. INITIALIZATION
      Orchestrates all modules in the correct order.
