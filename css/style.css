@@ -3154,3 +3154,21 @@ body::after {
   background: var(--sand-light);
   transform: scale(1.06);
 }
+
+
+/* ── Flowing White Gradient for "evidence" ── */
+.text-gradient--white {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(168, 212, 220, 0.85) 25%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(143, 181, 143, 0.8) 75%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 300% 300%;
+  animation: gradient-drift 8s ease infinite;
+}
