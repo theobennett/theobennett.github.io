@@ -302,24 +302,6 @@
         this.isSolid = shouldBeSolid
       }
 
-      // Hide/show on scroll direction
-      if (y > this.hideThreshold && direction === 'down' && delta > 8) {
-        if (!this.isHidden && !MobileNav.isOpen) {
-          this.el.classList.add('site-header--hidden')
-          this.isHidden = true
-        }
-      } else if (direction === 'up' && delta > 4) {
-        if (this.isHidden) {
-          this.el.classList.remove('site-header--hidden')
-          this.isHidden = false
-        }
-      }
-
-      // Always show at top
-      if (y <= 10) {
-        this.el.classList.remove('site-header--hidden')
-        this.isHidden = false
-      }
 
       this.lastY = y
     },
