@@ -33,15 +33,30 @@
   <main id="main-content">
 
     <!-- ═══════════════════════════════════════════════════════
-         HERO
+         HERO — Big Sur Video Background
          ═══════════════════════════════════════════════════════ -->
-    <section class="hero" aria-labelledby="hero-title">
+    <section class="hero hero--video" aria-labelledby="hero-title">
 
-      <!-- Animated Background Orbs -->
+      <!-- Video Background -->
+      <div class="hero__video-wrap" aria-hidden="true">
+        <video
+          class="hero__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster="/images/big-sur-poster.jpg"
+        >
+          <source src="/videos/big_sur_video.mp4" type="video/mp4" />
+        </video>
+        <div class="hero__video-overlay"></div>
+      </div>
+
+      <!-- Ambient Orbs (layered over video for depth) -->
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__orb hero__orb--1" data-parallax="0.08"></div>
         <div class="hero__orb hero__orb--2" data-parallax="0.12"></div>
-        <div class="hero__orb hero__orb--3" data-parallax="0.06"></div>
       </div>
 
       <div class="container">
@@ -62,7 +77,7 @@
             </p>
 
             <div class="hero__cta-group">
-              <a href="/get-started.html" class="btn btn--primary btn--lg btn--magnetic" data-magnetic="0.25">
+              <a href="/intake.html" class="btn btn--primary btn--lg btn--magnetic" data-magnetic="0.25">
                 Request a Consultation
                 <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
@@ -79,6 +94,13 @@
       <div class="hero__scroll-hint" aria-hidden="true">
         <span class="hero__scroll-text">Scroll</span>
         <div class="hero__scroll-line"></div>
+      </div>
+
+      <!-- Wave Transition to Trust Bar -->
+      <div class="hero__wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,64 C360,120 720,0 1080,64 C1260,96 1380,80 1440,72 L1440,120 L0,120 Z" fill="var(--white)"/>
+        </svg>
       </div>
 
     </section>
@@ -144,7 +166,7 @@
                 disconnected providers.
               </p>
             </div>
-            <div class="cta-group" style="margin-top:var(--space-md);">
+            <div class="cta-group mt-md">
               <a href="/why-altos/about-us.html" class="btn btn--secondary">
                 Our Story
                 <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -159,10 +181,10 @@
           <!-- Image Column -->
           <div class="reveal reveal--right" data-reveal-delay="200">
             <div class="image-frame">
-              <img 
-                src="/images/clinic-room.jpg" 
+              <img
+                src="/images/clinic-room.jpg"
                 alt="Warm, modern consultation room at Altos Psychiatry with natural light and coastal-inspired decor"
-                width="600" 
+                width="600"
                 height="480"
                 loading="lazy"
               />
@@ -171,6 +193,15 @@
 
         </div>
       </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         NATURE INTERLUDE — Landscape Strip
+         A cinematic breathing moment between content sections.
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section section--nature-strip" aria-hidden="true">
+      <div class="nature-strip__overlay"></div>
     </section>
 
 
@@ -205,7 +236,7 @@
           <span class="tag">Chronic Pain &amp; Psychiatry</span>
         </div>
 
-        <div class="text-center reveal" data-reveal-delay="200" style="margin-top:var(--space-lg);">
+        <div class="text-center reveal mt-lg">
           <a href="/conditions/what-we-treat.html" class="btn btn--secondary">
             Learn More About What We Treat
             <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -245,7 +276,7 @@
               and — when indicated — pharmacogenomic testing. Longer appointments so we
               actually have time to get it right.
             </p>
-            <a href="/services/medication-management.html" class="btn btn--secondary btn--sm" style="margin-top:auto;">
+            <a href="/services/medication-management.html" class="btn btn--secondary btn--sm mt-auto">
               Learn More
               <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
             </a>
@@ -263,7 +294,7 @@
               integrated with medication management for a more complete approach. One
               practice, one team, one record.
             </p>
-            <a href="/services/psychotherapy.html" class="btn btn--secondary btn--sm" style="margin-top:auto;">
+            <a href="/services/psychotherapy.html" class="btn btn--secondary btn--sm mt-auto">
               Learn More
               <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
             </a>
@@ -281,7 +312,7 @@
               Non-invasive, no anesthesia, performed in-office with sessions lasting
               under 20 minutes.
             </p>
-            <span class="badge badge--ocean" style="margin-top:auto;">Coming 2026</span>
+            <span class="badge badge--ocean mt-auto">Coming 2026</span>
           </div>
 
           <div class="card card--sage">
@@ -296,12 +327,12 @@
               therapy for treatment-resistant conditions. We are building the clinical
               infrastructure to offer these modalities responsibly.
             </p>
-            <span class="badge badge--sage" style="margin-top:auto;">Future</span>
+            <span class="badge badge--sage mt-auto">Future</span>
           </div>
 
         </div>
 
-        <div class="text-center reveal" style="margin-top:var(--space-lg);">
+        <div class="text-center reveal mt-lg">
           <a href="/services.html" class="btn btn--outline">
             View All Services
             <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -309,7 +340,6 @@
         </div>
       </div>
     </section>
-
 
 
     <!-- ═══════════════════════════════════════════════════════
@@ -324,7 +354,7 @@
             From first contact to feeling better.
           </h2>
           <p class="section__subtitle">
-            We've designed our intake process to be as straightforward as possible, 
+            We've designed our intake process to be as straightforward as possible,
             so you can focus on what matters — getting the help you need.
           </p>
         </div>
@@ -335,7 +365,7 @@
             <span class="step__number">01</span>
             <h3 class="step__title">Reach Out</h3>
             <p class="step__body">
-              Submit a consultation request through our website or call our office. 
+              Submit a consultation request through our website or call our office.
               Our care coordinator responds within one business day.
             </p>
           </div>
@@ -344,7 +374,7 @@
             <span class="step__number">02</span>
             <h3 class="step__title">Initial Evaluation</h3>
             <p class="step__body">
-              A comprehensive 60-minute psychiatric evaluation to understand your history, 
+              A comprehensive 60-minute psychiatric evaluation to understand your history,
               symptoms, goals, and develop a personalized treatment plan.
             </p>
           </div>
@@ -353,7 +383,7 @@
             <span class="step__number">03</span>
             <h3 class="step__title">Begin Treatment</h3>
             <p class="step__body">
-              Start your treatment plan — whether that's medication, TMS, ketamine, therapy, 
+              Start your treatment plan — whether that's medication, TMS, ketamine, therapy,
               or a combination. We monitor closely and adjust as needed.
             </p>
           </div>
@@ -362,7 +392,7 @@
             <span class="step__number">04</span>
             <h3 class="step__title">Ongoing Partnership</h3>
             <p class="step__body">
-              Regular follow-ups to track your progress with validated outcome measures, 
+              Regular follow-ups to track your progress with validated outcome measures,
               refine your treatment, and support your long-term wellbeing.
             </p>
           </div>
@@ -370,7 +400,7 @@
         </div>
 
         <div class="text-center mt-lg reveal">
-          <a href="/get-started.html" class="btn btn--primary btn--magnetic" data-magnetic="0.2">
+          <a href="/intake.html" class="btn btn--primary btn--magnetic" data-magnetic="0.2">
             Start with Step 1
             <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -383,7 +413,7 @@
     <!-- ═══════════════════════════════════════════════════════
          OUTCOMES / EVIDENCE
          ═══════════════════════════════════════════════════════ -->
-    <section class="section section--ocean" id="outcomes" aria-labelledby="outcomes-title">
+    <section class="section section--ocean section--wave-top" id="outcomes" aria-labelledby="outcomes-title">
       <div class="container">
         <div class="grid grid--2col grid--align-center">
 
@@ -421,9 +451,9 @@
               <li class="checklist__item">Personalized treatment goals with milestone tracking</li>
             </ul>
 
-            <p class="section__body" style="margin-top: 1.25rem;">
-              Our TMS program has demonstrated a <strong style="color: var(--white);">68% response rate</strong> and 
-              <strong style="color: var(--white);">45% remission rate</strong> — consistent with published 
+            <p class="section__body mt-md">
+              Our TMS program has demonstrated a <strong class="text-white">68% response rate</strong> and
+              <strong class="text-white">45% remission rate</strong> — consistent with published
               clinical trial data.
             </p>
           </div>
@@ -440,9 +470,9 @@
       <div class="container">
         <div class="testimonial reveal">
           <p class="testimonial__text">
-            After years of trying different medications with other providers, I finally found 
-            someone who <em>actually listened</em> and took a systematic approach. The combination 
-            of TMS and careful medication adjustment changed my life. I wish I'd found this 
+            After years of trying different medications with other providers, I finally found
+            someone who <em>actually listened</em> and took a systematic approach. The combination
+            of TMS and careful medication adjustment changed my life. I wish I'd found this
             practice sooner.
           </p>
           <p class="testimonial__attribution">
@@ -453,7 +483,59 @@
     </section>
 
 
-  
+    <!-- ═══════════════════════════════════════════════════════
+         INSURANCE & PAYMENT
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section" id="insurance" aria-labelledby="insurance-title">
+      <div class="container container--narrow">
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Insurance &amp; Payment</p>
+          <h2 id="insurance-title" class="section__title">
+            Transparent pricing,<br />no surprises.
+          </h2>
+          <p class="section__subtitle">
+            We accept select insurance plans and offer competitive self-pay rates.
+            Our team verifies your benefits before your first visit so you know exactly
+            what to expect.
+          </p>
+        </div>
+
+        <div class="grid grid--2col reveal" data-reveal-delay="100">
+          <div class="card">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">In-Network Insurance</h3>
+            <p class="card__body">
+              We are in-network with Aetna, Anthem Blue Cross, Blue Shield of California,
+              Cigna, and United Healthcare. We verify your benefits before your first visit.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card__icon card__icon--sand">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Self-Pay &amp; Superbills</h3>
+            <p class="card__body">
+              Competitive self-pay rates with transparent pricing. We provide superbills
+              for out-of-network reimbursement. No hidden fees, no surprises.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-center reveal mt-lg">
+          <a href="/resources/insurance-and-fees.html" class="btn btn--secondary">
+            View Full Fee Schedule &amp; Insurance Details
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
 
 
     <!-- ═══════════════════════════════════════════════════════
@@ -478,7 +560,7 @@
             </button>
             <div class="accordion__content">
               <div class="accordion__body">
-                <p>Yes. We are currently accepting new adult patients (18+) for medication management and psychotherapy. To get started, <a href="/get-started.html" style="color:var(--ocean);text-decoration:underline;">submit a consultation request</a> and our care coordinator will follow up within one business day.</p>
+                <p>Yes. We are currently accepting new adult patients (18+) for medication management and psychotherapy. To get started, <a href="/intake.html">submit a consultation request</a> and our care coordinator will follow up within one business day.</p>
               </div>
             </div>
           </div>
@@ -514,7 +596,7 @@
             </button>
             <div class="accordion__content">
               <div class="accordion__body">
-                <p>No. As a private-pay practice, we do not bill through employer-sponsored insurance, so no explanation of benefits is ever sent. All records are maintained under strict HIPAA protections and are never shared without your explicit written consent.</p>
+                <p>No. If you choose self-pay, no explanation of benefits is ever sent. All records are maintained under strict HIPAA protections and are never shared without your explicit written consent.</p>
               </div>
             </div>
           </div>
@@ -533,7 +615,7 @@
 
         </div>
 
-        <div class="text-center reveal" style="margin-top:var(--space-lg);">
+        <div class="text-center reveal mt-lg">
           <a href="/resources/faq.html" class="btn btn--secondary">
             View All FAQs
             <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -547,19 +629,19 @@
     <!-- ═══════════════════════════════════════════════════════
          FINAL CTA
          ═══════════════════════════════════════════════════════ -->
-    <section class="section section--cta" aria-label="Schedule a consultation">
-      <div class="container" style="max-width: 720px;">
+    <section class="section section--cta section--wave-top-fog" aria-label="Schedule a consultation">
+      <div class="container container--narrow">
         <div class="text-center reveal">
           <p class="section__eyebrow">Ready to Begin?</p>
           <h2 class="section__title">
             Your path to feeling better<br />starts with a single step.
           </h2>
-          <p class="section__subtitle mx-auto" style="margin-bottom: var(--space-lg);">
-            Request a consultation today. Our care coordinator will reach out within one 
+          <p class="section__subtitle mx-auto mb-lg">
+            Request a consultation today. Our care coordinator will reach out within one
             business day to answer your questions and schedule your first appointment.
           </p>
-          <div class="cta-group" style="justify-content: center;">
-            <a href="/get-started.html" class="btn btn--primary btn--lg btn--magnetic" data-magnetic="0.2">
+          <div class="cta-group justify-center">
+            <a href="/intake.html" class="btn btn--primary btn--lg btn--magnetic" data-magnetic="0.2">
               Request a Consultation
               <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
@@ -568,8 +650,8 @@
             </a>
           </div>
           <p class="crisis-notice">
-            <strong>Crisis?</strong> If you are in immediate danger, call or text 
-            <strong>988</strong> (Suicide &amp; Crisis Lifeline) or go to your nearest 
+            <strong>Crisis?</strong> If you are in immediate danger, call or text
+            <strong>988</strong> (Suicide &amp; Crisis Lifeline) or go to your nearest
             emergency room. Do not use this form for emergencies.
           </p>
         </div>
