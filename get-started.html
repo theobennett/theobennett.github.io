@@ -937,34 +937,40 @@
         timestamp:      new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
       }
 
-      // Build URL-encoded query string
-      var params = Object.keys(data).map(function (key) {
-        return encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
-      }).join('&')
 
-      // Create image ping
-      var img = new Image()
-      var timeout
+     // Hidden iframe submission — bypasses CORS and referrer issues
+var iframeName = 'submit-frame-' + Date.now()
+var iframe = document.createElement('iframe')
+iframe.name = iframeName
+iframe.style.display = 'none'
+document.body.appendChild(iframe)
 
-      // Both onload and onerror mean the request reached the server.
-      // Google Apps Script doGet returns ContentService output or a
-      // redirect, either of which may trigger onerror for an Image
-      // element — but the data is still processed. This is by design.
-      img.onload = img.onerror = function () {
-        clearTimeout(timeout)
-        showSuccess(data)
-      }
+var tempForm = document.createElement('form')
+tempForm.method = 'GET'
+tempForm.action = SCRIPT_URL
+tempForm.target = iframeName
+tempForm.style.display = 'none'
 
-      // Safety timeout: if the server is slow or unresponsive, don't
-      // leave the user staring at a spinner forever. Show success
-      // after 6 seconds regardless — the data was likely received.
-      timeout = setTimeout(function () {
-        showSuccess(data)
-      }, 6000)
+Object.keys(data).forEach(function (key) {
+  var input = document.createElement('input')
+  input.type = 'hidden'
+  input.name = key
+  input.value = data[key]
+  tempForm.appendChild(input)
+})
 
-      // Fire the request
-      img.src = SCRIPT_URL + '?' + params
-    })
+document.body.appendChild(tempForm)
+tempForm.submit()
+
+// Show success after delay (request is sent regardless)
+setTimeout(function () {
+  showSuccess(data)
+  // Cleanup
+  try {
+    document.body.removeChild(tempForm)
+    document.body.removeChild(iframe)
+  } catch (e) {}
+}, 2500)
 
     /* ═══════════════════════════════════════════════════════
        SUCCESS HANDLER
