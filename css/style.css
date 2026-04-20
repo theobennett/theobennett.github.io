@@ -1576,7 +1576,7 @@ strong, b {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ocean-mist);
+  color: var(--ghost-bright);
   margin-bottom: var(--space-sm);
   display: inline-flex;
   align-items: center;
@@ -1587,7 +1587,7 @@ strong, b {
   content: '';
   width: 24px;
   height: 1.5px;
-  background: var(--ocean-mist);
+  background: var(--ghost-bright);
 }
 
 .hero__title {
