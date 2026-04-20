@@ -680,7 +680,8 @@
   'use strict'
 
   /* ═══ Configuration ═══ */
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCQQpkynE59YaVKwucyNGjuhqL4Vr2YHIW2R8cjI4EV7P0JEUW4KuBzl85rme6S4Gm/exec'
+  // USE THE SAME URL THAT WORKS FOR YOUR NEW PATIENT FORM
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyK3HYjwRq4lw-pmTqSqGdhOJUlOOXUDDhtob3Ybc27YPTAAXtktiZuV72YdOimn36F/exec'
 
   /* ═══ DOM References ═══ */
   var form        = document.getElementById('referral-form-el')
@@ -695,9 +696,7 @@
   /* ═══ Required fields — only 4 ═══ */
   var requiredFields = ['providerName', 'organization', 'patientFirst', 'patientLast']
 
-  /* ═══════════════════════════════════════════════════════
-     VALIDATION HELPERS
-     ═══════════════════════════════════════════════════════ */
+  /* ═══ VALIDATION HELPERS ═══ */
 
   function markField(el, isError) {
     if (!el) return
@@ -715,13 +714,7 @@
     if (err) err.style.display = show ? 'block' : 'none'
   }
 
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  }
-
-  /* ═══════════════════════════════════════════════════════
-     REAL-TIME VALIDATION
-     ═══════════════════════════════════════════════════════ */
+  /* ═══ REAL-TIME VALIDATION ═══ */
 
   requiredFields.forEach(function (id) {
     var el = document.getElementById(id)
@@ -752,9 +745,7 @@
   if (officePhone)  officePhone.addEventListener('input', formatPhone)
   if (patientPhone) patientPhone.addEventListener('input', formatPhone)
 
-  /* ═══════════════════════════════════════════════════════
-     FULL VALIDATION
-     ═══════════════════════════════════════════════════════ */
+  /* ═══ FULL VALIDATION ═══ */
   function validate() {
     var ok = true
 
@@ -769,9 +760,23 @@
     return ok
   }
 
-  /* ═══════════════════════════════════════════════════════
-     FORM SUBMISSION — Image-Ping GET
-     ═══════════════════════════════════════════════════════ */
+  /* ═══ SUCCESS HANDLER ═══ */
+  function showSuccess() {
+    if (wrapper.style.display === 'none') return
+
+    wrapper.style.display = 'none'
+    successEl.classList.add('is-visible')
+
+    var ref = 'REF-' + Date.now().toString(36).toUpperCase()
+    successRef.textContent = 'Ref: ' + ref
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    submitBtn.disabled = false
+    submitBtn.classList.remove('is-loading')
+  }
+
+  /* ═══ FORM SUBMISSION — fetch POST (no-cors) ═══ */
   form.addEventListener('submit', function (e) {
     e.preventDefault()
     errorBanner.style.display = 'none'
@@ -802,49 +807,22 @@
       timestamp:       new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
     }
 
-    var params = Object.keys(data).map(function (key) {
-      return encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
-    }).join('&')
-
-    var img = new Image()
-    var timeout
-
-    img.onload = img.onerror = function () {
-      clearTimeout(timeout)
+    // POST to Google Apps Script via fetch no-cors
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(data),
+      redirect: 'follow'
+    })
+    .then(function () {
       showSuccess()
-    }
-
-    timeout = setTimeout(function () {
+    })
+    .catch(function () {
       showSuccess()
-    }, 6000)
+    })
 
-    img.src = SCRIPT_URL + '?' + params
   })
-
-  /* ═══════════════════════════════════════════════════════
-     SUCCESS HANDLER
-     ═══════════════════════════════════════════════════════ */
-  function showSuccess() {
-    if (wrapper.style.display === 'none') return
-
-    wrapper.style.display = 'none'
-    successEl.classList.add('is-visible')
-
-    var ref = 'REF-' + Date.now().toString(36).toUpperCase()
-    successRef.textContent = 'Ref: ' + ref
-
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-
-    if (typeof window.announce === 'function') {
-      window.announce(
-        'Your referral has been submitted successfully. Reference number: ' + ref +
-        '. Our care coordinator will contact you within one business day.'
-      )
-    }
-
-    submitBtn.disabled = false
-    submitBtn.classList.remove('is-loading')
-  }
 
 })()
 </script>
