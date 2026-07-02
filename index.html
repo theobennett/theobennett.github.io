@@ -46,7 +46,7 @@
           loop
           playsinline
           preload="auto"
-          poster="/images/hero-poster.jpg"
+          poster="/images/hero-poster.jpeg"
         >
           <source src="/media/big_sur_video.mp4" type="video/mp4" />
         </video>
@@ -75,6 +75,16 @@
               Expert medication management, TMS, ketamine therapy, and psychotherapy
               for adults navigating depression, anxiety, PTSD, and beyond.
             </p>
+
+            <div class="hero__cta-group">
+              <a href="/get-started.html" class="btn btn--primary btn--lg btn--magnetic" data-magnetic="0.2">
+                Request a Consultation
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="/services.html" class="btn btn--ghost btn--lg">
+                Explore Our Care
+              </a>
+            </div>
 
           </div>
         </div>
@@ -474,6 +484,81 @@
 
 
     <!-- ═══════════════════════════════════════════════════════
+         ROOTED IN NATURE — Coastal Gallery
+         Mosaic of California coast imagery. Placeholder tiles
+         are marked with dashed borders — swap each
+         .media-placeholder for a real <img> or <video> and the
+         layout stays identical.
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Rooted in Nature</p>
+          <h2 id="gallery-title" class="section__title">
+            Care inspired by the<br />California coast.
+          </h2>
+          <p class="section__subtitle">
+            Our practice draws on the calm of the Pacific — unhurried appointments,
+            a restorative environment, and treatment that respects your natural rhythms.
+          </p>
+        </div>
+
+        <div class="gallery-mosaic reveal">
+
+          <!-- LIVE VIDEO TILE — ambient Big Sur loop -->
+          <div class="gallery-mosaic__item gallery-mosaic__item--big">
+            <video autoplay muted loop playsinline preload="metadata" poster="/images/hero-poster.jpeg" aria-hidden="true">
+              <source src="/media/big_sur_2.mp4" type="video/mp4" />
+            </video>
+            <div class="gallery-mosaic__caption">Big Sur Coastline</div>
+          </div>
+
+          <!-- REAL PHOTO -->
+          <div class="gallery-mosaic__item">
+            <img src="/images/clinic-room.jpg" alt="Consultation room at Altos Psychiatry filled with natural light" loading="lazy" />
+            <div class="gallery-mosaic__caption">Our Menlo Park Office</div>
+          </div>
+
+          <!-- PLACEHOLDER — swap for a real photo -->
+          <div class="gallery-mosaic__item">
+            <div class="media-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+              <span class="media-placeholder__label">Photo — Coastal Fog at Dawn</span>
+            </div>
+          </div>
+
+          <!-- PLACEHOLDER — swap for a real photo -->
+          <div class="gallery-mosaic__item gallery-mosaic__item--wide">
+            <div class="media-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+              <span class="media-placeholder__label">Photo — McWay Falls, Big Sur</span>
+            </div>
+          </div>
+
+          <!-- PLACEHOLDER — swap for a short video loop -->
+          <div class="gallery-mosaic__item">
+            <div class="media-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 010 1.972l-11.54 6.347a1.125 1.125 0 01-1.667-.986V5.653z"/></svg>
+              <span class="media-placeholder__label">Video — Waves at Pfeiffer Beach</span>
+            </div>
+          </div>
+
+          <!-- PLACEHOLDER — swap for a real photo -->
+          <div class="gallery-mosaic__item">
+            <div class="media-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
+              <span class="media-placeholder__label">Photo — Redwoods, Santa Cruz Mtns</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
          INSURANCE & PAYMENT
          ═══════════════════════════════════════════════════════ -->
     <section class="section" id="insurance" aria-labelledby="insurance-title">
@@ -519,7 +604,7 @@
         </div>
 
         <div class="text-center reveal mt-lg">
-          <a href="/resources/insurance-and-fees.html" class="btn btn--secondary">
+          <a href="/why-altos/for-patients.html" class="btn btn--secondary">
             View Full Fee Schedule &amp; Insurance Details
             <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
