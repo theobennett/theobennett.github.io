@@ -3446,3 +3446,95 @@ body::after {
   margin-top: 10px;
   text-align: center;
 }
+
+
+/* ════════════════════════════════════════════════════════════
+   33. HERO NOTES BANNER
+   Frosted-glass reassurance strip anchored to the bottom of
+   the video hero (Same-Week Availability · 60-Minute
+   Evaluations · In-Person & Telehealth).
+   ════════════════════════════════════════════════════════════ */
+.hero__notes {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(10, 26, 33, 0.25);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.hero__notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 20px 0;
+}
+
+.hero__note {
+  text-align: center;
+  font-size: clamp(0.68rem, 0.62rem + 0.3vw, 0.82rem);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.hero__note + .hero__note {
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   34. INTERLUDE
+   Quiet ambient coast video moment with an italic line.
+   ════════════════════════════════════════════════════════════ */
+.interlude {
+  position: relative;
+  height: clamp(300px, 46vw, 520px);
+  overflow: hidden;
+  background:
+    url('/images/hero-poster.jpeg') center / cover no-repeat,
+    var(--ocean-deep);
+}
+
+.interlude video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.interlude__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 26, 33, 0.32);
+}
+
+.interlude__line {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.interlude__line p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.35rem, 1.05rem + 1.8vw, 2.3rem);
+  color: rgba(255, 255, 255, 0.92);
+  text-align: center;
+  max-width: 640px;
+  line-height: 1.4;
+  margin: 0;
+  text-shadow: 0 2px 24px rgba(10, 26, 33, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interlude video { display: none; }
+}
