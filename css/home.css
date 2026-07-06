@@ -352,6 +352,11 @@ em.accent {
 .nav__burger.is-open span:nth-child(2) { opacity: 0; }
 .nav__burger.is-open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
+/* Hide burger on desktop (must come after the base .nav__burger rule) */
+@media (min-width: 880px) {
+  .nav__burger { display: none; }
+}
+
 /* Mobile overlay */
 .mobile-menu {
   position: fixed;
