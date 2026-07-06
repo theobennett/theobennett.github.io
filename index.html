@@ -90,52 +90,18 @@
         </div>
       </div>
 
-      <!-- Scroll Indicator -->
-      <div class="hero__scroll-hint" aria-hidden="true">
-        <span class="hero__scroll-text">Scroll</span>
-        <div class="hero__scroll-line"></div>
-      </div>
-
-      <!-- Wave Transition -->
-      <div class="hero__wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,64 C360,120 720,0 1080,64 C1260,96 1380,80 1440,72 L1440,120 L0,120 Z" fill="var(--white)"/>
-        </svg>
+      <!-- Frosted reassurance banner (anchored to hero bottom) -->
+      <div class="hero__notes" aria-label="Practice highlights">
+        <div class="container">
+          <div class="hero__notes-grid">
+            <span class="hero__note">Same-Week Availability</span>
+            <span class="hero__note">60-Minute Evaluations</span>
+            <span class="hero__note">In-Person &amp; Telehealth</span>
+          </div>
+        </div>
       </div>
 
     </section>
-
-
-    <!-- ═══════════════════════════════════════════════════════
-         TRUST BAR
-         ═══════════════════════════════════════════════════════ -->
-    <div class="trust-bar">
-      <div class="container">
-        <div class="trust-bar__grid">
-
-          <div class="trust-bar__item reveal" data-reveal-delay="0">
-            <span class="trust-bar__number">Expert</span>
-            <span class="trust-bar__label">Trained</span>
-          </div>
-
-          <div class="trust-bar__item reveal" data-reveal-delay="100">
-            <span class="trust-bar__number">Smaller Panels</span>
-            <span class="trust-bar__label">By Design</span>
-          </div>
-
-          <div class="trust-bar__item reveal" data-reveal-delay="200">
-            <span class="trust-bar__number">CA Statewide</span>
-            <span class="trust-bar__label">Telehealth</span>
-          </div>
-
-          <div class="trust-bar__item reveal" data-reveal-delay="300">
-            <span class="trust-bar__number">Same Week</span>
-            <span class="trust-bar__label">Availability</span>
-          </div>
-
-        </div>
-      </div>
-    </div>
 
 
     <!-- ═══════════════════════════════════════════════════════
@@ -411,59 +377,6 @@
 
 
     <!-- ═══════════════════════════════════════════════════════
-         OUTCOMES / EVIDENCE
-         ═══════════════════════════════════════════════════════ -->
-    <section class="section section--ocean section--wave-top" id="outcomes" aria-labelledby="outcomes-title">
-      <div class="container">
-        <div class="grid grid--2col grid--align-center">
-
-          <!-- Image -->
-          <div class="reveal reveal--left">
-            <div class="image-frame">
-              <img
-                src="/images/about-hero.jpg"
-                alt="TMS treatment device in a comfortable clinical setting at Altos Psychiatry"
-                width="580"
-                height="440"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <!-- Text -->
-          <div class="section__text reveal" data-reveal-delay="150">
-            <p class="section__eyebrow">Evidence-Based Outcomes</p>
-            <h2 id="outcomes-title" class="section__title">
-              We measure what matters.
-            </h2>
-            <p class="section__body">
-              Every patient's progress is tracked with validated clinical instruments — not guesswork.
-              We use standardized outcome measures at every visit so both you and your provider
-              can see, in data, whether treatment is working.
-            </p>
-
-            <ul class="checklist">
-              <li class="checklist__item">PHQ-9 for depression severity</li>
-              <li class="checklist__item">GAD-7 for generalized anxiety</li>
-              <li class="checklist__item">PCL-5 for PTSD symptom tracking</li>
-              <li class="checklist__item">Adult ADHD Self-Report Scale</li>
-              <li class="checklist__item">Columbia Suicide Severity Rating Scale</li>
-              <li class="checklist__item">Personalized treatment goals with milestone tracking</li>
-            </ul>
-
-            <p class="section__body mt-md">
-              Our TMS program has demonstrated a <strong class="text-white">68% response rate</strong> and
-              <strong class="text-white">45% remission rate</strong> — consistent with published
-              clinical trial data.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ═══════════════════════════════════════════════════════
          TESTIMONIAL
          ═══════════════════════════════════════════════════════ -->
     <section class="section section--sand" aria-label="Patient testimonial">
@@ -478,136 +391,6 @@
           <p class="testimonial__attribution">
             — Patient, treated for treatment-resistant depression
           </p>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ═══════════════════════════════════════════════════════
-         ROOTED IN NATURE — Coastal Gallery
-         Mosaic of California coast imagery. Placeholder tiles
-         are marked with dashed borders — swap each
-         .media-placeholder for a real <img> or <video> and the
-         layout stays identical.
-         ═══════════════════════════════════════════════════════ -->
-    <section class="section" id="gallery" aria-labelledby="gallery-title">
-      <div class="container">
-
-        <div class="section__header text-center reveal">
-          <p class="section__eyebrow">Rooted in Nature</p>
-          <h2 id="gallery-title" class="section__title">
-            Care inspired by the<br />California coast.
-          </h2>
-          <p class="section__subtitle">
-            Our practice draws on the calm of the Pacific — unhurried appointments,
-            a restorative environment, and treatment that respects your natural rhythms.
-          </p>
-        </div>
-
-        <div class="gallery-mosaic reveal">
-
-          <!-- LIVE VIDEO TILE — ambient Big Sur loop -->
-          <div class="gallery-mosaic__item gallery-mosaic__item--big">
-            <video autoplay muted loop playsinline preload="metadata" poster="/images/hero-poster.jpeg" aria-hidden="true">
-              <source src="/media/big_sur_2.mp4" type="video/mp4" />
-            </video>
-            <div class="gallery-mosaic__caption">Big Sur Coastline</div>
-          </div>
-
-          <!-- REAL PHOTO -->
-          <div class="gallery-mosaic__item">
-            <img src="/images/clinic-room.jpg" alt="Consultation room at Altos Psychiatry filled with natural light" loading="lazy" />
-            <div class="gallery-mosaic__caption">Our Menlo Park Office</div>
-          </div>
-
-          <!-- PLACEHOLDER — swap for a real photo -->
-          <div class="gallery-mosaic__item">
-            <div class="media-placeholder">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
-              <span class="media-placeholder__label">Photo — Coastal Fog at Dawn</span>
-            </div>
-          </div>
-
-          <!-- PLACEHOLDER — swap for a real photo -->
-          <div class="gallery-mosaic__item gallery-mosaic__item--wide">
-            <div class="media-placeholder">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
-              <span class="media-placeholder__label">Photo — McWay Falls, Big Sur</span>
-            </div>
-          </div>
-
-          <!-- PLACEHOLDER — swap for a short video loop -->
-          <div class="gallery-mosaic__item">
-            <div class="media-placeholder">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 010 1.972l-11.54 6.347a1.125 1.125 0 01-1.667-.986V5.653z"/></svg>
-              <span class="media-placeholder__label">Video — Waves at Pfeiffer Beach</span>
-            </div>
-          </div>
-
-          <!-- PLACEHOLDER — swap for a real photo -->
-          <div class="gallery-mosaic__item">
-            <div class="media-placeholder">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0021.75 19.5V4.5A1.5 1.5 0 0020.25 3H3.75A1.5 1.5 0 002.25 4.5v15A1.5 1.5 0 003.75 21z"/></svg>
-              <span class="media-placeholder__label">Photo — Redwoods, Santa Cruz Mtns</span>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ═══════════════════════════════════════════════════════
-         INSURANCE & PAYMENT
-         ═══════════════════════════════════════════════════════ -->
-    <section class="section" id="insurance" aria-labelledby="insurance-title">
-      <div class="container container--narrow">
-        <div class="section__header text-center reveal">
-          <p class="section__eyebrow">Insurance &amp; Payment</p>
-          <h2 id="insurance-title" class="section__title">
-            Transparent pricing,<br />no surprises.
-          </h2>
-          <p class="section__subtitle">
-            We accept select insurance plans and offer competitive self-pay rates.
-            Our team verifies your benefits before your first visit so you know exactly
-            what to expect.
-          </p>
-        </div>
-
-        <div class="grid grid--2col reveal" data-reveal-delay="100">
-          <div class="card">
-            <div class="card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
-              </svg>
-            </div>
-            <h3 class="card__title">In-Network Insurance</h3>
-            <p class="card__body">
-              We are in-network with Aetna, Anthem Blue Cross, Blue Shield of California,
-              Cigna, and United Healthcare. We verify your benefits before your first visit.
-            </p>
-          </div>
-
-          <div class="card">
-            <div class="card__icon card__icon--sand">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <path d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/>
-              </svg>
-            </div>
-            <h3 class="card__title">Self-Pay &amp; Superbills</h3>
-            <p class="card__body">
-              Competitive self-pay rates with transparent pricing. We provide superbills
-              for out-of-network reimbursement. No hidden fees, no surprises.
-            </p>
-          </div>
-        </div>
-
-        <div class="text-center reveal mt-lg">
-          <a href="/why-altos/for-patients.html" class="btn btn--secondary">
-            View Full Fee Schedule &amp; Insurance Details
-            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
         </div>
       </div>
     </section>
@@ -702,9 +485,23 @@
 
 
     <!-- ═══════════════════════════════════════════════════════
+         INTERLUDE — ambient coast video moment
+         ═══════════════════════════════════════════════════════ -->
+    <section class="interlude" aria-label="Coastal interlude">
+      <video autoplay muted loop playsinline preload="metadata" poster="/images/hero-poster.jpeg" aria-hidden="true">
+        <source src="/media/big_sur_2.mp4" type="video/mp4" />
+      </video>
+      <div class="interlude__scrim" aria-hidden="true"></div>
+      <div class="interlude__line">
+        <p>Good care doesn't rush. Neither do we.</p>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
          FINAL CTA
          ═══════════════════════════════════════════════════════ -->
-    <section class="section section--cta section--wave-top-fog" aria-label="Schedule a consultation">
+    <section class="section section--cta" aria-label="Schedule a consultation">
       <div class="container container--narrow">
         <div class="text-center reveal">
           <p class="section__eyebrow">Ready to Begin?</p>
