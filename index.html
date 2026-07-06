@@ -3,100 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Altos Psychiatry — private psychiatric care in Menlo Park, CA. Unhurried 60-minute visits, Stanford-trained expertise, and one integrated team for medication management, psychotherapy, and advanced treatments." />
-  <meta name="keywords" content="psychiatrist Menlo Park, private psychiatry, TMS therapy, ketamine treatment, medication management, anxiety, depression, PTSD, ADHD" />
+  <meta name="description" content="Altos Psychiatry in Menlo Park offers expert psychiatric care including medication management, TMS, ketamine therapy, and Spravato. Accepting new patients." />
+  <meta name="keywords" content="psychiatrist Menlo Park, TMS therapy, ketamine treatment, Spravato, medication management, anxiety, depression, PTSD, ADHD, bipolar" />
   <meta property="og:title" content="Altos Psychiatry — Menlo Park, CA" />
-  <meta property="og:description" content="Private psychiatric care with time, attention, and answers. Unhurried visits, Stanford-trained expertise, one integrated team." />
+  <meta property="og:description" content="Expert psychiatric care rooted in evidence. Medication management, TMS, ketamine, and psychotherapy on the San Francisco Peninsula." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://altospsychiatry.com" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://altospsychiatry.com" />
-  <title>Altos Psychiatry | Private Psychiatric Care — Menlo Park, CA</title>
+  <title>Altos Psychiatry | Menlo Park Psychiatrist — TMS, Ketamine, Medication Management</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Homepage-only styles (other pages use /css/style.css) -->
-  <link rel="stylesheet" href="/css/home.css" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- ═══════════════════════════════════════════════════════
-       NAVIGATION — minimal concierge
-       ═══════════════════════════════════════════════════════ -->
-  <header class="nav" role="banner">
-    <div class="container nav__inner">
-      <a href="/" class="nav__logo" aria-label="Altos Psychiatry — Home">Altos Psychiatry</a>
+  <!-- Header (loaded by JS) -->
+  <div id="header-placeholder"></div>
 
-      <nav class="nav__links" aria-label="Main navigation">
-        <a href="/services.html" class="nav__link">Our Care</a>
-        <a href="/why-altos/about-us.html" class="nav__link">About</a>
-        <a href="/why-altos/for-patients.html" class="nav__link">For Patients</a>
-        <a href="/patient-portal.html" class="nav__link">Current Patients</a>
-      </nav>
-
-      <a href="/get-started.html" class="nav__cta">Request a Consultation</a>
-
-      <button class="nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-
-  <!-- Mobile overlay menu -->
-  <nav class="mobile-menu" id="mobile-menu" aria-hidden="true" aria-label="Mobile navigation">
-    <a href="/services.html">Our Care</a>
-    <a href="/why-altos/about-us.html">About</a>
-    <a href="/why-altos/for-patients.html">For Patients</a>
-    <a href="/patient-portal.html">Current Patients</a>
-    <a href="/get-started.html" class="mobile-menu__cta">Request a Consultation</a>
-  </nav>
-
-
-  <main id="main">
+  <div class="page-wrapper">
+  <main id="main-content">
 
     <!-- ═══════════════════════════════════════════════════════
-         HERO — cinematic Big Sur video
+         HERO — Big Sur Video Background
          ═══════════════════════════════════════════════════════ -->
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__media" aria-hidden="true">
-        <video autoplay muted loop playsinline preload="auto" poster="/images/hero-poster.jpeg">
+     <section class="hero hero--video" aria-labelledby="hero-title">
+
+      <!-- Video Background -->
+      <div class="hero__video-wrap" aria-hidden="true">
+        <video
+          class="hero__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster="/images/hero-poster.jpeg"
+        >
           <source src="/media/big_sur_video.mp4" type="video/mp4" />
         </video>
+        <div class="hero__video-overlay"></div>
       </div>
-      <div class="hero__scrim" aria-hidden="true"></div>
+
+      <!-- Ambient Orbs (subtle depth layer over video) -->
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__orb hero__orb--1" data-parallax="0.08"></div>
+        <div class="hero__orb hero__orb--2" data-parallax="0.12"></div>
+      </div>
 
       <div class="container">
-        <div class="hero__content">
-          <p class="eyebrow hero__eyebrow">Menlo Park · Private Psychiatry</p>
+        <div class="hero__inner">
+          <div class="hero__content">
 
-          <h1 id="hero-title" class="hero__title">
-            Psychiatric care with<br />
-            <em>time, attention,</em><br />
-            and answers.
-          </h1>
+            <p class="hero__eyebrow">Menlo Park, California</p>
 
-          <p class="hero__sub">
-            A small private practice for adults — where your psychiatrist
-            knows you, appointments are never rushed, and a clear plan
-            replaces guesswork.
-          </p>
+            <h1 id="hero-title" class="hero__title">
+              Psychiatric care<br />
+              rooted in <span class="text-gradient--white">evidence</span>,<br />
+              guided by compassion.
+            </h1>
 
-          <div class="hero__actions">
-            <a href="/get-started.html" class="btn btn--solid">
-              Request a Consultation
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <p class="hero__phone">or call <a href="tel:+16505550000">(650)&nbsp;555-0000</a></p>
+            <p class="hero__subtitle">
+              Expert medication management, TMS, ketamine therapy, and psychotherapy
+              for adults navigating depression, anxiety, PTSD, and beyond.
+            </p>
+
+            <div class="hero__cta-group">
+              <a href="/get-started.html" class="btn btn--primary btn--lg btn--magnetic" data-magnetic="0.2">
+                Request a Consultation
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="/services.html" class="btn btn--ghost btn--lg">
+                Explore Our Care
+              </a>
+            </div>
+
           </div>
         </div>
       </div>
 
-      <!-- Quiet reassurance strip -->
+      <!-- Frosted reassurance banner (anchored to hero bottom) -->
       <div class="hero__notes" aria-label="Practice highlights">
         <div class="container">
           <div class="hero__notes-grid">
@@ -106,84 +100,60 @@
           </div>
         </div>
       </div>
+
     </section>
 
 
     <!-- ═══════════════════════════════════════════════════════
-         WHAT MAKES US DIFFERENT
+         ABOUT / INTRO
          ═══════════════════════════════════════════════════════ -->
-    <section class="section" id="different" aria-labelledby="different-title">
+    <section class="section section--about has-cursor-glow" id="about" aria-labelledby="about-title">
       <div class="container">
-        <div class="different__grid">
+        <div class="grid grid--2col grid--align-center">
 
-          <div class="different__media reveal">
-            <figure>
+          <!-- Text Column -->
+          <div class="section__text reveal">
+            <p class="section__eyebrow">About the Practice</p>
+            <h2 id="about-title" class="section__title">
+              Where academic precision meets<br />community and connection.
+            </h2>
+            <div class="section__body">
+              <p>
+                Altos Psychiatry was founded on a simple belief shaped by years of training at
+                Stanford and leading academic medical centers — and by growing up in a state
+                where mental health infrastructure barely existed. We saw what gaps in care
+                can do. We built this practice to close them.
+              </p>
+              <p>
+                We deliberately keep a smaller patient panel so every individual gets the time,
+                attention, and thoughtful treatment planning that good psychiatric care demands.
+                Our approach integrates medication management, psychotherapy, lifestyle medicine,
+                and outcome tracking into one coordinated practice — not fragmented across
+                disconnected providers.
+              </p>
+            </div>
+            <div class="cta-group mt-md">
+              <a href="/why-altos/about-us.html" class="btn btn--secondary">
+                Our Story
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="/why-altos/our-team.html" class="btn btn--secondary">
+                Meet Our Team
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Image Column -->
+          <div class="reveal reveal--right" data-reveal-delay="200">
+            <div class="image-frame">
               <img
                 src="/images/clinic-room.jpg"
-                alt="A warm, light-filled consultation room at Altos Psychiatry"
-                width="620" height="720" loading="lazy"
+                alt="Warm, modern consultation room at Altos Psychiatry with natural light and coastal-inspired decor"
+                width="600"
+                height="480"
+                loading="lazy"
               />
-              <figcaption>Our Menlo Park office</figcaption>
-            </figure>
-          </div>
-
-          <div>
-            <p class="eyebrow reveal">Why Altos</p>
-            <h2 id="different-title" class="section-title reveal" data-delay="60">
-              Care the way it<br />should feel.
-            </h2>
-            <p class="section-intro reveal" data-delay="120" style="margin-bottom: clamp(28px, 4vw, 44px);">
-              Most psychiatry is built around volume. We built Altos around
-              you — fewer patients, longer visits, and a team that stays
-              close from the first conversation on.
-            </p>
-
-            <div class="pillar reveal" data-delay="0">
-              <span class="pillar__num" aria-hidden="true">I.</span>
-              <div>
-                <h3 class="pillar__title">Unhurried, by design</h3>
-                <p class="pillar__body">
-                  We deliberately keep a small patient panel. Your first visit
-                  is a full hour; follow-ups are never squeezed into fifteen
-                  minutes. Time is how good decisions get made.
-                </p>
-              </div>
-            </div>
-
-            <div class="pillar reveal" data-delay="80">
-              <span class="pillar__num" aria-hidden="true">II.</span>
-              <div>
-                <h3 class="pillar__title">Stanford-trained expertise</h3>
-                <p class="pillar__body">
-                  Our clinicians trained at Stanford and leading academic
-                  medical centers — and bring that depth to every diagnosis,
-                  every medication decision, every plan.
-                </p>
-              </div>
-            </div>
-
-            <div class="pillar reveal" data-delay="160">
-              <span class="pillar__num" aria-hidden="true">III.</span>
-              <div>
-                <h3 class="pillar__title">One team, one plan</h3>
-                <p class="pillar__body">
-                  Medication, therapy, and lifestyle care coordinated inside
-                  one practice — not fragmented across providers who never
-                  speak. Your full picture stays in one set of hands.
-                </p>
-              </div>
-            </div>
-
-            <div class="pillar reveal" data-delay="240">
-              <span class="pillar__num" aria-hidden="true">IV.</span>
-              <div>
-                <h3 class="pillar__title">There when you need us most</h3>
-                <p class="pillar__body">
-                  Difficult stretches don't keep office hours. Extended
-                  evening availability and additional support between visits
-                  mean you're never navigating a hard moment alone.
-                </p>
-              </div>
             </div>
           </div>
 
@@ -193,143 +163,215 @@
 
 
     <!-- ═══════════════════════════════════════════════════════
-         OUR CARE — services with status
+         NATURE INTERLUDE — Landscape Strip
+         A cinematic breathing moment between content sections.
          ═══════════════════════════════════════════════════════ -->
-    <section class="section section--fog" id="care" aria-labelledby="care-title">
-      <div class="container">
-        <div class="text-center">
-          <p class="eyebrow reveal">Our Care</p>
-          <h2 id="care-title" class="section-title reveal" data-delay="60">
-            Everything under one roof.
-          </h2>
-          <p class="section-intro reveal" data-delay="120">
-            Today's essentials, delivered exceptionally — with advanced
-            treatments arriving as the practice grows.
-          </p>
-        </div>
-
-        <div class="care__grid">
-
-          <div class="care-card reveal" data-delay="0">
-            <div class="care-card__top">
-              <h3 class="care-card__title">Medication Management</h3>
-              <span class="status status--live">Available Now</span>
-            </div>
-            <p class="care-card__body">
-              Precise psychopharmacology guided by your history, your goals,
-              and — when helpful — pharmacogenomic testing. Longer visits so
-              we have time to get it right.
-            </p>
-            <a href="/services/medication-management.html" class="care-card__link">
-              Learn more
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-
-          <div class="care-card reveal" data-delay="80">
-            <div class="care-card__top">
-              <h3 class="care-card__title">Psychotherapy</h3>
-              <span class="status status--live">Available Now</span>
-            </div>
-            <p class="care-card__body">
-              Individual therapy grounded in CBT, ACT, and supportive
-              frameworks — often paired with medication care so nothing
-              happens in isolation.
-            </p>
-            <a href="/services/psychotherapy.html" class="care-card__link">
-              Learn more
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-
-          <div class="care-card reveal" data-delay="160">
-            <div class="care-card__top">
-              <h3 class="care-card__title">TMS Therapy</h3>
-              <span class="status status--soon">Coming 2026</span>
-            </div>
-            <p class="care-card__body">
-              FDA-cleared transcranial magnetic stimulation for depression
-              and OCD. Non-invasive, no anesthesia, sessions under twenty
-              minutes — in our office.
-            </p>
-            <a href="/services/tms.html" class="care-card__link">
-              Learn more
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-
-          <div class="care-card reveal" data-delay="240">
-            <div class="care-card__top">
-              <h3 class="care-card__title">Psychedelic Therapies</h3>
-              <span class="status status--future">In Development</span>
-            </div>
-            <p class="care-card__body">
-              Ketamine, Spravato®, and emerging psilocybin-assisted
-              treatments for conditions that haven't responded to standard
-              approaches — built responsibly, on evidence.
-            </p>
-            <a href="/services/psychedelics.html" class="care-card__link">
-              Learn more
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-
-        </div>
-      </div>
+    <section class="section section--nature-strip" aria-hidden="true">
+      <div class="nature-strip__overlay"></div>
     </section>
 
 
     <!-- ═══════════════════════════════════════════════════════
-         GETTING STARTED — three steps
+         CONDITIONS WE TREAT
          ═══════════════════════════════════════════════════════ -->
-    <section class="section" id="start" aria-labelledby="start-title">
+    <section class="section section--light" id="conditions" aria-labelledby="conditions-title">
       <div class="container">
-        <div class="text-center">
-          <p class="eyebrow reveal">Getting Started</p>
-          <h2 id="start-title" class="section-title reveal" data-delay="60">
-            Three simple steps.
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Conditions We Treat</p>
+          <h2 id="conditions-title" class="section__title">
+            Specialized care across the<br />spectrum of adult psychiatry.
           </h2>
-          <p class="section-intro reveal" data-delay="120">
-            No phone trees, no paperwork marathons. Reaching out takes two
-            minutes — we handle the rest.
+          <p class="section__subtitle">
+            We see adults across a wide range of psychiatric conditions, with particular
+            depth in presentations that haven't responded to standard approaches.
           </p>
         </div>
 
-        <div class="steps">
-          <div class="step reveal" data-delay="0">
-            <div class="step__num" aria-hidden="true">1</div>
-            <h3 class="step__title">Reach out</h3>
-            <p class="step__body">
-              Send a brief consultation request — or call us. A care
-              coordinator responds within one business day.
-            </p>
-          </div>
-
-          <div class="step reveal" data-delay="120">
-            <div class="step__num" aria-hidden="true">2</div>
-            <h3 class="step__title">Meet your psychiatrist</h3>
-            <p class="step__body">
-              A full 60-minute evaluation — your history, your goals, and a
-              clear, personalized plan by the end of the visit.
-            </p>
-          </div>
-
-          <div class="step reveal" data-delay="240">
-            <div class="step__num" aria-hidden="true">3</div>
-            <h3 class="step__title">Begin care</h3>
-            <p class="step__body">
-              Start treatment with close follow-up, measurable progress, and
-              a team that stays reachable between visits.
-            </p>
-          </div>
+        <div class="tag-grid reveal stagger-children" data-stagger="50">
+          <span class="tag">Major Depressive Disorder</span>
+          <span class="tag">Treatment-Resistant Depression</span>
+          <span class="tag">Generalized Anxiety</span>
+          <span class="tag">Social Anxiety</span>
+          <span class="tag">Panic Disorder</span>
+          <span class="tag">PTSD &amp; Trauma</span>
+          <span class="tag">OCD</span>
+          <span class="tag">Bipolar Disorder</span>
+          <span class="tag">ADHD</span>
+          <span class="tag">Insomnia</span>
+          <span class="tag">Perinatal Mood Disorders</span>
+          <span class="tag">Chronic Pain &amp; Psychiatry</span>
         </div>
 
-        <div class="text-center steps__cta reveal">
-          <a href="/get-started.html" class="btn btn--solid">
-            Take the First Step
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <div class="text-center reveal mt-lg">
+          <a href="/conditions/what-we-treat.html" class="btn btn--secondary">
+            Learn More About What We Treat
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         SERVICES
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Services</p>
+          <h2 id="services-title" class="section__title">
+            Integrated, not fragmented.
+          </h2>
+          <p class="section__subtitle">
+            Medication, therapy, and lifestyle — coordinated within one practice that
+            holds your full clinical picture. With advanced modalities on the horizon.
+          </p>
+        </div>
+
+        <div class="card-grid card-grid--2col stagger-children" data-stagger="80">
+
+          <div class="card">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-6 18.75h9"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Medication Management</h3>
+            <p class="card__body">
+              Precise psychopharmacology informed by your symptom profile, medical history,
+              and — when indicated — pharmacogenomic testing. Longer appointments so we
+              actually have time to get it right.
+            </p>
+            <a href="/services/medication-management.html" class="btn btn--secondary btn--sm mt-auto">
+              Learn More
+              <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
+            </a>
+          </div>
+
+          <div class="card">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Psychotherapy</h3>
+            <p class="card__body">
+              Individual therapy utilizing CBT, ACT, and supportive frameworks — often
+              integrated with medication management for a more complete approach. One
+              practice, one team, one record.
+            </p>
+            <a href="/services/psychotherapy.html" class="btn btn--secondary btn--sm mt-auto">
+              Learn More
+              <svg class="btn__icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10m-4-4l4 4-4 4"/></svg>
+            </a>
+          </div>
+
+          <div class="card card--highlight">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">TMS Therapy</h3>
+            <p class="card__body">
+              FDA-cleared transcranial magnetic stimulation for depression and OCD.
+              Non-invasive, no anesthesia, performed in-office with sessions lasting
+              under 20 minutes.
+            </p>
+            <span class="badge badge--ocean mt-auto">Coming 2026</span>
+          </div>
+
+          <div class="card card--sage">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 7.418A2.25 2.25 0 0114.38 24H9.62a2.25 2.25 0 01-2.15-2.082L5 14.5m14 0H5"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Psychedelic-Assisted Therapy</h3>
+            <p class="card__body">
+              Emerging evidence supports the use of ketamine and psilocybin-assisted
+              therapy for treatment-resistant conditions. We are building the clinical
+              infrastructure to offer these modalities responsibly.
+            </p>
+            <span class="badge badge--sage mt-auto">Future</span>
+          </div>
+
+        </div>
+
+        <div class="text-center reveal mt-lg">
+          <a href="/services.html" class="btn btn--outline">
+            View All Services
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         HOW IT WORKS / PROCESS
+         ═══════════════════════════════════════════════════════ -->
+    <section class="section section--light" id="process" aria-labelledby="process-title">
+      <div class="container">
+
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">How It Works</p>
+          <h2 id="process-title" class="section__title">
+            From first contact to feeling better.
+          </h2>
+          <p class="section__subtitle">
+            We've designed our intake process to be as straightforward as possible,
+            so you can focus on what matters — getting the help you need.
+          </p>
+        </div>
+
+        <div class="steps reveal">
+
+          <div class="step">
+            <span class="step__number">01</span>
+            <h3 class="step__title">Reach Out</h3>
+            <p class="step__body">
+              Submit a consultation request through our website or call our office.
+              Our care coordinator responds within one business day.
+            </p>
+          </div>
+
+          <div class="step">
+            <span class="step__number">02</span>
+            <h3 class="step__title">Initial Evaluation</h3>
+            <p class="step__body">
+              A comprehensive 60-minute psychiatric evaluation to understand your history,
+              symptoms, goals, and develop a personalized treatment plan.
+            </p>
+          </div>
+
+          <div class="step">
+            <span class="step__number">03</span>
+            <h3 class="step__title">Begin Treatment</h3>
+            <p class="step__body">
+              Start your treatment plan — whether that's medication, TMS, ketamine, therapy,
+              or a combination. We monitor closely and adjust as needed.
+            </p>
+          </div>
+
+          <div class="step">
+            <span class="step__number">04</span>
+            <h3 class="step__title">Ongoing Partnership</h3>
+            <p class="step__body">
+              Regular follow-ups to track your progress with validated outcome measures,
+              refine your treatment, and support your long-term wellbeing.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="text-center mt-lg reveal">
+          <a href="/intake.html" class="btn btn--primary btn--magnetic" data-magnetic="0.2">
+            Start with Step 1
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -339,93 +381,116 @@
          ═══════════════════════════════════════════════════════ -->
     <section class="section section--sand" aria-label="Patient testimonial">
       <div class="container">
-        <figure class="quote reveal">
-          <blockquote class="quote__text">
-            After years of trying different medications with other providers,
-            I finally found someone who <em>actually listened</em> and took a
-            systematic approach. I wish I'd found this practice sooner.
-          </blockquote>
-          <figcaption class="quote__attr">
-            Patient · treated for treatment-resistant depression
-          </figcaption>
-        </figure>
+        <div class="testimonial reveal">
+          <p class="testimonial__text">
+            After years of trying different medications with other providers, I finally found
+            someone who <em>actually listened</em> and took a systematic approach. The combination
+            of TMS and careful medication adjustment changed my life. I wish I'd found this
+            practice sooner.
+          </p>
+          <p class="testimonial__attribution">
+            — Patient, treated for treatment-resistant depression
+          </p>
+        </div>
       </div>
     </section>
 
 
     <!-- ═══════════════════════════════════════════════════════
-         FAQ — three questions
+         FAQ
          ═══════════════════════════════════════════════════════ -->
-    <section class="section" id="faq" aria-labelledby="faq-title">
+    <section class="section section--light" id="faq" aria-labelledby="faq-title">
       <div class="container container--narrow">
-        <div class="text-center">
-          <p class="eyebrow reveal">Questions</p>
-          <h2 id="faq-title" class="section-title reveal" data-delay="60">
-            Before you reach out.
+
+        <div class="section__header text-center reveal">
+          <p class="section__eyebrow">Frequently Asked Questions</p>
+          <h2 id="faq-title" class="section__title">
+            Common questions, honest answers.
           </h2>
         </div>
 
-        <div class="faq reveal" data-delay="120">
+        <div class="accordion reveal" data-accordion="single">
 
-          <div class="faq__item">
-            <button class="faq__q">
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
               Are you accepting new patients?
-              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
             </button>
-            <div class="faq__a">
-              <div class="faq__a-inner">
-                Yes — we're currently welcoming new adult patients (18+) for
-                both in-person visits in Menlo Park and telehealth anywhere
-                in California. Most new patients are seen within one to two
-                weeks, often sooner.
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>Yes. We are currently accepting new adult patients (18+) for medication management and psychotherapy. To get started, <a href="/intake.html">submit a consultation request</a> and our care coordinator will follow up within one business day.</p>
               </div>
             </div>
           </div>
 
-          <div class="faq__item">
-            <button class="faq__q">
-              What happens at the first visit?
-              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              How quickly can I get an appointment?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
             </button>
-            <div class="faq__a">
-              <div class="faq__a-inner">
-                A calm, comprehensive 60-minute conversation — your history,
-                what you've already tried, and what you're hoping for. You'll
-                leave with a clear assessment and a proposed plan we refine
-                together. Collaborative, never interrogative.
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>Most new patients are seen within 1–2 weeks. For urgent situations that don't require emergency services, we make every effort to accommodate same-week appointments. Telehealth visits often have the most flexible availability.</p>
               </div>
             </div>
           </div>
 
-          <div class="faq__item">
-            <button class="faq__q">
-              I've tried treatments that didn't work. Can you help?
-              <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              What should I expect at my first visit?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
             </button>
-            <div class="faq__a">
-              <div class="faq__a-inner">
-                Treatment-resistant conditions are a clinical focus of ours.
-                We start with a careful re-evaluation of the diagnosis, use
-                pharmacogenomic testing when appropriate, and are building
-                access to advanced options like TMS. What hasn't worked is
-                data — it guides the next step.
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>A comprehensive 60–90 minute conversation. We'll review your history, current concerns, prior treatments, lifestyle factors, and goals. By the end, you'll have a clear assessment and a proposed care plan to refine together. It's collaborative, not interrogative.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              Will my employer know I'm in psychiatric treatment?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>No. If you choose self-pay, no explanation of benefits is ever sent. All records are maintained under strict HIPAA protections and are never shared without your explicit written consent.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion__item">
+            <button class="accordion__trigger" aria-expanded="false">
+              I've tried multiple medications that haven't worked. Can you help?
+              <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion__content">
+              <div class="accordion__body">
+                <p>Treatment-resistant conditions are a clinical focus of ours. We approach these cases with a thorough re-evaluation of diagnosis, pharmacogenomic testing when appropriate, and consideration of advanced options including TMS (launching 2026). If prior treatments haven't worked, that history is data — and it guides the next step.</p>
               </div>
             </div>
           </div>
 
         </div>
+
+        <div class="text-center reveal mt-lg">
+          <a href="/resources/faq.html" class="btn btn--secondary">
+            View All FAQs
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
       </div>
     </section>
 
 
     <!-- ═══════════════════════════════════════════════════════
-         INTERLUDE — ambient coast video
+         INTERLUDE — ambient coast video moment
          ═══════════════════════════════════════════════════════ -->
     <section class="interlude" aria-label="Coastal interlude">
       <video autoplay muted loop playsinline preload="metadata" poster="/images/hero-poster.jpeg" aria-hidden="true">
         <source src="/media/big_sur_2.mp4" type="video/mp4" />
       </video>
-      <div class="interlude__fallback" aria-hidden="true"></div>
       <div class="interlude__scrim" aria-hidden="true"></div>
       <div class="interlude__line">
         <p>Good care doesn't rush. Neither do we.</p>
@@ -434,98 +499,46 @@
 
 
     <!-- ═══════════════════════════════════════════════════════
-         FINAL INVITATION
+         FINAL CTA
          ═══════════════════════════════════════════════════════ -->
-    <section class="section begin" aria-labelledby="begin-title">
+    <section class="section section--cta" aria-label="Schedule a consultation">
       <div class="container container--narrow">
-        <p class="eyebrow reveal">Begin</p>
-        <h2 id="begin-title" class="section-title reveal" data-delay="60">
-          Start with a conversation.
-        </h2>
-        <p class="section-intro reveal" data-delay="120" style="margin-left:auto; margin-right:auto;">
-          Tell us a little about what's going on. Our care coordinator will
-          reach out within one business day — no pressure, no obligation.
-        </p>
-
-        <div class="begin__actions reveal" data-delay="180">
-          <a href="/get-started.html" class="btn btn--solid">
-            Request a Consultation
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <p class="begin__phone">or call <a href="tel:+16505550000">(650)&nbsp;555-0000</a></p>
+        <div class="text-center reveal">
+          <p class="section__eyebrow">Ready to Begin?</p>
+          <h2 class="section__title">
+            Your path to feeling better<br />starts with a single step.
+          </h2>
+          <p class="section__subtitle mx-auto mb-lg">
+            Request a consultation today. Our care coordinator will reach out within one
+            business day to answer your questions and schedule your first appointment.
+          </p>
+          <div class="cta-group justify-center">
+            <a href="/intake.html" class="btn btn--primary btn--lg btn--magnetic" data-magnetic="0.2">
+              Request a Consultation
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="tel:+16505550000" class="btn btn--outline">
+              Call (650) 555-0000
+            </a>
+          </div>
+          <p class="crisis-notice">
+            <strong>Crisis?</strong> If you are in immediate danger, call or text
+            <strong>988</strong> (Suicide &amp; Crisis Lifeline) or go to your nearest
+            emergency room. Do not use this form for emergencies.
+          </p>
         </div>
-
-        <p class="crisis-note reveal">
-          <strong>In crisis?</strong> If you are in immediate danger, call or
-          text <strong>988</strong> (Suicide &amp; Crisis Lifeline), call
-          <strong>911</strong>, or go to your nearest emergency room. Please
-          don't use this website for emergencies.
-        </p>
       </div>
     </section>
 
+
   </main>
+  </div>
 
+  <!-- Footer (loaded by JS) -->
+  <div id="footer-placeholder"></div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       FOOTER — slim concierge
-       ═══════════════════════════════════════════════════════ -->
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer__top">
-
-        <div>
-          <a href="/" class="footer__logo">Altos Psychiatry</a>
-          <p class="footer__tagline">
-            Private psychiatric care for adults — in Menlo Park and via
-            telehealth across California.
-          </p>
-        </div>
-
-        <div>
-          <h3 class="footer__heading">Explore</h3>
-          <ul class="footer__links">
-            <li><a href="/services.html">Our Care</a></li>
-            <li><a href="/why-altos/about-us.html">About the Practice</a></li>
-            <li><a href="/why-altos/for-patients.html">For Patients &amp; Families</a></li>
-            <li><a href="/patient-portal.html">Current Patients</a></li>
-            <li><a href="/resources/faq.html">FAQ</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="footer__heading">Contact</h3>
-          <address>
-            401 Quarry Road, Suite 120<br />
-            Menlo Park, CA 94025<br />
-            <a href="tel:+16505550000">(650) 555-0000</a><br />
-            <a href="mailto:hello@altospsychiatry.com">hello@altospsychiatry.com</a>
-          </address>
-        </div>
-
-      </div>
-
-      <div class="footer__bottom">
-        <p>© <span id="year">2026</span> Altos Psychiatry. All rights reserved.</p>
-        <div class="footer__legal">
-          <a href="/privacy.html">Privacy Policy</a>
-          <a href="/privacy.html#hipaa-notice">HIPAA Notice</a>
-          <a href="/resources/contact.html">Contact</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer__crisis">
-      <div class="container">
-        <strong>If you are in crisis:</strong> call or text <strong>988</strong> ·
-        call <strong>911</strong> · go to your nearest emergency room ·
-        <a href="https://988lifeline.org/chat/" target="_blank" rel="noopener noreferrer">chat at 988lifeline.org</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
-  <script src="/js/home.js"></script>
+  <!-- Main JS -->
+  <script src="/js/main.js"></script>
 
   <!-- Structured Data / JSON-LD -->
   <script type="application/ld+json">
@@ -533,23 +546,31 @@
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
     "name": "Altos Psychiatry",
-    "description": "Private psychiatric care for adults in Menlo Park, CA — medication management, psychotherapy, TMS, and advanced treatments.",
+    "alternateName": "Menlo Park Psychiatry Group",
+    "description": "Expert psychiatric care including medication management, TMS, ketamine therapy, Spravato, and psychotherapy for adults in Menlo Park, CA.",
     "url": "https://altospsychiatry.com",
     "telephone": "+16505550000",
     "email": "hello@altospsychiatry.com",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "401 Quarry Road, Suite 120",
+      "streetAddress": "123 University Ave, Suite 200",
       "addressLocality": "Menlo Park",
       "addressRegion": "CA",
       "postalCode": "94025",
       "addressCountry": "US"
     },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 37.4530,
+      "longitude": -122.1817
+    },
     "medicalSpecialty": "Psychiatry",
     "availableService": [
       { "@type": "MedicalProcedure", "name": "Psychiatric Medication Management" },
-      { "@type": "MedicalProcedure", "name": "Psychotherapy" },
       { "@type": "MedicalProcedure", "name": "Transcranial Magnetic Stimulation (TMS)" },
+      { "@type": "MedicalProcedure", "name": "Ketamine Infusion Therapy" },
+      { "@type": "MedicalProcedure", "name": "Spravato (Esketamine) Treatment" },
+      { "@type": "MedicalProcedure", "name": "Psychotherapy" },
       { "@type": "MedicalProcedure", "name": "Telehealth Psychiatry" }
     ],
     "openingHoursSpecification": [
@@ -559,7 +580,11 @@
         "opens": "08:00",
         "closes": "17:00"
       }
-    ]
+    ],
+    "priceRange": "$$",
+    "paymentAccepted": ["Cash", "Credit Card", "Insurance"],
+    "insuranceAccepted": ["Blue Cross Blue Shield", "Aetna", "United Healthcare"],
+    "sameAs": []
   }
   </script>
 </body>
