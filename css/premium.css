@@ -1,0 +1,309 @@
+/* ============================================================
+   ALTOS PSYCHIATRY — Premium Homepage Refinements
+   Loaded ONLY by index.html, after style.css.
+   Every rule is scoped to body.home-premium, so no other
+   page is affected. Text content is untouched — this file
+   is pure design: quieter, airier, more editorial.
+   ============================================================ */
+
+
+/* ────────────────────────────────────────────────────────────
+   1. RHYTHM — more air between and inside sections
+   ──────────────────────────────────────────────────────────── */
+.home-premium .section {
+  padding: clamp(80px, 11vw, 150px) 0;
+}
+
+.home-premium .section__header {
+  margin-bottom: clamp(48px, 6vw, 76px);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   2. TYPOGRAPHY — lighter, larger, more editorial
+   ──────────────────────────────────────────────────────────── */
+.home-premium .section__title {
+  font-weight: 500;
+  font-size: clamp(2rem, 1.35rem + 2.9vw, 3.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.012em;
+}
+
+.home-premium .section__subtitle {
+  font-size: clamp(1.02rem, 0.95rem + 0.4vw, 1.2rem);
+  line-height: 1.72;
+}
+
+.home-premium .section__eyebrow {
+  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+}
+
+/* Centered headers get a symmetrical rule on both sides */
+.home-premium .section__header.text-center .section__eyebrow::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--ocean);
+  flex-shrink: 0;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   3. HERO — frosted reassurance banner, cleaner exit
+   ──────────────────────────────────────────────────────────── */
+.home-premium .hero__notes {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(10, 26, 33, 0.25);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.home-premium .hero__notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 20px 0;
+}
+
+.home-premium .hero__note {
+  text-align: center;
+  font-size: clamp(0.68rem, 0.62rem + 0.3vw, 0.82rem);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.home-premium .hero__note + .hero__note {
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+/* Slightly softer hero copy */
+.home-premium .hero__title {
+  font-weight: 500;
+}
+
+.home-premium .hero__subtitle {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   4. CARDS — hairline panels, no colored top borders
+   ──────────────────────────────────────────────────────────── */
+.home-premium .card {
+  border-radius: 22px;
+  border: 1px solid rgba(var(--ocean-deep-rgb), 0.07);
+  padding: clamp(30px, 3.5vw, 46px);
+  box-shadow: none;
+  gap: 1.1rem;
+}
+
+.home-premium .card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(var(--ocean-rgb), 0.18);
+  box-shadow: 0 24px 56px rgba(var(--ocean-deep-rgb), 0.1);
+}
+
+/* Unify the colored variants into one quiet style */
+.home-premium .card--highlight,
+.home-premium .card--sage,
+.home-premium .card--sand {
+  border-top: 1px solid rgba(var(--ocean-deep-rgb), 0.07);
+  background: var(--white);
+}
+
+.home-premium .card__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+}
+
+.home-premium .card__title {
+  font-weight: 500;
+  font-size: clamp(1.3rem, 1.15rem + 0.7vw, 1.6rem);
+}
+
+/* Status badges — refined uppercase pills */
+.home-premium .badge {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.64rem;
+  font-weight: 700;
+  padding: 6px 14px;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   5. CONDITION TAGS — lighter, roomier
+   ──────────────────────────────────────────────────────────── */
+.home-premium .tag {
+  padding: 12px 26px;
+  font-weight: 500;
+  background: var(--white);
+  border-color: rgba(var(--ocean-deep-rgb), 0.08);
+}
+
+.home-premium .tag:hover {
+  border-color: var(--ocean-mist);
+  box-shadow: 0 10px 24px rgba(var(--ocean-deep-rgb), 0.07);
+}
+
+.home-premium .tag-grid {
+  gap: 12px;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   6. PROCESS STEPS — serif italic numerals, hairline dividers
+   ──────────────────────────────────────────────────────────── */
+.home-premium .step__number {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ocean-mist);
+  letter-spacing: 0;
+}
+
+.home-premium .step:hover .step__number {
+  color: var(--ocean-light);
+}
+
+.home-premium .step__title {
+  font-weight: 500;
+  font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+}
+
+/* Replace the connector line with quiet column dividers */
+@media (min-width: 1024px) {
+  .home-premium .step:not(:last-child)::after {
+    display: none;
+  }
+  .home-premium .step + .step {
+    border-left: 1px solid var(--fog-dark);
+  }
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   7. TESTIMONIAL — larger, more presence
+   ──────────────────────────────────────────────────────────── */
+.home-premium .testimonial {
+  max-width: 760px;
+  text-align: center;
+}
+
+.home-premium .testimonial__text {
+  font-size: clamp(1.45rem, 1.15rem + 1.5vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.home-premium .testimonial__attribution {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.78rem;
+}
+
+.home-premium .testimonial::before {
+  position: static;
+  display: block;
+  font-size: 5.5rem;
+  line-height: 0.6;
+  margin-bottom: 26px;
+  color: var(--ocean-mist);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   8. FAQ — quiet hairline accordion, serif questions
+   ──────────────────────────────────────────────────────────── */
+.home-premium .accordion {
+  gap: 0;
+}
+
+.home-premium .accordion__item {
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--fog-dark);
+  border-radius: 0;
+}
+
+.home-premium .accordion__item:last-child {
+  border-bottom: 1px solid var(--fog-dark);
+}
+
+.home-premium .accordion__item--open {
+  box-shadow: none;
+}
+
+.home-premium .accordion__trigger {
+  font-family: var(--font-display);
+  font-size: clamp(1.12rem, 1rem + 0.6vw, 1.4rem);
+  font-weight: 500;
+  padding: 24px 6px;
+}
+
+.home-premium .accordion__trigger:hover {
+  background: transparent;
+  color: var(--ocean);
+}
+
+.home-premium .accordion__body {
+  padding: 0 6px 26px;
+  max-width: 660px;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   9. IMAGES & NATURE STRIP — softer frames
+   ──────────────────────────────────────────────────────────── */
+.home-premium .image-frame {
+  border-radius: 22px;
+  box-shadow: 0 30px 70px rgba(var(--ocean-deep-rgb), 0.16);
+}
+
+.home-premium .section--nature-strip {
+  height: clamp(220px, 28vw, 360px);
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   10. FINAL CTA — clean white close, no wave
+   ──────────────────────────────────────────────────────────── */
+.home-premium .section--cta {
+  background: var(--white);
+  border-top: 1px solid var(--fog-dark);
+  padding-top: clamp(80px, 11vw, 150px);
+}
+
+.home-premium .section--wave-top-fog::before {
+  display: none;
+}
+
+.home-premium .crisis-notice {
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   11. BUTTONS — a touch more presence
+   ──────────────────────────────────────────────────────────── */
+.home-premium .btn--primary {
+  box-shadow: 0 10px 30px rgba(var(--ocean-deep-rgb), 0.22);
+}
+
+.home-premium .btn--lg {
+  padding: 18px 42px;
+}
