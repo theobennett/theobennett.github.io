@@ -20,9 +20,11 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/css/style.css" />
+  <!-- Premium homepage refinements (this page only) -->
+  <link rel="stylesheet" href="/css/premium.css" />
 </head>
 
-<body>
+<body class="home-premium">
   <!-- Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -90,52 +92,18 @@
         </div>
       </div>
 
-      <!-- Scroll Indicator -->
-      <div class="hero__scroll-hint" aria-hidden="true">
-        <span class="hero__scroll-text">Scroll</span>
-        <div class="hero__scroll-line"></div>
-      </div>
-
-      <!-- Wave Transition -->
-      <div class="hero__wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,64 C360,120 720,0 1080,64 C1260,96 1380,80 1440,72 L1440,120 L0,120 Z" fill="var(--white)"/>
-        </svg>
+      <!-- Frosted reassurance banner (anchored to hero bottom) -->
+      <div class="hero__notes" aria-label="Practice highlights">
+        <div class="container">
+          <div class="hero__notes-grid">
+            <span class="hero__note">Same-Week Availability</span>
+            <span class="hero__note">60-Minute Evaluations</span>
+            <span class="hero__note">In-Person &amp; Telehealth</span>
+          </div>
+        </div>
       </div>
 
     </section>
-
-
-    <!-- ═══════════════════════════════════════════════════════
-         TRUST BAR
-         ═══════════════════════════════════════════════════════ -->
-    <div class="trust-bar">
-      <div class="container">
-        <div class="trust-bar__grid">
-
-          <div class="trust-bar__item reveal" data-reveal-delay="0">
-            <span class="trust-bar__number">Expert</span>
-            <span class="trust-bar__label">Trained</span>
-          </div>
-
-          <div class="trust-bar__item reveal" data-reveal-delay="100">
-            <span class="trust-bar__number">Smaller Panels</span>
-            <span class="trust-bar__label">By Design</span>
-          </div>
-
-          <div class="trust-bar__item reveal" data-reveal-delay="200">
-            <span class="trust-bar__number">CA Statewide</span>
-            <span class="trust-bar__label">Telehealth</span>
-          </div>
-
-          <div class="trust-bar__item reveal" data-reveal-delay="300">
-            <span class="trust-bar__number">Same Week</span>
-            <span class="trust-bar__label">Availability</span>
-          </div>
-
-        </div>
-      </div>
-    </div>
 
 
     <!-- ═══════════════════════════════════════════════════════
