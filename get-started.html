@@ -334,7 +334,7 @@
         <p class="eyebrow">New Patients</p>
         <h1 id="form-hero-title">Request a Consultation</h1>
         <p class="hero-sub">
-          Take the first step toward feeling better. Fill out the form below and our care 
+          Take the first step toward feeling better. Fill out the form below and our care
           coordinator will reach out within one business day.
         </p>
       </div>
@@ -366,13 +366,13 @@
         <!-- Crisis Caution -->
         <div class="caution-box reveal">
           <p>
-            <strong>This form is not for emergencies.</strong> If you are in crisis or 
-            experiencing thoughts of self-harm, please call or text <strong>988</strong> 
-            (Suicide &amp; Crisis Lifeline), call <strong>911</strong>, or go to your 
+            <strong>This form is not for emergencies.</strong> If you are in crisis or
+            experiencing thoughts of self-harm, please call or text <strong>988</strong>
+            (Suicide &amp; Crisis Lifeline), call <strong>911</strong>, or go to your
             nearest emergency room.
           </p>
           <p>
-            For non-urgent scheduling questions, you may also call our office at 
+            For non-urgent scheduling questions, you may also call our office at
             <a href="tel:+16505550000" style="color: #5a4a2a; font-weight: 600;">(650) 555-0000</a>.
           </p>
         </div>
@@ -562,8 +562,8 @@
                     Please describe your concerns so we can best assist you.
                   </div>
                   <p class="form-hint">
-                    This information is transmitted securely but is <strong>not</strong> a 
-                    HIPAA-protected channel. Please do not include sensitive medical details 
+                    This information is transmitted securely but is <strong>not</strong> a
+                    HIPAA-protected channel. Please do not include sensitive medical details
                     such as Social Security numbers, insurance IDs, or detailed medical records.
                   </p>
                 </div>
@@ -578,9 +578,9 @@
                   <label>
                     <input type="checkbox" id="consent" name="consent" required aria-required="true" />
                     <span>
-                      I understand this is a consultation request, not a medical appointment. 
-                      I consent to being contacted by Altos Psychiatry regarding my inquiry 
-                      via the contact method I selected above. I have read the 
+                      I understand this is a consultation request, not a medical appointment.
+                      I consent to being contacted by Altos Psychiatry regarding my inquiry
+                      via the contact method I selected above. I have read the
                       <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
                     </span>
                   </label>
@@ -602,8 +602,8 @@
           <!-- Privacy Note -->
           <div class="privacy-note">
             <p>
-              Your information is encrypted in transit and stored securely. 
-              We will never share your data with third parties. 
+              Your information is encrypted in transit and stored securely.
+              We will never share your data with third parties.
               <a href="/privacy.html">Privacy Policy</a>
             </p>
           </div>
@@ -622,8 +622,8 @@
           </div>
           <h2>Request Received</h2>
           <p>
-            Thank you for reaching out. Our care coordinator will contact you 
-            within <strong>one business day</strong> to discuss your needs and 
+            Thank you for reaching out. Our care coordinator will contact you
+            within <strong>one business day</strong> to discuss your needs and
             schedule your initial evaluation.
           </p>
           <div class="form-success__ref" id="success-ref" aria-label="Reference number">
@@ -660,23 +660,20 @@
 
   <!-- ═══════════════════════════════════════════════════════
        FORM LOGIC
-       Validation + Image-Ping Submission to Google Apps Script
-       
-       WHY IMAGE-PING?
-       GitHub Pages is a static host — no server-side code.
-       Google Apps Script doGet() returns a redirect, which
-       triggers CORS errors with fetch/XMLHttpRequest from a
-       different origin. The image-ping pattern bypasses CORS
-       entirely: the browser loads a <img> with the script URL
-       + query params. The script processes the data on the
-       server side and returns a 1×1 pixel. The browser doesn't
-       care about CORS for image requests.
+       Validation + Submission to Google Apps Script CRM
+
+       The same reference ID (REQ-XXXX) is now generated BEFORE
+       submission and sent to the CRM, so the ref the patient
+       sees on screen matches the row in the Google Sheet.
        ═══════════════════════════════════════════════════════ -->
  <script>
 ;(function () {
   'use strict'
 
-  /* ═══ Configuration ═══ */
+  /* ═══ Configuration ═══
+     ⚠️ IMPORTANT: after you deploy the CRM Apps Script
+     (Deploy → New deployment → Web app), paste the NEW
+     Web app URL here, replacing the one below. */
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxtsVrCdSy4ILZqfUpTWjjU3NfNZtnfC79ST2KAnkOIokIDQXwS973A70SthqPCGT0V/exec'
 
   /* ═══ DOM References ═══ */
@@ -845,13 +842,12 @@
   }
 
   /* ═══ SUCCESS HANDLER ═══ */
-  function showSuccess(data) {
+  function showSuccess(ref) {
     if (wrapper.style.display === 'none') return
 
     wrapper.style.display = 'none'
     successEl.classList.add('is-visible')
 
-    var ref = 'REQ-' + Date.now().toString(36).toUpperCase()
     successRef.textContent = 'Ref: ' + ref
 
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -878,8 +874,14 @@
     submitBtn.disabled = true
     submitBtn.classList.add('is-loading')
 
+    // Fallback reference in case the server response can't be read —
+    // normally the server returns the real Lead ID (NP-XXXXXXXX-XXXXX)
+    // and we display that, so it matches the CRM exactly.
+    var ref = 'REQ-' + Date.now().toString(36).toUpperCase()
+
     var data = {
       formType:       'patient_inquiry',
+      ref:            ref,
       firstName:      document.getElementById('firstName').value.trim(),
       lastName:       document.getElementById('lastName').value.trim(),
       email:          document.getElementById('email').value.trim(),
@@ -892,24 +894,27 @@
       timestamp:      new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
     }
 
-    // POST to Google Apps Script via fetch no-cors
+    // POST to Google Apps Script. Apps Script allows cross-origin reads
+    // for simple (text/plain) requests, so we can read back the real
+    // Lead ID. If anything goes wrong reading the response, we still
+    // show the success screen with the fallback reference.
     fetch(SCRIPT_URL, {
       method: 'POST',
-      mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(data),
       redirect: 'follow'
     })
-    .then(function () {
-      showSuccess(data)
+    .then(function (res) { return res.json() })
+    .then(function (json) {
+      showSuccess((json && json.leadId) ? json.leadId : ref)
     })
     .catch(function () {
-      showSuccess(data)
+      showSuccess(ref)
     })
 
-  }) // ← THIS was the missing closing for the submit handler
+  })
 
-})() // ← THIS closes the IIFE
+})()
 </script>
 </body>
 </html>
