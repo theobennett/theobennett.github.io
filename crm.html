@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>CRM Dashboard — Altos Psychiatry</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ocean: #2c5f7c;
+      --ocean-deep: #1b4557;
+      --ocean-mist: #a8c5d4;
+      --sage: #7d9b80;
+      --sage-deep: #5f7d62;
+      --sand: #d9c1a3;
+      --sand-deep: #b08d57;
+      --fog: #f7f5f1;
+      --fog-dark: #e6e2d8;
+      --white: #ffffff;
+      --ink: #26343b;
+      --stone: #5c6b73;
+      --coral: #c0563f;
+      --green-pale: #e2ede3;
+      --shadow: 0 8px 30px rgba(27, 69, 87, 0.10);
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--fog);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--ocean) 70%, var(--sage-deep) 130%);
+      color: var(--white);
+      padding: 22px clamp(18px, 4vw, 44px);
+      display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+      box-shadow: var(--shadow);
+    }
+    .topbar h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600; font-size: 1.55rem; letter-spacing: .01em;
+    }
+    .topbar h1 span { color: var(--ocean-mist); font-weight: 400; }
+    .topbar .sync {
+      margin-left: auto; display: flex; align-items: center; gap: 12px;
+      font-size: .8rem; color: rgba(255,255,255,.75);
+    }
+    .btn {
+      border: none; cursor: pointer; font-family: inherit; font-weight: 600;
+      border-radius: 999px; padding: 9px 20px; font-size: .84rem;
+      transition: all .18s ease;
+    }
+    .btn-light { background: rgba(255,255,255,.14); color: var(--white); border: 1px solid rgba(255,255,255,.28); }
+    .btn-light:hover { background: rgba(255,255,255,.26); }
+    .btn-primary { background: var(--ocean); color: var(--white); }
+    .btn-primary:hover { background: var(--ocean-deep); }
+    .btn-ghost { background: transparent; color: var(--stone); border: 1px solid var(--fog-dark); }
+    .btn-ghost:hover { border-color: var(--ocean); color: var(--ocean); }
+
+    .wrap { max-width: 1180px; margin: 0 auto; padding: clamp(18px, 3vw, 34px); }
+
+    /* ── Stats ── */
+    .stats {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px; margin-bottom: 24px;
+    }
+    .stat {
+      background: var(--white); border-radius: var(--radius); padding: 18px 20px;
+      border: 1px solid rgba(27,69,87,.07); box-shadow: 0 2px 10px rgba(27,69,87,.05);
+    }
+    .stat .num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2rem; font-weight: 600; color: var(--ocean); line-height: 1; }
+    .stat .lbl { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--stone); margin-top: 6px; }
+    .stat.accent .num { color: var(--coral); }
+    .stat.sage .num { color: var(--sage-deep); }
+
+    /* ── View switch + toolbar ── */
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+    .switch { display: flex; background: var(--white); border-radius: 999px; padding: 4px; border: 1px solid var(--fog-dark); }
+    .switch button {
+      border: none; background: transparent; padding: 8px 22px; border-radius: 999px;
+      font-family: inherit; font-size: .88rem; font-weight: 600; color: var(--stone); cursor: pointer;
+    }
+    .switch button.active { background: var(--ocean-deep); color: var(--white); }
+    .toolbar input[type=search] {
+      flex: 1 1 200px; max-width: 320px; padding: 10px 16px;
+      border: 1px solid var(--fog-dark); border-radius: 999px;
+      font-family: inherit; font-size: .87rem; background: var(--white); color: var(--ink);
+    }
+    .toolbar select {
+      padding: 10px 14px; border: 1px solid var(--fog-dark); border-radius: 999px;
+      font-family: inherit; font-size: .84rem; background: var(--white); color: var(--ink);
+    }
+
+    /* ── Cards/table ── */
+    .panel { background: var(--white); border-radius: var(--radius); border: 1px solid rgba(27,69,87,.07); box-shadow: 0 2px 10px rgba(27,69,87,.05); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; font-size: .87rem; }
+    thead th {
+      text-align: left; padding: 13px 16px; background: var(--fog);
+      font-size: .7rem; text-transform: uppercase; letter-spacing: .09em; color: var(--stone);
+      border-bottom: 1px solid var(--fog-dark); white-space: nowrap;
+    }
+    tbody td { padding: 13px 16px; border-bottom: 1px solid #f1eee7; vertical-align: middle; }
+    tbody tr { cursor: pointer; transition: background .12s; }
+    tbody tr:hover { background: #fbfaf7; }
+    tbody tr:last-child td { border-bottom: none; }
+    .name { font-weight: 600; color: var(--ocean-deep); }
+    .sub { font-size: .76rem; color: var(--stone); margin-top: 2px; }
+    .pill {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      font-size: .74rem; font-weight: 600; white-space: nowrap;
+      background: var(--fog); color: var(--stone);
+    }
+    .pill.p-new { background: #fde8e0; color: #9a3b22; }
+    .pill.p-sent { background: #fdf3d7; color: #8a6d1a; }
+    .pill.p-contact { background: #ddebf2; color: var(--ocean-deep); }
+    .pill.p-sched { background: #d8e6ee; color: var(--ocean-deep); }
+    .pill.p-conv { background: var(--green-pale); color: #3d5c40; }
+    .pill.p-closed { background: #efece5; color: #6d675c; }
+    .pill.p-err { background: #f6d5d2; color: #8a2318; }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
+    .empty { padding: 44px 20px; text-align: center; color: var(--stone); font-size: .9rem; }
+    .empty .serif { font-size: 1.35rem; color: var(--ocean-deep); display: block; margin-bottom: 6px; }
+
+    /* Referral progress checkboxes */
+    .steps { display: flex; gap: 6px; }
+    .step {
+      width: 26px; height: 26px; border-radius: 8px; border: 1.5px solid var(--fog-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .68rem; font-weight: 700; color: var(--stone); background: var(--fog);
+    }
+    .step.done { background: var(--sage-deep); border-color: var(--sage-deep); color: var(--white); }
+
+    /* ── Drawer ── */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(27,69,87,.35); backdrop-filter: blur(2px);
+      opacity: 0; pointer-events: none; transition: opacity .22s; z-index: 40;
+    }
+    .overlay.open { opacity: 1; pointer-events: auto; }
+    .drawer {
+      position: fixed; top: 0; right: -520px; width: min(500px, 94vw); height: 100vh;
+      background: var(--white); z-index: 50; transition: right .26s cubic-bezier(.2,.8,.25,1);
+      box-shadow: -12px 0 40px rgba(27,69,87,.18); display: flex; flex-direction: column;
+    }
+    .drawer.open { right: 0; }
+    .drawer-head {
+      padding: 22px 26px; background: linear-gradient(135deg, var(--ocean-deep), var(--ocean));
+      color: var(--white);
+    }
+    .drawer-head h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.45rem; font-weight: 600; }
+    .drawer-head .meta { font-size: .78rem; color: rgba(255,255,255,.72); margin-top: 4px; }
+    .drawer-close {
+      position: absolute; top: 16px; right: 18px; background: rgba(255,255,255,.15);
+      border: none; color: var(--white); width: 32px; height: 32px; border-radius: 50%;
+      cursor: pointer; font-size: 1rem;
+    }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 24px 26px; }
+    .field { margin-bottom: 16px; }
+    .field .k { font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--stone); margin-bottom: 4px; }
+    .field .v { font-size: .92rem; line-height: 1.55; }
+    .field .v a { color: var(--ocean); }
+    .concerns-box { background: var(--fog); border-left: 3px solid var(--sand); padding: 12px 15px; border-radius: 0 8px 8px 0; }
+    .drawer select, .drawer textarea {
+      width: 100%; padding: 11px 14px; border: 1px solid var(--fog-dark); border-radius: 10px;
+      font-family: inherit; font-size: .88rem; background: var(--fog); color: var(--ink);
+    }
+    .drawer textarea { min-height: 96px; resize: vertical; }
+    .check-row {
+      display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+      background: var(--fog); border-radius: 10px; margin-bottom: 8px; cursor: pointer;
+    }
+    .check-row input { width: 17px; height: 17px; accent-color: var(--sage-deep); cursor: pointer; }
+    .check-row .when { margin-left: auto; font-size: .74rem; color: var(--stone); }
+    .drawer-foot { padding: 18px 26px; border-top: 1px solid var(--fog-dark); display: flex; gap: 10px; align-items: center; }
+    .save-msg { font-size: .8rem; color: var(--sage-deep); font-weight: 600; }
+
+    /* ── Login gate ── */
+    .gate {
+      position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(160deg, var(--ocean-deep) 0%, var(--ocean) 55%, var(--sage-deep) 120%);
+      padding: 20px;
+    }
+    .gate-card {
+      background: var(--white); border-radius: 18px; padding: 40px 38px;
+      max-width: 420px; width: 100%; text-align: center; box-shadow: 0 24px 70px rgba(0,0,0,.28);
+    }
+    .gate-card h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.7rem; color: var(--ocean-deep); margin-bottom: 6px; }
+    .gate-card p { font-size: .86rem; color: var(--stone); margin-bottom: 20px; line-height: 1.6; }
+    .gate-card input {
+      width: 100%; padding: 13px 16px; border: 1px solid var(--fog-dark); border-radius: 10px;
+      font-family: inherit; font-size: .9rem; margin-bottom: 12px; text-align: center;
+    }
+    .gate-err { color: var(--coral); font-size: .8rem; margin-bottom: 10px; display: none; }
+
+    .loading-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 90;
+      background: linear-gradient(90deg, var(--sage), var(--ocean), var(--sage));
+      background-size: 200% 100%; animation: slide 1.1s linear infinite; display: none;
+    }
+    @keyframes slide { to { background-position: -200% 0; } }
+
+    footer { text-align: center; padding: 26px; font-size: .74rem; color: var(--stone); }
+    @media (max-width: 720px) {
+      .hide-sm { display: none; }
+      thead th, tbody td { padding: 11px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ ACCESS GATE ═══ -->
+  <div class="gate" id="gate">
+    <div class="gate-card">
+      <h2>Altos Psychiatry <em style="color:var(--sage-deep)">CRM</em></h2>
+      <p>Enter your dashboard token to continue.<br/>It's in your Google Sheet — <strong>CONFIG tab, cell B8</strong>.</p>
+      <div class="gate-err" id="gate-err">That token didn't work. Check CONFIG!B8 and try again.</div>
+      <input type="password" id="gate-token" placeholder="Dashboard token" autocomplete="off" />
+      <button class="btn btn-primary" style="width:100%" id="gate-btn">Unlock Dashboard</button>
+    </div>
+  </div>
+
+  <div class="loading-bar" id="loading"></div>
+
+  <!-- ═══ TOP BAR ═══ -->
+  <header class="topbar">
+    <h1>Altos Psychiatry <span>· CRM Dashboard</span></h1>
+    <div class="sync">
+      <span id="sync-time">—</span>
+      <button class="btn btn-light" id="refresh-btn">↻ Refresh</button>
+      <button class="btn btn-light" id="logout-btn" title="Forget token on this device">Lock</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- ═══ STATS ═══ -->
+    <div class="stats" id="stats"></div>
+
+    <!-- ═══ TOOLBAR ═══ -->
+    <div class="toolbar">
+      <div class="switch">
+        <button id="tab-leads" class="active">New Patients</button>
+        <button id="tab-refs">Referrals</button>
+      </div>
+      <input type="search" id="search" placeholder="Search name, email, phone…" />
+      <select id="status-filter"><option value="">All statuses</option></select>
+    </div>
+
+    <!-- ═══ TABLES ═══ -->
+    <div class="panel" id="panel"></div>
+  </main>
+
+  <footer>Auto-syncs with your Google Sheet every 60 seconds · Internal use only — do not share this URL or token</footer>
+
+  <!-- ═══ DRAWER ═══ -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer"></aside>
+
+<script>
+;(function () {
+  'use strict'
+
+  /* ═══ CONFIG — set this to your Apps Script deployment URL ═══ */
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxtsVrCdSy4ILZqfUpTWjjU3NfNZtnfC79ST2KAnkOIokIDQXwS973A70SthqPCGT0V/exec'
+
+  var REFRESH_MS = 60000
+  var TOKEN_KEY = 'altos_crm_token'
+
+  var state = {
+    token: localStorage.getItem(TOKEN_KEY) || '',
+    view: 'leads',
+    search: '',
+    statusFilter: '',
+    data: null,
+    timer: null
+  }
+
+  /* ═══ DOM ═══ */
+  var $ = function (id) { return document.getElementById(id) }
+  var gate = $('gate'), gateErr = $('gate-err'), loading = $('loading')
+
+  /* ═══ API ═══ */
+  function fetchListModern() {
+    loading.style.display = 'block'
+    return fetch(SCRIPT_URL + '?action=list&token=' + encodeURIComponent(state.token))
+      .then(function (r) { return r.json() })
+      .then(function (json) {
+        loading.style.display = 'none'
+        if (!json.ok) throw new Error(json.error || 'unauthorized')
+        return json
+      })
+      .catch(function (err) {
+        loading.style.display = 'none'
+        throw err
+      })
+  }
+  function apiUpdate(payload) {
+    payload.token = state.token
+    loading.style.display = 'block'
+    return fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload),
+      redirect: 'follow'
+    })
+    .then(function (r) { return r.json() })
+    .then(function (json) {
+      loading.style.display = 'none'
+      if (!json.ok) throw new Error(json.error || 'update failed')
+      return json
+    })
+    .catch(function (err) { loading.style.display = 'none'; throw err })
+  }
+
+  /* ═══ GATE ═══ */
+  function tryUnlock(token) {
+    state.token = token
+    fetchListModern().then(function (json) {
+      localStorage.setItem(TOKEN_KEY, token)
+      gate.style.display = 'none'
+      gotData(json)
+      startTimer()
+    }).catch(function () {
+      gateErr.style.display = 'block'
+      localStorage.removeItem(TOKEN_KEY)
+    })
+  }
+  $('gate-btn').addEventListener('click', function () { tryUnlock($('gate-token').value.trim()) })
+  $('gate-token').addEventListener('keydown', function (e) { if (e.key === 'Enter') tryUnlock($('gate-token').value.trim()) })
+  $('logout-btn').addEventListener('click', function () {
+    localStorage.removeItem(TOKEN_KEY)
+    location.reload()
+  })
+
+  /* ═══ DATA / SYNC ═══ */
+  function gotData(json) {
+    state.data = json
+    $('sync-time').textContent = 'Synced ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+    render()
+  }
+  function refresh() {
+    fetchListModern().then(gotData).catch(function (err) {
+      $('sync-time').textContent = '⚠ sync failed'
+      if (String(err.message).indexOf('unauthorized') !== -1) { gate.style.display = 'flex' }
+    })
+  }
+  function startTimer() {
+    if (state.timer) clearInterval(state.timer)
+    state.timer = setInterval(refresh, REFRESH_MS)
+  }
+  $('refresh-btn').addEventListener('click', refresh)
+
+  /* ═══ HELPERS ═══ */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+    })
+  }
+  function pillClass(status) {
+    var s = String(status || '')
+    if (s.indexOf('Error') !== -1 || s.indexOf('⚠') !== -1) return 'p-err'
+    if (s.indexOf('New') !== -1 && s.indexOf('Sending') !== -1) return 'p-new'
+    if (s.indexOf('Pending Outreach') !== -1) return 'p-new'
+    if (s.indexOf('Intake Link Sent') !== -1 || s.indexOf('Notification Sent') !== -1) return 'p-sent'
+    if (s.indexOf('Intake Scheduled') !== -1) return 'p-sched'
+    if (s.indexOf('Contacted') !== -1) return 'p-contact'
+    if (s.indexOf('Converted') !== -1) return 'p-conv'
+    if (s.indexOf('Closed') !== -1) return 'p-closed'
+    return ''
+  }
+  function matchesSearch(obj, q) {
+    if (!q) return true
+    q = q.toLowerCase()
+    return Object.keys(obj).some(function (k) {
+      return k !== '_row' && String(obj[k]).toLowerCase().indexOf(q) !== -1
+    })
+  }
+  /* Referral_Tracker columns by position (headers may vary):
+     0 Ref ID, 1 Patient, 2 Provider, 3 Date Received,
+     4 Provider Contacted?, 5 Date, 6 Patient Contacted?, 7 Date,
+     8 Intake Scheduled?, 9 Date, 10 Notes */
+  function trackerFor(refId) {
+    var t = (state.data.tracker || []).filter(function (r) {
+      return r._cells && String(r._cells[0]).trim() === String(refId).trim()
+    })
+    return t.length ? t[0] : null
+  }
+  function tv(t, i) { return t && t._cells && t._cells[i] !== undefined ? String(t._cells[i]) : '' }
+
+  /* ═══ STATS ═══ */
+  function renderStats() {
+    var leads = state.data.newPatients || []
+    var refs = state.data.referrals || []
+    var weekAgo = Date.now() - 7 * 86400000
+
+    function isThisWeek(ts) {
+      var d = new Date(ts)
+      return !isNaN(d) && d.getTime() >= weekAgo
+    }
+    var needsAction = leads.filter(function (l) {
+      var s = String(l['Status'] || '')
+      return s.indexOf('Converted') === -1 && s.indexOf('Closed') === -1 && s.indexOf('Scheduled') === -1
+    }).length
+    var refsPending = refs.filter(function (r) {
+      var t = trackerFor(r['Ref ID'])
+      return !t || tv(t, 8) !== 'Y'
+    }).length
+    var converted = leads.filter(function (l) { return String(l['Status']).indexOf('Converted') !== -1 }).length
+
+    var cards = [
+      { n: leads.filter(function (l) { return isThisWeek(l['Timestamp']) }).length, l: 'New leads · 7 days', cls: '' },
+      { n: needsAction, l: 'Leads needing action', cls: 'accent' },
+      { n: refsPending, l: 'Referrals in progress', cls: 'accent' },
+      { n: converted, l: 'Converted to patients', cls: 'sage' },
+      { n: leads.length + refs.length, l: 'Total inquiries', cls: '' }
+    ]
+    $('stats').innerHTML = cards.map(function (c) {
+      return '<div class="stat ' + c.cls + '"><div class="num">' + c.n + '</div><div class="lbl">' + c.l + '</div></div>'
+    }).join('')
+  }
+
+  /* ═══ STATUS FILTER OPTIONS ═══ */
+  function renderFilterOptions() {
+    var sel = $('status-filter')
+    var current = sel.value
+    var opts = ['<option value="">All statuses</option>']
+    if (state.view === 'leads') {
+      var seen = {}
+      ;(state.data.leadStatuses || []).concat(
+        (state.data.newPatients || []).map(function (l) { return l['Status'] })
+      ).forEach(function (s) {
+        if (s && !seen[s]) { seen[s] = 1; opts.push('<option value="' + esc(s) + '">' + esc(s) + '</option>') }
+      })
+    } else {
+      ['New — Pending Outreach', '📞 Provider Contacted', '📞 Patient Contacted', '📅 Intake Scheduled'].forEach(function (s) {
+        opts.push('<option value="' + esc(s) + '">' + esc(s) + '</option>')
+      })
+    }
+    sel.innerHTML = opts.join('')
+    sel.value = current
+  }
+
+  /* ═══ TABLES ═══ */
+  function renderLeads() {
+    var rows = (state.data.newPatients || []).slice().reverse()
+      .filter(function (l) { return matchesSearch(l, state.search) })
+      .filter(function (l) { return !state.statusFilter || l['Status'] === state.statusFilter })
+
+    if (!rows.length) {
+      $('panel').innerHTML = '<div class="empty"><span class="serif">No leads found</span>New consultation requests will appear here automatically.</div>'
+      return
+    }
+    var html = '<table><thead><tr>' +
+      '<th>Received</th><th>Name</th><th class="hide-sm">Contact</th><th class="hide-sm">Visit</th><th>Status</th>' +
+      '</tr></thead><tbody>'
+    rows.forEach(function (l) {
+      html += '<tr data-lead="' + esc(l['Lead ID']) + '">' +
+        '<td class="sub" style="white-space:nowrap">' + esc(String(l['Timestamp']).split(',')[0]) + '</td>' +
+        '<td><div class="name">' + esc(l['First Name'] + ' ' + l['Last Name']) + '</div>' +
+        '<div class="sub">' + esc(l['Lead ID']) + '</div></td>' +
+        '<td class="hide-sm"><div>' + esc(l['Email']) + '</div><div class="sub">' + esc(l['Phone']) + ' · prefers ' + esc(l['Contact Preference'] || l['Contact Pref'] || '—') + '</div></td>' +
+        '<td class="hide-sm">' + esc(l['Appt Type']) + '</td>' +
+        '<td><span class="pill ' + pillClass(l['Status']) + '">' + esc(l['Status']) + '</span></td>' +
+        '</tr>'
+    })
+    $('panel').innerHTML = html + '</tbody></table>'
+
+    Array.prototype.forEach.call(document.querySelectorAll('tr[data-lead]'), function (tr) {
+      tr.addEventListener('click', function () { openLeadDrawer(tr.getAttribute('data-lead')) })
+    })
+  }
+
+  function refStatus(t) {
+    if (!t) return 'New — Pending Outreach'
+    if (tv(t, 8) === 'Y') return '📅 Intake Scheduled'
+    if (tv(t, 6) === 'Y') return '📞 Patient Contacted'
+    if (tv(t, 4) === 'Y') return '📞 Provider Contacted'
+    return 'New — Pending Outreach'
+  }
+
+  function renderRefs() {
+    var rows = (state.data.referrals || []).slice().reverse()
+      .filter(function (r) { return matchesSearch(r, state.search) })
+      .filter(function (r) { return !state.statusFilter || refStatus(trackerFor(r['Ref ID'])) === state.statusFilter })
+
+    if (!rows.length) {
+      $('panel').innerHTML = '<div class="empty"><span class="serif">No referrals found</span>Provider referrals will appear here automatically.</div>'
+      return
+    }
+    var html = '<table><thead><tr>' +
+      '<th>Received</th><th>Patient</th><th class="hide-sm">Referring Provider</th><th>Progress</th><th>Status</th>' +
+      '</tr></thead><tbody>'
+    rows.forEach(function (r) {
+      var t = trackerFor(r['Ref ID'])
+      var steps = [
+        { lbl: 'P', done: tv(t, 4) === 'Y', title: 'Provider contacted' },
+        { lbl: 'Pt', done: tv(t, 6) === 'Y', title: 'Patient contacted' },
+        { lbl: '📅', done: tv(t, 8) === 'Y', title: 'Intake scheduled' }
+      ]
+      html += '<tr data-ref="' + esc(r['Ref ID']) + '">' +
+        '<td class="sub" style="white-space:nowrap">' + esc(String(r['Timestamp']).split(',')[0]) + '</td>' +
+        '<td><div class="name">' + esc(r['Patient First'] + ' ' + r['Patient Last']) + '</div><div class="sub">' + esc(r['Ref ID']) + '</div></td>' +
+        '<td class="hide-sm"><div>' + esc(r['Provider Name']) + '</div><div class="sub">' + esc(r['Organization']) + '</div></td>' +
+        '<td><div class="steps">' + steps.map(function (s) {
+          return '<div class="step' + (s.done ? ' done' : '') + '" title="' + s.title + '">' + (s.done ? '✓' : s.lbl) + '</div>'
+        }).join('') + '</div></td>' +
+        '<td><span class="pill ' + pillClass(refStatus(t)) + '">' + esc(refStatus(t)) + '</span></td>' +
+        '</tr>'
+    })
+    $('panel').innerHTML = html + '</tbody></table>'
+
+    Array.prototype.forEach.call(document.querySelectorAll('tr[data-ref]'), function (tr) {
+      tr.addEventListener('click', function () { openRefDrawer(tr.getAttribute('data-ref')) })
+    })
+  }
+
+  function render() {
+    if (!state.data) return
+    renderStats()
+    renderFilterOptions()
+    if (state.view === 'leads') renderLeads()
+    else renderRefs()
+  }
+
+  /* ═══ DRAWER: LEAD ═══ */
+  var drawer = $('drawer'), overlay = $('overlay')
+  function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open') }
+  overlay.addEventListener('click', closeDrawer)
+
+  function field(k, v, isHtml) {
+    return '<div class="field"><div class="k">' + k + '</div><div class="v">' + (isHtml ? v : esc(v || '—')) + '</div></div>'
+  }
+
+  function openLeadDrawer(leadId) {
+    var l = (state.data.newPatients || []).filter(function (x) { return x['Lead ID'] === leadId })[0]
+    if (!l) return
+    var statuses = state.data.leadStatuses || []
+    var cur = l['Status'] || ''
+    var opts = statuses.map(function (s) {
+      return '<option value="' + esc(s) + '"' + (s === cur ? ' selected' : '') + '>' + esc(s) + '</option>'
+    })
+    if (statuses.indexOf(cur) === -1 && cur) {
+      opts.unshift('<option value="' + esc(cur) + '" selected>' + esc(cur) + '</option>')
+    }
+    drawer.innerHTML =
+      '<div class="drawer-head"><h2>' + esc(l['First Name'] + ' ' + l['Last Name']) + '</h2>' +
+      '<div class="meta">' + esc(l['Lead ID']) + ' · received ' + esc(l['Timestamp']) + '</div>' +
+      '<button class="drawer-close" id="d-close">✕</button></div>' +
+      '<div class="drawer-body">' +
+      field('Email', '<a href="mailto:' + esc(l['Email']) + '">' + esc(l['Email']) + '</a>', true) +
+      field('Phone', '<a href="tel:' + esc(l['Phone']) + '">' + esc(l['Phone']) + '</a>', true) +
+      field('Preferred contact', l['Contact Preference'] || l['Contact Pref']) +
+      field('Appointment preference', l['Appt Type']) +
+      field('Referral source', l['Referral Source']) +
+      '<div class="field"><div class="k">Concerns</div><div class="v concerns-box">' + esc(l['Concerns'] || '—') + '</div></div>' +
+      '<div class="field"><div class="k">Status</div><select id="d-status">' + opts.join('') + '</select></div>' +
+      '<div class="field"><div class="k">Notes</div><textarea id="d-notes" placeholder="Follow-up notes, insurance details, next steps…">' + esc(l['Notes'] || '') + '</textarea></div>' +
+      '</div>' +
+      '<div class="drawer-foot"><button class="btn btn-primary" id="d-save">Save Changes</button>' +
+      '<button class="btn btn-ghost" id="d-cancel">Close</button><span class="save-msg" id="d-msg"></span></div>'
+
+    $('d-close').addEventListener('click', closeDrawer)
+    $('d-cancel').addEventListener('click', closeDrawer)
+    $('d-save').addEventListener('click', function () {
+      var btn = this; btn.disabled = true
+      apiUpdate({ action: 'update_lead', leadId: leadId, status: $('d-status').value, notes: $('d-notes').value })
+        .then(function () {
+          $('d-msg').textContent = '✓ Saved'
+          l['Status'] = $('d-status').value
+          l['Notes'] = $('d-notes').value
+          render()
+          setTimeout(function () { $('d-msg').textContent = ''; btn.disabled = false }, 1400)
+        })
+        .catch(function (err) { $('d-msg').textContent = '⚠ ' + err.message; btn.disabled = false })
+    })
+    drawer.classList.add('open'); overlay.classList.add('open')
+  }
+
+  /* ═══ DRAWER: REFERRAL ═══ */
+  function openRefDrawer(refId) {
+    var r = (state.data.referrals || []).filter(function (x) { return x['Ref ID'] === refId })[0]
+    if (!r) return
+    var t = trackerFor(refId) || {}
+    function chk(id, label, flagIdx, dateIdx) {
+      var done = tv(t, flagIdx) === 'Y'
+      return '<label class="check-row"><input type="checkbox" id="' + id + '"' + (done ? ' checked' : '') + '/>' +
+        '<span>' + label + '</span><span class="when">' + esc(done ? tv(t, dateIdx) : '') + '</span></label>'
+    }
+    drawer.innerHTML =
+      '<div class="drawer-head"><h2>' + esc(r['Patient First'] + ' ' + r['Patient Last']) + '</h2>' +
+      '<div class="meta">' + esc(refId) + ' · referred ' + esc(r['Timestamp']) + '</div>' +
+      '<button class="drawer-close" id="d-close">✕</button></div>' +
+      '<div class="drawer-body">' +
+      field('Referring provider', r['Provider Name'] + (r['Organization'] ? ' — ' + r['Organization'] : '')) +
+      field('Provider contact', '<a href="mailto:' + esc(r['Provider Email']) + '">' + esc(r['Provider Email']) + '</a> · ' + esc(r['Office Phone']), true) +
+      field('Relationship', r['Relationship']) +
+      field('Patient contact', '<a href="tel:' + esc(r['Patient Phone']) + '">' + esc(r['Patient Phone']) + '</a>' + (r['Patient Email'] ? ' · <a href="mailto:' + esc(r['Patient Email']) + '">' + esc(r['Patient Email']) + '</a>' : ''), true) +
+      field('Timeline', r['Timeline']) +
+      '<div class="field"><div class="k">Referral context</div><div class="v concerns-box">' + esc(r['Referral Context'] || '—') + '</div></div>' +
+      '<div class="field"><div class="k">Workflow</div>' +
+      chk('c-prov', 'Provider contacted (acknowledge referral)', 4, 5) +
+      chk('c-pat', 'Patient contacted', 6, 7) +
+      chk('c-int', 'Intake scheduled', 8, 9) +
+      '</div>' +
+      '<div class="field"><div class="k">Notes</div><textarea id="d-notes" placeholder="Outreach attempts, scheduling notes…">' + esc(tv(t, 10)) + '</textarea></div>' +
+      '</div>' +
+      '<div class="drawer-foot"><button class="btn btn-primary" id="d-save">Save Changes</button>' +
+      '<button class="btn btn-ghost" id="d-cancel">Close</button><span class="save-msg" id="d-msg"></span></div>'
+
+    $('d-close').addEventListener('click', closeDrawer)
+    $('d-cancel').addEventListener('click', closeDrawer)
+    $('d-save').addEventListener('click', function () {
+      var btn = this; btn.disabled = true
+      apiUpdate({
+        action: 'update_referral', refId: refId,
+        providerContacted: $('c-prov').checked ? 'Y' : 'N',
+        patientContacted: $('c-pat').checked ? 'Y' : 'N',
+        intakeScheduled: $('c-int').checked ? 'Y' : 'N',
+        notes: $('d-notes').value
+      })
+        .then(function () {
+          $('d-msg').textContent = '✓ Saved'
+          setTimeout(function () { $('d-msg').textContent = ''; btn.disabled = false; closeDrawer(); refresh() }, 900)
+        })
+        .catch(function (err) { $('d-msg').textContent = '⚠ ' + err.message; btn.disabled = false })
+    })
+    drawer.classList.add('open'); overlay.classList.add('open')
+  }
+
+  /* ═══ TOOLBAR EVENTS ═══ */
+  $('tab-leads').addEventListener('click', function () {
+    state.view = 'leads'; state.statusFilter = ''
+    this.classList.add('active'); $('tab-refs').classList.remove('active'); render()
+  })
+  $('tab-refs').addEventListener('click', function () {
+    state.view = 'refs'; state.statusFilter = ''
+    this.classList.add('active'); $('tab-leads').classList.remove('active'); render()
+  })
+  $('search').addEventListener('input', function () { state.search = this.value.trim(); render() })
+  $('status-filter').addEventListener('change', function () { state.statusFilter = this.value; render() })
+
+  /* ═══ BOOT ═══ */
+  if (state.token) {
+    gate.style.display = 'none'
+    fetchListModern().then(function (json) { gotData(json); startTimer() })
+      .catch(function () { gate.style.display = 'flex' })
+  }
+})()
+</script>
+</body>
+</html>
